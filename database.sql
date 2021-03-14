@@ -345,4 +345,45 @@ PROCEDURE insertQuestion();
 -- INSERT INTO Post VALUES(2, 1, '14.03.2021', '14:05:00', 'title', 'this is an answer');
 
 -- INSERT INTO Answer VALUES(1,1); <== this should not work
+
 -- INSERT INTO Answer VALUES(2,1); <== this should work
+
+
+CREATE OR REPLACE FUNCTION insertProfessor()
+RETURNS TRIGGER AS $$
+DECLARE student RECORD;
+BEGIN
+    SELECT EXISTS( SELECT * FROM Student WHERE id  = NEW.id) INTO student;
+  
+    IF student.exists THEN 
+        RETURN NULL;
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER insert_professor
+BEFORE INSERT ON Professor
+FOR EACH ROW EXECUTE
+PROCEDURE insertProfessor();
+
+
+CREATE OR REPLACE FUNCTION insertStudent()
+RETURNS TRIGGER AS $$
+DECLARE professor RECORD;
+BEGIN
+    SELECT EXISTS( SELECT * FROM Professor WHERE id = NEW.id) INTO professor;
+
+    IF professor.exists THEN 
+        RETURN NULL;
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER insert_student
+BEFORE INSERT ON Student
+FOR EACH ROW EXECUTE
+PROCEDURE insertStudent();
