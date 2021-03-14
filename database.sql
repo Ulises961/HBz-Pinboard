@@ -340,10 +340,9 @@ PROCEDURE insertQuestion();
 -- INSERT INTO Users VALUES(1,'bob', 'freeman', '+39', '3961415473', 'password', 'bob@gmail.com');
 
 -- INSERT INTO Post VALUES(1, 1, '14.03.2021', '14:05:00', 'title', 'question');
-
--- INSERT INTO Question VALUES(1);
+-- INSERT INTO Question VALUES(1);  <== this should work
 
 -- INSERT INTO Post VALUES(2, 1, '14.03.2021', '14:05:00', 'title', 'this is an answer');
 
--- INSERT INTO Answer VALUES(1,1);
--- INSERT INTO Answer VALUES(2,1);
+-- INSERT INTO Answer VALUES(1,1); <== this should not work
+-- INSERT INTO Answer VALUES(2,1); <== this should work
