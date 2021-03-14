@@ -226,7 +226,7 @@ CREATE TABLE Session(
     date DATE NOT NULL,
     start_time TIME NOT NULL,
     end_time TIME,
-    users INTEGER NOT NULL,
+    users INTEGER,-- NOT NULL,
     
     CONSTRAINT SessionPKs PRIMARY KEY(id,users),
     CONSTRAINT userIsFK_inSession FOREIGN KEY(users) 
