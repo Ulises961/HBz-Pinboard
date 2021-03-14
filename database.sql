@@ -32,8 +32,8 @@ CREATE TABLE Users(
     id SERIAL PRIMARY KEY,
     name VARCHAR(25) NOT NULL,
     surname VARCHAR(25) NOT NULL,
-    prefix VARCHAR(20) NOT NULL,
-    number VARCHAR(20) NOT NULL,
+    prefix VARCHAR(20),
+    number VARCHAR(20),
     password TEXT NOT NULL,
     mail VARCHAR(100) NOT NULL UNIQUE,
 
@@ -270,3 +270,78 @@ CREATE TABLE SendsMessageTo(
 );
 
 
+-- TRIGGERS
+
+CREATE OR REPLACE FUNCTION insertArticle()
+RETURNS TRIGGER AS $$
+DECLARE answer RECORD;
+DECLARE question RECORD;
+BEGIN
+    SELECT EXISTS( SELECT * FROM Question WHERE id  = NEW.id) INTO question;
+    SELECT EXISTS( SELECT * FROM Answer WHERE id  = NEW.id) INTO answer;
+
+    IF question.exists OR answer.exists THEN 
+        RETURN NULL;
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER insert_article
+BEFORE INSERT ON Article
+FOR EACH ROW EXECUTE
+PROCEDURE insertArticle();
+
+CREATE OR REPLACE FUNCTION insertAnswer()
+RETURNS TRIGGER AS $$
+DECLARE question RECORD;
+DECLARE article RECORD;
+BEGIN
+    SELECT EXISTS( SELECT * FROM Question WHERE id  = NEW.id) INTO question;
+    SELECT EXISTS( SELECT * FROM Article WHERE id  = NEW.id) INTO article;
+
+    IF question.exists OR article.exists THEN 
+        RETURN NULL;
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER insert_answer
+BEFORE INSERT ON Answer
+FOR EACH ROW EXECUTE
+PROCEDURE insertAnswer();
+
+CREATE OR REPLACE FUNCTION insertQuestion()
+RETURNS TRIGGER AS $$
+DECLARE answer RECORD;
+DECLARE article RECORD;
+BEGIN
+    SELECT EXISTS( SELECT * FROM Answer WHERE id  = NEW.id) INTO answer;
+    SELECT EXISTS( SELECT * FROM Article WHERE id  = NEW.id) INTO article;
+
+    IF article.exists OR answer.exists THEN 
+        RETURN NULL;
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER insert_question
+BEFORE INSERT ON Question
+FOR EACH ROW EXECUTE
+PROCEDURE insertQuestion();
+
+INSERT INTO Users VALUES(1,'bob', 'freeman', '+39', '3961415473', 'password', 'bob@gmail.com');
+
+INSERT INTO Post VALUES(1, 1, '14.03.2021', '14:05:00', 'title', 'question');
+
+INSERT INTO Question VALUES(1);
+
+INSERT INTO Post VALUES(2, 1, '14.03.2021', '14:05:00', 'title', 'this is an answer');
+
+INSERT INTO Answer VALUES(1,1);
+INSERT INTO Answer VALUES(2,1);
