@@ -335,13 +335,15 @@ BEFORE INSERT ON Question
 FOR EACH ROW EXECUTE
 PROCEDURE insertQuestion();
 
-INSERT INTO Users VALUES(1,'bob', 'freeman', '+39', '3961415473', 'password', 'bob@gmail.com');
+-- THE FOLLOWING ARE INSERTS USED TO TEST THE TRIGGERS
 
-INSERT INTO Post VALUES(1, 1, '14.03.2021', '14:05:00', 'title', 'question');
+-- INSERT INTO Users VALUES(1,'bob', 'freeman', '+39', '3961415473', 'password', 'bob@gmail.com');
 
-INSERT INTO Question VALUES(1);
+-- INSERT INTO Post VALUES(1, 1, '14.03.2021', '14:05:00', 'title', 'question');
 
-INSERT INTO Post VALUES(2, 1, '14.03.2021', '14:05:00', 'title', 'this is an answer');
+-- INSERT INTO Question VALUES(1);
 
-INSERT INTO Answer VALUES(1,1);
-INSERT INTO Answer VALUES(2,1);
+-- INSERT INTO Post VALUES(2, 1, '14.03.2021', '14:05:00', 'title', 'this is an answer');
+
+-- INSERT INTO Answer VALUES(1,1);
+-- INSERT INTO Answer VALUES(2,1);
