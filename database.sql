@@ -337,7 +337,7 @@ PROCEDURE insertQuestion();
 
 -- THE FOLLOWING ARE INSERTS USED TO TEST THE TRIGGERS
 
--- INSERT INTO Users VALUES(1,'bob', 'freeman', '+39', '3961415473', 'password', 'bob@gmail.com');
+--  INSERT INTO Users VALUES(1,'bob', 'freeman', '+39', '3961415473', 'password', 'bob@gmail.com');
 
 -- INSERT INTO Post VALUES(1, 1, '14.03.2021', '14:05:00', 'title', 'question');
 -- INSERT INTO Question VALUES(1);  <== this should work
@@ -347,7 +347,7 @@ PROCEDURE insertQuestion();
 -- INSERT INTO Answer VALUES(1,1); <== this should not work
 
 -- INSERT INTO Answer VALUES(2,1); <== this should work
-
+-- INSERT INTO Session VALUES(1,'14-02-2021', '15:15:00','16:00:00', NULL);
 
 CREATE OR REPLACE FUNCTION insertProfessor()
 RETURNS TRIGGER AS $$
@@ -355,7 +355,7 @@ DECLARE student RECORD;
 BEGIN
     SELECT EXISTS( SELECT * FROM Student WHERE id  = NEW.id) INTO student;
   
-    IF student.exists THEN 
+    IF student.exists THEN
         RETURN NULL;
     ELSE
         RETURN NEW;
@@ -387,3 +387,38 @@ CREATE TRIGGER insert_student
 BEFORE INSERT ON Student
 FOR EACH ROW EXECUTE
 PROCEDURE insertStudent();
+
+CREATE OR REPLACE FUNCTION is_user_logged_in()
+RETURNS TRIGGER AS $$
+DECLARE active_session RECORD;
+BEGIN
+    SELECT EXISTS( SELECT * FROM Session WHERE id = NEW.users AND end_time IS NOT NULL AND date = CURRENT_DATE  ) INTO active_session;
+
+    IF active_session.exists THEN 
+        RETURN NEW;
+    ELSE
+        RAISE EXEPTION 'You must be logged in to do the requested operation';
+        RETURN NULL;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER  check_login_Post
+BEFORE INSERT OR UPDATE OR DELETE ON Post
+FOR EACH ROW EXECUTE PROCEDURE is_user_logged_in();
+
+CREATE TRIGGER check_login_SendsMessageTo
+BEFORE INSERT OR UPDATE OR DELETE ON SendsMessageTo
+FOR EACH ROW EXECUTE PROCEDURE is_user_logged_in();
+
+CREATE TRIGGER  check_login_PartecipatesInConversation
+BEFORE INSERT OR UPDATE OR DELETE ON PartecipatesInConversation
+FOR EACH ROW EXECUTE PROCEDURE is_user_logged_in();
+
+CREATE TRIGGER check_login_Vote
+BEFORE INSERT OR UPDATE OR DELETE ON Vote
+FOR EACH ROW EXECUTE PROCEDURE is_user_logged_in();
+
+CREATE TRIGGER check_login_Comment
+BEFORE INSERT OR UPDATE OR DELETE ON Comment
+FOR EACH ROW EXECUTE PROCEDURE is_user_logged_in();
