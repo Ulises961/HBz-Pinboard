@@ -397,7 +397,7 @@ BEGIN
     IF active_session.exists THEN 
         RETURN NEW;
     ELSE
-        RAISE EXEPTION 'You must be logged in to do the requested operation';
+        RAISE EXCEPTION 'You must be logged in to do the requested operation';
         RETURN NULL;
     END IF;
 END;
