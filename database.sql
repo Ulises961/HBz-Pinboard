@@ -1,8 +1,7 @@
 
 CREATE TABLE Faculty(
     code SERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    address VARCHAR(100) NOT NULL
+    name VARCHAR(100) NOT NULL
     
 ); 
 -- inclusion in program
@@ -11,7 +10,6 @@ CREATE TABLE Program(
     code SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     duration NUMERIC NOT NULL,
-    starting_year DATE NOT NULL,
     faculty INTEGER,
 
     CONSTRAINT faculty_IsFKinProgram FOREIGN KEY(faculty)
@@ -23,7 +21,7 @@ CREATE TABLE Program(
 
 CREATE TABLE Subject(
     id SERIAL PRIMARY KEY,
-    ECTs NUMERIC CHECK ( ECTs > 0 AND ECTs < 25),
+    ECTs NUMERIC CHECK ( ECTs > 0 AND ECTs < 35),
     name VARCHAR(50)
 );
 --inclusion in Taught-in
@@ -34,18 +32,18 @@ CREATE TABLE Users(
     surname VARCHAR(25) NOT NULL,
     prefix VARCHAR(20),
     number VARCHAR(20),
-    password TEXT NOT NULL,
     mail VARCHAR(100) NOT NULL UNIQUE,
+    password TEXT NOT NULL,
 
     CONSTRAINT valid_mail CHECK (mail ~ '^(.+)@(.+)$'),
     CONSTRAINT valid_prefix CHECK (prefix ~ '^\+(?:[0-9]?){1,4}'),
-    CONSTRAINT valid_number CHECK (number ~ '^[0-9]{7,15}')
+    CONSTRAINT valid_number CHECK (number ~ '^\d{4}\s\d{6}')
 );
 
 CREATE TABLE Professor(
     id INTEGER PRIMARY KEY,
     office_hours DATE,
-    office VARCHAR(100),
+    office VARCHAR(8),
 
     CONSTRAINT professor_is_a_user FOREIGN KEY(id)
         REFERENCES Users(id)
@@ -65,6 +63,24 @@ CREATE TABLE Taught_in(
         ON UPDATE CASCADE
         DEFERRABLE INITIALLY DEFERRED
 );
+CREATE TABLE Teaches(
+    professor INTEGER,
+    subject INTEGER,
+
+    CONSTRAINT PK_Teaches PRIMARY KEY(professor,subject),
+    CONSTRAINT professor_is_fk_in_Teaches FOREIGN KEY(professor)
+        REFERENCES Professor(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+        DEFERRABLE INITIALLY DEFERRED,
+
+        CONSTRAINT subject_is_fk_in_Teaches FOREIGN KEY(subject)
+        REFERENCES subject(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+        DEFERRABLE INITIALLY DEFERRED
+
+);
 
 CREATE TABLE Student(
     id INTEGER PRIMARY KEY,
@@ -76,7 +92,7 @@ CREATE TABLE Student(
         ON DELETE CASCADE
         DEFERRABLE INITIALLY DEFERRED,
 
-    CONSTRAINT programIsInStuden FOREIGN KEY(program)
+    CONSTRAINT programIsInStudent FOREIGN KEY(program)
         REFERENCES Program(code)
         ON DELETE RESTRICT
         ON UPDATE CASCADE
