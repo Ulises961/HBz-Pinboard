@@ -1,83 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+	<title>HBZ</title>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>Hedgehog Pinboard</title>
-
-  <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-
-
-  <!-- Custom styles for this template -->
-  <link href="css/home_main.css" rel="stylesheet">
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-
-
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="Loginselect2/Loginselect2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/Loginutil.css">
+	<link rel="stylesheet" type="text/css" href="css/Loginmain.css">
+<!--===============================================================================================-->
 </head>
-
 <body>
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-pic js-tilt" data-tilt>
+					<img src="images/riccio.jpeg" alt="Riccio">
+				</div>
 
-    <!-- Navigation -->
-  
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary align-items-end">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#"><img src="images/logo.png"></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="index.html">Home
-                <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="office_hours.html">Office Hours</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="profile.html">Profile</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="register.html">Register</a>
-            </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="login.html">Login</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  
+				<!-- CHANGE DIV TO FORM -->
+				<div class="login100-form validate-form">
+					<span class="login100-form-title">
+						Member Login
+					</span>
 
-  
+					<div class="wrap-input100 validate-input">
+						<input class="input100" type="email" name="email" id="email" placeholder="Email">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-envelope" aria-hidden="true"></i>
+						</span>
+					</div>
 
-  <!-- Footer -->
-  <div class=footer>
-    <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
-      </div>
-      <!-- /.container -->
-    </footer>
-  </div>
-  
+					<div class="wrap-input100 validate-input" data-validate = "Password is required">
+						<input class="input100" type="password" name="password" id="password" placeholder="Password">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
+					</div>
+				
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn" onclick="login()">
+							Login
+						</button>
+					</div>
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+					<div class="text-center p-t-12">
+						<span class="txt1">
+							Forgot
+						</span>
+						<a class="txt2" href="#">
+							Username / Password?
+						</a>
+					</div>
+
+					<div class="text-center p-t-136">
+						<a class="txt2" href="Registration.html">
+							Create your Account
+							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+    
+	 
+<!--===============================================================================================-->	
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="Loginselect2/Loginselect2.min.js"></script>
+<!--===============================================================================================-->
+<<<<<<< HEAD
+	<!-- <script src="vendor/tilt/tilt.jquery.min.js"></script> -->
+
+	<!-- <script >
+=======
+	<script src="tilt/tilt.jquery.min.js"></script>
+	<script >
+>>>>>>> 2ef004e4c125534708cec02370870353c13d471b
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+	</script> -->
+<!--===============================================================================================-->
+	<!-- <script src="js/main.js"></script> -->
 
 </body>
 
 </html>
+
+<script>
+
+function login(){
+	let mail = document.getElementById("email");
+	var passwd = document.getElementById("password");
+
+	console.log("This is the mail: " + mail.value);
+	console.log("This is the password: " + passwd.value);
+}
+
+</script>
