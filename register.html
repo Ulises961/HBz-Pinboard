@@ -10,7 +10,10 @@
     <meta name="keywords" content="Colorlib Templates">
 
     <!-- Title Page-->
-    <title>Au Register Forms by Colorlib</title>
+    <title>Hedgehogs Sign Up</title>
+
+    <!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
 
     <!-- Icons font CSS-->
     <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
@@ -23,8 +26,8 @@
     <link href="vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
 
     <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
 
     <!-- Main CSS-->
@@ -80,13 +83,13 @@
                             <div class="name">Name</div>
                             <div class="value">
                                 <div class="row row-space">
-                                    <div class="col-2">
+                                    <div class="col-6">
                                         <div class="input-group-desc">
                                             <input class="input--style-5" type="text" name="first_name">
                                             <label class="label--desc">first name</label>
                                         </div>
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-6">
                                         <div class="input-group-desc">
                                             <input class="input--style-5" type="text" name="last_name">
                                             <label class="label--desc">last name</label>
@@ -95,14 +98,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-row">
+                        <!-- Nel database la compagnia non è contemplata... -->
+                        <!-- <div class="form-row">
                             <div class="name">Company</div>
                             <div class="value">
                                 <div class="input-group">
                                     <input class="input--style-5" type="text" name="company">
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-row">
                             <div class="name">Email</div>
                             <div class="value">
@@ -130,12 +134,40 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Student Professor external user -->
                         <div class="form-row">
+                            <div class="name">User</div>
+                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                <div class="input-group">
+                                    <div class="rs-select2 js-select-simple select--no-search">
+                                        <select name="usertypes" id="usertypes" onchange="displayOptions(this)">
+                                            <option disabled="enabled" selected="selected">Choose option</option>
+                                            <option value="student">Student</option>
+                                            <option value="professor">Professor</option>
+                                            <option value="external-user">External User</option>
+                                        </select>
+                                        <div class="select-dropdown"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <!-- list of programs offered by the university -->
+                        <div class="form-row p-t-20" id="study_program">
+                            <label class="label label--block">Select your program of studies</label>
+                            <div class="p-t-15">
+                               <input type="text" name="programs" placeholder="Eg. Computer Science" list="programs" required>
+                               <select-list onshow="load()"></select-list>
+                            </div>
+                        </div>
+                        
+                    <!-- list of subjects a professor may teach  -->
+                        <div class="form-row p-t-20" id="professor_form">
                             <div class="name">Subject</div>
                             <div class="value">
                                 <div class="input-group">
                                     <div class="rs-select2 js-select-simple select--no-search" >
-                                        <select name="subject" onchange="displayOptions(this)">
+                                        <select name="subject">
                                             <option disabled="disabled" selected="selected">Choose option</option>
                                             <option>Subject 1</option>
                                             <option>Subject 2</option>
@@ -146,19 +178,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-row p-t-20">
-                            <label class="label label--block">Are you an existing customer?</label>
-                            <div class="p-t-15">
-                                <label class="radio-container m-r-55">Yes
-                                    <input type="radio" checked="checked" name="exist">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label class="radio-container">No
-                                    <input type="radio" name="exist">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                        </div>
+                       
                         <div>
                             <button class="btn btn--radius-2 btn--red" type="submit">Register</button>
                         </div>

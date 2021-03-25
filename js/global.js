@@ -9,15 +9,30 @@ function displayOptions(obj){
 
     var selectBox = obj;
     var selected = selectBox.options[selectBox.selectedIndex].value;
-    var studentStatus = document.getElementById('studentStatus');
+    var student_program = document.getElementById("study_program");
+    var subjects_taught = document.getElementById("professor_form");
+    
     
     if( selected === "student"){
-
-        studentStatus.style.display = "block";
+     
+        student_program.style.display="block";
+        subjects_taught.style.display="none";
     
-    }else{
-       studentStatus.style.display = "none";
+    }else if (selected === "professor"){
+        
+       subjects_taught.style.display="block";
+       student_program.style.display="none";
+       
+      
    }
-    
+    else{
+        student_program.style.display="none";
+        subjects_taught.style.display="none";
+
+        
+    }
+}
+
+function load(){
 
 }
