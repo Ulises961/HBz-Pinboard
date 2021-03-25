@@ -1,0 +1,23 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../../Downloads/colorlib-regform-5/js"
+		},
+		{
+			"path": "../../../Downloads/Login_v1/fonts"
+		},
+		{
+			"path": "../../../Downloads/Login_v1/images"
+		},
+		{
+			"path": "../../../Downloads/Login_v1/vendor/Loginselect2"
+		},
+		{
+			"path": "../../../Downloads/Login_v1/vendor/tilt"
+		}
+	],
+	"settings": {}
+}

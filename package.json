@@ -33,9 +33,12 @@
         "jquery": "3.5.1"
     },
     "devDependencies": {
+        "autoprefixer": "^10.2.5",
         "browser-sync": "2.26.13",
         "del": "6.0.0",
         "gulp": "4.0.2",
-        "merge-stream": "2.0.0"
+        "merge-stream": "2.0.0",
+        "postcss": "^8.2.8",
+        "tailwindcss": "^2.0.4"
     }
 }
