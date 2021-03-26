@@ -1,14 +1,18 @@
+\c postgres;
+DROP database hbz;
+CREATE database hbz;
+\c hbz;
 
 CREATE TABLE Faculty(
     code SERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL
+    name VARCHAR(100) NOT NULL UNIQUE
     
 ); 
 -- inclusion in program
 
 CREATE TABLE Program(
     code SERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL UNIQUE,
     duration NUMERIC NOT NULL,
     faculty INTEGER,
 
@@ -21,16 +25,16 @@ CREATE TABLE Program(
 
 CREATE TABLE Subject(
     id SERIAL PRIMARY KEY,
-    ECTs NUMERIC CHECK ( ECTs > 0 AND ECTs < 35),
-    name VARCHAR(50)
+    ECTs NUMERIC CHECK ( ECTs >= 0 AND ECTs <= 40 OR ECTs = -1),
+    name VARCHAR(300) UNIQUE
 );
 --inclusion in Taught-in
 
 CREATE TABLE Users(
     id SERIAL PRIMARY KEY,
     name VARCHAR(25) NOT NULL,
-    surname VARCHAR(25) NOT NULL,
-    prefix VARCHAR(20),
+    surname VARCHAR(100) NOT NULL,
+    prefix VARCHAR(10),
     number VARCHAR(20),
     mail VARCHAR(100) NOT NULL UNIQUE,
     password TEXT NOT NULL,
@@ -42,7 +46,7 @@ CREATE TABLE Users(
 
 CREATE TABLE Professor(
     id INTEGER PRIMARY KEY,
-    office_hours DATE,
+    office_hours VARCHAR(200),
     office VARCHAR(8),
 
     CONSTRAINT professor_is_a_user FOREIGN KEY(id)
@@ -438,3 +442,5 @@ FOR EACH ROW EXECUTE PROCEDURE is_user_logged_in();
 CREATE TRIGGER check_login_Comment
 BEFORE INSERT OR UPDATE OR DELETE ON Comment
 FOR EACH ROW EXECUTE PROCEDURE is_user_logged_in();
+
+

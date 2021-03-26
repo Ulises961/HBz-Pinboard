@@ -10,12 +10,11 @@
     <meta name="keywords" content="Colorlib Templates">
 
     <!-- Title Page-->
-    <title>HBZ</title>
-
+    <title>Au Register Forms by Colorlib</title>
 
     <!-- Icons font CSS-->
-    <link href="vendor/mdi-font/css1/material-design-iconic-font.min.css" rel="stylesheet" media="all">
-    <link href="vendor/font-awesome-4.7/css2/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
     <!-- Font special for pages-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
 
@@ -23,19 +22,60 @@
     <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
     <link href="vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
 
+    <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+
     <!-- Main CSS-->
-    <link href="css/menù.css" rel="stylesheet" media="all">
+    <link href="css/main.min.css" rel="stylesheet" media="all">
+    <link href="css/login_main.css" rel="stylesheet">
+    <link href="css/home_main.css" rel="stylesheet">
+
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary align-items-end">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#"><img src="images/logo.png"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="index.html">Home
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="office_hours.html">Office Hours</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="profile.html">Profile</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="contact.html">Contact</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="register.html">Register</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="login.html">Login</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
     <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
         <div class="wrapper wrapper--w790">
             <div class="card card-5">
                 <div class="card-heading">
-                    <h2 class="title">Register</h2>
+                    <h2 class="title">Event Registration Form</h2>
                 </div>
                 <div class="card-body">
-                    <form action="functions.php" method="POST">
+                    <form method="POST">
                         <div class="form-row m-b-55">
                             <div class="name">Name</div>
                             <div class="value">
@@ -56,7 +96,7 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="name">Faculty</div>
+                            <div class="name">Company</div>
                             <div class="value">
                                 <div class="input-group">
                                     <input class="input--style-5" type="text" name="company">
@@ -78,7 +118,7 @@
                                     <div class="col-3">
                                         <div class="input-group-desc">
                                             <input class="input--style-5" type="text" name="area_code">
-                                            <label class="label--desc">Prefix</label>
+                                            <label class="label--desc">Area Code</label>
                                         </div>
                                     </div>
                                     <div class="col-9">
@@ -91,23 +131,23 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="">Student/Professor</div>
-                            <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="name">Subject</div>
+                            <div class="value">
                                 <div class="input-group">
-                                    <div class="rs-select2 js-select-simple select--no-search">
-                                        <select name="subject" id="usertype" onchange="displayOptions(this)">
-                                            <option disabled="enabled" selected="selected">Choose option</option>
-                                            <option value="student">Student</option>
-                                            <option value="professor">Professor</option>
-                                        
+                                    <div class="rs-select2 js-select-simple select--no-search" >
+                                        <select name="subject" onchange="displayOptions(this)">
+                                            <option disabled="disabled" selected="selected">Choose option</option>
+                                            <option>Subject 1</option>
+                                            <option>Subject 2</option>
+                                            <option>Subject 3</option>
                                         </select>
                                         <div class="select-dropdown"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-row p-t-20"  style="display:none" id="studentStatus">
-                            <label class="label label--block">Are you a current student?</label>
+                        <div class="form-row p-t-20">
+                            <label class="label label--block">Are you an existing customer?</label>
                             <div class="p-t-15">
                                 <label class="radio-container m-r-55">Yes
                                     <input type="radio" checked="checked" name="exist">
@@ -127,10 +167,23 @@
             </div>
         </div>
     </div>
+<!-- Footer -->
+<div class=footer>
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+  </div>
+  
 
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Jquery JS-->
-    <script src="vendor/Menùjquery/Menùjquery.min.js"></script>
-     <!--  Vendor JS -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- Vendor JS-->
     <script src="vendor/select2/select2.min.js"></script>
     <script src="vendor/datepicker/moment.min.js"></script>
     <script src="vendor/datepicker/daterangepicker.js"></script>
@@ -138,7 +191,7 @@
     <!-- Main JS-->
     <script src="js/global.js"></script>
 
-</body>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
 </html>
 <!-- end document-->
