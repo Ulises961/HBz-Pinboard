@@ -76,3 +76,4 @@ function loadSubjects() {
     xmlhttp.open("GET", "phpFunctions/loadSubjects.php", true);
     xmlhttp.send();
 }
+
