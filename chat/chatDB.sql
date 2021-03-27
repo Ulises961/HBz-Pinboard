@@ -404,6 +404,45 @@ BEFORE INSERT ON Student
 FOR EACH ROW EXECUTE
 PROCEDURE insertStudent();
 
+CREATE OR REPLACE FUNCTION insertSendsMessageTo()
+RETURNS TRIGGER AS $$
+BEGIN
+
+    IF NEW.time > LOCALTIME OR NEW.date > CURRENT_DATE OR NEW.date < CURRENT_DATE THEN 
+        RAISE EXCEPTION 'INVALID TIME OR DATE!';
+        RETURN NULL;
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER insert_sendsMessageTo
+BEFORE INSERT ON SendsMessageTo
+FOR EACH ROW EXECUTE
+PROCEDURE insertSendsMessageTo();
+
+CREATE OR REPLACE FUNCTION isUserPartOfConversation()
+RETURNS TRIGGER AS $$
+DECLARE participation RECORD;
+BEGIN
+
+    SELECT EXISTS( SELECT * FROM PartecipatesInConversation WHERE users = NEW.users AND conversation = NEW.conversation) INTO participation;
+
+    IF participation.exists THEN 
+        RETURN NEW;     
+    ELSE
+        RAISE EXCEPTION 'THE USER IS NOT A PARTECIPANT OF THIS CONVERSATION';
+        RETURN NULL;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER is_user_part_of_conversation
+BEFORE INSERT ON SendsMessageTo
+FOR EACH ROW EXECUTE
+PROCEDURE isUserPartOfConversation();
+
 INSERT INTO Users VALUES(1,'Bob', 'Freeman', '+39', '3961 415473', 'bob@gmail.com', 'password');
 INSERT INTO Users VALUES(2,'Frank', 'Miller', '+39', '3961 415473', 'frank@gmail.com', 'password');
 INSERT INTO Users VALUES(3,'Markus', 'Zanker', '+39', '3961 415473','zanker@gmail.com', 'password');
@@ -413,12 +452,11 @@ INSERT INTO Conversation VALUES(1,'test_conversation');
 INSERT INTO PartecipatesInConversation VALUES(1,1);
 INSERT INTO PartecipatesInConversation VALUES(1,2);
 
-id SERIAL PRIMARY KEY,
-    date DATE NOT NULL,
-    time TIME NOT NULL,
-    text VARCHAR(255) NOT NULL,
-    users INTEGER NOT NULL,
-    conversation INTEGER NOT NULL,
+-- id SERIAL PRIMARY KEY,
+--     date DATE NOT NULL,
+--     time TIME NOT NULL,
+--     text VARCHAR(255) NOT NULL,
+--     users INTEGER NOT NULL,
+--     conversation INTEGER NOT NULL,
 
-INSERT INTO SendsMessageTo VALUES(default, '26/03/2021', '15:26:00', 'this should update', 3,1);
 
