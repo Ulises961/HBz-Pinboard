@@ -28,17 +28,33 @@ function displayOptions(obj){
 }
 
 
-function load(){
-    console.log(" results displayed?");
-    $.ajax({
-        method: "POST",
-        url: "./dbfunctions.php",
-        data: {text:"SELECT name FROM Program;"}
+function load() {
+    var xmlhttp = new XMLHttpRequest();
 
-    })
-    .done(function(response){
-            $("datalist.programs").html(response);
-        
-        console.log(" results displayed?"+ response);
-    });
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+            var option = document.createElement("option");
+            option.value = this.responseText;
+            document.getElementById("programs").appendChild(option);
+        }
+    };
+
+    xmlhttp.open("GET", "./dbfunctions.php", true);
+    xmlhttp.send();
 }
+
+// function load(){
+//     console.log(" results displayed?");
+//     $.ajax({
+//         method: "GET",
+//         url: "./dbfunctions.php",
+//         data: {text:"SELECT name FROM Program;"}
+
+//     })
+//     .done(function(response){
+//             $("datalist.programs").html(response);
+        
+//         console.log(" results displayed?"+ response);
+//     });
+// }
