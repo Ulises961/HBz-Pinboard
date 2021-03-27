@@ -1,4 +1,5 @@
 <?php
+    // include "../credentials.php";
     $host = "localhost";
     $dbname = "chat_test";
     $user = "postgres";
@@ -6,26 +7,18 @@
     $password = "postgres";
     
     $conn_string = "pgsql:host=$host port=$port dbname=$dbname user=$user password=$password";
+
     $conversation = $_REQUEST["conversation"];
+    $message = $_REQUEST["message"];
+    $sender = $_REQUEST["user"];
     $date = date("d/m/y");
     $time = date("H:i:s");
 
     try {
       $db = new PDO($conn_string);
-      $query = "select * from sendsMessageTo where conversation = $conversation and date = '$date' and time >= '$time'";
-      $result = $db->query($query);
-      $messages = array();
-  
-      while ($message = $result->fetch(PDO::FETCH_ASSOC))
-        array_push($messages, json_encode($message));
-
-      $result->closeCursor();
-
-      if(empty($messages))
-        echo "no new message";
-      else
-        echo json_encode($messages);
-
+      $insert = "INSERT INTO SendsMessageTo VALUES(default, '$date', '$time', '$message', $sender, $conversation)";
+      $db->exec($insert);
+      echo "success";
     } catch (Exeception $e) {
       echo"error";
       echo $e;

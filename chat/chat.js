@@ -1,126 +1,145 @@
-function createHTMLMessage(text){
-    var message = document.createElement("div");
-    var spaceColumn = document.createElement("div");
-    var messageContent = document.createElement("div");
+var chatUpdateInterval;
 
-    message.className = "row";
-    spaceColumn.className = "col-9";
-    messageContent.className = "col-md-auto";
-    messageContent.style = "background-color: goldenrod;";
-    messageContent.innerText = text;
-    
-    message.appendChild(messageContent);
-    message.appendChild(spaceColumn);
+function createHTMLMessage(message) {
+  var messageElement = document.createElement("div");
+  var spaceColumn = document.createElement("div");
+  var messageContent = document.createElement("div");
 
-    return message;
+  messageElement.className = "row";
+  messageElement.id = message.id;
+  spaceColumn.className = "col-9";
+  messageContent.className = "col-md-auto";
+  messageContent.style = "background-color: goldenrod;";
+  messageContent.innerText = message.text;
+
+  messageElement.appendChild(messageContent);
+  messageElement.appendChild(spaceColumn);
+
+  return messageElement;
 }
 
-function sendMessage(){
-    var message_text = document.getElementById("inputMessage").value;
-    var message = createHTMLMessage(message_text);
+function sendMessage() {
+  var message_text = document.getElementById("inputMessage").value;
+  var xmlhttp = new XMLHttpRequest();
 
-    document.getElementById("messages_section").appendChild(message);
+  xmlhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+
+      if (this.responseText != "success")
+        alert("An error occurred while sending the message.");
+    }
+  };
+
+  var user = 1;
+  var conversation = document.getElementById("sendMessageBtn").value;
+  var parameters = "conversation=" + conversation + "&message=" + message_text + "&user=" + user;
+  console.log("I am sending these parameters: " + parameters);
+
+  xmlhttp.open("GET", "./sendMessage.php?" + parameters, true);
+  xmlhttp.send();
 }
 
 function isJson(str) {
-    try {
-        JSON.parse(str);
-    } catch (e) {
-        return false;
-    }
-    return true;
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
 }
 
 function loadConversations() {
-    var xmlhttp = new XMLHttpRequest();
+  var xmlhttp = new XMLHttpRequest();
 
-    xmlhttp.onreadystatechange = function() {
+  xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
 
-        console.log(this.responseText);
-        if(isJson(this.responseText)){
-            var conversations = JSON.parse(this.responseText);
-            
-            conversations.forEach(object => {
-                var listItem = document.createElement("li");
-                var conversation = JSON.parse(object);
-                console.log(object);
+      console.log(this.responseText);
+      if (isJson(this.responseText)) {
+        var conversations = JSON.parse(this.responseText);
 
-                listItem.id = conversation.id;
-                listItem.innerText = conversation.name;
-                listItem.onclick = function(){changeConversation(conversation.id, conversation.name);};
+        conversations.forEach(object => {
+          var listItem = document.createElement("li");
+          var conversation = JSON.parse(object);
+          console.log(object);
 
-                document.getElementById("users").appendChild(listItem);
-            });
-        }
-        
+          listItem.id = conversation.id;
+          listItem.innerText = conversation.name;
+          listItem.onclick = function () { changeConversation(conversation.id, conversation.name); };
+
+          document.getElementById("users").appendChild(listItem);
+        });
+      }
     }
-    };
-    
-    var user = 1;
+  };
 
-    xmlhttp.open("GET", "./loadConversation.php?user=" + user, true);
-    xmlhttp.send();
+  var user = 1;
+
+  xmlhttp.open("GET", "./loadConversation.php?user=" + user, true);
+  xmlhttp.send();
 }
 
-  loadConversations();
+loadConversations();
 
-  function showMessages(conversation){
-    document.getElementById("messages_section").innerHTML = '';
-    var xmlhttp = new XMLHttpRequest();
+function showMessages(conversation) {
+  clearInterval(chatUpdateInterval);
+  document.getElementById("messages_section").innerHTML = '';
+  var xmlhttp = new XMLHttpRequest();
 
-    xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
+  xmlhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
 
-        console.log(this.responseText);
-        if(isJson(this.responseText)){
-          var messages = JSON.parse(this.responseText);
-        
-          messages.forEach(message => {
-            var message_element = createHTMLMessage(message);
+      console.log(this.responseText);
+      if (isJson(this.responseText)) {
+        var messages = JSON.parse(this.responseText);
 
-            document.getElementById("messages_section").appendChild(message_element);
-          });
-        }
-        
+        messages.forEach(json_message => {
+          var message = JSON.parse(json_message);
+          var message_element = createHTMLMessage(message);
+
+          document.getElementById("messages_section").appendChild(message_element);
+        });
       }
-    };
-    
-    xmlhttp.open("GET", "./loadOldMessages.php?conversation="+conversation, true);
-    xmlhttp.send();
 
-    updateConversation(conversation);
-  }
+    }
+  };
 
-  function changeConversation(id, title){
-    document.getElementById("conversationTitle").innerText = title;
-    showMessages(id);
-  }
+  xmlhttp.open("GET", "./loadOldMessages.php?conversation=" + conversation, true);
+  xmlhttp.send();
 
-  function updateConversation(conversation){
-    var xmlhttp = new XMLHttpRequest();
+  chatUpdateInterval = setInterval(function () { updateConversation(conversation); }, 2500);
+}
 
-    xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
+function changeConversation(id, title) {
+  document.getElementById("conversationTitle").innerText = title;
+  document.getElementById("sendMessageBtn").value = id;
+  showMessages(id);
+}
 
-        console.log(this.responseText);
+function updateConversation(conversation) {
+  var xmlhttp = new XMLHttpRequest();
 
-        if(isJson(this.responseText)){
-          var messages = JSON.parse(this.responseText);
-        
-          messages.forEach(message => {
-            var message_element = createHTMLMessage(message);
-            document.getElementById("messages_section").appendChild(message_element);
-          });
-        }
-        
+  xmlhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+
+      console.log(this.responseText);
+
+      if (isJson(this.responseText)) {
+        var messages = JSON.parse(this.responseText);
+
+        messages.forEach(json_message => {
+          var message = JSON.parse(json_message);
+          var message_element = createHTMLMessage(message);
+
+          document.getElementById("messages_section").appendChild(message_element);
+        });
       }
-    };
 
-    var parameters = "conversation=" + conversation;
-    
-    xmlhttp.open("GET", "./updateConversation.php?" + parameters, true);
-    xmlhttp.send();
+    }
+  };
 
-    setTimeout(function(){updateConversation(conversation);}, 5500);
-  }
+  var parameters = "conversation=" + conversation;
+
+  xmlhttp.open("GET", "./updateConversation.php?" + parameters, true);
+  xmlhttp.send();
+}
