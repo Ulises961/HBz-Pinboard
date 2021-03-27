@@ -10,7 +10,7 @@ function createHTMLMessage(message) {
   spaceColumn.className = "col-9";
   messageContent.className = "col-md-auto";
   messageContent.style = "background-color: goldenrod;";
-  messageContent.innerText = message.text;
+  messageContent.innerText = message.time + ": " + message.text;
 
   messageElement.appendChild(messageContent);
   messageElement.appendChild(spaceColumn);
@@ -24,16 +24,13 @@ function sendMessage() {
 
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-
-      if (this.responseText != "success")
-        alert("An error occurred while sending the message.");
+      console.log(this.responseText);
     }
   };
 
   var user = 1;
   var conversation = document.getElementById("sendMessageBtn").value;
   var parameters = "conversation=" + conversation + "&message=" + message_text + "&user=" + user;
-  console.log("I am sending these parameters: " + parameters);
 
   xmlhttp.open("GET", "./sendMessage.php?" + parameters, true);
   xmlhttp.send();
@@ -82,32 +79,36 @@ function loadConversations() {
 loadConversations();
 
 function showMessages(conversation) {
-  clearInterval(chatUpdateInterval);
+  clearTimeout(chatUpdateInterval);
   document.getElementById("messages_section").innerHTML = '';
   var xmlhttp = new XMLHttpRequest();
+  var lastMessageTime;
 
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
 
-      console.log(this.responseText);
+      
       if (isJson(this.responseText)) {
         var messages = JSON.parse(this.responseText);
 
         messages.forEach(json_message => {
           var message = JSON.parse(json_message);
           var message_element = createHTMLMessage(message);
+          lastMessageTime = message.time;
 
           document.getElementById("messages_section").appendChild(message_element);
         });
+
+      }else{
+        console.log(this.responseText);
       }
 
+      updateConversation(conversation, lastMessageTime);
     }
   };
 
   xmlhttp.open("GET", "./loadOldMessages.php?conversation=" + conversation, true);
   xmlhttp.send();
-
-  chatUpdateInterval = setInterval(function () { updateConversation(conversation); }, 2500);
 }
 
 function changeConversation(id, title) {
@@ -116,13 +117,11 @@ function changeConversation(id, title) {
   showMessages(id);
 }
 
-function updateConversation(conversation) {
+function updateConversation(conversation, lastMessageTime) {
   var xmlhttp = new XMLHttpRequest();
 
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-
-      console.log(this.responseText);
 
       if (isJson(this.responseText)) {
         var messages = JSON.parse(this.responseText);
@@ -130,16 +129,22 @@ function updateConversation(conversation) {
         messages.forEach(json_message => {
           var message = JSON.parse(json_message);
           var message_element = createHTMLMessage(message);
+          lastMessageTime = message.time;
 
           document.getElementById("messages_section").appendChild(message_element);
         });
+
+      }else{
+        console.log(this.responseText);
       }
 
     }
   };
 
-  var parameters = "conversation=" + conversation;
+  var parameters = "conversation=" + conversation + "&time=" + lastMessageTime;
 
   xmlhttp.open("GET", "./updateConversation.php?" + parameters, true);
   xmlhttp.send();
+
+  chatUpdateInterval = setTimeout(function () { updateConversation(conversation, lastMessageTime); }, 2500);
 }

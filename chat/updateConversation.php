@@ -7,12 +7,12 @@
     
     $conn_string = "pgsql:host=$host port=$port dbname=$dbname user=$user password=$password";
     $conversation = $_REQUEST["conversation"];
+    $time = $_REQUEST["time"];
     $date = date("d/m/y");
-    $time = date("H:i:s");
 
     try {
       $db = new PDO($conn_string);
-      $query = "select * from sendsMessageTo where conversation = $conversation and date = '$date' and time >= '$time'";
+      $query = "select * from sendsMessageTo where conversation = $conversation and date = '$date' and time > '$time'";
       $result = $db->query($query);
       $messages = array();
   
@@ -22,12 +22,14 @@
       $result->closeCursor();
 
       if(empty($messages))
-        echo "no new message";
-      else
+        echo "no new message\n";
+      else{
         echo json_encode($messages);
+      }
 
     } catch (Exeception $e) {
       echo"error";
       echo $e;
     }
+
 ?>

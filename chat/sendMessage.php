@@ -20,7 +20,6 @@
       $db->exec($insert);
       echo "success";
     } catch (Exeception $e) {
-      echo"error";
-      echo $e;
+      echo"error: $e";
     }
 ?>
