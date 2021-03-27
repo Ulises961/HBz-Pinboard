@@ -1,10 +1,4 @@
 
-function registerUser(){
-
-   
-
-}
-
 function displayOptions(obj){
 
     var selectBox = obj;
@@ -33,6 +27,18 @@ function displayOptions(obj){
     }
 }
 
-function load(){
 
+function load(){
+    console.log(" results displayed?");
+    $.ajax({
+        method: "POST",
+        url: "./dbfunctions.php",
+        data: {text:"SELECT name FROM Program;"}
+
+    })
+    .done(function(response){
+            $("datalist.programs").html(response);
+        
+        console.log(" results displayed?"+ response);
+    });
 }
