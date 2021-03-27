@@ -1,4 +1,5 @@
 var chatUpdateInterval;
+var user = 1;
 
 function createHTMLMessage(message) {
   var messageElement = document.createElement("div");
@@ -9,7 +10,13 @@ function createHTMLMessage(message) {
   messageElement.id = message.id;
   spaceColumn.className = "col-9";
   messageContent.className = "col-md-auto";
-  messageContent.style = "background-color: goldenrod;";
+ 
+  if(message.users == user)
+    messageContent.style = "background-color: goldenrod;";
+  else
+    messageContent.style = "background-color: fuchsia;";
+
+
   messageContent.innerText = message.time + ": " + message.text;
 
   messageElement.appendChild(messageContent);
@@ -28,7 +35,6 @@ function sendMessage() {
     }
   };
 
-  var user = 1;
   var conversation = document.getElementById("sendMessageBtn").value;
   var parameters = "conversation=" + conversation + "&message=" + message_text + "&user=" + user;
 
@@ -45,7 +51,7 @@ function isJson(str) {
   return true;
 }
 
-function loadConversations() {
+function showConversations() {
   var xmlhttp = new XMLHttpRequest();
 
   xmlhttp.onreadystatechange = function () {
@@ -70,15 +76,13 @@ function loadConversations() {
     }
   };
 
-  var user = 1;
-
-  xmlhttp.open("GET", "./loadConversation.php?user=" + user, true);
+  xmlhttp.open("GET", "./getConversations.php?user=" + user, true);
   xmlhttp.send();
 }
 
-loadConversations();
+showConversations();
 
-function showMessages(conversation) {
+function loadConversation(conversation) {
   clearTimeout(chatUpdateInterval);
   document.getElementById("messages_section").innerHTML = '';
   var xmlhttp = new XMLHttpRequest();
@@ -95,8 +99,10 @@ function showMessages(conversation) {
           var message = JSON.parse(json_message);
           var message_element = createHTMLMessage(message);
           lastMessageTime = message.time;
-
+          console.log(message.time);
+          
           document.getElementById("messages_section").appendChild(message_element);
+          message_element.scrollIntoView();
         });
 
       }else{
@@ -107,14 +113,14 @@ function showMessages(conversation) {
     }
   };
 
-  xmlhttp.open("GET", "./loadOldMessages.php?conversation=" + conversation, true);
+  xmlhttp.open("GET", "./loadConversation.php?conversation=" + conversation, true);
   xmlhttp.send();
 }
 
 function changeConversation(id, title) {
   document.getElementById("conversationTitle").innerText = title;
   document.getElementById("sendMessageBtn").value = id;
-  showMessages(id);
+  loadConversation(id);
 }
 
 function updateConversation(conversation, lastMessageTime) {
@@ -130,8 +136,10 @@ function updateConversation(conversation, lastMessageTime) {
           var message = JSON.parse(json_message);
           var message_element = createHTMLMessage(message);
           lastMessageTime = message.time;
+          console.log(message.time);
 
           document.getElementById("messages_section").appendChild(message_element);
+          message_element.scrollIntoView();
         });
 
       }else{

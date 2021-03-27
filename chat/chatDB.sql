@@ -420,5 +420,5 @@ id SERIAL PRIMARY KEY,
     users INTEGER NOT NULL,
     conversation INTEGER NOT NULL,
 
-INSERT INTO SendsMessageTo VALUES(default, '26/03/2021', '15:26:00', 'this should update', 1,1);
+INSERT INTO SendsMessageTo VALUES(default, '26/03/2021', '15:26:00', 'this should update', 3,1);
 

@@ -7,22 +7,22 @@
     $password = "postgres";
     
     $conn_string = "pgsql:host=$host port=$port dbname=$dbname user=$user password=$password";
-    $conversation = $_REQUEST["conversation"];
+    $requestUser = $_REQUEST["user"];
 
     try {
       $db = new PDO($conn_string);
-      $result = $db->query("select * from sendsMessageTo where conversation = $conversation");
+      $result = $db->query("select c.id, c.name from conversation c, partecipatesinconversation p where c.id = p.conversation and p.users = $requestUser");
   
-      $messages = array();
+      $conversations = array();
       
-      while ($message = $result->fetch(PDO::FETCH_ASSOC)) {
+      while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 
-        array_push($messages, json_encode($message));
+        array_push($conversations, json_encode($row));
         // echo $row;
       }
       $result->closeCursor();
 
-      echo json_encode($messages);
+      echo json_encode($conversations);
     } catch (Exeception $e) {
       echo"error";
       echo $e;
