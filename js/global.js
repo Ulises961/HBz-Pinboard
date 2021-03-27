@@ -28,17 +28,51 @@ function displayOptions(obj){
 }
 
 
-function load(){
-    console.log(" results displayed?");
-    $.ajax({
-        method: "POST",
-        url: "./dbfunctions.php",
-        data: {text:"SELECT name FROM Program;"}
 
-    })
-    .done(function(response){
-            $("datalist.programs").html(response);
-        
-        console.log(" results displayed?"+ response);
-    });
+
+function loadPrograms() {
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var result = JSON.parse(this.response); 
+            
+          for(var i = 0 ; i < result.length; i++){
+                var option= document.createElement("option");
+                option.value= result[i];
+                document.getElementById("programs").appendChild(option);
+                console.log(result[i]);
+                
+            }
+                
+        }
+    };
+    
+
+    xmlhttp.open("GET", "phpFunctions/loadPrograms.php", true);
+    xmlhttp.send();
+}
+
+
+function loadSubjects() {
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var result = JSON.parse(this.response); 
+            
+          for(var i = 0 ; i < result.length; i++){
+                var option= document.createElement("option");
+                option.value= result[i];
+                document.getElementById("subjects").appendChild(option);
+                console.log(result[i]);
+                
+            }
+                
+        }
+    };
+    
+
+    xmlhttp.open("GET", "phpFunctions/loadSubjects.php", true);
+    xmlhttp.send();
 }
