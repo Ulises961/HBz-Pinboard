@@ -160,7 +160,7 @@
                         <div class="form-row p-t-20" id="study_program">
                             <label class="label label--block">Select your program of studies</label>
                             <div class="p-t-15">
-                                <input type="text" name="programs" placeholder="Eg. Computer Science" list="programs" onfocus="loadPrograms()" required>
+                                <input type="text" name="programs" placeholder="Eg. Computer Science" list="programs" required>
                                 <datalist class="program_list" id="programs"></datalist>
                             </div>
                         </div>
@@ -168,10 +168,14 @@
                         <!-- list of subjects a professor may teach  -->
                         <div class="form-row p-t-20" id="professor_form">
                             <label class="label label--block">Select the subject(s) you are teaching at the moment</label>
-                            <div class="p-t-15">
-                                    <input type="text" name="subjects" placeholder="Eg. Analysis" list="subjects" onfocus="loadSubjects()" required>
-                                    <datalist class="subjects_list" id="subjects"></datalist>            
+                            <div class="p-t-15" id="subjects-block">
+                                <div class="row row-rowspace" id="subject-appendable-block">
+                                    <input class="col-9"type="text" name="subjects" placeholder="Eg. Analysis" list="subjects" required>
+                                    <datalist class="subjects_list" id="subjects"></datalist>   
+                                    <button class="col-3 btn btn--radius-2  btn--grey btn--small" type="button" onclick="addSubjectBlock()">Add</button> 
+                                </div>        
                             </div>
+                            
                         </div>
 
                         <div>
