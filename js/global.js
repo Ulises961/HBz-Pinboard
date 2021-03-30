@@ -29,21 +29,24 @@ function displayOptions(obj){
 
 function addSubjectBlock(){
     console.log("starting function");
-    var block = document.getElementById("subjects-block");
-    var originalAppendableBlock = document.getElementById("subject-appendable-block");
-    var orginalDeleteBtn = document.getElementById("deleteBtn");
-
+    var block = document.getElementById("professor_form");
+    var originalAppendableBlock = document.getElementById("subjects-block");
     var clnAppendableBlock = originalAppendableBlock.cloneNode(true);
-    var clnDeleteBtn = orginalDeleteBtn.cloneNode(true);
-    block.appendChild(clnAppendableBlock);
-    clnAppendableBlock.appendChild(clnDeleteBtn);
-    clnDeleteBtn.style.display="block";
     
+    block.appendChild(clnAppendableBlock);
+    
+    var inClass=getElementsByClassName("deleteBtn",clnAppendableBlock);
+   
+    var deleteBtn=inClass[0];
+    deleteBtn.style.display="block";
+
+   
 }
+
 function deleteSubjectBlock(obj){
     console.log("starting function");
-    var block = document.getElementById("subjects-block");
-    var originalAppendableBlock = obj.parentNode;
+    var block = document.getElementById("professor_form");
+    var originalAppendableBlock = obj.parentNode.parentNode;
     block.removeChild(originalAppendableBlock);
     
 }
@@ -102,8 +105,7 @@ function loadPrograms() {
                 var option= document.createElement("option");
                 option.value= result[i];
                 document.getElementById("programs").appendChild(option);
-               
-                
+                  
             }
                 
         }
@@ -127,9 +129,7 @@ function loadSubjects() {
                 option.value= result[i];
                 document.getElementById("subjects").appendChild(option);
              
-                
-            }
-                
+            }   
         }
     };
     
@@ -138,3 +138,26 @@ function loadSubjects() {
     xmlhttp.send();
 }
 
+
+    function getElementsByClassName(id,obj){
+        var inClass = [];
+       
+     
+        function findClass(element){
+                if(element.id === id){
+                inClass.push(element);
+            }
+        }
+     
+        function testNodes(node,test){
+            test(node);
+            node = node.firstChild;
+            while(node){
+                testNodes(node,test);
+                node=node.nextSibling;
+            }
+        }
+     
+        testNodes(obj,findClass);
+        return inClass;
+    }
