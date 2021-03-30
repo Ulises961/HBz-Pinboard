@@ -16,8 +16,8 @@
     <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
 
     <!-- Icons font CSS-->
-    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
-    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="vendor/mdi-font/css2/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="vendor/font-awesome-4.7/css1/font-awesome.min.css" rel="stylesheet" media="all">
     <!-- Font special for pages-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
         rel="stylesheet">
@@ -84,12 +84,12 @@
                 <div class="card-body">
                     <form method="POST">
                         <div class="form-row m-b-55">
-                            <div class="name">Name</div>
+                            <div class="name">Name*</div>
                             <div class="value">
                                 <div class="row row-space">
                                     <div class="col-6">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="first_name"required>
+                                            <input class="input--style-5" type="text" name="first_name" required>
                                             <label class="label--desc">first name</label>
                                         </div>
                                     </div>
@@ -102,23 +102,16 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Nel database la compagnia non è contemplata... -->
-                        <!-- <div class="form-row">
-                            <div class="name">Company</div>
-                            <div class="value">
-                                <div class="input-group">
-                                    <input class="input--style-5" type="text" name="company">
-                                </div>
-                            </div>
-                        </div> -->
+
                         <div class="form-row">
-                            <div class="name">Email</div>
+                            <div class="name">Email*</div>
                             <div class="value">
                                 <div class="input-group">
                                     <input class="input--style-5" type="email" name="email" required>
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-row m-b-55">
                             <div class="name">Phone</div>
                             <div class="value">
@@ -129,6 +122,7 @@
                                             <label class="label--desc">Area Code</label>
                                         </div>
                                     </div>
+
                                     <div class="col-9">
                                         <div class="input-group-desc">
                                             <input class="input--style-5" type="text" name="phone">
@@ -138,53 +132,92 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Student Professor external user -->
-                        <div class="form-row">
-                            <div class="name">User</div>
-                            <div class="col-lg-4 col-md-6 col-sm-6">
+                        <!-- Validation of password -->
+                        <div class="form-row m-b-55">
+                            <div class="name">Password*</div>
+                            <div class="value">
                                 <div class="input-group">
-                                    <div class="rs-select2 js-select-simple select--no-search">
-                                        <select name="usertypes" id="usertypes" onchange="displayOptions(this)">
-                                            <option disabled="enabled" selected="selected">Choose option</option>
-                                            <option value="student">Student</option>
-                                            <option value="professor">Professor</option>
-                                            <option value="external-user">External User</option>
-                                        </select>
-                                        <div class="select-dropdown"></div>
-                                    </div>
+                                    <input class="input--style-5" type="password"
+                                        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$" id="password"
+                                        onkeyup="validPswd(this)" required>
+                                    <div id="pswd-feedback" display="none"></div>
                                 </div>
                             </div>
                         </div>
-                        <!-- list of programs offered by the university -->
-                        <div class="form-row p-t-20" id="study_program">
-                            <label class="label label--block">Select your program of studies</label>
-                            <div class="p-t-15">
-                                <input type="text" name="programs" placeholder="Eg. Computer Science" list="programs" required>
-                                <datalist class="program_list" id="programs"></datalist>
+                        <div class="form-row m-b-55">
+                            <div class="name">Repeat Password*</div>
+                            <div class="value">
+
+                                <div class="input-group">
+
+                                    <input class="input--style-5" type="password" id="password-check"
+                                        onkeyup="matchesPassword()" required>
+
+
+                                    <div id="cPwdValid" class="valid-feedback" display="none">Valid</div>
+                                    <div id="cPwdInvalid" class="invalid-feedback" display="none">Invalid</div>
+                                
                             </div>
                         </div>
+            
+            </div>
 
-                        <!-- list of subjects a professor may teach  -->
-                        <div class="form-row p-t-20" id="professor_form">
-                            <label class="label label--block">Select the subject(s) you are teaching at the moment</label>
-                            <div class="p-t-15" id="subjects-block">
-                                <div class="row row-rowspace" id="subject-appendable-block">
-                                    <input class="col-9"type="text" name="subjects" placeholder="Eg. Analysis" list="subjects" required>
-                                    <datalist class="subjects_list" id="subjects"></datalist>   
-                                    <button class="col-3 btn btn--radius-2  btn--grey btn--small" type="button" onclick="addSubjectBlock()">Add</button> 
-                                </div>        
-                            </div>
-                            
-                        </div>
 
-                        <div>
-                            <button class="btn btn--radius-2 btn--red" type="submit">Register</button>
-                        </div>
-                    </form>
+            <!-- Student Professor external user -->
+            <div class="form-row">
+                <div class="name">User</div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <!-- <div class="input-group"> -->
+                    <div class="rs-select2 js-select-simple select--no-search">
+                        <select name="usertypes" id="usertypes" onchange="displayOptions(this)">
+                            <option disabled="enabled" selected="selected">Choose option</option>
+                            <option value="student">Student</option>
+                            <option value="professor">Professor</option>
+                            <option value="external-user">External User</option>
+                        </select>
+                        <div class="select-dropdown"></div>
+                        <!-- </div> -->
+                    </div>
                 </div>
             </div>
+            <!-- list of programs offered by the university -->
+            <div class="form-row p-t-20" id="study_program">
+                <label class="label label--block">Select your program of studies</label>
+                <div class="p-t-15">
+                    <input type="text" name="programs" placeholder="Eg. Computer Science" list="programs" required>
+                    <datalist class="program_list" id="programs"></datalist>
+                </div>
+            </div>
+
+            <!-- list of subjects a professor may teach  -->
+            <div class="form-row p-t-20" id="professor_form">
+                <label class="label label--block">Select the subject(s) you are teaching at the moment</label>
+                <div class="p-t-15" id="subjects-block">
+                    <div class="form-row p-t-15" id="subject-appendable-block">
+                        <div class="col-8">
+                            <input type="text" name="subjects" placeholder="Eg. Analysis" list="subjects" required>
+                            <datalist class="subjects_list" id="subjects"></datalist>
+                        </div>
+                        <div class="col-1">
+                            <button class="btn-secondary btn-sm btn--grey" type="button"
+                                onclick="addSubjectBlock()">Add</button>
+                        </div>
+                        <div class="col-1">
+                            <button class=" btn-secondary  btn-sm btn--grey" style="display:none" type="button" id="deleteBtn"
+                                onclick="deleteSubjectBlock(this)">Delete</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div>
+                <button class="btn btn--radius-2 btn--red" id="submitBtn" type="submit">Register</button>
+            </div>
+            </form>
         </div>
+    </div>
+    </div>
     </div>
 
 

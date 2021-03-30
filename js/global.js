@@ -31,14 +31,65 @@ function addSubjectBlock(){
     console.log("starting function");
     var block = document.getElementById("subjects-block");
     var originalAppendableBlock = document.getElementById("subject-appendable-block");
+    var orginalDeleteBtn = document.getElementById("deleteBtn");
+
     var clnAppendableBlock = originalAppendableBlock.cloneNode(true);
+    var clnDeleteBtn = orginalDeleteBtn.cloneNode(true);
     block.appendChild(clnAppendableBlock);
-    console.log("error"+clnAppendableBlock.textContent);
+    clnAppendableBlock.appendChild(clnDeleteBtn);
+    clnDeleteBtn.style.display="block";
+    
+}
+function deleteSubjectBlock(obj){
+    console.log("starting function");
+    var block = document.getElementById("subjects-block");
+    var originalAppendableBlock = obj.parentNode;
+    block.removeChild(originalAppendableBlock);
     
 }
 
+function validPswd(obj){
+    var pswd=obj.value;
+    matchesPassword();
+    var pswdValid=document.getElementById("pswd-feedback");
+    if(pswd.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)){
+        pswdValid.setAttribute("class","valid-feedback");
+        pswdValid.innerText="Valid ✔";
+        pswdValid.style.display="block";
+    }else{
+        pswdValid.setAttribute("class","invalid-feedback");
+        pswdValid.innerText="Password must be at least 6 charachters long, contain an uppercase letter (A-Z), a lowercase letter (a-z) and a digit (1-9).";
+        pswdValid.style.display="block";
 
+    }
+}
 
+function matchesPassword(){
+
+        var firstPsswd= document.getElementById("password");
+        var psswdCheck= document.getElementById("password-check");
+        var validPw= document.getElementById("cPwdValid");
+        var invalidPw= document.getElementById("cPwdInvalid");
+      
+      
+        if(firstPsswd.value === psswdCheck.value){
+            validPw.style.display="block";
+            invalidPw.style.display="none";
+            validPw.innerText='Matching ✔';
+      
+            console.log("valid PW");
+            
+
+        }else{
+            invalidPw.style.display="block";
+            validPw.style.display="none";
+            invalidPw.innerText='Not Matching ✘';
+
+            console.log("invalid PW");
+           
+        }
+
+}
 
 function loadPrograms() {
     var xmlhttp = new XMLHttpRequest();
