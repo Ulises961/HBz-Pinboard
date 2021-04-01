@@ -90,7 +90,7 @@
                     <h2 class="title">Registration Form</h2>
                 </div>
                 <div class="card-body">
-                    <form action="http://10.42.0.1/HBz/phpFunctions/insertUser.php" method="GET" target="_blank">
+                    <form action="http://10.42.0.1/HBz/phpFunctions/insertUser.php" method="POST" target="_blank">
                                            <!-- <form action="http://10.42.0.1/HBz/response_generic.php" method="POST" target="_blank"> -->
                         <div class="form-row m-b-55">
                             <div class="name">Name*</div>
@@ -207,7 +207,7 @@
                                 moment</label>
                             <div class="row p-t-15" id="subjects-block">
                                  <div class="col-md-8 col-xs-12">
-                                    <input type="text" name="subject-input" id="subject-input" placeholder="Eg. Analysis" list="subjects" onchange="hideItemFromList(this)"
+                                    <input type="text" name="subject-input[0]" id="subject-input" placeholder="Eg. Analysis" list="subjects" onchange="hideItemFromList(this)"
                                         required>
                                     <datalist class="subjects_list" id="subjects"></datalist>
                                 </div>

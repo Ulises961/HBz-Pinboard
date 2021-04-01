@@ -13,7 +13,7 @@ $dbconn = pg_connect("$host $port $dbname $credentials ")
     or die('Could not connect: ' . pg_last_error());
 
 // Performing SQL query
-$query = 'SELECT name FROM Subject';
+$query = 'SELECT id,name FROM Subject';
 $result = pg_query($dbconn, $query);
 
 if(!$result) {

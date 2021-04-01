@@ -24,7 +24,7 @@ $pswd=$_POST['pswd'];
 $usertype=$_POST['usertypes'];
 $program=$_POST['study_programs'];
 $subjects=$_POST['subject-input'];
-
+echo "$subjects[0]";
 //testing null values on optional fields of the form
 
 if($prefix === "" || $number === ""){
@@ -39,9 +39,9 @@ echo  "{$name}, {$surname }, {$prefix},{$number},{$mail},{$pswd} $program $usert
 
 // Creating a user
 
-pg_prepare($dbconn, "query", 'INSERT INTO Users Values(default,$1,$2,$3,$4,$5,$6)  RETURNING id');
+pg_prepare($dbconn, "userInsertion", 'INSERT INTO Users Values(default,$1,$2,$3,$4,$5,$6)  RETURNING id');
 
-$result = pg_execute($dbconn,"query",array($name,$surname,$prefix,$number,$mail,$pswd));
+$result = pg_execute($dbconn,"userInsertion",array($name,$surname,$prefix,$number,$mail,$pswd));
 
 $row = pg_fetch_row($result);
 
@@ -61,9 +61,9 @@ if(!$result) {
 
  if($usertype === "student"){
    
-        pg_prepare($dbconn,"query2",'SELECT code FROM Program WHERE name= $1');
+        pg_prepare($dbconn,"selectProgram",'SELECT code FROM Program WHERE name= $1');
         
-        $result = pg_execute($dbconn,"query2",array($program));
+        $result = pg_execute($dbconn,"selectProgram",array($program));
 
         if(!$result) {
             echo pg_last_error($dbconn);
@@ -73,8 +73,8 @@ if(!$result) {
         $row = pg_fetch_row($result);
         $program_id = $row[0];
       
-        pg_prepare($dbconn,"query3",'INSERT INTO Student VALUES($1,$2)');
-        $result = pg_execute($dbconn,"query3",array($id,$program_id));
+        pg_prepare($dbconn,"studentInsertion",'INSERT INTO Student VALUES($1,$2)');
+        $result = pg_execute($dbconn,"studentInsertion",array($id,$program_id));
 
         if(!$result) {
             echo pg_last_error($dbconn);
@@ -87,7 +87,16 @@ if(!$result) {
 
 if($usertype === "professor"){
 
-    
+    foreach($subjects as $index => $subject){
+        pg_prepare($dbconn,"selectSubject",'SELECT id FROM Subject WHERE name= $1');
+        
+        $result = pg_execute($dbconn,"selectSubject",array($subject));
+
+        if(!$result) {
+            echo pg_last_error($dbconn);
+            exit;
+        } 
+    }
 
 }
 

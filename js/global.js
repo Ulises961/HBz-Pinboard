@@ -1,5 +1,3 @@
-
-
 function displayOptions(obj){
 
     var selectBox = obj;
@@ -18,14 +16,14 @@ function displayOptions(obj){
         student_input.removeAttribute("disabled");
 
         subjects_taught.style.display="none";
-        subject_input.setAttribute("disabled","enabled");
+        subject_input.disabled="enabled";
        
         loadPrograms();
     }else if (selected === "professor"){
         
        subjects_taught.style.display="block";
        student_program.style.display="none";
-       student_input.setAttribute("disabled","enabled");
+       student_input.disabled="enabled";
        subject_input.removeAttribute("disabled");
        loadSubjects();
       
@@ -34,17 +32,20 @@ function displayOptions(obj){
         student_program.style.display="none";
         subjects_taught.style.display="none";
         
-        student_input.setAttribute("disabled","enabled");
-        subject_input.setAttribute("disabled","enabled");
+        student_input.disabled="enabled";
+        subject_input.disabled="enabled";
     }
 }
 
+var i = 1;
+
 function addSubjectBlock(obj){
-    console.log("starting function");
+  
     var block = document.getElementById("professor_form");
     var originalAppendableBlock = obj.parentNode.parentNode;
     var clnAppendableBlock = originalAppendableBlock.cloneNode(true);
     var input = getElementsByClassName("subject-input",clnAppendableBlock);
+    input[0].name="subject-input["+i+"]";
     input[0].value="";
    
     block.appendChild(clnAppendableBlock);
@@ -53,7 +54,7 @@ function addSubjectBlock(obj){
    
     var deleteBtn=inClass[0];
     deleteBtn.style.display="block";
-
+    i++;
    
 }
 
@@ -112,6 +113,8 @@ function matchesPassword(){
         }      
 }
 
+
+
 function loadPrograms() {
     var xmlhttp = new XMLHttpRequest();
 
@@ -135,16 +138,18 @@ function loadPrograms() {
     xmlhttp.send();
 }
 
-
 function loadSubjects() {
     var xmlhttp = new XMLHttpRequest();
-
+  
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var displayedSubjects = JSON.parse(this.response); 
             for(var i = 0 ; i < displayedSubjects.length; i++){
+                var lines = displayedSubjects[i];
                 var option= document.createElement("option");
-                option.value= displayedSubjects[i];
+                option.value=lines[1];
+                option.id= lines[0];
+                console.log("value: " + option.value + " name: "+ option.id);
                 document.getElementById("subjects").appendChild(option);
              
             }   
@@ -157,44 +162,43 @@ function loadSubjects() {
     xmlhttp.send();
 }
 
-
-    function getElementsByClassName(id,obj){
-        var inClass = [];
-       
-     
-        function findClass(element){
-           
-                if(element.id === id){
-                inClass.push(element);
-            }
+function getElementsByClassName(id,obj){
+    var inClass = [];
+    
+    
+    function findClass(element){
+        
+            if(element.id === id){
+            inClass.push(element);
         }
-     
-        function testNodes(node,test){
-            test(node);
-            node = node.firstChild;
-            while(node){
-                testNodes(node,test);
-                node=node.nextSibling;
-            }
-        }
-     
-        testNodes(obj,findClass);
-        return inClass;
     }
-
-function hideItemFromList(){
-
-    // var list = getElementsByClassName("subjects",obj.parentNode);
-    // var str= obj.value;
     
-    // values = list[0].childNodes;
+    function testNodes(node,test){
+        test(node);
+        node = node.firstChild;
+        while(node){
+            testNodes(node,test);
+            node=node.nextSibling;
+        }
+    }
     
-    // values.forEach(element => {
-    //     console.log(str+ element.value);
+    testNodes(obj,findClass);
+    return inClass;
+}
+
+function hideItemFromList(obj){
+
+    var list = getElementsByClassName("subjects",obj.parentNode);
+    var str= obj.value;
+    
+    values = list[0].childNodes;
+    
+    values.forEach(element => {
+        console.log(str+ element.value);
         if (element.value === str){
-            element.setAttribute("style","display:none");
+            element.style.display="none";
              }     
-    // });
+    });
 }
 function showPswd() {
     var x = document.getElementById("password");
