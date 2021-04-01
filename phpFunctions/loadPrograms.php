@@ -3,7 +3,7 @@
 
 // Connecting, selecting database
 
-$host        = "host = 127.0.0.1";
+$host        = "host = localhost";
 $port        = "port = 5432";
 $dbname      = "dbname = hbz";
 $credentials = "user = postgres password=postgres";

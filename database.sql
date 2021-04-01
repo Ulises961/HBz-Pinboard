@@ -40,8 +40,8 @@ CREATE TABLE Users(
     password TEXT NOT NULL,
 
     CONSTRAINT valid_mail CHECK (mail ~ '^(.+)@(.+)$'),
-    CONSTRAINT valid_prefix CHECK (prefix ~ '^\+(?:[0-9]?){1,4}'),
-    CONSTRAINT valid_number CHECK (number ~ '^\d{4}\s\d{6}')
+    CONSTRAINT valid_prefix CHECK (prefix ~ '^(\+)?(?:[0-9]?){1,4}'),
+    CONSTRAINT valid_number CHECK (number ~ '^\d{4}(\s)?\d{6}')
 );
 
 CREATE TABLE Professor(

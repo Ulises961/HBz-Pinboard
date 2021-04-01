@@ -86,7 +86,7 @@ for faculty in faculties:
         person.append('0000')
         print(person)
         try:
-            conn = psycopg2.connect(database="hbz", user = "postgres", password = "postgres", host = "10.42.0.1", port = "5432")
+            conn = psycopg2.connect(database="hbz", user = "postgres", password = "postgres", host = "localhost", port = "5432")
             cur = conn.cursor()
 
 

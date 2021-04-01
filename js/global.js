@@ -1,38 +1,52 @@
 
+
 function displayOptions(obj){
 
     var selectBox = obj;
     var selected = selectBox.options[selectBox.selectedIndex].value;
+    
     var student_program = document.getElementById("study_program");
+    var student_input = document.getElementById("study_programs");
+   
     var subjects_taught = document.getElementById("professor_form");
+    var subject_input =document.getElementById("subject-input");
     
     
     if( selected === "student"){
      
         student_program.style.display="block";
+        student_input.removeAttribute("disabled");
+
         subjects_taught.style.display="none";
+        subject_input.setAttribute("disabled","enabled");
+       
         loadPrograms();
     }else if (selected === "professor"){
         
        subjects_taught.style.display="block";
        student_program.style.display="none";
+       student_input.setAttribute("disabled","enabled");
+       subject_input.removeAttribute("disabled");
        loadSubjects();
       
    }
     else{
         student_program.style.display="none";
         subjects_taught.style.display="none";
-
         
+        student_input.setAttribute("disabled","enabled");
+        subject_input.setAttribute("disabled","enabled");
     }
 }
 
-function addSubjectBlock(){
+function addSubjectBlock(obj){
     console.log("starting function");
     var block = document.getElementById("professor_form");
-    var originalAppendableBlock = document.getElementById("subjects-block");
+    var originalAppendableBlock = obj.parentNode.parentNode;
     var clnAppendableBlock = originalAppendableBlock.cloneNode(true);
-    
+    var input = getElementsByClassName("subject-input",clnAppendableBlock);
+    input[0].value="";
+   
     block.appendChild(clnAppendableBlock);
     
     var inClass=getElementsByClassName("deleteBtn",clnAppendableBlock);
@@ -71,27 +85,31 @@ function matchesPassword(){
 
         var firstPsswd= document.getElementById("password");
         var psswdCheck= document.getElementById("password-check");
-        var validPw= document.getElementById("cPwdValid");
-        var invalidPw= document.getElementById("cPwdInvalid");
-      
-      
-        if(firstPsswd.value === psswdCheck.value){
-            validPw.style.display="block";
-            invalidPw.style.display="none";
-            validPw.innerText='Matching ✔';
-      
-            console.log("valid PW");
-            
-
-        }else{
-            invalidPw.style.display="block";
-            validPw.style.display="none";
-            invalidPw.innerText='Not Matching ✘';
-
+        var matching_feedback= document.getElementById("matching-feedback");
+    
+        if(firstPsswd.value === ""){
+            matching_feedback.style.display="none";
             console.log("invalid PW");
-           
-        }
+                
+        }else{
+            matching_feedback.style.display="block";
 
+            if(firstPsswd.value === psswdCheck.value){
+            
+                matching_feedback.setAttribute("class","valid-feedback")
+                matching_feedback.innerText='Matching ✔';
+        
+      
+
+            }else{
+
+                matching_feedback.setAttribute("class","invalid-feedback")
+                matching_feedback.innerText='Not Matching ✘';
+
+             
+            
+            }
+        }      
 }
 
 function loadPrograms() {
@@ -103,6 +121,7 @@ function loadPrograms() {
             
           for(var i = 0 ; i < result.length; i++){
                 var option= document.createElement("option");
+                option.onchange= function(){ hideItemFromList();  };
                 option.value= result[i];
                 document.getElementById("programs").appendChild(option);
                   
@@ -122,14 +141,14 @@ function loadSubjects() {
 
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            var result = JSON.parse(this.response); 
-            
-          for(var i = 0 ; i < result.length; i++){
+            var displayedSubjects = JSON.parse(this.response); 
+            for(var i = 0 ; i < displayedSubjects.length; i++){
                 var option= document.createElement("option");
-                option.value= result[i];
+                option.value= displayedSubjects[i];
                 document.getElementById("subjects").appendChild(option);
              
             }   
+          
         }
     };
     
@@ -144,6 +163,7 @@ function loadSubjects() {
        
      
         function findClass(element){
+           
                 if(element.id === id){
                 inClass.push(element);
             }
@@ -161,3 +181,26 @@ function loadSubjects() {
         testNodes(obj,findClass);
         return inClass;
     }
+
+function hideItemFromList(){
+
+    // var list = getElementsByClassName("subjects",obj.parentNode);
+    // var str= obj.value;
+    
+    // values = list[0].childNodes;
+    
+    // values.forEach(element => {
+    //     console.log(str+ element.value);
+        if (element.value === str){
+            element.setAttribute("style","display:none");
+             }     
+    // });
+}
+function showPswd() {
+    var x = document.getElementById("password");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  } 

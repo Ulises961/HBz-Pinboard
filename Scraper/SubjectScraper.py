@@ -8,7 +8,7 @@ import psycopg2
 
 
 #### must set connection to db###
-conn = psycopg2.connect(database="hbz", user = "postgres", password = "xxxx", host = "localhost", port = "5432")
+conn = psycopg2.connect(database="hbz", user = "postgres", password = "postgres", host = "localhost", port = "5432")
 cur = conn.cursor()
 
 
