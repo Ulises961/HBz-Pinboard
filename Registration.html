@@ -35,7 +35,7 @@
                     <h2 class="title">Register</h2>
                 </div>
                 <div class="card-body">
-                    <form method="POST">
+                    <form action="functions.php" method="POST">
                         <div class="form-row m-b-55">
                             <div class="name">Name</div>
                             <div class="value">
@@ -91,14 +91,14 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="name">Student/Professor</div>
-                            <div class="value">
+                            <div class="">Student/Professor</div>
+                            <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="input-group">
                                     <div class="rs-select2 js-select-simple select--no-search">
-                                        <select name="subject">
-                                            <option disabled="disabled" selected="selected">Choose option</option>
-                                            <option>Student</option>
-                                            <option>Professor</option>
+                                        <select name="subject" id="usertype" onchange="displayOptions(this)">
+                                            <option disabled="enabled" selected="selected">Choose option</option>
+                                            <option value="student">Student</option>
+                                            <option value="professor">Professor</option>
                                         
                                         </select>
                                         <div class="select-dropdown"></div>
@@ -106,7 +106,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-row p-t-20">
+                        <div class="form-row p-t-20"  style="display:none" id="studentStatus">
                             <label class="label label--block">Are you a current student?</label>
                             <div class="p-t-15">
                                 <label class="radio-container m-r-55">Yes
@@ -130,7 +130,7 @@
 
     <!-- Jquery JS-->
     <script src="vendor/Menùjquery/Menùjquery.min.js"></script>
-    <!-- Vendor JS-->
+     <!--  Vendor JS -->
     <script src="vendor/select2/select2.min.js"></script>
     <script src="vendor/datepicker/moment.min.js"></script>
     <script src="vendor/datepicker/daterangepicker.js"></script>
