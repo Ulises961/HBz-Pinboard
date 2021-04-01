@@ -292,6 +292,45 @@ CREATE TABLE SendsMessageTo(
 
 -- TRIGGERS
 
+CREATE OR REPLACE FUNCTION insertSendsMessageTo()
+RETURNS TRIGGER AS $$
+BEGIN
+
+    IF NEW.time > LOCALTIME OR NEW.date > CURRENT_DATE OR NEW.date < CURRENT_DATE THEN 
+        RAISE EXCEPTION 'INVALID TIME OR DATE!';
+        RETURN NULL;
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER insert_sendsMessageTo
+BEFORE INSERT ON SendsMessageTo
+FOR EACH ROW EXECUTE
+PROCEDURE insertSendsMessageTo();
+
+CREATE OR REPLACE FUNCTION isUserPartOfConversation()
+RETURNS TRIGGER AS $$
+DECLARE participation RECORD;
+BEGIN
+
+    SELECT EXISTS( SELECT * FROM PartecipatesInConversation WHERE users = NEW.users AND conversation = NEW.conversation) INTO participation;
+
+    IF participation.exists THEN 
+        RETURN NEW;     
+    ELSE
+        RAISE EXCEPTION 'THE USER IS NOT A PARTECIPANT OF THIS CONVERSATION';
+        RETURN NULL;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER is_user_part_of_conversation
+BEFORE INSERT ON SendsMessageTo
+FOR EACH ROW EXECUTE
+PROCEDURE isUserPartOfConversation();
+
 CREATE OR REPLACE FUNCTION insertArticle()
 RETURNS TRIGGER AS $$
 DECLARE answer RECORD;
