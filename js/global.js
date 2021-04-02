@@ -1,3 +1,4 @@
+
 function displayOptions(obj){
 
     var selectBox = obj;
@@ -52,20 +53,19 @@ function displayOptions(obj){
     }
 }
 
-var i = 1;
 
 function addSubjectBlock(obj){
   
-    var block = document.getElementById("professor_form");
+    var block = document.getElementById("professor_form"); 
     var originalAppendableBlock = obj.parentNode.parentNode;
     var clnAppendableBlock = originalAppendableBlock.cloneNode(true);
-    var input = getElementsByClassName("subject-input",clnAppendableBlock);
+    var input = findId("subject-input",clnAppendableBlock); 
     input[0].name="subject-input["+i+"]";
     input[0].value="";
    
     block.appendChild(clnAppendableBlock);
     
-    var inClass=getElementsByClassName("deleteBtn",clnAppendableBlock);
+    var inClass=findId("deleteBtn",clnAppendableBlock);
    
     var deleteBtn=inClass[0];
     deleteBtn.style.display="block";
@@ -81,21 +81,6 @@ function deleteSubjectBlock(obj){
     
 }
 
-function validPswd(obj){
-    var pswd=obj.value;
-    matchesPassword();
-    var pswdValid=document.getElementById("pswd-feedback");
-    if(pswd.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)){
-        pswdValid.setAttribute("class","valid-feedback");
-        pswdValid.innerText="Valid ✔";
-        pswdValid.style.display="block";
-    }else{
-        pswdValid.setAttribute("class","invalid-feedback");
-        pswdValid.innerText="Password must be at least 6 charachters long, contain an uppercase letter (A-Z), a lowercase letter (a-z) and a digit (1-9).";
-        pswdValid.style.display="block";
-
-    }
-}
 
 function matchesPassword(){
 
@@ -110,7 +95,7 @@ function matchesPassword(){
         }else{
             matching_feedback.style.display="block";
 
-            if(firstPsswd.value === psswdCheck.value){
+            if(firstPsswd.value === psswdCheck.value ){
             
                 matching_feedback.setAttribute("class","valid-feedback")
                 matching_feedback.innerText='Matching ✔';
@@ -127,6 +112,73 @@ function matchesPassword(){
             }
         }      
 }
+
+
+
+
+function validPswd(obj){
+
+    var regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+    var message = "Password must be at least 6 charachters long, contain an uppercase letter (A-Z), a lowercase letter (a-z) and a digit (1-9).";
+    
+    
+    var pswd=obj.value;
+    matchesPassword();
+    var pswdFeedback=document.getElementById("pswd-feedback");
+    validityCheck(regex,message,pswd,pswdFeedback);
+  
+    
+}
+
+
+function validityCheck(regex, message, valueToTest,messageDiv){
+
+    if(valueToTest.match(regex)){
+        messageDiv.setAttribute("class","valid-feedback");
+        messageDiv.innerText="Valid ✔";
+        messageDiv.style.display="flex";
+    }else{
+        messageDiv.setAttribute("class","invalid-feedback");
+        messageDiv.innerText=message;
+        messageDiv.style.display="flex";
+
+    }
+
+
+}
+
+function phoneCheck(obj){
+
+    var regex = /^\d{4}\s?\d{6}$/;
+    var message = "Phone number must be 10 digits long";
+ 
+    var number=obj.value;
+    var phoneFeedback=document.getElementById("phone-feedback");
+    validityCheck(regex,message,number,phoneFeedback);
+  
+
+}
+
+function prefixCheck(obj){
+
+    var regex = /^(\+)?(?:[0-9]?){1,4}$/;
+
+    var message = "'+'/'00'(prefix)";
+ 
+    var number=obj.value;
+    var prefixFeedback=document.getElementById("prefix-feedback");
+    validityCheck(regex,message,number,prefixFeedback);
+  
+
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -177,7 +229,7 @@ function loadSubjects() {
     xmlhttp.send();
 }
 
-function getElementsByClassName(id,obj){
+function findId(id,obj){
     var inClass = [];
     
     
@@ -203,7 +255,7 @@ function getElementsByClassName(id,obj){
 
 function hideItemFromList(obj){
 
-    var list = getElementsByClassName("subjects",obj.parentNode);
+    var list = findId("subjects",obj.parentNode);
     var str= obj.value;
     
     values = list[0].childNodes;

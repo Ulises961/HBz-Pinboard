@@ -127,15 +127,19 @@
                                 <div class="row row-refine">
                                     <div class="col-3">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="area_code" required>
+                                            <input class="input--style-5" type="text" name="area_code" onkeyup="prefixCheck(this)" required>
+                                            <div id="prefix-feedback"></div>
                                             <label class="label--desc">Area Code</label>
+                                            
                                         </div>
                                     </div>
 
                                     <div class="col-9">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="phone" required>
+                                            <input class="input--style-5" type="text" name="phone" onkeyup="phoneCheck(this)" required>
+                                            <div id="phone-feedback"></div>
                                             <label class="label--desc">Phone Number</label>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -149,12 +153,11 @@
                                 
                                 <div class="input-group-desc">
                                     <input class="input--style-5" type="password" name="pswd"
-                                        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$" id="password"
+                                        id="password"
                                         onkeyup="validPswd(this)" required>
                                        
-                                    <div id="pswd-feedback" display="none"></div>
+                                    <div id="pswd-feedback"></div>
                                     
-
                                 </div>
                                 <div class="d-md-table-row">
                                     <input class="d-table-cell p-t-15" type="checkbox" id=show-pswd onclick="showPswd()">
