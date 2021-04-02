@@ -1,20 +1,20 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
 
-<link href="FinalChat.css" rel="stylesheet">
+
 <html>
 
 <head>
-
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css"
     rel="stylesheet">
-    <script src="chat.js"> </script>
+    <link href="FinalChat.css" rel="stylesheet">
 
 </head>
 
 <body>
+  
+  <script src="chat.js"></script>
   <div class="container">
     <h3 class=" text-center" id="conversationTitle">Messaging</h3>
     <div class="messaging">
@@ -33,7 +33,7 @@
               </div>
             </div>
           </div>
-
+  
           <!-- ALL THE ONGOING CONVERSATIONS WILL BE LOADED INSIDE THIS DIV -->
           <div class="inbox_chat">
             <?php  include "getConversations.php";?>
@@ -78,3 +78,4 @@
 </body>
 
 </html>
+

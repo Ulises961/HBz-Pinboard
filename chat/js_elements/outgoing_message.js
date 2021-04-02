@@ -7,7 +7,7 @@ function createOutgoingMessage(message) {
 
     // ASSIGNING CLASSES
     outgoing_msg.className = "outgoing_msg";
-    sent_msg.className     = "receiver_withd_msg"
+    sent_msg.className     = "sent_msg"
     time_date.className    = "time_date";
     
     // ASSIGNING INNER TEXT
