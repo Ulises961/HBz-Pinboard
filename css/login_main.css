@@ -779,3 +779,7 @@ input {
     padding-bottom: 50px;
   }
 }
+
+.form-row.hidden{
+display: none;
+}

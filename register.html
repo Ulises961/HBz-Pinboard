@@ -157,8 +157,8 @@
 
                                 </div>
                                 <div class="d-md-table-row">
-                                    <input class="d-table-cell" type="checkbox" id=show-pswd onclick="showPswd()">
-                                    <label class="d-table-cell" label--desc">Show password</label>
+                                    <input class="d-table-cell p-t-15" type="checkbox" id=show-pswd onclick="showPswd()">
+                                    <label class="d-table-cell p-t-15" label--desc">Show password</label>
                                 </div>   
                             </div>
                                                          
@@ -166,7 +166,7 @@
                         <div class="form-row m-b-55">
                             <div class="name">Repeat Password*</div>
                             <div class="value">
-                                <div class="input-group">
+                                <div class="input-group-desc">
                                     <input class="input--style-5" type="password" id="password-check"
                                         onkeyup="matchesPassword()" required>
                                     <div id="matching-feedback"></div>
@@ -175,7 +175,7 @@
                             </div>
                         </div>
                         <!-- Student - Professor - External user -->
-                        <div class="form-row">
+                        <div class="form-row m-b-55">
                             <div class="name">User*</div>
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 
@@ -192,23 +192,58 @@
                             </div>
                         </div>
                         <!-- list of programs offered by the university -->
-                        <div class="form-row p-t-20" id="study_program">
+                        <div class="form-row hidden" id="study_program" style="display: none;">
                             <label class="label label--block">Select your program of studies</label>
                             <div class="p-t-15">
-                                <input type="text" name="study_programs" id="study_programs" placeholder="Eg. Computer Science" list="programs"
-                               required >
+                                <input  type="text" name="study_programs" id="study_programs" placeholder="Eg. Computer Science" list="programs" required >
                                 <datalist class="program_list" id="programs"></datalist>
                             </div>
                         </div>
 
+
+
+                        <!-- Office Hours -->
+
+                        <div class="form-row hidden m-b-55" id="office_hours_block">
+                            <div class="name">Office hours</div>
+                                <div class="value  p-t-15"">
+
+                                    <div class="input-group-desc">
+                                        <input class="input--style-5" type="text" name="office_hours" id="office_hours" placeholder="Eg. Friday, 10:00-12:00" list="weekdays">
+                                        <datalist id="weekdays">
+                                            <option value="Monday"></option>
+                                            <option value="Tuesday"></option>
+                                            <option value="Wednesday"></option>
+                                            <option value="Thursday"></option>
+                                            <option value="Friday"></option>
+                                        </datalist>
+                                        <div id="matching-feedback"></div>
+                                    </div>
+                                </div>
+                        </div>
+
+
+
+                        <!-- Office -->
+                        
+                        <div class="form-row hidden m-b-55" id="office_block" >
+                            <div class="name">Office </div>
+                            <div class="value  p-t-15"">
+                                <div class="input-group">
+                                    <input class="input--style-5  p-t-15"" type="text" name="office" id="office" placeholder="Eg. BZ P0.00">
+                                    <div id="matching-feedback"></div>
+                                </div>
+                            </div>
+                        </div>
+    
+
                         <!-- list of subjects a professor may teach  -->
-                        <div class="form-row p-t-20" id="professor_form">
+                        <div class="form-row hidden m-b-55" id="professor_form">
                             <label class="label label--block">Select the subject(s) you are teaching at the
                                 moment</label>
                             <div class="row p-t-15" id="subjects-block">
                                  <div class="col-md-8 col-xs-12">
-                                    <input type="text" name="subject-input[0]" id="subject-input" placeholder="Eg. Analysis" list="subjects" onchange="hideItemFromList(this)"
-                                        required>
+                                    <input  type="text" name="subject-input[0]" id="subject-input" placeholder="Eg. Analysis" list="subjects" required>
                                     <datalist class="subjects_list" id="subjects"></datalist>
                                 </div>
                                 <div class="col">
@@ -222,9 +257,11 @@
                             </div>
                         </div>
 
+
                         <div>
                             <button class="btn btn--radius-2 btn--red" id="submitBtn" type="submit">Register</button>
                         </div>
+
                     </form>
                 </div>
             </div>

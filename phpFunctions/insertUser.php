@@ -24,6 +24,8 @@ $pswd=$_POST['pswd'];
 $usertype=$_POST['usertypes'];
 $program=$_POST['study_programs'];
 $subjects=$_POST['subject-input'];
+$office=$_POST['office'];
+$office_hours=$_POST['office_hours'];
 echo "$subjects[0]";
 //testing null values on optional fields of the form
 
@@ -35,7 +37,7 @@ if($prefix === "" || $number === ""){
 
 echo '<p>afterVariables</p>';
 
-echo  "{$name}, {$surname }, {$prefix},{$number},{$mail},{$pswd} $program $usertype";
+echo  "{$name}, {$surname }, {$prefix},{$number},{$mail},{$pswd} $program $usertype\n";
 
 // Creating a user
 
@@ -45,7 +47,7 @@ $result = pg_execute($dbconn,"userInsertion",array($name,$surname,$prefix,$numbe
 
 $row = pg_fetch_row($result);
 
-$id=$row[0];
+$id= intval($row[0]);
 
 echo "\nid: << $id >>";
 
@@ -65,11 +67,7 @@ if(!$result) {
         
         $result = pg_execute($dbconn,"selectProgram",array($program));
 
-        if(!$result) {
-            echo pg_last_error($dbconn);
-            exit;
-        } 
-
+       
         $row = pg_fetch_row($result);
         $program_id = $row[0];
       
@@ -85,17 +83,35 @@ if(!$result) {
 
     }
 
-if($usertype === "professor"){
+else if($usertype === "professor"){
 
+       
+    pg_prepare($dbconn,"insertProfessor",'INSERT INTO Professor VALUES($1,$2,$3)');
+    $result = pg_execute($dbconn,"insertProfessor",array($id,$office_hours,$office));
+
+    if(!$result) {
+        echo "error while inserting professor tuple" . pg_last_error($dbconn);
+        exit;
+    } 
+    
     foreach($subjects as $index => $subject){
-        pg_prepare($dbconn,"selectSubject",'SELECT id FROM Subject WHERE name= $1');
-        
-        $result = pg_execute($dbconn,"selectSubject",array($subject));
 
+       
+        pg_prepare($dbconn,"selectSubject",'SELECT id FROM Subject WHERE name= $1');
+       
+        $result = pg_execute($dbconn,"selectSubject",array($subject));
+        $row = pg_fetch_row($result);
+        $subject = $row[0];
+        echo "id variable is: $id and subject id is: $subject\n";
+
+        pg_prepare($dbconn,"teaches",'INSERT INTO Teaches VALUES($1,$2)');
+        $result = pg_execute($dbconn,"teaches",array($id,$subject));
+        echo "\nsubject id is: $subjext";
         if(!$result) {
             echo pg_last_error($dbconn);
             exit;
         } 
+        
     }
 
 }

@@ -9,6 +9,9 @@ function displayOptions(obj){
     var subjects_taught = document.getElementById("professor_form");
     var subject_input =document.getElementById("subject-input");
     
+    var office_hours =document.getElementById("office_hours_block");
+    var office =document.getElementById("office_block");
+    
     
     if( selected === "student"){
      
@@ -17,6 +20,10 @@ function displayOptions(obj){
 
         subjects_taught.style.display="none";
         subject_input.disabled="enabled";
+
+        office.style.display="none";
+        office_hours.style.display="none";
+
        
         loadPrograms();
     }else if (selected === "professor"){
@@ -27,6 +34,9 @@ function displayOptions(obj){
        subject_input.removeAttribute("disabled");
        loadSubjects();
       
+       office.style.display="flex";
+       office_hours.style.display="flex";
+
    }
     else{
         student_program.style.display="none";
@@ -34,6 +44,11 @@ function displayOptions(obj){
         
         student_input.disabled="enabled";
         subject_input.disabled="enabled";
+
+
+        office.style.display="none";
+        office_hours.style.display="none";
+
     }
 }
 
@@ -149,7 +164,7 @@ function loadSubjects() {
                 var option= document.createElement("option");
                 option.value=lines[1];
                 option.id= lines[0];
-                console.log("value: " + option.value + " name: "+ option.id);
+             
                 document.getElementById("subjects").appendChild(option);
              
             }   
