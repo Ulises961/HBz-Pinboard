@@ -1,5 +1,5 @@
 <?php
-    include "php/conversationElement.php";
+    include "conversationElement.php";
     
     // The database credentials must be stored in another folder
     $host = "localhost";

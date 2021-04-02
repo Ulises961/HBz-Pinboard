@@ -1,5 +1,3 @@
-// import {createIncomingMessage} from './js_elements/incoming_message.js';
-// import {createOutgoingMessage} from './js_elements/outgoing_message.js';
 
 function changeConversation(id, title) {
   console.log("aadasdasasdsad");
@@ -30,7 +28,7 @@ function createIncomingMessage(message) {
   img.alt = "sunil";
   
   // ASSIGNING INNER TEXT
-  time_date.innerText = message.time + " | " + message.date;
+  time_date.innerText    = message.time + " | " + message.date;
   message_text.innerText = message.text;
 
   // NESTING ELEMENTS
@@ -56,7 +54,7 @@ function createOutgoingMessage(message) {
   time_date.className    = "time_date";
   
   // ASSIGNING INNER TEXT
-  time_date.innerText = message.time + " | " + message.date;
+  time_date.innerText    = message.time + " | " + message.date;
   message_text.innerText = message.text;
 
   // NESTING ELEMENTS
