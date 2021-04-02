@@ -1,29 +1,8 @@
+import {createIncomingMessage} from './js_elements/incoming_message.js';
+import {createOutgoingMessage} from './js_elements/outgoing_message.js';
+
 var chatUpdateInterval;
 var user = 1;
-
-function createHTMLMessage(message) {
-  var messageElement = document.createElement("div");
-  var spaceColumn = document.createElement("div");
-  var messageContent = document.createElement("div");
-
-  messageElement.className = "row";
-  messageElement.id = message.id;
-  spaceColumn.className = "col-9";
-  messageContent.className = "col-md-auto";
- 
-  if(message.users == user)
-    messageContent.style = "background-color: goldenrod;";
-  else
-    messageContent.style = "background-color: fuchsia;";
-
-
-  messageContent.innerText = message.time + ": " + message.text;
-
-  messageElement.appendChild(messageContent);
-  messageElement.appendChild(spaceColumn);
-
-  return messageElement;
-}
 
 function sendMessage() {
   var message_text = document.getElementById("inputMessage").value;
@@ -80,11 +59,11 @@ function showConversations() {
   xmlhttp.send();
 }
 
-showConversations();
+// showConversations();
 
 function loadConversation(conversation) {
   clearTimeout(chatUpdateInterval);
-  document.getElementById("messages_section").innerHTML = '';
+  document.getElementById("msg_history").innerHTML = '';
   var xmlhttp = new XMLHttpRequest();
   var lastMessageTime;
 
@@ -97,11 +76,16 @@ function loadConversation(conversation) {
 
         messages.forEach(json_message => {
           var message = JSON.parse(json_message);
-          var message_element = createHTMLMessage(message);
+          var message_element = null;
+
+          if(message.users == user)
+            message_element = createOutgoingMessage(message);
+          else
+            message_element = createIncomingMessage(message);
+
           lastMessageTime = message.time;
-          console.log(message.time);
           
-          document.getElementById("messages_section").appendChild(message_element);
+          document.getElementById("msg_history").appendChild(message_element);
           message_element.scrollIntoView();
         });
 
@@ -119,7 +103,7 @@ function loadConversation(conversation) {
 
 function changeConversation(id, title) {
   document.getElementById("conversationTitle").innerText = title;
-  document.getElementById("sendMessageBtn").value = id;
+  document.getElementById("msg_send_btn").value = id;
   loadConversation(id);
 }
 
@@ -134,11 +118,17 @@ function updateConversation(conversation, lastMessageTime) {
 
         messages.forEach(json_message => {
           var message = JSON.parse(json_message);
-          var message_element = createHTMLMessage(message);
+          var message_element = null;
+
+          if(message.users == user)
+            message_element = createOutgoingMessage(message);
+          else
+            message_element = createIncomingMessage(message);
+
           lastMessageTime = message.time;
           console.log(message.time);
 
-          document.getElementById("messages_section").appendChild(message_element);
+          document.getElementById("msg_history").appendChild(message_element);
           message_element.scrollIntoView();
         });
 
