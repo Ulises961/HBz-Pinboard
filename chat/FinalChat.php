@@ -3,18 +3,18 @@
 <html>
 
 <head>
+  <link href="FinalChat.css" rel="stylesheet">
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css"rel="stylesheet">
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css"
-    rel="stylesheet">
-    <link href="FinalChat.css" rel="stylesheet">
-
+  
+  <!-- this script contains the whole chat logic -->
+  <script src="chat.js"></script>
 </head>
 
 <body>
   
-  <script src="chat.js"></script>
   <div class="container">
     <h3 class=" text-center" id="conversationTitle">Messaging</h3>
     <div class="messaging">
@@ -41,26 +41,12 @@
 
         </div>
         <div class="mesgs">
+
           <div class="msg_history" id="msg_history">
-            <div class="incoming_msg">
-              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil">
-              </div>
-              <div class="received_msg">
-                <div class="received_withd_msg">
-                  <p>Test which is a new approach to have all
-                    solutions</p>
-                  <span class="time_date"> 11:01 AM | June 9</span>
-                </div>
-              </div>
-            </div>
-            <div class="outgoing_msg">
-              <div class="sent_msg">
-                <p>Test which is a new approach to have all
-                  solutions</p>
-                <span class="time_date"> 11:01 AM | June 9</span>
-              </div>
-            </div>
+            <!-- THE MESSAGES OF THE CHAT WILL BE LOADED HERE USING AJAX -->
           </div>
+
+          <!-- INPUT-FIELD AND BUTTON TO SEND A MESSAGE -->
           <div class="type_msg">
             <div class="input_msg_write">
               <input type="text" class="write_msg" name="inputMessage" id="inputMessage" placeholder="Type a message" />
@@ -69,6 +55,7 @@
               </button>
             </div>
           </div>
+
         </div>
       </div>
 

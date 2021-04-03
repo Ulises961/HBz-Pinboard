@@ -1,6 +1,5 @@
 
 function changeConversation(id, title) {
-  console.log("aadasdasasdsad");
   document.getElementById("conversationTitle").innerText = title;
   document.getElementById("msg_send_btn").value = id;
   loadConversation(id);
@@ -69,7 +68,6 @@ var chatUpdateInterval;
 var user = 1;
 
 function sendMessage() {
-  var message_text = document.getElementById("inputMessage").value;
   var xmlhttp = new XMLHttpRequest();
 
   xmlhttp.onreadystatechange = function () {
@@ -79,7 +77,9 @@ function sendMessage() {
   };
 
   var conversation = document.getElementById("msg_send_btn").value;
+  var message_text = document.getElementById("inputMessage").value;
   var parameters = "conversation=" + conversation + "&message=" + message_text + "&user=" + user;
+  document.getElementById("inputMessage").value = " ";
 
   xmlhttp.open("GET", "./sendMessage.php?" + parameters, true);
   xmlhttp.send();
