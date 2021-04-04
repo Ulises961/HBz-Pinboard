@@ -258,7 +258,9 @@ CREATE TABLE Session(
 
 CREATE TABLE Conversation(
     id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL
+    name VARCHAR(255) NOT NULL,
+    last_change DATE,
+    last_message VARCHAR(255) 
 );
 
 CREATE TABLE PartecipatesInConversation(
@@ -290,7 +292,7 @@ CREATE TABLE SendsMessageTo(
 );
 
 
--- TRIGGERS
+-- STORED PROCEDURES
 
 CREATE OR REPLACE FUNCTION insertSendsMessageTo()
 RETURNS TRIGGER AS $$
@@ -304,11 +306,6 @@ BEGIN
     END IF;
 END;
 $$ LANGUAGE plpgsql;
-
-CREATE TRIGGER insert_sendsMessageTo
-BEFORE INSERT ON SendsMessageTo
-FOR EACH ROW EXECUTE
-PROCEDURE insertSendsMessageTo();
 
 CREATE OR REPLACE FUNCTION isUserPartOfConversation()
 RETURNS TRIGGER AS $$
@@ -326,11 +323,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER is_user_part_of_conversation
-BEFORE INSERT ON SendsMessageTo
-FOR EACH ROW EXECUTE
-PROCEDURE isUserPartOfConversation();
-
 CREATE OR REPLACE FUNCTION insertArticle()
 RETURNS TRIGGER AS $$
 DECLARE answer RECORD;
@@ -346,11 +338,6 @@ BEGIN
     END IF;
 END;
 $$ LANGUAGE plpgsql;
-
-CREATE TRIGGER insert_article
-BEFORE INSERT ON Article
-FOR EACH ROW EXECUTE
-PROCEDURE insertArticle();
 
 CREATE OR REPLACE FUNCTION insertAnswer()
 RETURNS TRIGGER AS $$
@@ -368,11 +355,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER insert_answer
-BEFORE INSERT ON Answer
-FOR EACH ROW EXECUTE
-PROCEDURE insertAnswer();
-
 CREATE OR REPLACE FUNCTION insertQuestion()
 RETURNS TRIGGER AS $$
 DECLARE answer RECORD;
@@ -389,63 +371,16 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER insert_question
-BEFORE INSERT ON Question
-FOR EACH ROW EXECUTE
-PROCEDURE insertQuestion();
-
--- THE FOLLOWING ARE INSERTS USED TO TEST THE TRIGGERS
-
---  INSERT INTO Users VALUES(1,'bob', 'freeman', '+39', '3961415473', 'password', 'bob@gmail.com');
-
--- INSERT INTO Post VALUES(1, 1, '14.03.2021', '14:05:00', 'title', 'question');
--- INSERT INTO Question VALUES(1);  <== this should work
-
--- INSERT INTO Post VALUES(2, 1, '14.03.2021', '14:05:00', 'title', 'this is an answer');
-
--- INSERT INTO Answer VALUES(1,1); <== this should not work
-
--- INSERT INTO Answer VALUES(2,1); <== this should work
--- INSERT INTO Session VALUES(1,'14-02-2021', '15:15:00','16:00:00', NULL);
-
-CREATE OR REPLACE FUNCTION insertProfessor()
+CREATE OR REPLACE FUNCTION update_conversation()
 RETURNS TRIGGER AS $$
-DECLARE student RECORD;
 BEGIN
-    SELECT EXISTS( SELECT * FROM Student WHERE id  = NEW.id) INTO student;
-  
-    IF student.exists THEN
-        RETURN NULL;
-    ELSE
-        RETURN NEW;
-    END IF;
+    UPDATE conversation
+    SET last_change = NEW.date, last_message = NEW.text
+    WHERE id = NEW.conversation;
+
+    RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
-
-CREATE TRIGGER insert_professor
-BEFORE INSERT ON Professor
-FOR EACH ROW EXECUTE
-PROCEDURE insertProfessor();
-
-
-CREATE OR REPLACE FUNCTION insertStudent()
-RETURNS TRIGGER AS $$
-DECLARE professor RECORD;
-BEGIN
-    SELECT EXISTS( SELECT * FROM Professor WHERE id = NEW.id) INTO professor;
-
-    IF professor.exists THEN 
-        RETURN NULL;
-    ELSE
-        RETURN NEW;
-    END IF;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER insert_student
-BEFORE INSERT ON Student
-FOR EACH ROW EXECUTE
-PROCEDURE insertStudent();
 
 CREATE OR REPLACE FUNCTION is_user_logged_in()
 RETURNS TRIGGER AS $$
@@ -461,6 +396,76 @@ BEGIN
     END IF;
 END;
 $$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION insertStudent()
+RETURNS TRIGGER AS $$
+DECLARE professor RECORD;
+BEGIN
+    SELECT EXISTS( SELECT * FROM Professor WHERE id = NEW.id) INTO professor;
+
+    IF professor.exists THEN 
+        RETURN NULL;
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION insertProfessor()
+RETURNS TRIGGER AS $$
+DECLARE student RECORD;
+BEGIN
+    SELECT EXISTS( SELECT * FROM Student WHERE id  = NEW.id) INTO student;
+  
+    IF student.exists THEN
+        RETURN NULL;
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+-- TRIGGERS
+
+CREATE TRIGGER insert_sendsMessageTo
+BEFORE INSERT ON SendsMessageTo
+FOR EACH ROW EXECUTE
+PROCEDURE insertSendsMessageTo();
+
+CREATE TRIGGER is_user_part_of_conversation
+BEFORE INSERT ON SendsMessageTo
+FOR EACH ROW EXECUTE
+PROCEDURE isUserPartOfConversation();
+
+CREATE TRIGGER insert_article
+BEFORE INSERT ON Article
+FOR EACH ROW EXECUTE
+PROCEDURE insertArticle();
+
+CREATE TRIGGER insert_answer
+BEFORE INSERT ON Answer
+FOR EACH ROW EXECUTE
+PROCEDURE insertAnswer();
+
+CREATE TRIGGER insert_question
+BEFORE INSERT ON Question
+FOR EACH ROW EXECUTE
+PROCEDURE insertQuestion();
+
+CREATE TRIGGER update_conversation
+AFTER INSERT ON SendsMessageTo
+FOR EACH ROW EXECUTE
+PROCEDURE update_conversation();
+
+CREATE TRIGGER insert_professor
+BEFORE INSERT ON Professor
+FOR EACH ROW EXECUTE
+PROCEDURE insertProfessor();
+
+CREATE TRIGGER insert_student
+BEFORE INSERT ON Student
+FOR EACH ROW EXECUTE
+PROCEDURE insertStudent();
 
 CREATE TRIGGER  check_login_Post
 BEFORE INSERT OR UPDATE OR DELETE ON Post
