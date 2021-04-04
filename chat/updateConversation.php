@@ -11,15 +11,22 @@
     $date = date("d/m/y");
 
     try {
-      $db = new PDO($conn_string);
-      $query = "select * from sendsMessageTo where conversation = $conversation and date = '$date' and time > '$time'";
-      $result = $db->query($query);
+      $dbh = new PDO($conn_string);
+      $select_from = "SELECT * FROM SendsMessageTo ";
+      $where = "WHERE conversation = :conversation AND date = :date AND time > :time";
+      
+      $sql = $select_from.$where;
+      $query = $dbh -> prepare($sql);
+
+      $query-> bindParam(':conversation', $conversation, PDO::PARAM_INT);
+      $query-> bindParam(':date', $date, PDO::PARAM_STR);
+      $query-> bindParam(':time', $time, PDO::PARAM_STR);
+      $query-> execute();
+
       $messages = array();
   
-      while ($message = $result->fetch(PDO::FETCH_ASSOC))
+      while ($message = $query->fetch())
         array_push($messages, json_encode($message));
-
-      $result->closeCursor();
 
       if(empty($messages))
         echo "no new message\n";

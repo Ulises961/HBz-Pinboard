@@ -17,9 +17,9 @@
   try {
     $dbh = new PDO($conn_string);
 
-    $select = "SELECT c.id, c.name ";
-    $from = "FROM conversation c, partecipatesinconversation p ";
-    $where = "WHERE c.id = p.conversation AND p.users = :user";
+    $select = "SELECT id, name, last_change, last_message ";
+    $from = "FROM conversation , partecipatesinconversation ";
+    $where = "WHERE id = conversation AND users = :user";
 
     $sql =  $select.$from.$where;
 
@@ -30,11 +30,12 @@
     if($query->rowCount() > 0) {
 
       while($row = $query->fetch()){
+        // echo implode($row);
         createConversationElement(
           $row["id"],
           $row["name"],
-          "02/04/2021",
-          "Ex qui sit nostrud aliqua adipisicing consequat. Dolore commodo adipisicing esse esse et adipisicing velit minim labore veniam ex.",
+          $row["last_change"],
+          $row["last_message"],
           "https://ptetutorials.com/images/user-profile.png"
         );
       }

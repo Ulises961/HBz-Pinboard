@@ -36,7 +36,7 @@
   
           <!-- ALL THE ONGOING CONVERSATIONS WILL BE LOADED INSIDE THIS DIV -->
           <div class="inbox_chat">
-            <?php  include "getConversations.php";?>
+            <?php include "getConversations.php";?>
           </div>
 
         </div>

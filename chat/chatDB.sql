@@ -255,8 +255,8 @@ CREATE TABLE Session(
 CREATE TABLE Conversation(
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    last_change DATE NOT NULL,
-    last_message VARCHAR(255) NOT NULL
+    last_change DATE,
+    last_message VARCHAR(255) 
 );
 
 CREATE TABLE PartecipatesInConversation(
@@ -458,8 +458,10 @@ CREATE OR REPLACE FUNCTION update_conversation()
 RETURNS TRIGGER AS $$
 BEGIN
     UPDATE conversation
-    SET last_change = NEW.date, last_message = NEW.last_message
+    SET last_change = NEW.date, last_message = NEW.text
     WHERE id = NEW.conversation;
+
+    RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -467,11 +469,6 @@ CREATE TRIGGER update_conversation
 AFTER INSERT ON SendsMessageTo
 FOR EACH ROW EXECUTE
 PROCEDURE update_conversation();
--- id SERIAL PRIMARY KEY,
---     date DATE NOT NULL,
---     time TIME NOT NULL,
---     text VARCHAR(255) NOT NULL,
---     users INTEGER NOT NULL,
---     conversation INTEGER NOT NULL,
+
 
 
