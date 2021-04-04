@@ -4,19 +4,27 @@ include "chat_credentials.php";
 $conversation = $_REQUEST["conversation"];
 
 try {
-  $db = new PDO($conn_string);
-  $result = $db->query("select * from sendsMessageTo where conversation = $conversation order by date asc, time asc");
+  $dbh = new PDO($conn_string);
+  $select_from = "SELECT * FROM SendsMessageTo ";
+  $where = "WHERE conversation = :conversation ORDER BY date ASC, time ASC";
+  
+  $sql = $select_from.$where;
+  $query = $dbh -> prepare($sql);
+
+  $query-> bindParam(':conversation', $conversation, PDO::PARAM_INT);
+  $query-> execute();
 
   $messages = array();
-  
-  while ($message = $result->fetch(PDO::FETCH_ASSOC)) {
 
+  while ($message = $query->fetch())
     array_push($messages, json_encode($message));
-    // echo $row;
-  }
-  $result->closeCursor();
 
-  echo json_encode($messages);
+  if(empty($messages))
+    echo "no new message\n";
+  else{
+    echo json_encode($messages);
+  }
+
 } catch (Exeception $e) {
   echo"error";
   echo $e;

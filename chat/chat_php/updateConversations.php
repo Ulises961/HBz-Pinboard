@@ -1,5 +1,4 @@
 <?php
-include "conversationElement.php";
 include "chat_credentials.php";
 
 // right now we are onlu testing and there is no session vairable set
@@ -20,22 +19,14 @@ try {
   $query-> execute();
 
   if($query->rowCount() > 0) {
+    $conversations = array();
 
-    while($row = $query->fetch()){
-      // echo implode($row);
-      createConversationElement(
-        $row["id"],
-        $row["name"],
-        $row["last_change"],
-        $row["last_message"],
-        "https://ptetutorials.com/images/user-profile.png"
-      );
-    }
-
+    while($row = $query->fetch())
+      array_push($conversations, json_encode($row));
+      
+    echo json_encode($conversations);
   } 
-  
 
-  echo "<script> updateConversations(); </script>";
 } catch (Exeception $e) {
   echo $e;
 }

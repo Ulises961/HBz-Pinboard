@@ -8,7 +8,7 @@ $date = date("d/m/y");
 try {
   $dbh = new PDO($conn_string);
   $select_from = "SELECT * FROM SendsMessageTo ";
-  $where = "WHERE conversation = :conversation AND date = :date AND time > :time";
+  $where = "WHERE conversation = :conversation AND date = :date AND time > :time ORDER BY date ASC, time ASC";
   
   $sql = $select_from.$where;
   $query = $dbh -> prepare($sql);

@@ -1,5 +1,6 @@
-var chatUpdateInterval = 2500; // this is the update frequency
-var chat_timeout; // this is the variable on which the timeout function is called
+var update_interval = 2500; // this is the update frequency
+var chat_update_timeout; // this is the variable on which the timeout function is called
+var conversation_update_timeout; // this is the variable on which the timeout function is called
 var user = 1; // this is the id of the currently logged user, it must be changed in the future
 
 
@@ -9,7 +10,7 @@ function changeConversation(id, title) {
   document.getElementById("conversationTitle").innerText = title;
   document.getElementById("msg_send_btn").value = id;
   document.getElementById("msg_history").innerHTML = '';
-  clearTimeout(chat_timeout); // stops updating the previous conversation
+  clearTimeout(chat_update_timeout); // stops updating the previous conversation
   loadConversation(id);
 }
 
@@ -46,7 +47,8 @@ function loadConversation(conversation) {
       if (isJson(this.responseText)) {
         var messages = JSON.parse(this.responseText);
 
-        messages.forEach(message => {
+        messages.forEach(json_message => {
+          var message = JSON.parse(json_message);
           var message_element = createMessageElement(message);
 
           lastMessageTime = message.time;
@@ -61,7 +63,7 @@ function loadConversation(conversation) {
         console.log(this.responseText);
       }
 
-      updateConversation(conversation, lastMessageTime);
+      updateChat(conversation, lastMessageTime);
     }
   };
 
@@ -71,7 +73,7 @@ function loadConversation(conversation) {
 
 
 // THIS FUNCTION KEEPS THE CHAT UPDATED AND EVERY 2.5 SECONDS CHECKS FOR NEW MESSAGES
-function updateConversation(conversation, lastMessageTime) {
+function updateChat(conversation, lastMessageTime) {
   var xmlhttp = new XMLHttpRequest();
 
   xmlhttp.onreadystatechange = function () {
@@ -80,7 +82,8 @@ function updateConversation(conversation, lastMessageTime) {
       if (isJson(this.responseText)) {
         var messages = JSON.parse(this.responseText);
 
-        messages.forEach(message => {
+        messages.forEach(json_message => {
+          var message = JSON.parse(json_message);
           var message_element = createMessageElement(message);
 
           lastMessageTime = message.time;
@@ -100,20 +103,57 @@ function updateConversation(conversation, lastMessageTime) {
 
   var parameters = "conversation=" + conversation + "&time=" + lastMessageTime;
 
-  xmlhttp.open("GET", "./chat_php/updateConversation.php?" + parameters, true);
+  xmlhttp.open("GET", "./chat_php/updateChat.php?" + parameters, true);
   xmlhttp.send();
 
-  chat_timeout = setTimeout(function () {updateConversation(conversation, lastMessageTime); }, chatUpdateInterval);
+  chat_update_timeout = setTimeout(function () {updateChat(conversation, lastMessageTime); }, update_interval);
+}
+
+// THIS FUNCTION KEEPS THE CONVERSATIONS UPDATED AND EVERY 2.5 SECONDS CHECKS FOR NEW MESSAGES
+function updateConversations() {
+  var xmlhttp = new XMLHttpRequest();
+
+  xmlhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+
+      if (isJson(this.responseText)) {
+        var conversations = JSON.parse(this.responseText);
+
+        conversations.forEach(conversation => {
+          updateConversation(conversation);
+        });
+
+      }else{
+        console.log("Error the response of updateConversations.php: " + this.responseText);
+      }
+
+    }
+  };
+
+
+  xmlhttp.open("GET", "./chat_php/updateConversations.php?", true);
+  xmlhttp.send();
+
+  conversation_update_timeout = setTimeout(function () {updateConversations(); }, update_interval);
 }
 
 // CREATES THE HTML MESSAGE ELEMENT
-function createMessageElement(json_message){
-  var message = JSON.parse(json_message);
-
+function createMessageElement(message){
   if(message.users == user)
     return createOutgoingMessage(message);
   else
     return createIncomingMessage(message);
+}
+
+function updateConversation(json_conversation) {
+  var conversation = JSON.parse(json_conversation);
+
+  document.getElementById("title_date" + conversation.id)
+          .innerHTML = "<h5 id='title_date" + conversation.id + "'>" + conversation.name + 
+                       "<span class='chat_date'>" + conversation.last_change + "</span></h5>";
+
+  document.getElementById("last_message_" + conversation.id)
+          .innerText = conversation.last_message;
 }
 
 // CHECKS IF A STRING IS JSON
