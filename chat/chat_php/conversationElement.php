@@ -7,7 +7,7 @@ function createConversationElement($conversation_id, $conversation_name, $last_m
     echo "    <div class='chat_img'> <img src=\"$img_url\" alt='sunil'> </div>";
     echo "    <div class='chat_ib'>";
     echo "        <h5>$conversation_name<span class='chat_date'>$last_modification_date</span></h5>";
-    echo "        <p>$last_message</p>";
+    echo "        <p id='$conversation_id'>$last_message</p>";
     echo "    </div>";
     echo "    </div>";
     echo "</div>";
