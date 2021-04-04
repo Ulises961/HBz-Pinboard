@@ -14,8 +14,6 @@
     $date = date("d/m/y");
     $time = date("H:i:s");
 
-    echo "INSERT INTO SendsMessageTo VALUES(default, '$date', '$time', '$message', $sender, $conversation);";
-
     try {
       $dbh = new PDO($conn_string);
 
