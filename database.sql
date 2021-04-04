@@ -312,7 +312,10 @@ RETURNS TRIGGER AS $$
 DECLARE participation RECORD;
 BEGIN
 
-    SELECT EXISTS( SELECT * FROM PartecipatesInConversation WHERE users = NEW.users AND conversation = NEW.conversation) INTO participation;
+    SELECT EXISTS(  SELECT * 
+                    FROM PartecipatesInConversation 
+                    WHERE users = NEW.users AND conversation = NEW.conversation
+                ) INTO participation;
 
     IF participation.exists THEN 
         RETURN NEW;     
@@ -323,15 +326,13 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION insertArticle()
+CREATE OR REPLACE FUNCTION is_post_a_question()
 RETURNS TRIGGER AS $$
-DECLARE answer RECORD;
 DECLARE question RECORD;
 BEGIN
     SELECT EXISTS( SELECT * FROM Question WHERE id  = NEW.id) INTO question;
-    SELECT EXISTS( SELECT * FROM Answer WHERE id  = NEW.id) INTO answer;
 
-    IF question.exists OR answer.exists THEN 
+    IF question.exists THEN 
         RETURN NULL;
     ELSE
         RETURN NEW;
@@ -339,15 +340,13 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION insertAnswer()
+CREATE OR REPLACE FUNCTION is_post_an_answer()
 RETURNS TRIGGER AS $$
-DECLARE question RECORD;
-DECLARE article RECORD;
+DECLARE answer RECORD;
 BEGIN
-    SELECT EXISTS( SELECT * FROM Question WHERE id  = NEW.id) INTO question;
-    SELECT EXISTS( SELECT * FROM Article WHERE id  = NEW.id) INTO article;
+    SELECT EXISTS( SELECT * FROM Answer WHERE id  = NEW.id) INTO answer;
 
-    IF question.exists OR article.exists THEN 
+    IF answer.exists THEN 
         RETURN NULL;
     ELSE
         RETURN NEW;
@@ -355,15 +354,13 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION insertQuestion()
+CREATE OR REPLACE FUNCTION is_post_an_article()
 RETURNS TRIGGER AS $$
-DECLARE answer RECORD;
 DECLARE article RECORD;
 BEGIN
-    SELECT EXISTS( SELECT * FROM Answer WHERE id  = NEW.id) INTO answer;
     SELECT EXISTS( SELECT * FROM Article WHERE id  = NEW.id) INTO article;
 
-    IF article.exists OR answer.exists THEN 
+    IF article.exists THEN 
         RETURN NULL;
     ELSE
         RETURN NEW;
@@ -386,7 +383,10 @@ CREATE OR REPLACE FUNCTION is_user_logged_in()
 RETURNS TRIGGER AS $$
 DECLARE active_session RECORD;
 BEGIN
-    SELECT EXISTS( SELECT * FROM Session WHERE id = NEW.users AND end_time IS NOT NULL AND date = CURRENT_DATE  ) INTO active_session;
+    SELECT EXISTS(  SELECT * 
+                    FROM Session 
+                    WHERE id = NEW.users AND end_time IS NOT NULL AND date = CURRENT_DATE
+                ) INTO active_session;
 
     IF active_session.exists THEN 
         RETURN NEW;
@@ -397,7 +397,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION insertStudent()
+CREATE OR REPLACE FUNCTION is_user_professor()
 RETURNS TRIGGER AS $$
 DECLARE professor RECORD;
 BEGIN
@@ -411,7 +411,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION insertProfessor()
+CREATE OR REPLACE FUNCTION is_user_student()
 RETURNS TRIGGER AS $$
 DECLARE student RECORD;
 BEGIN
@@ -437,20 +437,35 @@ BEFORE INSERT ON SendsMessageTo
 FOR EACH ROW EXECUTE
 PROCEDURE isUserPartOfConversation();
 
-CREATE TRIGGER insert_article
+CREATE TRIGGER check_if_article_is_a_question
 BEFORE INSERT ON Article
 FOR EACH ROW EXECUTE
-PROCEDURE insertArticle();
+PROCEDURE is_post_a_question();
 
-CREATE TRIGGER insert_answer
-BEFORE INSERT ON Answer
+CREATE TRIGGER check_if_article_is_an_answer
+BEFORE INSERT ON Article
 FOR EACH ROW EXECUTE
-PROCEDURE insertAnswer();
+PROCEDURE is_post_an_answer();
 
-CREATE TRIGGER insert_question
+CREATE TRIGGER check_if_question_is_an_article
 BEFORE INSERT ON Question
 FOR EACH ROW EXECUTE
-PROCEDURE insertQuestion();
+PROCEDURE is_post_an_article();
+
+CREATE TRIGGER check_if_question_is_an_answer
+BEFORE INSERT ON Question
+FOR EACH ROW EXECUTE
+PROCEDURE is_post_an_answer();
+
+CREATE TRIGGER check_if_answer_is_a_question
+BEFORE INSERT ON Answer
+FOR EACH ROW EXECUTE
+PROCEDURE is_post_a_question();
+
+CREATE TRIGGER check_if_answer_is_an_article
+BEFORE INSERT ON Answer
+FOR EACH ROW EXECUTE
+PROCEDURE is_post_an_article();
 
 CREATE TRIGGER update_conversation
 AFTER INSERT ON SendsMessageTo
@@ -460,12 +475,12 @@ PROCEDURE update_conversation();
 CREATE TRIGGER insert_professor
 BEFORE INSERT ON Professor
 FOR EACH ROW EXECUTE
-PROCEDURE insertProfessor();
+PROCEDURE is_user_student();
 
 CREATE TRIGGER insert_student
 BEFORE INSERT ON Student
 FOR EACH ROW EXECUTE
-PROCEDURE insertStudent();
+PROCEDURE is_user_professor();
 
 CREATE TRIGGER  check_login_Post
 BEFORE INSERT OR UPDATE OR DELETE ON Post
