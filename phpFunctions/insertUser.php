@@ -1,17 +1,8 @@
 
 <?php
 
-
-// Connecting, selecting database
-
-$host        = "host = localhost";
-$port        = "port = 5432";
-$dbname      = "dbname = hbz";
-$credentials = "user = postgres password=postgres";
-
-
-$dbconn = pg_connect("$host $port $dbname $credentials ")
-    or die('Could not connect: ' . pg_last_error());
+include "credentials.php";
+include "Utils.php";
 
 
 
@@ -22,105 +13,100 @@ $number=$_POST['phone'];
 $mail=$_POST['email'];
 $pswd= password_hash($_POST["pswd"], PASSWORD_ARGON2I);
 $usertype=$_POST['usertypes'];
-$program=$_POST['study_programs'];
-$subjects=$_POST['subject-input'];
-$office=$_POST['office'];
-$office_hours=$_POST['office_hours'];
-echo "$subjects[0]";
-//testing null values on optional fields of the form
+
+
+$dbh = new PDO($conn_string);
 
 if($prefix === "" || $number === ""){
     $prefix = null;
     $number = null;
 }
 
+$insertInto= "INSERT INTO Users(id, name, surname, prefix, number, mail, password) ";
+$values= "VALUES (default, :name, :surname, :prefix,:number, :mail, :pswd) ";
 
-echo '<p>afterVariables</p>';
+$sql = $insertInto.$values;
 
-echo  "{$name}, {$surname }, {$prefix},{$number},{$mail},{$pswd} $program $usertype\n";
+$insert = $dbh-> prepare($sql);
 
-// Creating a user
+$insert-> bindParam(":name",$name,PDO::PARAM_STR);
+$insert-> bindParam(":surname",$surname,PDO::PARAM_STR);
+$insert-> bindParam(":prefix",$prefix,PDO::PARAM_STR);
+$insert-> bindParam(":number",$number,PDO::PARAM_STR);
+$insert-> bindParam(":mail",$mail,PDO::PARAM_STR);
+$insert-> bindParam(":pswd",$pswd,PDO::PARAM_STR);
 
-pg_prepare($dbconn, "userInsertion", 'INSERT INTO Users Values(default,$1,$2,$3,$4,$5,$6)  RETURNING id');
-
-$result = pg_execute($dbconn,"userInsertion",array($name,$surname,$prefix,$number,$mail,$pswd));
-
-$row = pg_fetch_row($result);
-
-$id= intval($row[0]);
-
-echo "\nid: << $id >>";
+$insert-> execute();
 
 
-if(!$result) {
-    echo pg_last_error($dbconn);
-    exit;
- } else{
-     echo '<p>success!</p>';
- }
+$id = $dbh->lastInsertId();
 
- // If the user is a student it must be added to the db by selecting the program to which is enrolled
+alert($id);
 
- if($usertype === "student"){
-   
-        pg_prepare($dbconn,"selectProgram",'SELECT code FROM Program WHERE name= $1');
+if($usertype === "student"){
+
+        $program=$_POST['study_programs'];
+
+        $selectProgram = "SELECT code FROM Program WHERE name= :program";
+
+        $query = $dbh-> prepare($selectProgram);
         
-        $result = pg_execute($dbconn,"selectProgram",array($program));
+        $query.execute();
 
-       
-        $row = pg_fetch_row($result);
+        $row = $dbh->fetch(PDO::FETCH_ASSOC);
+
+            
         $program_id = $row[0];
-      
-        pg_prepare($dbconn,"studentInsertion",'INSERT INTO Student VALUES($1,$2)');
-        $result = pg_execute($dbconn,"studentInsertion",array($id,$program_id));
-
-        if(!$result) {
-            echo pg_last_error($dbconn);
-            exit;
-        } 
         
-      
+        $insertStudent= "INSERT INTO Student (id,program) VALUES (:id, :program) ";
 
-    }
-
-else if($usertype === "professor"){
-
-       
-    pg_prepare($dbconn,"insertProfessor",'INSERT INTO Professor VALUES($1,$2,$3)');
-    $result = pg_execute($dbconn,"insertProfessor",array($id,$office_hours,$office));
-
-    if(!$result) {
-        echo "error while inserting professor tuple" . pg_last_error($dbconn);
-        exit;
-    } 
+        $insertion = $dbh->prepare($insertStudent);
+        $insertion-> bindParam(":id", intval($id),PDO::PARAM_INT);          
     
-    foreach($subjects as $index => $subject){
+        alert("success");
+        }
 
-       
-        pg_prepare($dbconn,"selectSubject",'SELECT id FROM Subject WHERE name= $1');
-       
-        $result = pg_execute($dbconn,"selectSubject",array($subject));
-        $row = pg_fetch_row($result);
-        $subject = $row[0];
-        echo "id variable is: $id and subject id is: $subject\n";
+elseif($usertype === "professor"){
 
-        pg_prepare($dbconn,"teaches",'INSERT INTO Teaches VALUES($1,$2)');
-        $result = pg_execute($dbconn,"teaches",array($id,$subject));
-        echo "\nsubject id is: $subjext";
-        if(!$result) {
-            echo pg_last_error($dbconn);
-            exit;
-        } 
+        $subjects=$_POST['subject-input'];
+        $office=$_POST['office'];
+        $office_hours=$_POST['office_hours'];
         
-    }
+
+        //testing null values on optional fields of the form
+
+        $insertProfessor = 'INSERT INTO Professor (id,office_hours,office) VALUES(:id,:office_hours,:office)';
+    
+        $insertion = $dbh -> prepare($insertProfessor);
+        $insertion-> bindParam(":id",intval($id),PDO::PARAM_INT);
+        $insertion -> bindParam(":office_hours", $office_hours,PDO::PARAM_STR);
+        $insertion -> bindParam(":office",$office, PDO::PARAM_STR);
+
+        $insertion -> execute();
+
+        
+        foreach($subjects as $index => $subject){
+    
+            $selectSubjectId = "SELECT id FROM Subject WHERE name=:subject";
+            $subjectSelection = $dbh -> prepare($selectSubjectId);
+            $subjectSelection -> bindParam(":subject", $subject,PDO::PARAM_STR);
+            $subjectSelection -> execute();
+            $row = $subjectSelection -> fetch(PDO::FETCH_ASSOC);
+            $subject = $row[0];
+            
+            
+            
+            $insertionString= "INSERT INTO Teaches (professor,subject) VALUES(:professor,:subject)";
+            $insertTeaches = $dbh -> prepare($insertionString); 
+            $insertTeaches -> bindParam(":professor",intval($id),PDO::PARAM_INT);
+            $insertTeaches -> bindParam(":subject", intval($subject),PDO::PARAM_INT);
+            $insertTeaches -> execute();
+
+           
+
+        }
+            
 
 }
-
-// Free resultset
-pg_free_result($result);
-
-// Closing connection
-pg_close($dbconn);
-
 
 ?> 

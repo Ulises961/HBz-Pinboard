@@ -53,6 +53,7 @@ function displayOptions(obj){
     }
 }
 
+var i = 0;
 
 function addSubjectBlock(obj){
   
@@ -288,7 +289,7 @@ function showPswd() {
     
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-
+            console.log(this.responseText);
 
         if(obj.value === ""){
             repeated_email_alert.style.display="none";
@@ -297,7 +298,7 @@ function showPswd() {
             if (Number(this.response) != "0"){
               
                 repeated_email_alert.className = "invalid-feedback";
-                repeated_email_alert.innerText ='The email inserted belongs to a registered user';
+                repeated_email_alert.innerText ='Invalid mail';
                 
             }else{
                 repeated_email_alert.className = "valid-feedback";

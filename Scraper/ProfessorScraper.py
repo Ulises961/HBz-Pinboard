@@ -9,7 +9,7 @@ academic_staff=[]
 
 #regex to find the particulars for each professor
 #+39, 1234 123456, name.surname@unibz.it, Monday, 00:00 - 00:00, BZ P0.00
-regexes=['\+\d{2}','\d{4}\s\d{6}','\w*?\.?\w*@unibz.it','\w*. \d{2}:\d{2} - \d{2}:\d{2}','BZ\sP\d\.\d{2}']
+regexes=['\+\d{2}','\d{4}\s?\d{6}','\w*?\.?\w*@unibz.it','\w*. \d{2}:\d{2} - \d{2}:\d{2}','BZ\sP\d\.\d{2}']
 
 details=[re.compile(regex) for regex in regexes]
 
