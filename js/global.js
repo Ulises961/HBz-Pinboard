@@ -82,26 +82,33 @@ function deleteSubjectBlock(obj){
 }
 
 
-function matchesPassword(){
+function matchesPassword(obj){
 
         var firstPsswd= document.getElementById("password");
-        var psswdCheck= document.getElementById("password-check");
+        var psswdCheck= obj;// document.getElementById("password-check");
         var matching_feedback= document.getElementById("matching-feedback");
     
        
-        
-        matching_feedback.style.display="flex";
+        if(obj.value !== ""){
 
-        if(firstPsswd.value === psswdCheck.value){
+            matching_feedback.style.display="flex";
+            console.log("input");
+            if(firstPsswd.value === psswdCheck.value){
+            
+                matching_feedback.setAttribute("class","valid-feedback");
+                matching_feedback.innerText='Matching ✔';
         
-            matching_feedback.setAttribute("class","valid-feedback");
-            matching_feedback.innerText='Matching ✔';
-    
+            }else{
+
+                matching_feedback.setAttribute("class","invalid-feedback");
+                matching_feedback.innerText='Not Matching ✘';
+            
+            }
+           
         }else{
-
-            matching_feedback.setAttribute("class","invalid-feedback");
-            matching_feedback.innerText='Not Matching ✘';
-        
+            matching_feedback.style.display="none";
+            console.log("no input");
+            
         }
           
 }
@@ -116,7 +123,7 @@ function validPswd(obj){
     
     
     var pswd=obj.value;
-    matchesPassword();
+  //  matchesPassword();
     var pswdFeedback=document.getElementById("pswd-feedback");
     if (obj.value !== ""){
         validityCheck(regex,message,pswd,pswdFeedback);
@@ -309,14 +316,4 @@ function showPswd() {
     xmlhttp.send();
   }
 
-  function checkInputPresence(obj, messageDiv, action){
-
-    if (obj.value == ""){
-
-        messageDiv.style.display="none";
-
-    }else{
-        messageDiv.style.display="flex";
-        action.method();
-    }
-  }
+ 
