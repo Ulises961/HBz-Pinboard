@@ -35,7 +35,7 @@ if(!$result) {
      echo '<p>success!</p>';
  }
 
-echo row[0];
+echo $row[0];
 
 // Free resultset
 pg_free_result($result);
