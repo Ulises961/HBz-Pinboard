@@ -18,7 +18,7 @@ $dbconn = pg_connect("$host $port $dbname $credentials ")
 $mail =$_GET['mail'];
 
 
-echo  "{$mail}\n";
+echo  "$mail";
 
 // Creating a user
 
