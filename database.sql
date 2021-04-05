@@ -258,7 +258,9 @@ CREATE TABLE Session(
 
 CREATE TABLE Conversation(
     id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL
+    name VARCHAR(255) NOT NULL,
+    last_change DATE,
+    last_message VARCHAR(255) 
 );
 
 CREATE TABLE PartecipatesInConversation(
@@ -290,7 +292,7 @@ CREATE TABLE SendsMessageTo(
 );
 
 
--- TRIGGERS
+-- STORED PROCEDURES
 
 CREATE OR REPLACE FUNCTION insertSendsMessageTo()
 RETURNS TRIGGER AS $$
@@ -305,17 +307,15 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER insert_sendsMessageTo
-BEFORE INSERT ON SendsMessageTo
-FOR EACH ROW EXECUTE
-PROCEDURE insertSendsMessageTo();
-
 CREATE OR REPLACE FUNCTION isUserPartOfConversation()
 RETURNS TRIGGER AS $$
 DECLARE participation RECORD;
 BEGIN
 
-    SELECT EXISTS( SELECT * FROM PartecipatesInConversation WHERE users = NEW.users AND conversation = NEW.conversation) INTO participation;
+    SELECT EXISTS(  SELECT * 
+                    FROM PartecipatesInConversation 
+                    WHERE users = NEW.users AND conversation = NEW.conversation
+                ) INTO participation;
 
     IF participation.exists THEN 
         RETURN NEW;     
@@ -326,20 +326,13 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER is_user_part_of_conversation
-BEFORE INSERT ON SendsMessageTo
-FOR EACH ROW EXECUTE
-PROCEDURE isUserPartOfConversation();
-
-CREATE OR REPLACE FUNCTION insertArticle()
+CREATE OR REPLACE FUNCTION is_post_a_question()
 RETURNS TRIGGER AS $$
-DECLARE answer RECORD;
 DECLARE question RECORD;
 BEGIN
     SELECT EXISTS( SELECT * FROM Question WHERE id  = NEW.id) INTO question;
-    SELECT EXISTS( SELECT * FROM Answer WHERE id  = NEW.id) INTO answer;
 
-    IF question.exists OR answer.exists THEN 
+    IF question.exists THEN 
         RETURN NULL;
     ELSE
         RETURN NEW;
@@ -347,41 +340,27 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER insert_article
-BEFORE INSERT ON Article
-FOR EACH ROW EXECUTE
-PROCEDURE insertArticle();
-
-CREATE OR REPLACE FUNCTION insertAnswer()
-RETURNS TRIGGER AS $$
-DECLARE question RECORD;
-DECLARE article RECORD;
-BEGIN
-    SELECT EXISTS( SELECT * FROM Question WHERE id  = NEW.id) INTO question;
-    SELECT EXISTS( SELECT * FROM Article WHERE id  = NEW.id) INTO article;
-
-    IF question.exists OR article.exists THEN 
-        RETURN NULL;
-    ELSE
-        RETURN NEW;
-    END IF;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER insert_answer
-BEFORE INSERT ON Answer
-FOR EACH ROW EXECUTE
-PROCEDURE insertAnswer();
-
-CREATE OR REPLACE FUNCTION insertQuestion()
+CREATE OR REPLACE FUNCTION is_post_an_answer()
 RETURNS TRIGGER AS $$
 DECLARE answer RECORD;
-DECLARE article RECORD;
 BEGIN
     SELECT EXISTS( SELECT * FROM Answer WHERE id  = NEW.id) INTO answer;
+
+    IF answer.exists THEN 
+        RETURN NULL;
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION is_post_an_article()
+RETURNS TRIGGER AS $$
+DECLARE article RECORD;
+BEGIN
     SELECT EXISTS( SELECT * FROM Article WHERE id  = NEW.id) INTO article;
 
-    IF article.exists OR answer.exists THEN 
+    IF article.exists THEN 
         RETURN NULL;
     ELSE
         RETURN NEW;
@@ -389,46 +368,36 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER insert_question
-BEFORE INSERT ON Question
-FOR EACH ROW EXECUTE
-PROCEDURE insertQuestion();
-
--- THE FOLLOWING ARE INSERTS USED TO TEST THE TRIGGERS
-
---  INSERT INTO Users VALUES(1,'bob', 'freeman', '+39', '3961415473', 'password', 'bob@gmail.com');
-
--- INSERT INTO Post VALUES(1, 1, '14.03.2021', '14:05:00', 'title', 'question');
--- INSERT INTO Question VALUES(1);  <== this should work
-
--- INSERT INTO Post VALUES(2, 1, '14.03.2021', '14:05:00', 'title', 'this is an answer');
-
--- INSERT INTO Answer VALUES(1,1); <== this should not work
-
--- INSERT INTO Answer VALUES(2,1); <== this should work
--- INSERT INTO Session VALUES(1,'14-02-2021', '15:15:00','16:00:00', NULL);
-
-CREATE OR REPLACE FUNCTION insertProfessor()
+CREATE OR REPLACE FUNCTION update_conversation()
 RETURNS TRIGGER AS $$
-DECLARE student RECORD;
 BEGIN
-    SELECT EXISTS( SELECT * FROM Student WHERE id  = NEW.id) INTO student;
-  
-    IF student.exists THEN
-        RETURN NULL;
-    ELSE
+    UPDATE conversation
+    SET last_change = NEW.date, last_message = NEW.text
+    WHERE id = NEW.conversation;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION is_user_logged_in()
+RETURNS TRIGGER AS $$
+DECLARE active_session RECORD;
+BEGIN
+    SELECT EXISTS(  SELECT * 
+                    FROM Session 
+                    WHERE id = NEW.users AND end_time IS NOT NULL AND date = CURRENT_DATE
+                ) INTO active_session;
+
+    IF active_session.exists THEN 
         RETURN NEW;
+    ELSE
+        RAISE EXCEPTION 'You must be logged in to do the requested operation';
+        RETURN NULL;
     END IF;
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER insert_professor
-BEFORE INSERT ON Professor
-FOR EACH ROW EXECUTE
-PROCEDURE insertProfessor();
-
-
-CREATE OR REPLACE FUNCTION insertStudent()
+CREATE OR REPLACE FUNCTION is_user_professor()
 RETURNS TRIGGER AS $$
 DECLARE professor RECORD;
 BEGIN
@@ -442,25 +411,76 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER insert_student
-BEFORE INSERT ON Student
-FOR EACH ROW EXECUTE
-PROCEDURE insertStudent();
-
-CREATE OR REPLACE FUNCTION is_user_logged_in()
+CREATE OR REPLACE FUNCTION is_user_student()
 RETURNS TRIGGER AS $$
-DECLARE active_session RECORD;
+DECLARE student RECORD;
 BEGIN
-    SELECT EXISTS( SELECT * FROM Session WHERE id = NEW.users AND end_time IS NOT NULL AND date = CURRENT_DATE  ) INTO active_session;
-
-    IF active_session.exists THEN 
-        RETURN NEW;
-    ELSE
-        RAISE EXCEPTION 'You must be logged in to do the requested operation';
+    SELECT EXISTS( SELECT * FROM Student WHERE id  = NEW.id) INTO student;
+  
+    IF student.exists THEN
         RETURN NULL;
+    ELSE
+        RETURN NEW;
     END IF;
 END;
 $$ LANGUAGE plpgsql;
+
+-- TRIGGERS
+
+CREATE TRIGGER insert_sendsMessageTo
+BEFORE INSERT ON SendsMessageTo
+FOR EACH ROW EXECUTE
+PROCEDURE insertSendsMessageTo();
+
+CREATE TRIGGER is_user_part_of_conversation
+BEFORE INSERT ON SendsMessageTo
+FOR EACH ROW EXECUTE
+PROCEDURE isUserPartOfConversation();
+
+CREATE TRIGGER check_if_article_is_a_question
+BEFORE INSERT ON Article
+FOR EACH ROW EXECUTE
+PROCEDURE is_post_a_question();
+
+CREATE TRIGGER check_if_article_is_an_answer
+BEFORE INSERT ON Article
+FOR EACH ROW EXECUTE
+PROCEDURE is_post_an_answer();
+
+CREATE TRIGGER check_if_question_is_an_article
+BEFORE INSERT ON Question
+FOR EACH ROW EXECUTE
+PROCEDURE is_post_an_article();
+
+CREATE TRIGGER check_if_question_is_an_answer
+BEFORE INSERT ON Question
+FOR EACH ROW EXECUTE
+PROCEDURE is_post_an_answer();
+
+CREATE TRIGGER check_if_answer_is_a_question
+BEFORE INSERT ON Answer
+FOR EACH ROW EXECUTE
+PROCEDURE is_post_a_question();
+
+CREATE TRIGGER check_if_answer_is_an_article
+BEFORE INSERT ON Answer
+FOR EACH ROW EXECUTE
+PROCEDURE is_post_an_article();
+
+CREATE TRIGGER update_conversation
+AFTER INSERT ON SendsMessageTo
+FOR EACH ROW EXECUTE
+PROCEDURE update_conversation();
+
+CREATE TRIGGER insert_professor
+BEFORE INSERT ON Professor
+FOR EACH ROW EXECUTE
+PROCEDURE is_user_student();
+
+CREATE TRIGGER insert_student
+BEFORE INSERT ON Student
+FOR EACH ROW EXECUTE
+PROCEDURE is_user_professor();
 
 CREATE TRIGGER  check_login_Post
 BEFORE INSERT OR UPDATE OR DELETE ON Post

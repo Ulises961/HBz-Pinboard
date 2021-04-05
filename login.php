@@ -90,14 +90,8 @@
 <!--===============================================================================================-->
 	<script src="Loginselect2/Loginselect2.min.js"></script>
 <!--===============================================================================================-->
-<<<<<<< HEAD
-	<!-- <script src="vendor/tilt/tilt.jquery.min.js"></script> -->
-
-	<!-- <script >
-=======
 	<script src="tilt/tilt.jquery.min.js"></script>
 	<script >
->>>>>>> 2ef004e4c125534708cec02370870353c13d471b
 		$('.js-tilt').tilt({
 			scale: 1.1
 		})
@@ -109,14 +103,32 @@
 
 </html>
 
-<script>
+<?php
+session_start();
+include "../credentials.php";
+$dbh = new PDO($conn_string);
 
-function login(){
-	let mail = document.getElementById("email");
-	var passwd = document.getElementById("password");
+if(isset($_POST["login"])) {
+    $email = $_POST["email"];
+    $pswd = $_POST["password"];
 
-	console.log("This is the mail: " + mail.value);
-	console.log("This is the password: " + passwd.value);
+    $sql =  "SELECT user_id, mail, password FROM users WHERE mail=:email";
+    $query= $dbh -> prepare($sql);
+    $query-> bindParam(':email', $email, PDO::PARAM_STR);
+    $query-> execute();
+
+    if($query->rowCount() > 0) {
+        $result = $query->fetch();
+        
+        if (password_verify($pswd, $result['password'])) {
+          $_SESSION["username"] = $_POST["username"];
+          $_SESSION["user_id"] = $result["user_id"];
+          exit(header("location:index.php"));
+        } else {
+          echo "Invalid Details";
+        } 
+    } else {  
+        echo "Invalid Details 1";
+    }  
 }
-
-</script>
+?>
