@@ -12,9 +12,7 @@ CREATE TABLE Users(
     CONSTRAINT valid_number CHECK (number ~ '^\d{4}\s\d{6}')
 );
 
-
 CREATE TYPE FILETYPE AS ENUM ('png', 'jpeg', 'jpg');
-
 
 CREATE TABLE Post(
     id SERIAL PRIMARY KEY,
