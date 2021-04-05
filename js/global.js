@@ -276,40 +276,36 @@ function showPswd() {
 
 
   function uniqueMail(obj){
-    var mailField = obj;
     var xmlhttp = new XMLHttpRequest();
-    var repeated_email_alert= document.createElement("div");
-    mailField.append(repeated_email_alert);
+    var repeated_email_alert = document.getElementById("mail-feedback");
+    
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
+
 
         if(obj.value === ""){
             repeated_email_alert.style.display="none";
         }else{
 
-            if (Number(this.response) != 0){
+            if (Number(this.response) != "0"){
               
-                repeated_email_alert.class= "invalid-feedback";
-                repeated_email_alert.innerText='The email inserted belongs to a registered user';
+                repeated_email_alert.className = "invalid-feedback";
+                repeated_email_alert.innerText ='The email inserted belongs to a registered user';
                 
             }else{
-                repeated_email_alert.class= "valid-feedback";
-                repeated_email_alert.innerText="Valid ✔";
+                repeated_email_alert.className = "valid-feedback";
+                repeated_email_alert.innerText ="Valid ✔";
                 
 
             }
-            repeated_email_alert.style.display="block";
+                repeated_email_alert.style.display="block";
             }   
         };
-    
-
-        
-
         
     };
     
 
-    xmlhttp.open("GET", "phpFunctions/getMail.php", true);
+    xmlhttp.open("GET", "phpFunctions/getMail.php?mail="+obj.value, true);
     xmlhttp.send();
   }
 

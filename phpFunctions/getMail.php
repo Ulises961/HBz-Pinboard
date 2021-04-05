@@ -1,47 +1,17 @@
 
 <?php
+include "credentials.php";
 
+$mail = $_REQUEST['mail'];
 
-// Connecting, selecting database
+$dbh = new PDO($conn_string);
 
-$host        = "host = localhost";
-$port        = "port = 5432";
-$dbname      = "dbname = hbz";
-$credentials = "user = postgres password=postgres";
+$sql = "SELECT * from Users WHERE mail = :mail";
 
+$query = $dbh-> prepare($sql);
+$query-> bindParam(":mail", $mail, PDO::PARAM_STR);
+$query-> execute();
 
-$dbconn = pg_connect("$host $port $dbname $credentials ")
-    or die('Could not connect: ' . pg_last_error());
-
-
-
-$mail =$_GET['mail'];
-
-
-echo  "{$mail}\n";
-
-// Creating a user
-
-pg_prepare($dbconn, "count", 'SELECT COUNT(*) from Users WHERE mail=$1');
-
-$result = pg_execute($dbconn,"count",array($mail));
-
-$row = pg_fetch_row($result);
-
-if(!$result) {
-    echo pg_last_error($dbconn);
-    exit;
- } else{
-     echo '<p>success!</p>';
- }
-
-echo $row[0];
-
-// Free resultset
-pg_free_result($result);
-
-// Closing connection
-pg_close($dbconn);
-
+echo $query->rowCount();
 
 ?> 
