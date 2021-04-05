@@ -79,10 +79,6 @@
     </nav>
 
 
-
-
-
-
     <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
         <div class="wrapper wrapper--w790">
             <div class="card card-5">
@@ -90,7 +86,7 @@
                     <h2 class="title">Registration Form</h2>
                 </div>
                 <div class="card-body">
-                    <form action="http://10.42.0.1/HBz/phpFunctions/insertUser.php" method="POST" target="_blank">
+                    <form action="http://localhost/HBz/phpFunctions/insertUser.php" method="POST" target="_blank">
                                            <!-- <form action="http://10.42.0.1/HBz/response_generic.php" method="POST" target="_blank"> -->
                         <div class="form-row m-b-55">
                             <div class="name">Name*</div>
@@ -116,7 +112,7 @@
                             <div class="name">Email*</div>
                             <div class="value">
                                 <div class="input-group">
-                                    <input class="input--style-5" type="email" name="email" required>
+                                    <input class="input--style-5" type="email" name="email" onkeypress=" uniqueMail(this)" placeholder="name@domain.com" required>
                                 </div>
                             </div>
                         </div>
@@ -127,7 +123,7 @@
                                 <div class="row row-refine">
                                     <div class="col-3">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="area_code" onkeyup="prefixCheck(this)" required>
+                                            <input class="input--style-5" type="text" name="area_code" onkeyup="prefixCheck(this)" placeholder="+39"required>
                                             <div id="prefix-feedback"></div>
                                             <label class="label--desc">Area Code</label>
                                             
@@ -136,7 +132,7 @@
 
                                     <div class="col-9">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="phone" onkeyup="phoneCheck(this)" required>
+                                            <input class="input--style-5" type="text" name="phone" onkeyup="phoneCheck(this)" placeholder="1234 123456" required>
                                             <div id="phone-feedback"></div>
                                             <label class="label--desc">Phone Number</label>
                                             

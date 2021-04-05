@@ -88,29 +88,22 @@ function matchesPassword(){
         var psswdCheck= document.getElementById("password-check");
         var matching_feedback= document.getElementById("matching-feedback");
     
-        if(firstPsswd.value === ""){
-            matching_feedback.style.display="none";
-            console.log("invalid PW");
-                
-        }else{
-            matching_feedback.style.display="block";
-
-            if(firstPsswd.value === psswdCheck.value ){
-            
-                matching_feedback.setAttribute("class","valid-feedback")
-                matching_feedback.innerText='Matching ✔';
+       
         
-      
+        matching_feedback.style.display="flex";
 
-            }else{
+        if(firstPsswd.value === psswdCheck.value){
+        
+            matching_feedback.setAttribute("class","valid-feedback");
+            matching_feedback.innerText='Matching ✔';
+    
+        }else{
 
-                matching_feedback.setAttribute("class","invalid-feedback")
-                matching_feedback.innerText='Not Matching ✘';
-
-             
-            
-            }
-        }      
+            matching_feedback.setAttribute("class","invalid-feedback");
+            matching_feedback.innerText='Not Matching ✘';
+        
+        }
+          
 }
 
 
@@ -125,7 +118,11 @@ function validPswd(obj){
     var pswd=obj.value;
     matchesPassword();
     var pswdFeedback=document.getElementById("pswd-feedback");
-    validityCheck(regex,message,pswd,pswdFeedback);
+    if (obj.value !== ""){
+        validityCheck(regex,message,pswd,pswdFeedback);
+    }else{
+        pswdFeedback.style.display="none";
+    }
   
     
 }
@@ -154,8 +151,12 @@ function phoneCheck(obj){
  
     var number=obj.value;
     var phoneFeedback=document.getElementById("phone-feedback");
-    validityCheck(regex,message,number,phoneFeedback);
-  
+    if (obj.value !== ""){
+        validityCheck(regex,message,number,phoneFeedback);
+    }else{
+        phoneFeedback.style.display="none";
+    }
+
 
 }
 
@@ -167,18 +168,15 @@ function prefixCheck(obj){
  
     var number=obj.value;
     var prefixFeedback=document.getElementById("prefix-feedback");
-    validityCheck(regex,message,number,prefixFeedback);
-  
+    if (obj.value !== ""){
+
+        validityCheck(regex,message,number,prefixFeedback);
+    }
+    else{
+        prefixFeedback.style.display="none";
+    }
 
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -275,3 +273,54 @@ function showPswd() {
       x.type = "password";
     }
   } 
+
+
+  function uniqueMail(obj){
+    var mailField = obj;
+    var xmlhttp = new XMLHttpRequest();
+    var repeated_email_alert= document.createElement("div");
+    mailField.append(repeated_email_alert);
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+
+        if(obj.value === ""){
+            repeated_email_alert.style.display="none";
+        }else{
+
+            if (Number(this.response) != 0){
+              
+                repeated_email_alert.class= "invalid-feedback";
+                repeated_email_alert.innerText='The email inserted belongs to a registered user';
+                
+            }else{
+                repeated_email_alert.class= "valid-feedback";
+                repeated_email_alert.innerText="Valid ✔";
+                
+
+            }
+            repeated_email_alert.style.display="block";
+            }   
+        };
+    
+
+        
+
+        
+    };
+    
+
+    xmlhttp.open("GET", "phpFunctions/getMail.php", true);
+    xmlhttp.send();
+  }
+
+  function checkInputPresence(obj, messageDiv, action){
+
+    if (obj.value == ""){
+
+        messageDiv.style.display="none";
+
+    }else{
+        messageDiv.style.display="flex";
+        action.method();
+    }
+  }
