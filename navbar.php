@@ -33,6 +33,7 @@
     </div>
 </nav>
 
+<!-- DO NOT CHANGE THE SCRIPT -->
 <script>
 function changeActiveLink(newActiveLink){
     document.getElementById(newActiveLink).className = "nav-item active";

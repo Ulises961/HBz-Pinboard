@@ -100,7 +100,7 @@
 </html>
 
 <?php
-session_start();
+// session_start(); THIS WILL STAY COMMENTED FOR NOW
 include "./phpFunctions/credentials.php";
 $dbh = new PDO($conn_string);
 
