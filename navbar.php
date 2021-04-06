@@ -13,6 +13,9 @@
                 <li class="nav-item" id="office_hours-link">
                     <a class="nav-link" href="office_hours.php">Office Hours</a>
                 </li>
+                <li class="nav-item" id="forum-link">
+                    <a class="nav-link" href="forum.php">Forum</a>
+                </li>
                 <li class="nav-item" id="profile-link">
                     <a class="nav-link" href="profile.php">Profile</a>
                 </li>
