@@ -192,13 +192,15 @@ function loadPrograms() {
     var xmlhttp = new XMLHttpRequest();
 
     xmlhttp.onreadystatechange = function () {
+        console.log(this.response);
         if (this.readyState == 4 && this.status == 200) {
             var result = JSON.parse(this.response); 
             
           for(var i = 0 ; i < result.length; i++){
                 var option= document.createElement("option");
-                option.onchange= function(){ hideItemFromList();  };
-                option.value= result[i];
+    
+                var line = result[i];
+                option.value= line["name"];
                 document.getElementById("programs").appendChild(option);
                   
             }
@@ -216,12 +218,13 @@ function loadSubjects() {
   
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
             var displayedSubjects = JSON.parse(this.response); 
             for(var i = 0 ; i < displayedSubjects.length; i++){
                 var lines = displayedSubjects[i];
                 var option= document.createElement("option");
-                option.value=lines[1];
-                option.id= lines[0];
+                option.value=lines["name"];
+              
              
                 document.getElementById("subjects").appendChild(option);
              
