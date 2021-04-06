@@ -21,6 +21,7 @@
 	<link rel="stylesheet" type="text/css" href="css/Loginutil.css">
 	<link rel="stylesheet" type="text/css" href="css/Loginmain.css">
 <!--===============================================================================================-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 	
@@ -37,27 +38,29 @@
 						Member Login
 					</span>
 
-					<div class="wrap-input100 validate-input">
-						<input class="input100" type="email" name="email" id="email" placeholder="Email">
-						<span class="focus-input100"></span>
-						<span class="symbol-input100">
-							<i class="fa fa-envelope" aria-hidden="true"></i>
-						</span>
-					</div>
+					<form action="POST">
+						<div class="wrap-input100 validate-input">
+							<input class="input100" type="email" name="email" id="email" placeholder="Email">
+							<span class="focus-input100"></span>
+							<span class="symbol-input100">
+								<i class="fa fa-envelope" aria-hidden="true"></i>
+							</span>
+						</div>
 
-					<div class="wrap-input100 validate-input" data-validate = "Password is required">
-						<input class="input100" type="password" name="password" id="password" placeholder="Password">
-						<span class="focus-input100"></span>
-						<span class="symbol-input100">
-							<i class="fa fa-lock" aria-hidden="true"></i>
-						</span>
-					</div>
-				
-					<div class="container-login100-form-btn">
-						<button class="login100-form-btn" onclick="login()">
-							Login
-						</button>
-					</div>
+						<div class="wrap-input100 validate-input" data-validate = "Password is required">
+							<input class="input100" type="password" name="password" id="password" placeholder="Password">
+							<span class="focus-input100"></span>
+							<span class="symbol-input100">
+								<i class="fa fa-lock" aria-hidden="true"></i>
+							</span>
+						</div>
+					
+						<div class="container-login100-form-btn">
+							<button class="login100-form-btn" type="submit" name="login">
+								Login
+							</button>
+						</div>
+					</form>
 
 					<div class="text-center p-t-12">
 						<span class="txt1">
@@ -90,14 +93,7 @@
 <!--===============================================================================================-->
 	<script src="Loginselect2/Loginselect2.min.js"></script>
 <!--===============================================================================================-->
-	<script src="tilt/tilt.jquery.min.js"></script>
-	<script >
-		$('.js-tilt').tilt({
-			scale: 1.1
-		})
-	</script> -->
-<!--===============================================================================================-->
-	<!-- <script src="js/main.js"></script> -->
+
 
 </body>
 
@@ -105,7 +101,7 @@
 
 <?php
 session_start();
-include "../credentials.php";
+include "./phpFunctions/credentials.php";
 $dbh = new PDO($conn_string);
 
 if(isset($_POST["login"])) {
