@@ -11,19 +11,13 @@ function changeConversation(id, title) {
   document.getElementById("msg_send_btn").value = id;
   document.getElementById("msg_history").innerHTML = '';
   clearTimeout(chat_update_timeout); // stops updating the previous conversation
-  loadConversation(id);
+  loadChat(id);
 }
 
 // THIS FUNCTION IS CALLED WHEN THE USER PRESSES THE SEND MESSAGE BUTTON
 // AND THE FUNCTION MAKES AN AJAX CALL TO A PHP SCRIPT THAT INSERTS THE MESSAGE INTO THE DB
 function sendMessage() {
   var xmlhttp = new XMLHttpRequest();
-
-  xmlhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      console.log(this.responseText);
-    }
-  };
 
   var conversation = document.getElementById("msg_send_btn").value;
   var message_text = document.getElementById("inputMessage").value;
@@ -36,11 +30,11 @@ function sendMessage() {
 }
 
 // THIS FUNCTION LOADS THE OLD MESSAGES BELONGING TO A CONVERSATION
-function loadConversation(conversation) {
+function loadChat(conversation) {
   var parameters = "conversation=" + conversation + "&user=" + user;
 
   $.ajax({
-    url: "./chat_php/loadConversation.php?" + parameters, 
+    url: "./chat_php/loadChat.php?" + parameters, 
     success: function(response){
       $("#msg_history").append(response);
 
@@ -76,7 +70,7 @@ function updateConversations() {
       var conversations = JSON.parse(response);
 
       conversations.forEach(conversation => {
-        updateConversation(conversation);
+        updateConversationPreview(conversation);
       });
 
       conversation_update_timeout = setTimeout(function () {
@@ -86,7 +80,7 @@ function updateConversations() {
   });
 }
 
-function updateConversation(json_conversation) {
+function updateConversationPreview(json_conversation) {
   var conversation = JSON.parse(json_conversation);
 
   document.getElementById("title_date" + conversation.id)
@@ -95,14 +89,4 @@ function updateConversation(json_conversation) {
 
   document.getElementById("last_message_" + conversation.id)
           .innerText = conversation.last_message;
-}
-
-// CHECKS IF A STRING IS JSON
-function isJson(str) {
-  try {
-    JSON.parse(str);
-  } catch (e) {
-    return false;
-  }
-  return true;
 }

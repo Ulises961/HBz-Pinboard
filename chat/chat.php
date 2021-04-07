@@ -8,9 +8,6 @@
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   
-  <!-- these two scripts contain funcitons used by chat_logi.js -->
-  <script src="./chat_js/incomingMessageElement.js"></script>
-  <script src="./chat_js/outgoingMessageElement.js"></script>
   <!-- this script contains the whole chat logic -->
   <script src="./chat_js/chat_logic.js"></script>
 </head>
@@ -37,7 +34,7 @@
   
           <!-- ALL THE ONGOING CONVERSATIONS WILL BE LOADED INSIDE THIS DIV -->
           <div class="inbox_chat">
-            <?php include "./chat_php/getConversations.php";?>
+            <?php include "./chat_php/loadConversations.php";?>
           </div>
 
         </div>
