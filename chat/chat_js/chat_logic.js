@@ -37,6 +37,7 @@ function loadChat(conversation) {
     url: "./chat_php/loadChat.php?" + parameters, 
     success: function(response){
       $("#msg_history").append(response);
+      scrollToLastMessage();
 
       var lastMessageTime = $(".time").last().text();
       updateChat(conversation, lastMessageTime);
@@ -51,7 +52,10 @@ function updateChat(conversation, lastMessageTime) {
   $.ajax({
     url: "./chat_php/updateChat.php?" + parameters, 
     success: function(response){
-      $("#msg_history").append(response);
+      if(response != ""){
+        $("#msg_history").append(response);
+        scrollToLastMessage();
+      }
 
       var lastMessageTime = $(".time").last().text();
 
@@ -89,4 +93,10 @@ function updateConversationPreview(json_conversation) {
 
   document.getElementById("last_message_" + conversation.id)
           .innerText = conversation.last_message;
+}
+
+function scrollToLastMessage() {
+  $("#msg_history").animate({
+    scrollTop: $("#msg_history")[0].scrollHeight
+  }, 1000);
 }
