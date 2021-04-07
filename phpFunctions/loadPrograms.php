@@ -1,40 +1,31 @@
 
 <?php
 
+
 // Connecting, selecting database
 
-$host        = "host = 127.0.0.1";
-$port        = "port = 5432";
-$dbname      = "dbname = hbz";
-$credentials = "user = postgres password=postgres";
+include "credentials.php";
+include "Utils.php";
 
-
-$dbconn = pg_connect("$host $port $dbname $credentials ")
-    or die('Could not connect: ' . pg_last_error());
+$dbh = new PDO($conn_string);
 
 // Performing SQL query
 $query = 'SELECT name FROM Program';
-$result = pg_query($dbconn, $query);
 
-if(!$result) {
-    echo pg_last_error($dbconn);
-    exit;
- } 
-// Printing results in HTML
 
-while($line = pg_fetch_row ($result)){
+$result = $dbh->query($query);
 
+$rows = $result -> fetchAll(PDO::FETCH_ASSOC);
+
+foreach($rows as $line){
     $results[] = $line; 
+
 }
 
 $json = json_encode($results);
 
-echo $json;
-// Free resultset
-pg_free_result($result);
-
-// Closing connection
-pg_close($dbconn);
+echo "$json";
 
 
 ?> 
+
