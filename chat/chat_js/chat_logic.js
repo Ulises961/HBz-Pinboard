@@ -1,7 +1,7 @@
 var update_interval = 2500; // this is the update frequency
 var chat_update_timeout; // this is the variable on which the timeout function is called
 var conversation_update_timeout; // this is the variable on which the timeout function is called
-var user = 2; // this is the id of the currently logged user, it must be changed in the future
+var user = 1; // this is the id of the currently logged user, it must be changed in the future
 
 
 // THIS FUNCTION IS CALLED WHEN THE USER CHANGES CONVERSATION
@@ -35,11 +35,12 @@ function sendMessage() {
   xmlhttp.send();
 }
 
-
 // THIS FUNCTION LOADS THE OLD MESSAGES BELONGING TO A CONVERSATION
 function loadConversation(conversation) {
+  var parameters = "conversation=" + conversation + "&user=" + user;
+
   $.ajax({
-    url: "./chat_php/loadConversation.php?conversation=" + conversation + "&user=2", 
+    url: "./chat_php/loadConversation.php?" + parameters, 
     success: function(response){
       $("#msg_history").append(response);
 
@@ -49,11 +50,12 @@ function loadConversation(conversation) {
   });
 }
 
-
 // THIS FUNCTION KEEPS THE CHAT UPDATED AND EVERY 2.5 SECONDS CHECKS FOR NEW MESSAGES
 function updateChat(conversation, lastMessageTime) {
+  var parameters = "conversation=" + conversation + "&user=" + user + "&time=" + lastMessageTime;
+
   $.ajax({
-    url: "./chat_php/updateChat.php?conversation=" + conversation + "&user=2&time="+lastMessageTime, 
+    url: "./chat_php/updateChat.php?" + parameters, 
     success: function(response){
       $("#msg_history").append(response);
 
@@ -68,30 +70,20 @@ function updateChat(conversation, lastMessageTime) {
 
 // THIS FUNCTION KEEPS THE CONVERSATIONS UPDATED AND EVERY 2.5 SECONDS CHECKS FOR NEW MESSAGES
 function updateConversations() {
-  var xmlhttp = new XMLHttpRequest();
+  $.ajax({
+    url: "./chat_php/updateConversations.php", 
+    success: function(response){
+      var conversations = JSON.parse(response);
 
-  xmlhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
+      conversations.forEach(conversation => {
+        updateConversation(conversation);
+      });
 
-      if (isJson(this.responseText)) {
-        var conversations = JSON.parse(this.responseText);
-
-        conversations.forEach(conversation => {
-          updateConversation(conversation);
-        });
-
-      }else{
-        console.log("Error the response of updateConversations.php: " + this.responseText);
-      }
-
+      conversation_update_timeout = setTimeout(function () {
+        updateConversations(); 
+      }, update_interval);
     }
-  };
-
-
-  xmlhttp.open("GET", "./chat_php/updateConversations.php?", true);
-  xmlhttp.send();
-
-  conversation_update_timeout = setTimeout(function () {updateConversations(); }, update_interval);
+  });
 }
 
 function updateConversation(json_conversation) {
