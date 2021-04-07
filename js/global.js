@@ -1,4 +1,6 @@
 
+isProfessorSelected= false;
+
 function displayOptions(obj){
 
     var selectBox = obj;
@@ -13,6 +15,7 @@ function displayOptions(obj){
     var office_hours =document.getElementById("office_hours_block");
     var office =document.getElementById("office_block");
     
+
     
     if( selected === "student"){
      
@@ -25,7 +28,8 @@ function displayOptions(obj){
         office.style.display="none";
         office_hours.style.display="none";
 
-       
+        isProfessorSelected=false;
+        
         loadPrograms();
     }else if (selected === "professor"){
         
@@ -34,7 +38,7 @@ function displayOptions(obj){
        student_input.disabled="enabled";
        subject_input.removeAttribute("disabled");
        loadSubjects();
-      
+        isProfessorSelected= true;
        office.style.display="flex";
        office_hours.style.display="flex";
 
@@ -49,8 +53,12 @@ function displayOptions(obj){
 
         office.style.display="none";
         office_hours.style.display="none";
+        isProfessorSelected=false;
 
     }
+    console.log(document.getElementById("email"));
+    uniqueMail(document.getElementById("email"));
+   
 }
 
 var i = 0;
@@ -115,8 +123,6 @@ function matchesPassword(obj){
 }
 
 
-
-
 function validPswd(obj){
 
     var regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
@@ -124,7 +130,7 @@ function validPswd(obj){
     
     
     var pswd=obj.value;
-  //  matchesPassword();
+  
     var pswdFeedback=document.getElementById("pswd-feedback");
     if (obj.value !== ""){
         validityCheck(regex,message,pswd,pswdFeedback);
@@ -165,7 +171,6 @@ function phoneCheck(obj){
         phoneFeedback.style.display="none";
     }
 
-
 }
 
 function prefixCheck(obj){
@@ -185,8 +190,6 @@ function prefixCheck(obj){
     }
 
 }
-
-
 
 function loadPrograms() {
     var xmlhttp = new XMLHttpRequest();
@@ -262,20 +265,7 @@ function findId(id,obj){
     return inClass;
 }
 
-function hideItemFromList(obj){
 
-    var list = findId("subjects",obj.parentNode);
-    var str= obj.value;
-    
-    values = list[0].childNodes;
-    
-    values.forEach(element => {
-        console.log(str+ element.value);
-        if (element.value === str){
-            element.style.display="none";
-             }     
-    });
-}
 function showPswd() {
     var x = document.getElementById("password");
     if (x.type === "password") {
@@ -285,31 +275,43 @@ function showPswd() {
     }
   } 
 
-
   function uniqueMail(obj){
     var xmlhttp = new XMLHttpRequest();
-    var repeated_email_alert = document.getElementById("mail-feedback");
+    var email_alert = document.getElementById("mail-feedback");
+    //var professor = document.getElementById("professor_form");
     
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             console.log(this.responseText);
 
-        if(obj.value === ""){
-            repeated_email_alert.style.display="none";
-        }else{
-
-            if (Number(this.response) != "0"){
-              
-                repeated_email_alert.className = "invalid-feedback";
-                repeated_email_alert.innerText ='Invalid mail';
+            if(obj.value === ""){
+                email_alert.style.display="none";
+            
+            }else if (!obj.value.match(/^(.+)@(.+)$/)){
+                console.log("invalid mail");
+                email_alert.className = "invalid-feedback";
+                email_alert.innerText ='Invalid mail';
                 
+                email_alert.style.display="flex";
+
             }else{
-                repeated_email_alert.className = "valid-feedback";
-                repeated_email_alert.innerText ="Valid ✔";
-                
 
-            }
-                repeated_email_alert.style.display="block";
+                if (Number(this.response) != 0 && !isProfessorSelected){
+                   
+                        console.log("invalid");
+                        email_alert.className = "invalid-feedback";
+                        email_alert.innerText ='The mail inserted belongs to a registered user';
+               
+                    
+                }else{
+                    email_alert.className = "valid-feedback";
+                    email_alert.innerText ="Valid ✔";
+                    console.log("valid");
+
+                }
+
+                email_alert.style.display="flex";
+                
             }   
         };
         

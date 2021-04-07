@@ -403,6 +403,23 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+
+CREATE OR REPLACE FUNCTION checkExistingProfessor()
+RETURNS TRIGGER AS $$
+DECLARE possibleProfessor RECORD;
+BEGIN
+    SELECT EXISTS( SELECT * FROM Professor JOIN Users on Professor.id = Users.id WHERE Users.mail=New.mail ) INTO professor;
+
+    IF possibleProfessor.exists THEN 
+        UPDATE Users SET password=NEW.password WHERE Users.mail = NEW.mail;
+        RETURN NULL;
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+ 
+
 CREATE TRIGGER insert_student
 BEFORE INSERT ON Student
 FOR EACH ROW EXECUTE
@@ -442,5 +459,10 @@ FOR EACH ROW EXECUTE PROCEDURE is_user_logged_in();
 CREATE TRIGGER check_login_Comment
 BEFORE INSERT OR UPDATE OR DELETE ON Comment
 FOR EACH ROW EXECUTE PROCEDURE is_user_logged_in();
+
+CREATE TRIGGER checkExistingProfessor
+BEFORE INSERT  Users
+FOR EACH ROW EXECUTE PROCEDURE checkExistingProfessor();
+
 
 
