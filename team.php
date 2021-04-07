@@ -148,7 +148,7 @@
                 <div class="team-coverflow">
                   <div class="team-data-img">
                     <div class="team-img">
-                      <img src="images/andres.png" alt="filippo">
+                      <img src="images/andres.png" alt="Andrés Tanesini">
                       <div class="team-box-content">
                         <ul class="team-social white-bg">
                           <li><a href=""><i class="ti ti-linkedin"></i></a></li>
@@ -173,7 +173,7 @@
                 <div class="team-coverflow">
                   <div class="team-data-img">
                     <div class="team-img">
-                      <img src="images/ulises.png" alt="filippo">
+                      <img src="images/ulises.png" alt="Ulises Sosa">
                       <div class="team-box-content">
                         <ul class="team-social white-bg">
                           <li><a href=""><i class="ti ti-linkedin"></i></a></li>
@@ -198,7 +198,7 @@
                 <div class="team-coverflow">
                   <div class="team-data-img">
                     <div class="team-img">
-                      <img src="images/Balawal.jpg" alt="filippo">
+                      <img src="images/Balawal.jpg" alt="Balawal Sultan">
                       <div class="team-box-content">
                         <ul class="team-social white-bg">
                           <li><a href=""><i class="ti ti-linkedin"></i></a></li>
