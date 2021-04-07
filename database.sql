@@ -40,13 +40,8 @@ CREATE TABLE Users(
     password TEXT NOT NULL,
 
     CONSTRAINT valid_mail CHECK (mail ~ '^(.+)@(.+)$'),
-<<<<<<< HEAD
-    CONSTRAINT valid_prefix CHECK (prefix ~ '^\+(?:[0-9]?){1,4}'),
-    CONSTRAINT valid_number CHECK (number ~ '^\d{4}\s?\d{6}')
-=======
     CONSTRAINT valid_prefix CHECK (prefix ~ '^(\+)?(?:[0-9]?){1,4}'),
     CONSTRAINT valid_number CHECK (number ~ '^\d{4}(\s)?\d{6}')
->>>>>>> register
 );
 
 CREATE TABLE Professor(
@@ -525,11 +520,7 @@ BEFORE INSERT OR UPDATE OR DELETE ON Comment
 FOR EACH ROW EXECUTE PROCEDURE is_user_logged_in();
 
 CREATE TRIGGER checkExistingProfessor
-BEFORE INSERT  Users
-FOR EACH ROW EXECUTE PROCEDURE checkExistingProfessor();
-
-CREATE TRIGGER checkExistingProfessor
-BEFORE INSERT ON Users
+BEFORE INSERT  ON Users
 FOR EACH ROW EXECUTE PROCEDURE checkExistingProfessor();
 
 
