@@ -1,6 +1,6 @@
 <?php
 $host = "localhost";
-$dbname = "hbz";
+$dbname = "chat_test";
 $user = "postgres";
 $port = "5432";
 $password = "postgres";

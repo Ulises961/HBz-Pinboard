@@ -1,7 +1,9 @@
 <?php
 include "chat_credentials.php";
+include "Messages.php";
 
 $conversation = $_REQUEST["conversation"];
+$user = $_REQUEST["user"];
 
 try {
   $dbh = new PDO($conn_string);
@@ -16,13 +18,12 @@ try {
 
   $messages = array();
 
-  while ($message = $query->fetch())
-    array_push($messages, json_encode($message));
+  while ($message = $query->fetch()){
 
-  if(empty($messages))
-    echo "no new message\n";
-  else{
-    echo json_encode($messages);
+    if($message["users"] != $user)
+        createIncomingMessage($message);
+    else
+        createOutgoingMessage($message);
   }
 
 } catch (Exeception $e) {

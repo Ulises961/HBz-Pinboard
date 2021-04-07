@@ -11,7 +11,6 @@
   <!-- these two scripts contain funcitons used by chat_logi.js -->
   <script src="./chat_js/incomingMessageElement.js"></script>
   <script src="./chat_js/outgoingMessageElement.js"></script>
-  
   <!-- this script contains the whole chat logic -->
   <script src="./chat_js/chat_logic.js"></script>
 </head>
