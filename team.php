@@ -198,7 +198,7 @@
                 <div class="team-coverflow">
                   <div class="team-data-img">
                     <div class="team-img">
-                      <img src="images/balawal.png" alt="filippo">
+                      <img src="images/Balawal.jpg" alt="filippo">
                       <div class="team-box-content">
                         <ul class="team-social white-bg">
                           <li><a href=""><i class="ti ti-linkedin"></i></a></li>
