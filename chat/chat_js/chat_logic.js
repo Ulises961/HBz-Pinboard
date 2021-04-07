@@ -54,10 +54,9 @@ function updateChat(conversation, lastMessageTime) {
     success: function(response){
       if(response != ""){
         $("#msg_history").append(response);
+        lastMessageTime = $(".time").last().text();
         scrollToLastMessage();
       }
-
-      var lastMessageTime = $(".time").last().text();
 
       chat_update_timeout = setTimeout(function () {
         updateChat(conversation, lastMessageTime); 
