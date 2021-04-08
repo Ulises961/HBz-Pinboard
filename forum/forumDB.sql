@@ -12,8 +12,6 @@ CREATE TABLE Users(
     CONSTRAINT valid_number CHECK (number ~ '^\d{4}\s\d{6}')
 );
 
-CREATE TYPE FILETYPE AS ENUM ('png', 'jpeg', 'jpg');
-
 CREATE TABLE Post(
     id SERIAL PRIMARY KEY,
     users INTEGER NOT NULL,
@@ -49,20 +47,8 @@ CREATE TABLE Answer(
         ON DELETE CASCADE
         DEFERRABLE INITIALLY DEFERRED,
         
-    CONSTRAINT questionid_IsFKInAnswer FOREIGN KEY(question_id)
+    CONSTRAINT answer_must_belong_to_an_existing_question FOREIGN KEY(question_id)
         REFERENCES Question(id)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-        DEFERRABLE INITIALLY DEFERRED
-);
-
-CREATE TABLE Article(
-    id INTEGER PRIMARY KEY,
-    validity DATE NOT NULL,
-    price NUMERIC NOT NULL,
-
-    CONSTRAINT article_is_a_Post FOREIGN KEY(id)
-        REFERENCES Post(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
         DEFERRABLE INITIALLY DEFERRED
@@ -76,13 +62,13 @@ CREATE TABLE Comment(
     users INTEGER NOT NULL,
     post INTEGER NOT NULL,
 
-    CONSTRAINT commentBelongsToUser FOREIGN KEY(users)
+    CONSTRAINT comment_must_belong_to_an_existing_user FOREIGN KEY(users)
         REFERENCES Users(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
         DEFERRABLE INITIALLY DEFERRED,
     
-    CONSTRAINT commentIsPutOnPost FOREIGN KEY(post)
+    CONSTRAINT comment_must_belong_to_an_existing_post FOREIGN KEY(post)
         REFERENCES Post(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
@@ -97,13 +83,13 @@ CREATE TABLE Vote(
     users INTEGER NOT NULL,
     post INTEGER NOT NULL,
 
-    CONSTRAINT voteBelongsToUser FOREIGN KEY(users)
+    CONSTRAINT vote_must_belong_to_an_existing_user FOREIGN KEY(users)
         REFERENCES Users(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
         DEFERRABLE INITIALLY DEFERRED,
     
-    CONSTRAINT voteIsPutOnPost FOREIGN KEY(post)
+    CONSTRAINT vote_must_belong_to_an_existing_post FOREIGN KEY(post)
         REFERENCES Post(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
@@ -121,44 +107,14 @@ CREATE TABLE HasTag(
     
     PRIMARY KEY(tag, post),
 
-    CONSTRAINT  tag_is_FK_in_HasTag FOREIGN KEY(tag)
+    CONSTRAINT  tag_must_exist FOREIGN KEY(tag)
         REFERENCES Tag(id)
         ON UPDATE CASCADE
         ON DELETE RESTRICT
         DEFERRABLE INITIALLY DEFERRED,
     
-    CONSTRAINT  post_is_FK_in_HasTag FOREIGN KEY(tag)
-        REFERENCES Tag(id)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-        DEFERRABLE INITIALLY DEFERRED
-);
-
-CREATE TABLE Photo(
-    id SERIAL PRIMARY KEY,
-    description TEXT,
-    url TEXT NOT NULL,
-    extension FILETYPE NOT NULL,
-    size NUMERIC NOT NULL,
-    article INTEGER NOT NULL,
-
-    CONSTRAINT photoBelongsToArticle FOREIGN KEY(article)
-        REFERENCES Article(id)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-        DEFERRABLE INITIALLY DEFERRED
-);
-
-CREATE TABLE Session(
-    id SERIAL,
-    date DATE NOT NULL,
-    start_time TIME NOT NULL,
-    end_time TIME,
-    users INTEGER,-- NOT NULL,
-    
-    CONSTRAINT SessionPKs PRIMARY KEY(id,users),
-    CONSTRAINT userIsFK_inSession FOREIGN KEY(users) 
-        REFERENCES Users(id)
+    CONSTRAINT tag_must_belong_to_an_existing_post FOREIGN KEY(post)
+        REFERENCES Post(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
         DEFERRABLE INITIALLY DEFERRED
@@ -194,37 +150,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION is_post_an_article()
-RETURNS TRIGGER AS $$
-DECLARE article RECORD;
-BEGIN
-    SELECT EXISTS( SELECT * FROM Article WHERE id  = NEW.id) INTO article;
-
-    IF article.exists THEN 
-        RETURN NULL;
-    ELSE
-        RETURN NEW;
-    END IF;
-END;
-$$ LANGUAGE plpgsql;
-
-
 -- TRIGGERS
-
-CREATE TRIGGER check_if_article_is_a_question
-BEFORE INSERT ON Article
-FOR EACH ROW EXECUTE
-PROCEDURE is_post_a_question();
-
-CREATE TRIGGER check_if_article_is_an_answer
-BEFORE INSERT ON Article
-FOR EACH ROW EXECUTE
-PROCEDURE is_post_an_answer();
-
-CREATE TRIGGER check_if_question_is_an_article
-BEFORE INSERT ON Question
-FOR EACH ROW EXECUTE
-PROCEDURE is_post_an_article();
 
 CREATE TRIGGER check_if_question_is_an_answer
 BEFORE INSERT ON Question
@@ -235,11 +161,6 @@ CREATE TRIGGER check_if_answer_is_a_question
 BEFORE INSERT ON Answer
 FOR EACH ROW EXECUTE
 PROCEDURE is_post_a_question();
-
-CREATE TRIGGER check_if_answer_is_an_article
-BEFORE INSERT ON Answer
-FOR EACH ROW EXECUTE
-PROCEDURE is_post_an_article();
 
 -- INSERTS
 
