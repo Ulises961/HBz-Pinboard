@@ -9,7 +9,7 @@ academic_staff=[]
 
 #regex to find the particulars for each professor
 #+39, 1234 123456, name.surname@unibz.it, Monday, 00:00 - 00:00, BZ P0.00
-regexes=['\+\d{2}','\d{4}\s\d{6}','\w*?\.?\w*@unibz.it','\w*. \d{2}:\d{2} - \d{2}:\d{2}','BZ\sP\d\.\d{2}']
+regexes=['\+\d{2}','\d{4}\s?\d{6}','\w*?\.?\w*@unibz.it','\w*. \d{2}:\d{2} - \d{2}:\d{2}','BZ\sP\d\.\d{2}']
 
 details=[re.compile(regex) for regex in regexes]
 
@@ -86,7 +86,7 @@ for faculty in faculties:
         person.append('0000')
         print(person)
         try:
-            conn = psycopg2.connect(database="hbz", user = "postgres", password = "postgres", host = "10.42.0.1", port = "5432")
+            conn = psycopg2.connect(database="hbz", user = "postgres", password = "postgres", host = "localhost", port = "5432")
             cur = conn.cursor()
 
 

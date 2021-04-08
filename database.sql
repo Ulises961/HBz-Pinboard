@@ -40,8 +40,13 @@ CREATE TABLE Users(
     password TEXT NOT NULL,
 
     CONSTRAINT valid_mail CHECK (mail ~ '^(.+)@(.+)$'),
+<<<<<<< HEAD
     CONSTRAINT valid_prefix CHECK (prefix ~ '^\+(?:[0-9]?){1,4}'),
-    CONSTRAINT valid_number CHECK (number ~ '^\d{4}\s\d{6}')
+    CONSTRAINT valid_number CHECK (number ~ '^\d{4}\s?\d{6}')
+=======
+    CONSTRAINT valid_prefix CHECK (prefix ~ '^(\+)?(?:[0-9]?){1,4}'),
+    CONSTRAINT valid_number CHECK (number ~ '^\d{4}(\s)?\d{6}')
+>>>>>>> register
 );
 
 CREATE TABLE Professor(
@@ -425,6 +430,23 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION checkExistingProfessor()
+RETURNS TRIGGER AS $$
+DECLARE possibleProfessor RECORD;
+BEGIN
+    SELECT EXISTS( SELECT * FROM Professor JOIN Users on Professor.id = Users.id WHERE Users.mail=New.mail ) INTO possibleProfessor;
+
+    IF possibleProfessor.exists THEN 
+        UPDATE Users SET password=NEW.password WHERE Users.mail = NEW.mail;
+        RETURN NULL;
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+
+
 -- TRIGGERS
 
 CREATE TRIGGER insert_sendsMessageTo
@@ -501,5 +523,14 @@ FOR EACH ROW EXECUTE PROCEDURE is_user_logged_in();
 CREATE TRIGGER check_login_Comment
 BEFORE INSERT OR UPDATE OR DELETE ON Comment
 FOR EACH ROW EXECUTE PROCEDURE is_user_logged_in();
+
+CREATE TRIGGER checkExistingProfessor
+BEFORE INSERT  Users
+FOR EACH ROW EXECUTE PROCEDURE checkExistingProfessor();
+
+CREATE TRIGGER checkExistingProfessor
+BEFORE INSERT ON Users
+FOR EACH ROW EXECUTE PROCEDURE checkExistingProfessor();
+
 
 

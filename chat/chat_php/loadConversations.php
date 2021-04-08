@@ -19,21 +19,9 @@ try {
   $query-> bindParam(':user', $user, PDO::PARAM_INT);
   $query-> execute();
 
-  if($query->rowCount() > 0) {
-
-    while($row = $query->fetch()){
-      // echo implode($row);
-      createConversationElement(
-        $row["id"],
-        $row["name"],
-        $row["last_change"],
-        $row["last_message"],
-        "https://ptetutorials.com/images/user-profile.png"
-      );
-    }
-
-  } 
-  
+  if($query->rowCount() > 0) 
+    while($conversation = $query->fetch())
+      createConversationElement($conversation);  
 
   echo "<script> updateConversations(); </script>";
 } catch (Exeception $e) {

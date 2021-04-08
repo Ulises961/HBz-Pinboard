@@ -11,19 +11,13 @@ function changeConversation(id, title) {
   document.getElementById("msg_send_btn").value = id;
   document.getElementById("msg_history").innerHTML = '';
   clearTimeout(chat_update_timeout); // stops updating the previous conversation
-  loadConversation(id);
+  loadChat(id);
 }
 
 // THIS FUNCTION IS CALLED WHEN THE USER PRESSES THE SEND MESSAGE BUTTON
 // AND THE FUNCTION MAKES AN AJAX CALL TO A PHP SCRIPT THAT INSERTS THE MESSAGE INTO THE DB
 function sendMessage() {
   var xmlhttp = new XMLHttpRequest();
-
-  xmlhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      console.log(this.responseText);
-    }
-  };
 
   var conversation = document.getElementById("msg_send_btn").value;
   var message_text = document.getElementById("inputMessage").value;
@@ -35,117 +29,61 @@ function sendMessage() {
   xmlhttp.send();
 }
 
-
 // THIS FUNCTION LOADS THE OLD MESSAGES BELONGING TO A CONVERSATION
-function loadConversation(conversation) {
-  var xmlhttp = new XMLHttpRequest();
-  var lastMessageTime;
+function loadChat(conversation) {
+  var parameters = "conversation=" + conversation + "&user=" + user;
 
-  xmlhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
+  $.ajax({
+    url: "./chat_php/loadChat.php?" + parameters, 
+    success: function(response){
+      $("#msg_history").append(response);
+      scrollToLastMessage();
 
-      if (isJson(this.responseText)) {
-        var messages = JSON.parse(this.responseText);
-
-        messages.forEach(json_message => {
-          var message = JSON.parse(json_message);
-          var message_element = createMessageElement(message);
-
-          lastMessageTime = message.time;
-          
-          document.getElementById("msg_history")
-                  .appendChild(message_element);
-
-          message_element.scrollIntoView();
-        });
-
-      }else{
-        console.log(this.responseText);
-      }
-
+      var lastMessageTime = $(".time").last().text();
       updateChat(conversation, lastMessageTime);
     }
-  };
-
-  xmlhttp.open("GET", "./chat_php/loadConversation.php?conversation=" + conversation, true);
-  xmlhttp.send();
+  });
 }
-
 
 // THIS FUNCTION KEEPS THE CHAT UPDATED AND EVERY 2.5 SECONDS CHECKS FOR NEW MESSAGES
 function updateChat(conversation, lastMessageTime) {
-  var xmlhttp = new XMLHttpRequest();
+  var parameters = "conversation=" + conversation + "&user=" + user + "&time=" + lastMessageTime;
 
-  xmlhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-
-      if (isJson(this.responseText)) {
-        var messages = JSON.parse(this.responseText);
-
-        messages.forEach(json_message => {
-          var message = JSON.parse(json_message);
-          var message_element = createMessageElement(message);
-
-          lastMessageTime = message.time;
-          
-          document.getElementById("msg_history")
-                  .appendChild(message_element);
-
-          message_element.scrollIntoView();
-        });
-
-      }else{
-        console.log(this.responseText);
+  $.ajax({
+    url: "./chat_php/updateChat.php?" + parameters, 
+    success: function(response){
+      if(response != ""){
+        $("#msg_history").append(response);
+        lastMessageTime = $(".time").last().text();
+        scrollToLastMessage();
       }
 
+      chat_update_timeout = setTimeout(function () {
+        updateChat(conversation, lastMessageTime); 
+      }, update_interval);
     }
-  };
-
-  var parameters = "conversation=" + conversation + "&time=" + lastMessageTime;
-
-  xmlhttp.open("GET", "./chat_php/updateChat.php?" + parameters, true);
-  xmlhttp.send();
-
-  chat_update_timeout = setTimeout(function () {updateChat(conversation, lastMessageTime); }, update_interval);
+  });
 }
 
 // THIS FUNCTION KEEPS THE CONVERSATIONS UPDATED AND EVERY 2.5 SECONDS CHECKS FOR NEW MESSAGES
 function updateConversations() {
-  var xmlhttp = new XMLHttpRequest();
+  $.ajax({
+    url: "./chat_php/updateConversations.php", 
+    success: function(response){
+      var conversations = JSON.parse(response);
 
-  xmlhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
+      conversations.forEach(conversation => {
+        updateConversationPreview(conversation);
+      });
 
-      if (isJson(this.responseText)) {
-        var conversations = JSON.parse(this.responseText);
-
-        conversations.forEach(conversation => {
-          updateConversation(conversation);
-        });
-
-      }else{
-        console.log("Error the response of updateConversations.php: " + this.responseText);
-      }
-
+      conversation_update_timeout = setTimeout(function () {
+        updateConversations(); 
+      }, update_interval);
     }
-  };
-
-
-  xmlhttp.open("GET", "./chat_php/updateConversations.php?", true);
-  xmlhttp.send();
-
-  conversation_update_timeout = setTimeout(function () {updateConversations(); }, update_interval);
+  });
 }
 
-// CREATES THE HTML MESSAGE ELEMENT
-function createMessageElement(message){
-  if(message.users == user)
-    return createOutgoingMessage(message);
-  else
-    return createIncomingMessage(message);
-}
-
-function updateConversation(json_conversation) {
+function updateConversationPreview(json_conversation) {
   var conversation = JSON.parse(json_conversation);
 
   document.getElementById("title_date" + conversation.id)
@@ -156,12 +94,8 @@ function updateConversation(json_conversation) {
           .innerText = conversation.last_message;
 }
 
-// CHECKS IF A STRING IS JSON
-function isJson(str) {
-  try {
-    JSON.parse(str);
-  } catch (e) {
-    return false;
-  }
-  return true;
+function scrollToLastMessage() {
+  $("#msg_history").animate({
+    scrollTop: $("#msg_history")[0].scrollHeight
+  }, 1000);
 }
