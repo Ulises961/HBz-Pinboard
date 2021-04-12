@@ -10,11 +10,8 @@
     <meta name="keywords" content="Colorlib Templates">
 
     <!-- Title Page-->
-    <title>Au Register Forms by Colorlib</title>
+    <title>HBZ</title>
 
-    <!-- Icons font CSS-->
-    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
-    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
     <!-- Font special for pages-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
 
@@ -28,8 +25,6 @@
 
 
     <!-- Main CSS-->
-    <link href="css/main.min.css" rel="stylesheet" media="all">
-    <link href="css/login_main.css" rel="stylesheet">
     <link href="css/home_main.css" rel="stylesheet">
 
 </head>
