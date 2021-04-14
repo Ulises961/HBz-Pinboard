@@ -26,7 +26,7 @@ try {
         createOutgoingMessage($message);
   }
 
-} catch (Exeception $e) {
+} catch (Exception $e) {
   echo"error";
   echo $e;
 }

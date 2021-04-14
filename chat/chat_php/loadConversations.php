@@ -24,7 +24,7 @@ try {
       createConversationElement($conversation);  
 
   echo "<script> updateConversations(); </script>";
-} catch (Exeception $e) {
+} catch (Exception $e) {
   echo $e;
 }
 ?>
