@@ -51,9 +51,9 @@ if($usertype === "student"){
 
         $query = $dbh-> prepare($selectProgram);
         
-        $query.execute();
+        $query->execute();
 
-        $row = $dbh->fetch(PDO::FETCH_ASSOC);
+        $row = $query->fetch(PDO::FETCH_ASSOC);
 
             
         $program_id = $row[0];
