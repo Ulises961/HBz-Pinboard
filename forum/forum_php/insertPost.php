@@ -23,7 +23,7 @@ try {
   $insert-> bindParam(":text", $text, PDO::PARAM_STR);
   $insert->execute();
 
-} catch (Exeception $e) {
+} catch (Exception $e) {
   echo"error: $e";
 }
 ?>

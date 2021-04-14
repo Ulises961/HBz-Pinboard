@@ -12,7 +12,7 @@ try {
   $insert-> bindParam(":post", $post, PDO::PARAM_INT);
   $insert->execute();
 
-} catch (Exeception $e) {
+} catch (Exception $e) {
   echo"error: $e";
 }
 ?>
