@@ -10,6 +10,7 @@
   
   <!-- this script contains the whole chat logic -->
   <script src="./chat_js/chat_logic.js"></script>
+  
 </head>
 
 <body>
