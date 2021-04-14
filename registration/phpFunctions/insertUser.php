@@ -92,18 +92,18 @@ elseif($usertype === "professor"){
             $subjectSelection -> bindParam(":subject", $subject,PDO::PARAM_STR);
             $subjectSelection -> execute();
             $row = $subjectSelection -> fetch(PDO::FETCH_ASSOC);
-            $subject = $row[0];
+            $result = $row[0];
             
             
             
-            $insertionString= "INSERT INTO Teaches (professor,subject) VALUES(:professor,:subject)";
+            $insertionString= "INSERT INTO Teaches (professor,subject) VALUES(:professor,:result)";
             $insertTeaches = $dbh -> prepare($insertionString); 
             $insertTeaches -> bindParam(":professor",intval($id),PDO::PARAM_INT);
-            $insertTeaches -> bindParam(":subject", intval($subject),PDO::PARAM_INT);
+            $insertTeaches -> bindParam(":result", intval($subject),PDO::PARAM_INT);
             $insertTeaches -> execute();
 
            
-
+            alert($insertTeaches);
         }
             
 

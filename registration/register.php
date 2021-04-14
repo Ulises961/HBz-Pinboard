@@ -8,13 +8,15 @@
     <meta name="description" content="Colorlib Templates">
     <meta name="author" content="Colorlib">
     <meta name="keywords" content="Colorlib Templates">
+    
+    <base href="/HBz/">
 
     <!-- Title Page-->
     <title>Hedgehogs Sign Up</title>
 
     <!--===============================================================================================-->
     <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
-
+    
     <!-- Icons font CSS-->
     <link href="vendor/mdi-font/css2/material-design-iconic-font.min.css" rel="stylesheet" media="all">
     <link href="vendor/font-awesome-4.7/css1/font-awesome.min.css" rel="stylesheet" media="all">
@@ -31,9 +33,9 @@
 
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
- -->
+
 
     <!-- Main CSS-->
     <link href="css/main.min.css" rel="stylesheet" media="all">
@@ -44,7 +46,7 @@
 
 <body>
 
-  <?php include "navbar.php"; ?>
+  <?php include "./../navbar.php"; ?>
   <script>changeActiveLink("register-link");</script>
 
 
@@ -55,7 +57,7 @@
                     <h2 class="title">Registration Form</h2>
                 </div>
                 <div class="card-body">
-                    <form action="http://localhost/HBz/phpFunctions/insertUser.php" method="POST" target="_blank">
+                    <form action="http://localhost/HBz/registration/phpFunctions/insertUser.php" method="POST" target="_blank">
                                            <!-- <form action="http://10.42.0.1/HBz/response_generic.php" method="POST" target="_blank"> -->
                         <div class="form-row m-b-55">
                             <div class="name">Name*</div>
@@ -257,7 +259,7 @@
     <script src="vendor/datepicker/daterangepicker.js"></script>
 
     <!-- Main JS-->
-    <script src="js/global.js"></script>
+    <script src="registration/js/global.js"></script>
 
 
 

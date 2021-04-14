@@ -322,4 +322,11 @@ function showPswd() {
     xmlhttp.send();
   }
 
- 
+ function checkAndSubmit(){
+
+    var xmlhttp = new XMLHttpRequest();
+
+    
+
+
+ }
