@@ -2,14 +2,14 @@
 <html>
 
 <head>
-  <link href="chat.css" rel="stylesheet">
+  <link href="css/chat.css" rel="stylesheet">
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css"rel="stylesheet">
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   
   <!-- this script contains the whole chat logic -->
-  <script src="./chat_js/chat_logic.js"></script>
+  <script src="js/chat_js/chat_logic.js"></script>
   
 </head>
 
@@ -35,7 +35,7 @@
   
           <!-- ALL THE ONGOING CONVERSATIONS WILL BE LOADED INSIDE THIS DIV -->
           <div class="inbox_chat">
-            <?php include "./chat_php/loadConversations.php";?>
+            <?php include "php/chat_php/loadConversations.php";?>
           </div>
 
         </div>

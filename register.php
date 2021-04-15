@@ -33,7 +33,6 @@
 
 
     <!-- Main CSS-->
-    <link href="css/main.min.css" rel="stylesheet" media="all">
     <link href="css/register_main.css" rel="stylesheet">
     <link href="css/home_main.css" rel="stylesheet">
 
@@ -41,7 +40,7 @@
 
 <body>
 
-  <?php include "./../navbar.php"; ?>
+  <?php include "navbar.php"; ?>
   <script>changeActiveLink("register-link");</script>
 
 
@@ -254,7 +253,7 @@
     <script src="vendor/datepicker/daterangepicker.js"></script>
 
     <!-- Main JS-->
-    <script src="registration/js/global.js"></script>
+    <script src="js/registration_js/global.js"></script>
 
 
 
