@@ -14,7 +14,7 @@
 </head>
 
 <body>
-  <div class="container">
+  <div class="container-fluid">
     <h3 class=" text-center" id="conversationTitle">Messaging</h3>
     <div class="messaging">
       <div class="inbox_msg">

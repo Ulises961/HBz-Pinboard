@@ -1,6 +1,6 @@
 
 body{
-    margin-top:20px;
+
     color: #1a202c;
     text-align: left;
     background-color: #e2e8f0;    
@@ -33,7 +33,7 @@ body{
 }
 .inner-main {
     right: 0;
-    left: 235px;
+    left: 0px;
 }
 .inner-main-footer,
 .inner-main-header,
@@ -114,6 +114,7 @@ body{
     display: flex;
     flex-direction: column;
     min-width: 0;
+    max-width: fit-content;
     word-wrap: break-word;
     background-color: #fff;
     background-clip: border-box;
