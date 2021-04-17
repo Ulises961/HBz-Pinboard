@@ -17,10 +17,12 @@
 	<link rel="stylesheet" type="text/css" href="css/Loginutil.css">
 	<link rel="stylesheet" type="text/css" href="css/Loginmain.css">
 <!--===============================================================================================-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
+
 <body>
-	
+<?php include 'navbar.php'; ?>
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
@@ -86,7 +88,8 @@
 <!--===============================================================================================-->
 	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
-
+<?php include 'footer.php'; ?>
+            
 
 </body>
 
@@ -107,7 +110,7 @@ function alert($text){
 
 	
 // session_start(); THIS WILL STAY COMMENTED FOR NOW
-include "./registration/phpFunctions/credentials.php";
+include "./php/registration_php/credentials.php";
 $dbh = new PDO($conn_string);
 
 if(isset($_POST["login"])) {

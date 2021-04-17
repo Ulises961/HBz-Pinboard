@@ -50,59 +50,42 @@
     <?php include 'navbar.php'; ?>
     <script>changeActiveLink("forum-link");</script>
 
-    <div class="container-sm">
-        <div class="main-body">
+
+    <div class="container-fluid">
+        <div class="main-body p-0">
             <div class="inner-wrapper">
+             
                 <!-- Inner main -->
-                <div class="inner-main justify-content-center">
-                    <!-- Inner main body -->
-                    
-                    <!-- Forum List -->
-                    <div class="inner-main-body p-2 p-sm-3 collapse forum-content show ">
-                        <div class="card mb-2 custom-control">
+                <div class="inner-main">
+
+                <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
+                        <div class="card mb-2">
                             <div class="card-body p-2 p-sm-3">
                                 <div class="media forum-item">
                                     <div class="media-body">
-
-                                        <h2 class="h2 mb-4">Realtime Fetching Data</h2>
-                                        <input class="container" type="text" placeholder="Title"/>
+                                        <div>
+                                            <h2 class="h2 mb-4">Realtime Fetching Data</h2>
+                                            <input class="container input" type="text" placeholder="Title"/>
                                         
-
-
-                                        <!-- Text Editor -->
-                            
-                                        <div class="row pt-4 ">
+                                        <div>
+                                            <h3 class="h3">Your Idea</h3>
+                                            <label>Describe the issue in detail</label>
                                             <div>
-                                                <h3 class="h3 mb-4">Your Idea</h3>
-                                                <label>Describe the issue in detail</label>
-                                                <div class="form-group">
-                                                    <textarea id="editor"></textarea>
-                                                </div>
-                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                <textarea id="editor"></textarea>
                                             </div>
                                         </div>
-                                
-                                        <!-- /Text Editor -->
-                                    </div>
-                                   
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>           
                                 </div>
-
-
-                              
                             </div>
-
-
-
-                        </div> 
-                     
-                    </div>   
-                
+                        </div>
+                       
                 </div>
-     
+                <!-- /Inner main -->
             </div>
-   
-        </div>
 
+          
+        </div>
     </div>
     <?php include 'footer.php'; ?>
             

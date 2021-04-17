@@ -33,7 +33,7 @@ body{
 }
 .inner-main {
     right: 0;
-    left: 0px;
+    left: 235px;
 }
 .inner-main-footer,
 .inner-main-header,
@@ -114,7 +114,6 @@ body{
     display: flex;
     flex-direction: column;
     min-width: 0;
-    max-width: fit-content;
     word-wrap: break-word;
     background-color: #fff;
     background-clip: border-box;
@@ -127,3 +126,9 @@ body{
     min-height: 1px;
     padding: 1rem;
 }
+
+
+.input{
+    width:fit-content;
+}
+    
