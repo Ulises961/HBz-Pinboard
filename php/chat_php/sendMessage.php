@@ -23,7 +23,7 @@ try {
   $insert-> bindParam(":conversation", $conversation, PDO::PARAM_INT);
   $insert->execute();
 
-} catch (Exeception $e) {
+} catch (Exception $e) {
   echo"error: $e";
 }
 ?>

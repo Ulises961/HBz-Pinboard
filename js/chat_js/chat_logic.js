@@ -25,7 +25,7 @@ function sendMessage() {
 
   document.getElementById("inputMessage").value = " "; // empties the message input field
 
-  xmlhttp.open("GET", "./chat_php/sendMessage.php?" + parameters, true);
+  xmlhttp.open("GET", "./php/chat_php/sendMessage.php?" + parameters, true);
   xmlhttp.send();
 }
 
@@ -34,9 +34,10 @@ function loadChat(conversation) {
   var parameters = "conversation=" + conversation + "&user=" + user;
 
   $.ajax({
-    url: "./chat_php/loadChat.php?" + parameters, 
+    url: "./php/chat_php/loadChat.php?" + parameters, 
     success: function(response){
       $("#msg_history").append(response);
+      scrollToLastMessage();
 
       var lastMessageTime = $(".time").last().text();
       updateChat(conversation, lastMessageTime);
@@ -49,11 +50,13 @@ function updateChat(conversation, lastMessageTime) {
   var parameters = "conversation=" + conversation + "&user=" + user + "&time=" + lastMessageTime;
 
   $.ajax({
-    url: "./chat_php/updateChat.php?" + parameters, 
+    url: "./php/chat_php/updateChat.php?" + parameters, 
     success: function(response){
-      $("#msg_history").append(response);
-
-      var lastMessageTime = $(".time").last().text();
+      if(response != ""){
+        $("#msg_history").append(response);
+        lastMessageTime = $(".time").last().text();
+        scrollToLastMessage();
+      }
 
       chat_update_timeout = setTimeout(function () {
         updateChat(conversation, lastMessageTime); 
@@ -65,7 +68,7 @@ function updateChat(conversation, lastMessageTime) {
 // THIS FUNCTION KEEPS THE CONVERSATIONS UPDATED AND EVERY 2.5 SECONDS CHECKS FOR NEW MESSAGES
 function updateConversations() {
   $.ajax({
-    url: "./chat_php/updateConversations.php", 
+    url: "./php/chat_php/updateConversations.php", 
     success: function(response){
       var conversations = JSON.parse(response);
 
@@ -89,4 +92,10 @@ function updateConversationPreview(json_conversation) {
 
   document.getElementById("last_message_" + conversation.id)
           .innerText = conversation.last_message;
+}
+
+function scrollToLastMessage() {
+  $("#msg_history").animate({
+    scrollTop: $("#msg_history")[0].scrollHeight
+  }, 1000);
 }

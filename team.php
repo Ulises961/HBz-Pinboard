@@ -19,95 +19,143 @@
 
   <section>
     <div class="jumbotron">
-      <h1>About HBz</h1>
-      <div class="form-row m-b-55">
-        <div class="col">
-          <h2>The concept</h2>
-          <p>
+    <h1>About HBz</h1>
+    <div class="form-row m-b-55">
+    <div class=" mb-4">
+          <div class="card-body">
+ 
+              <h2 class="card-title">The concept</h2>
+                <p class="card-text">
+                During the last twenty years we have experienced the power of collective production.
+                The most powerful tools of today's technologies were developed thanks to a fruitful interaction of peers
+                from all over the world.
+                It is with this spirit that we would like to propose a platform that supports the interaction and
+                knowledge-sharing of university colleagues.
+                It is our intention to introduce a user-friendly platform that connects all members of the Unibz community.</p>
+            
+              </div>
+          </div>
+         
+        </div>
 
-            During the last twenty years we have experienced the power of collective production.
-            The most powerful tools of today's technologies were developed thanks to a fruitful interaction of peers
-            from all over the world.
-            It is with this spirit that we would like to propose a platform that supports the interaction and
-            knowledge-sharing of university colleagues.
-            It is our intention to introduce a user-friendly platform that connects all members of the Unibz community.
-
-          </p>
-        </div>
-        
-        <div class="col">
-          <h2>Characteristics</h2>
-          <p>
-            Featuring a forum for the exchange of ideas and knowledge, a pinboard for the exchange of goods, and service
-            of office hours of professors and an integrated chat platform 
-            this platforms is the basis of interaction for the university life.
-          </p>
-        </div>
-       
-        <div class="col">
-          <h2>Technologies used</h2>
-          <p>
-            Working with HTML, JavaScript and CSS with Bootstrap in the Front-End, while in the Back-End we have chosen to use PHP, Apache and PostgreSQL.
-            For site dinamicity utilize Ajax. Furthermore we have developed a web scraper using Python to populate the database with updated and veridic information regarding the university genral information. Data encryption has been used in php to guarantee a safe storage of passwords of the users.
-          </p>
-        </div>
-       
-       
-      </div>
-      <br>
-      <h1>Features</h1>
         <div class="form-row m-b-55">
-          
-
-          <div class="col">
-            <h2>Forum</h2>
-            <p>
-              HBz offers a stack exchange like forum where users can ask and answer questions. 
-              Helpful posts and questions can be voted, ranked accordingly and commented to give a valuable and trustworthy information to the community.
-              The information can be filtered according to tags and a search bar will help to browse efficiently through the questions.
-            </p>
-          </div>
-
-          <div class="col">
-            <h2>Chat</h2>
-            <p>
-              Real time interaction among colleagues is supported by means of an integrated chat. Communication is open to all users of the platform. This feature uses the power of PostgreSQL by leveraging on JS and PHP.
-              
-            </p>
-          </div>
-
-          <div class="col">
-            <h2>Office Hours</h2>
-            <p>
-              Students will be able to write to professors for the arrangement of office hours directly through the platform.
-              Search filters will help students to narrow down the search for a specific professor teaching a particular subject.
-            </p>
-          </div>
+        <div class=" mb-4">
+          <div class="card-body">
    
-
-        
-      </div>
-      <br>
-        <h1>Future Plans</h1>
-        <div class="form-row m-b-55">
-          <div class="col">
-            <h2>Platform integration</h2>
-            <p>
-              Integration with the diverse and non linked platforms (Ki-Kero, Scub, Talila, Snow-Days, Tandem) of the
-              university is part of our long term plans.
-            </p>
+              <h2 class="card-title">Characteristics</h2>
+                <p class="card-text " >
+                Featuring a forum for the exchange of ideas and knowledge, a pinboard for the exchange of goods, and service
+            of office hours of professors and an integrated chat platform 
+            this platforms is the basis of interaction for the university life..</p>
+            
+              </div>
           </div>
-
-          <div class="col">
-            <h2>Digital Currency</h2>
-            <p>
-              Users of HBz will collect a currency called Ötz coin by means of the active participation in the platform forum.
-              Ötz coins can be exchanged for goods in the Market. This form of positive feedback-loop would promote resource sharing among the platform users.
-            </p>
-          </div>
-
         </div>
-           </div>
+      
+       
+        <div class="form-row m-b-55">
+    <div class=" mb-4">
+          <div class="card-body">
+ 
+              <h2 class="card-title">Technologies used</h2>
+                <p class="card-text">
+                Working with HTML, JavaScript and CSS with Bootstrap in the Front-End, while in the Back-End we have chosen to use PHP, Apache and PostgreSQL.
+            For site dinamicity utilize Ajax. Furthermore we have developed a web scraper using Python to populate the database with updated and veridic information regarding the university genral information. Data encryption has been used in php to guarantee a safe storage of passwords of the users.</p>
+            
+              </div>
+          </div>
+         
+        </div>
+      
+     
+
+
+        <h1>Features</h1>
+
+
+        <div class="form-row m-b-55">
+    <div class=" mb-4">
+          <div class="card-body">
+ 
+              <h2 class="card-title">Forum</h2>
+                <p class="card-text">
+                HBz offers a stack exchange like forum where users can ask and answer questions. 
+              Helpful posts and questions can be voted, ranked accordingly and commented to give a valuable and trustworthy information to the community.
+              The information can be filtered according to tags and a search bar will help to browse efficiently through the questions.</p>
+            
+            </div>
+          </div>
+         
+        </div>
+     
+       
+        <div class="form-row m-b-55">
+    <div class=" mb-4">
+          <div class="card-body">
+ 
+              <h2 class="card-title">Chat</h2>
+                <p class="card-text">
+                Real time interaction among colleagues is supported by means of an integrated chat. Communication is open to all users of the platform. This feature uses the power of PostgreSQL by leveraging on JS and PHP.
+              </p>
+            
+              </div>
+          </div>
+        </div>
+     
+    
+
+        <div class="form-row m-b-55">
+    <div class=" mb-4">
+          <div class="card-body">
+ 
+              <h2 class="card-title">Office Hours</h2>
+                <p class="card-text">
+                Students will be able to write to professors for the arrangement of office hours directly through the platform.
+              Search filters will help students to narrow down the search for a specific professor teaching a particular subject.
+              </p>
+            
+              </div>
+          </div>
+         
+        </div>
+       
+
+
+
+        <h1>Future Plans</h1>
+
+        <div class="form-row m-b-55">
+    <div class=" mb-4">
+          <div class="card-body">
+ 
+              <h2 class="card-title">Platform integration</h2>
+                <p class="card-text">
+                Integration with the diverse and non linked platforms (Ki-Kero, Scub, Talila, Snow-Days, Tandem) of the
+              university is part of our long term plans.
+              </p>
+              </div>
+          </div>
+         
+        </div>
+        
+      
+          <div class="form-row m-b-55">
+    <div class=" mb-4">
+          <div class="card-body">
+ 
+              <h2 class="card-title">Digital Currency</h2>
+                <p class="card-text">
+                Users of HBz will collect a currency called Ötz coin by means of the active participation in the platform forum.
+              Ötz coins can be exchanged for goods in the Market. This form of positive feedback-loop would promote resource sharing among the platform users.
+              </p>
+              </div>
+          </div>
+         
+        </div>
+      
+
+       
+        
     </div>
   </section>
 
@@ -148,7 +196,7 @@
                 <div class="team-coverflow">
                   <div class="team-data-img">
                     <div class="team-img">
-                      <img src="images/andres.png" alt="filippo">
+                      <img src="images/andres.png" alt="Andrés Tanesini">
                       <div class="team-box-content">
                         <ul class="team-social white-bg">
                           <li><a href=""><i class="ti ti-linkedin"></i></a></li>
@@ -173,7 +221,7 @@
                 <div class="team-coverflow">
                   <div class="team-data-img">
                     <div class="team-img">
-                      <img src="images/ulises.png" alt="filippo">
+                      <img src="images/ulises.png" alt="Ulises Sosa">
                       <div class="team-box-content">
                         <ul class="team-social white-bg">
                           <li><a href=""><i class="ti ti-linkedin"></i></a></li>
@@ -198,7 +246,7 @@
                 <div class="team-coverflow">
                   <div class="team-data-img">
                     <div class="team-img">
-                      <img src="images/balawal.png" alt="filippo">
+                      <img src="images/Balawal.jpg" alt="Balawal Sultan">
                       <div class="team-box-content">
                         <ul class="team-social white-bg">
                           <li><a href=""><i class="ti ti-linkedin"></i></a></li>

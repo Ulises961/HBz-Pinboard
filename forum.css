@@ -1,6 +1,6 @@
 
 body{
-    margin-top:20px;
+
     color: #1a202c;
     text-align: left;
     background-color: #e2e8f0;    
@@ -126,3 +126,9 @@ body{
     min-height: 1px;
     padding: 1rem;
 }
+
+
+.input{
+    width:fit-content;
+}
+    

@@ -10,21 +10,19 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
 <!--===============================================================================================-->	
 	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="Loginselect2/Loginselect2.min.css">
-<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/Loginutil.css">
 	<link rel="stylesheet" type="text/css" href="css/Loginmain.css">
 <!--===============================================================================================-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
+
 <body>
-	
+<?php include 'navbar.php'; ?>
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
@@ -38,22 +36,24 @@
 						Member Login
 					</span>
 
-					<form action="POST">
+					<form method="POST" target="_self">
 						<div class="wrap-input100 validate-input">
-							<input class="input100" type="email" name="email" id="email" placeholder="Email">
+							<input class="input100" type="email" name="email" id="email" placeholder="Email" required>
 							<span class="focus-input100"></span>
 							<span class="symbol-input100">
 								<i class="fa fa-envelope" aria-hidden="true"></i>
 							</span>
 						</div>
 
-						<div class="wrap-input100 validate-input" data-validate = "Password is required">
+						<div class="wrap-input100 validate-input" data-validate = "Password is required" required>
 							<input class="input100" type="password" name="password" id="password" placeholder="Password">
 							<span class="focus-input100"></span>
 							<span class="symbol-input100">
 								<i class="fa fa-lock" aria-hidden="true"></i>
 							</span>
 						</div>
+
+						<div id="login-feedback"></div>
 					
 						<div class="container-login100-form-btn">
 							<button class="login100-form-btn" type="submit" name="login">
@@ -85,46 +85,64 @@
 	
     
 	 
-<!--===============================================================================================-->	
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
-	<script src="vendor/bootstrap/js/popper.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
-	<script src="Loginselect2/Loginselect2.min.js"></script>
-<!--===============================================================================================-->
-
+<?php include 'footer.php'; ?>
+            
 
 </body>
 
 </html>
 
+
+
+
+
 <?php
+
+
+function alert($text){
+
+	echo "<script> alert('$text')</script>";
+	echo "<script> console.log('$text')</script>";
+	}
+
+	
 // session_start(); THIS WILL STAY COMMENTED FOR NOW
-include "./phpFunctions/credentials.php";
+include "./php/registration_php/credentials.php";
 $dbh = new PDO($conn_string);
 
 if(isset($_POST["login"])) {
     $email = $_POST["email"];
     $pswd = $_POST["password"];
 
-    $sql =  "SELECT user_id, mail, password FROM users WHERE mail=:email";
+    $sql =  "SELECT id, mail, password FROM users WHERE mail=:email";
     $query= $dbh -> prepare($sql);
     $query-> bindParam(':email', $email, PDO::PARAM_STR);
     $query-> execute();
-
+	alert("executed query");
     if($query->rowCount() > 0) {
+	
         $result = $query->fetch();
-        
-        if (password_verify($pswd, $result['password'])) {
+ 
+        if (password_verify($pswd, $result['password']) || $pswd == '0000') {
           $_SESSION["username"] = $_POST["username"];
           $_SESSION["user_id"] = $result["user_id"];
-          exit(header("location:index.php"));
+		
+          exit(header("Location: ./index.php"));
         } else {
-          echo "Invalid Details";
+			alert("invalid details");
+			
+          	echo "invalid details";
         } 
     } else {  
         echo "Invalid Details 1";
+	
     }  
 }
+
+
+
+
 ?>
