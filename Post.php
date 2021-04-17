@@ -56,40 +56,45 @@
             <div class="inner-wrapper">
              
                 <!-- Inner main -->
-                <div class="inner-main">
+                <div class="jumbotron">
 
-                <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
-                        <div class="card mb-2">
-                            <div class="card-body p-2 p-sm-3">
-                                <div class="media forum-item">
-                                    <div class="media-body">
-                                        <div>
-                                            <h2 class="h2 mb-4">Realtime Fetching Data</h2>
-                                            <input class="container input" type="text" placeholder="Title"/>
-                                        
-                                        <div>
-                                            <h3 class="h3">Your Idea</h3>
-                                            <label>Describe the issue in detail</label>
-                                            <div>
-                                                <textarea id="editor"></textarea>
+                    <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
+                            <div class="card mb-2">
+                                <div class="card-body p-2 p-sm-3">
+                                    <div class="media forum-item">
+                                        <div class="media-body">
+
+                                            <div class="row">
+                                                <h2 class="h2 mb-4">Realtime Fetching Data</h2>
+                                                <div>
+                                                    <input class="container-fluid" type="text" placeholder="Title"/>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                    </div>           
+                                            <div class="row">
+                                                <h3 class="h3 pt-4">Your Idea</h3>
+                                                <label>Describe the issue in detail</label>
+                                                <div class="container-fluid">
+                                                    <textarea id="editor"></textarea>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>           
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                       
+                    
+                        
+                    </div>
                 </div>
                 <!-- /Inner main -->
             </div>
 
-          
         </div>
     </div>
-    <?php include 'footer.php'; ?>
-            
+
+ 
 </body>
 
+<?php include 'footer.php'; ?>           
 
 </html>
