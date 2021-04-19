@@ -6,7 +6,7 @@ $post = $_REQUEST["post"];
 try {
   $dbh = new PDO($conn_string);
 
-  $sql = "INSERT INTO Comment(id) VALUES(:post)";
+  $sql = "INSERT INTO Question(id) VALUES(:post)";
 
   $insert = $dbh-> prepare($sql);
   $insert-> bindParam(":post", $post, PDO::PARAM_INT);
