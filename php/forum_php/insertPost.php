@@ -10,7 +10,7 @@ $text  = $_REQUEST["text"];
 try {
   $dbh = new PDO($conn_string);
 
-  $insert_into = "INSERT INTO Comment(id, users, date, time, title, text) ";
+  $insert_into = "INSERT INTO Post(id, users, date, time, title, text) ";
   $values = "VALUES(default, :user, :date, :time, :title, :text)";
   $sql = $insert_into.$values;
 
