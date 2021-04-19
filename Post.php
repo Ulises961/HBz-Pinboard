@@ -56,40 +56,105 @@
             <div class="inner-wrapper">
              
                 <!-- Inner main -->
-                <div class="inner-main">
+                <div class="jumbotron">
+                <form method='POST'> 
+                    <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
+                            <div class="card mb-2">
+                                <div class="card-body p-2 p-sm-3">
+                                    <div class="media forum-item">
+                                        <div class="media-body">
 
-                <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
-                        <div class="card mb-2">
-                            <div class="card-body p-2 p-sm-3">
-                                <div class="media forum-item">
-                                    <div class="media-body">
-                                        <div>
-                                            <h2 class="h2 mb-4">Realtime Fetching Data</h2>
-                                            <input class="container input" type="text" placeholder="Title"/>
-                                        
-                                        <div>
-                                            <h3 class="h3">Your Idea</h3>
-                                            <label>Describe the issue in detail</label>
-                                            <div>
-                                                <textarea id="editor"></textarea>
+                                            <div class="row">
+                                                <h2 class="h2 mb-4">Realtime Fetching Data</h2>
+                                                <div>
+                                                    <input name="title" class="container-fluid" type="text" placeholder="Title"/>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                    </div>           
+                                            <div class="row">
+                                                <h3 class="h3 pt-4">Your Idea</h3>
+                                                <label>Describe the issue in detail</label>
+                                                <div class="container-fluid">
+                                                    <textarea name="text" id="editor"></textarea>
+                                                </div>
+                                            </div>
+                                            <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+                                        </div>           
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                       
+                    
+                        
+                
+                    </div>
+                    </form>
                 </div>
                 <!-- /Inner main -->
             </div>
 
-          
         </div>
     </div>
-    <?php include 'footer.php'; ?>
-            
+
+ 
 </body>
+
+<?php include 'footer.php'; ?>           
+
+<?php
+
+
+if(isset($_POST['submit'])){ 
+
+$host = "localhost";
+$dbname = "forum_test";
+$user = "postgres";
+$port = "5432";
+$password = "postgres";
+
+$conn_string = "pgsql:host=$host port=$port dbname=$dbname user=$user password=$password";
+
+$user  = $_REQUEST["user"];
+$date  = date("d/m/y");
+$time  = date("H:i:s");
+$title = $_REQUEST["title"];
+$text  = $_REQUEST["text"];
+$id;
+try {
+  $dbh = new PDO($conn_string);
+
+  $insert_into = "INSERT INTO Post(id, users, date, time, title, text) ";
+  $values = "VALUES(default, :user, :date, :time, :title, :text)";
+  $sql = $insert_into.$values;
+
+  $insert = $dbh-> prepare($sql);
+
+  $insert-> bindParam(":user", $user, PDO::PARAM_INT);
+  $insert-> bindParam(":date", $date, PDO::PARAM_STR);
+  $insert-> bindParam(":time", $time, PDO::PARAM_STR);
+  $insert-> bindParam(":title", $title, PDO::PARAM_STR);
+  $insert-> bindParam(":text", $text, PDO::PARAM_STR);
+  $insert->execute();
+  $id = $dbh -> lastInsertedId();
+
+} catch (Exception $e) {
+  echo"error: $e";
+}
+
+try {
+  $dbh = new PDO($conn_string);
+
+  $sql = "INSERT INTO Question(id) VALUES(:post)";
+
+  $insert = $dbh-> prepare($sql);
+  $insert-> bindParam(":post", $id, PDO::PARAM_INT);
+  $insert->execute();
+
+} catch (Exception $e) {
+  echo"error: $e";
+}
+}
+?>
+
+
 
 
 </html>
