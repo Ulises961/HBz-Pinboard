@@ -27,7 +27,7 @@ try {
     echo json_encode($conversations);
   } 
 
-} catch (Exeception $e) {
+} catch (Exception $e) {
   echo $e;
 }
 ?>

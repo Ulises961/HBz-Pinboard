@@ -1,6 +1,8 @@
 <?php
 include "chat_credentials.php";
-include "Messages.php";
+include "components/incomingMessage.php";
+include "components/outgoingMessage.php";
+
 
 $conversation = $_REQUEST["conversation"];
 $user = $_REQUEST["user"];
@@ -30,7 +32,7 @@ try {
         createOutgoingMessage($message);
   }
 
-} catch (Exeception $e) {
+} catch (Exception $e) {
   echo"error";
   echo $e;
 }

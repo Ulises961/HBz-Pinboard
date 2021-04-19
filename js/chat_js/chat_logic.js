@@ -25,7 +25,7 @@ function sendMessage() {
 
   document.getElementById("inputMessage").value = " "; // empties the message input field
 
-  xmlhttp.open("GET", "./chat_php/sendMessage.php?" + parameters, true);
+  xmlhttp.open("GET", "./php/chat_php/sendMessage.php?" + parameters, true);
   xmlhttp.send();
 }
 
@@ -34,7 +34,7 @@ function loadChat(conversation) {
   var parameters = "conversation=" + conversation + "&user=" + user;
 
   $.ajax({
-    url: "./chat_php/loadChat.php?" + parameters, 
+    url: "./php/chat_php/loadChat.php?" + parameters, 
     success: function(response){
       $("#msg_history").append(response);
       scrollToLastMessage();
@@ -50,7 +50,7 @@ function updateChat(conversation, lastMessageTime) {
   var parameters = "conversation=" + conversation + "&user=" + user + "&time=" + lastMessageTime;
 
   $.ajax({
-    url: "./chat_php/updateChat.php?" + parameters, 
+    url: "./php/chat_php/updateChat.php?" + parameters, 
     success: function(response){
       if(response != ""){
         $("#msg_history").append(response);
@@ -68,7 +68,7 @@ function updateChat(conversation, lastMessageTime) {
 // THIS FUNCTION KEEPS THE CONVERSATIONS UPDATED AND EVERY 2.5 SECONDS CHECKS FOR NEW MESSAGES
 function updateConversations() {
   $.ajax({
-    url: "./chat_php/updateConversations.php", 
+    url: "./php/chat_php/updateConversations.php", 
     success: function(response){
       var conversations = JSON.parse(response);
 

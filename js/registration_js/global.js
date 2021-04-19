@@ -212,7 +212,7 @@ function loadPrograms() {
     };
     
 
-    xmlhttp.open("GET", "phpFunctions/loadPrograms.php", true);
+    xmlhttp.open("POST", "php/registration_php/loadPrograms.php", true);
     xmlhttp.send();
 }
 
@@ -237,7 +237,11 @@ function loadSubjects() {
     };
     
 
-    xmlhttp.open("GET", "phpFunctions/loadSubjects.php", true);
+<<<<<<< HEAD
+    xmlhttp.open("POST", "php/registration_php/loadSubjects.php", true);
+=======
+    xmlhttp.open("GET", "./php/registration_php/loadSubjects.php", true);
+>>>>>>> 091beb08caaa2ad9183219814c370a6b3c043a4a
     xmlhttp.send();
 }
 
@@ -318,7 +322,11 @@ function showPswd() {
     };
     
 
-    xmlhttp.open("GET", "phpFunctions/getMail.php?mail="+obj.value, true);
+<<<<<<< HEAD
+    xmlhttp.open("GET", "php/registration_php/getMail.php?mail="+obj.value, true);
+=======
+    xmlhttp.open("GET", "./php/registration_php/getMail.php?mail="+obj.value, true);
+>>>>>>> 091beb08caaa2ad9183219814c370a6b3c043a4a
     xmlhttp.send();
   }
 

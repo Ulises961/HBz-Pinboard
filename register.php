@@ -33,7 +33,6 @@
 
 
     <!-- Main CSS-->
-    <link href="css/main.min.css" rel="stylesheet" media="all">
     <link href="css/register_main.css" rel="stylesheet">
     <link href="css/home_main.css" rel="stylesheet">
 
@@ -41,7 +40,7 @@
 
 <body>
 
-  <?php include "./../navbar.php"; ?>
+  <?php include "navbar.php"; ?>
   <script>changeActiveLink("register-link");</script>
 
 
@@ -234,15 +233,7 @@
     </div>
 
 
-    <!-- Footer -->
-    <div class=footer>
-        <footer class="py-5 bg-dark">
-            <div class="container">
-                <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
-            </div>
-            <!-- /.container -->
-        </footer>
-    </div>
+    <?php include "footer.php"; ?>
 
 
     <!-- Bootstrap core JavaScript -->
@@ -254,7 +245,7 @@
     <script src="vendor/datepicker/daterangepicker.js"></script>
 
     <!-- Main JS-->
-    <script src="registration/js/global.js"></script>
+    <script src="js/registration_js/global.js"></script>
 
 
 

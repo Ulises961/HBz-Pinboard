@@ -6,13 +6,13 @@ include "Utils.php";
 
 
 
-$name =$_POST['first_name'];
-$surname=$_POST['last_name'];
-$prefix=$_POST['area_code'];
-$number=$_POST['phone'];
-$mail=$_POST['email'];
-$pswd= password_hash($_POST["pswd"], PASSWORD_ARGON2I);
-$usertype=$_POST['usertypes'];
+$name =$_REQUEST['first_name'];
+$surname=$_REQUEST['last_name'];
+$prefix=$_REQUEST['area_code'];
+$number=$_REQUEST['phone'];
+$mail=$_REQUEST['email'];
+$pswd= password_hash($_REQUEST["pswd"], PASSWORD_ARGON2I);
+$usertype=$_REQUEST['usertypes'];
 
 
 $dbh = new PDO($conn_string);
@@ -45,15 +45,15 @@ alert($id);
 
 if($usertype === "student"){
 
-        $program=$_POST['study_programs'];
+        $program=$_REQUEST['study_programs'];
 
         $selectProgram = "SELECT code FROM Program WHERE name= :program";
 
         $query = $dbh-> prepare($selectProgram);
         
-        $query.execute();
+        $query->execute();
 
-        $row = $dbh->fetch(PDO::FETCH_ASSOC);
+        $row = $query->fetch(PDO::FETCH_ASSOC);
 
             
         $program_id = $row[0];
@@ -68,9 +68,9 @@ if($usertype === "student"){
 
 elseif($usertype === "professor"){
 
-        $subjects=$_POST['subject-input'];
-        $office=$_POST['office'];
-        $office_hours=$_POST['office_hours'];
+        $subjects=$_REQUEST['subject-input'];
+        $office=$_REQUEST['office'];
+        $office_hours=$_REQUEST['office_hours'];
         
 
         //testing null values on optional fields of the form

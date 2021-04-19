@@ -2,16 +2,16 @@
 include "forum_credentials.php";
 
 $user  = $_REQUEST["user"];
+$post = $_REQUEST["post"];
+$vote = $_REQUEST["vote"];
 $date  = date("d/m/y");
 $time  = date("H:i:s");
-$title = $_REQUEST["title"];
-$text  = $_REQUEST["text"];
 
 try {
   $dbh = new PDO($conn_string);
 
-  $insert_into = "INSERT INTO Comment(id, users, date, time, title, text) ";
-  $values = "VALUES(default, :user, :date, :time, :title, :text)";
+  $insert_into = "INSERT INTO Vote(id, date, time, value, users, post) ";
+  $values = "VALUES(default, :date, :time, :vote, :user, :post)";
   $sql = $insert_into.$values;
 
   $insert = $dbh-> prepare($sql);
@@ -19,11 +19,11 @@ try {
   $insert-> bindParam(":user", $user, PDO::PARAM_INT);
   $insert-> bindParam(":date", $date, PDO::PARAM_STR);
   $insert-> bindParam(":time", $time, PDO::PARAM_STR);
-  $insert-> bindParam(":title", $title, PDO::PARAM_STR);
-  $insert-> bindParam(":text", $text, PDO::PARAM_STR);
+  $insert-> bindParam(":vote", $title, PDO::PARAM_INT);
+  $insert-> bindParam(":post", $text, PDO::PARAM_INT);
   $insert->execute();
 
-} catch (Exeception $e) {
+} catch (Exception $e) {
   echo"error: $e";
 }
 ?>

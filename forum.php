@@ -27,7 +27,7 @@
     <?php include "navbar.php"; ?>
     <script>changeActiveLink("forum-link");</script>
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="main-body p-0">
             <div class="inner-wrapper">
                 <!-- Inner sidebar -->

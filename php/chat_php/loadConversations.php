@@ -1,6 +1,6 @@
 <?php
-include "conversationElement.php";
 include "chat_credentials.php";
+include "components/conversation.php";
 
 // right now we are onlu testing and there is no session vairable set
 // $user = $_SESSION["user"]; 
@@ -24,7 +24,7 @@ try {
       createConversationElement($conversation);  
 
   echo "<script> updateConversations(); </script>";
-} catch (Exeception $e) {
+} catch (Exception $e) {
   echo $e;
 }
 ?>
