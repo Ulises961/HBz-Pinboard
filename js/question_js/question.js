@@ -38,15 +38,16 @@ function showAnswerVotes(id){
 function getQuestion(id){
     console.log("Id is: "+ id);
     let title = document.getElementById("title");
-    let text = document.getElementById("text");
+    let content = document.getElementById("text");
 
     let xmlhttp= new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
         console.log("GetQuestion response text: "+this.response);
         if (this.readyState == 4 && this.status == 200) {
             let responseObj= JSON.parse(this.responseText);
-            title.innerHTML=responseObj.title;
-            text.appendChild(responseObj.text);
+            title.innerHTML=responseObj[0].title;
+            
+            content.innerHTML=responseObj[0].text;
         }else {console.log("No Question to load!!!");}
     };
 

@@ -26,6 +26,7 @@
 include 'navbar.php'; 
 
 $id = $_GET["id"];
+
 ?>
     <script>changeActiveLink("forum-link");</script>
     
@@ -41,7 +42,7 @@ $id = $_GET["id"];
                         
                             <div class="col-2 pr-0">
                                 <button class="btn btn-sm m-0" onclick="vote(true, <?php echo $id?>)" >🔺</button>
-                                <p class="m-0 px-2" id="count"></p>
+                                <div class="m-0 px-2" id="count"></div>
                                 <button class="btn btn-sm m-0" onclick="vote(false, <?php echo $id?>)" >🔻</button>      
                             </div>
                             
@@ -100,7 +101,7 @@ $id = $_GET["id"];
 
 <!-- Text Editor Template -->
 <script src="https://cdn.tiny.cloud/1/6qotqw98ccr1b86gtt4n68fo95mv1vbgdr3ov36z6cm83qxu/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-<script>
+<!-- <script>
     tinymce.init({
         selector: 'textarea#editor',
         plugins: [
@@ -119,4 +120,4 @@ $id = $_GET["id"];
             }
         
     });
-</script>
+</script> -->

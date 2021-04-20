@@ -2,14 +2,13 @@
 
 include "forum_credentials.php";
 
+try {
 
 $id = $_REQUEST["post"];
-$question;
-try {
 
   $dbh = new PDO($conn_string);
   $select_from = "SELECT * FROM Post";
-  $where = "WHERE id = :id";
+  $where = " WHERE id = :id";
   
   $sql = $select_from.$where;
   $query = $dbh -> prepare($sql);
@@ -17,7 +16,7 @@ try {
   $query-> bindParam(":id", $id, PDO::PARAM_INT);
   $query-> execute();
 
-  $question = $query -> fetch(PDO::FETCH_ASSOC);
+  $question = $query -> fetchAll(PDO::FETCH_ASSOC);
   
   $questionJson = json_encode($question);
 
