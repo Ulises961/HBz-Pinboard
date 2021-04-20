@@ -105,14 +105,14 @@
 if(isset($_POST['submit'])){ 
 
 $host = "localhost";
-$dbname = "forum_test";
+$dbname = "forum";
 $user = "postgres";
 $port = "5432";
 $password = "postgres";
 
 $conn_string = "pgsql:host=$host port=$port dbname=$dbname user=$user password=$password";
 
-$user  = $_REQUEST["user"];
+$user  = 1;
 $date  = date("d/m/y");
 $time  = date("H:i:s");
 $title = $_REQUEST["title"];
@@ -133,7 +133,7 @@ try {
   $insert-> bindParam(":title", $title, PDO::PARAM_STR);
   $insert-> bindParam(":text", $text, PDO::PARAM_STR);
   $insert->execute();
-  $id = $dbh -> lastInsertedId();
+  $id = $dbh -> lastInsertId();
 
 } catch (Exception $e) {
   echo"error: $e";

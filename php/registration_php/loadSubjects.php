@@ -23,7 +23,7 @@ foreach($rows as $line){
 
 $json = json_encode($results);
 
-echo "$json";
+echo $json;
 
 
 ?> 

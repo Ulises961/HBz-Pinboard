@@ -1,9 +1,10 @@
 <?php
-include "forum_credentials.php";
 
-$user  = $_REQUEST["user"];
-$post = $_REQUEST["post"];
-$vote = $_REQUEST["vote"];
+  include "forum_credentials.php";
+$data = json_decode(file_get_contents("php://input"));
+$post = $data -> id;
+$vote = $data -> value;
+$user  = 1;
 $date  = date("d/m/y");
 $time  = date("H:i:s");
 
@@ -19,11 +20,14 @@ try {
   $insert-> bindParam(":user", $user, PDO::PARAM_INT);
   $insert-> bindParam(":date", $date, PDO::PARAM_STR);
   $insert-> bindParam(":time", $time, PDO::PARAM_STR);
-  $insert-> bindParam(":vote", $title, PDO::PARAM_INT);
-  $insert-> bindParam(":post", $text, PDO::PARAM_INT);
+  $insert-> bindParam(":vote", $vote, PDO::PARAM_INT);
+  $insert-> bindParam(":post", $post, PDO::PARAM_INT);
   $insert->execute();
+
+  echo"executed";
 
 } catch (Exception $e) {
   echo"error: $e";
 }
+
 ?>

@@ -8,6 +8,7 @@ body {
   height: 100%;
   font-size: 1rem;
   font-family: "Montserrat", sans-serif;
+  padding-top: 65px;
 }
 
 .gradient 
@@ -17,10 +18,13 @@ body {
 }
 
 header{
-  margin-top: 15rem;
+ 
   margin-bottom: 10rem;
 }
 
+nav{
+  margin-bottom: 10rem;
+}
 
 #nav-item
 {
@@ -30,9 +34,10 @@ header{
 
 h2
 {
-  text-align: center;
+  text-align: Left;
   font-weight: 500;
   margin-bottom: 4rem;
+
 }
 
 .page-header {
@@ -92,9 +97,13 @@ a {
   text-decoration: none;
 }
 
+left{
+  float:left;
+}
 
-
-
+.vote{
+  float: right;
+}
 
 
 

@@ -1,6 +1,6 @@
 <?php
 $host = "localhost";
-$dbname = "forum_test";
+$dbname = "forum";
 $user = "postgres";
 $port = "5432";
 $password = "postgres";
