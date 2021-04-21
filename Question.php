@@ -35,22 +35,22 @@ $id = $_GET["id"];
             <div class="inner-wrapper">
              
                 <!-- Inner main -->
-                <div class="jumbotron">
+                <div class="container">
                     <div class ="card">
-                        <div class="row">
+                        <div class="form-inline">                        
 
-                        
-                            <div class="col-2 pr-0">
-                                <button class="btn btn-sm m-0" onclick="vote(true, <?php echo $id?>)" >🔺</button>
-                                <div class="m-0 px-2" id="count"></div>
-                                <button class="btn btn-sm m-0" onclick="vote(false, <?php echo $id?>)" >🔻</button>      
-                            </div>
+                            <div class="col">
+                                <div>
+                                    <h2 id ="title">
+                                </div>
                             
-                            <div class="col-10 px-0">
-                                <h2 class="m-0" id ="title">
-                                
-                                </h2>
                             </div>   
+
+                            <div class="col-1 vote-box">
+                                    <button class="btn btn-sm" onclick="vote(true, <?php echo $id?>)" >🔺</button>
+                                    <div  id="count"></div>
+                                    <button class="btn btn-sm" onclick="vote(false, <?php echo $id?>)" >🔻</button>      
+                            </div>
                                 
                         </div>
                         <div class="card-body pl-3" id="text">
@@ -96,8 +96,7 @@ $id = $_GET["id"];
 
 <script src="js/question_js/question.js"></script>
 
-<script>document.addEventListener('DOMContentLoaded',showAnswerVotes(<?php echo "$id"?>)); </script>
-<script>document.addEventListener('DOMContentLoaded',getQuestion(<?php echo "$id"?>)); </script>
+<script>document.addEventListener("load",getQuestion(<?php echo "$id"?>)); </script>
 
 <!-- Text Editor Template -->
 <script src="https://cdn.tiny.cloud/1/6qotqw98ccr1b86gtt4n68fo95mv1vbgdr3ov36z6cm83qxu/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>

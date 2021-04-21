@@ -5,8 +5,6 @@ function vote(value, id){
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
           showAnswerVotes(id);
-        }else{
-            console.log("failure!");
         }
     };
     
@@ -24,7 +22,7 @@ function showAnswerVotes(id){
 
     let xmlhttp= new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
-        console.log("Show ansert votes response text: "+this.response);
+       
         if (this.readyState == 4 && this.status == 200) {
             votes.innerHTML=this.response;
         }
@@ -36,19 +34,19 @@ function showAnswerVotes(id){
 }
 
 function getQuestion(id){
-    console.log("Id is: "+ id);
+  
     let title = document.getElementById("title");
     let content = document.getElementById("text");
 
     let xmlhttp= new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
-        console.log("GetQuestion response text: "+this.response);
+        
         if (this.readyState == 4 && this.status == 200) {
             let responseObj= JSON.parse(this.responseText);
             title.innerHTML=responseObj[0].title;
-            
             content.innerHTML=responseObj[0].text;
-        }else {console.log("No Question to load!!!");}
+            showAnswerVotes(id);
+        }
     };
 
       xmlhttp.open("GET", "php/forum_php/loadSelectedQuestion.php?post="+id, true);

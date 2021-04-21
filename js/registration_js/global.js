@@ -237,11 +237,7 @@ function loadSubjects() {
     };
     
 
-<<<<<<< HEAD
     xmlhttp.open("POST", "php/registration_php/loadSubjects.php", true);
-=======
-    xmlhttp.open("GET", "./php/registration_php/loadSubjects.php", true);
->>>>>>> 091beb08caaa2ad9183219814c370a6b3c043a4a
     xmlhttp.send();
 }
 
@@ -322,11 +318,7 @@ function showPswd() {
     };
     
 
-<<<<<<< HEAD
-    xmlhttp.open("GET", "php/registration_php/getMail.php?mail="+obj.value, true);
-=======
     xmlhttp.open("GET", "./php/registration_php/getMail.php?mail="+obj.value, true);
->>>>>>> 091beb08caaa2ad9183219814c370a6b3c043a4a
     xmlhttp.send();
   }
 

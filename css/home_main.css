@@ -8,7 +8,7 @@ body {
   height: 100%;
   font-size: 1rem;
   font-family: "Montserrat", sans-serif;
-  padding-top: 65px;
+  padding-top: 70pt;
 }
 
 .gradient 
@@ -97,16 +97,32 @@ a {
   text-decoration: none;
 }
 
-left{
-  float:left;
+.vote-box{
+
+
+  background-color:lightgrey ;
+  align-items: center;
+  
 }
 
-.vote{
-  float: right;
+div .btn.btn-sm, div div#count{
+ padding: 0%;
+ align-items: center;
+ margin: 0erm;
+
 }
 
+div h2{
+  padding: .5rem;
+  margin: .5rem;
+}
+div.col-1{
+margin: 1rem 1rem 0rem 0rem;
 
-
-
+}
+div.col{
+  margin: 1rem 0rem 0rem 1rem;
+ 
+}
 
 
