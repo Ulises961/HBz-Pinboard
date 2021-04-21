@@ -47,8 +47,8 @@
 </head>
 
 <body>
-    <?php include 'navbar.php'; ?>
-    <script>changeActiveLink("forum-link");</script>
+    <!-- <?php //include 'navbar.php'; ?>
+    <script>changeActiveLink("forum-link");</script> -->
 
 
     <div class="container-fluid">
@@ -104,53 +104,53 @@
 
 if(isset($_POST['submit'])){ 
 
-$host = "localhost";
-$dbname = "forum_test";
-$user = "postgres";
-$port = "5432";
-$password = "postgres";
+    $host = "localhost";
+    $dbname = "forum";
+    $user = "postgres";
+    $port = "5432";
+    $password = "postgres";
 
-$conn_string = "pgsql:host=$host port=$port dbname=$dbname user=$user password=$password";
+    $conn_string = "pgsql:host=$host port=$port dbname=$dbname user=$user password=$password";
 
-$user  = $_REQUEST["user"];
-$date  = date("d/m/y");
-$time  = date("H:i:s");
-$title = $_REQUEST["title"];
-$text  = $_REQUEST["text"];
-$id;
-try {
-  $dbh = new PDO($conn_string);
+    $user  = 1;
+    $date  = date("d/m/y");
+    $time  = date("H:i:s");
+    $title = $_REQUEST["title"];
+    $text  = $_REQUEST["text"];
+    try {
+        $dbh = new PDO($conn_string);
 
-  $insert_into = "INSERT INTO Post(id, users, date, time, title, text) ";
-  $values = "VALUES(default, :user, :date, :time, :title, :text)";
-  $sql = $insert_into.$values;
+        $insert_into = "INSERT INTO Post(id, users, date, time, title, text) ";
+        $values = "VALUES(default, :user, :date, :time, :title, :text)";
+        $sql = $insert_into.$values;
 
-  $insert = $dbh-> prepare($sql);
+        $insert = $dbh-> prepare($sql);
 
-  $insert-> bindParam(":user", $user, PDO::PARAM_INT);
-  $insert-> bindParam(":date", $date, PDO::PARAM_STR);
-  $insert-> bindParam(":time", $time, PDO::PARAM_STR);
-  $insert-> bindParam(":title", $title, PDO::PARAM_STR);
-  $insert-> bindParam(":text", $text, PDO::PARAM_STR);
-  $insert->execute();
-  $id = $dbh -> lastInsertedId();
+        $insert-> bindParam(":user", $user, PDO::PARAM_INT);
+        $insert-> bindParam(":date", $date, PDO::PARAM_STR);
+        $insert-> bindParam(":time", $time, PDO::PARAM_STR);
+        $insert-> bindParam(":title", $title, PDO::PARAM_STR);
+        $insert-> bindParam(":text", $text, PDO::PARAM_STR);
+        $insert-> execute();
+        $id = $dbh-> lastInsertId();
 
-} catch (Exception $e) {
-  echo"error: $e";
-}
+        $sql = "INSERT INTO Question(id) VALUES(:post)";
 
-try {
-  $dbh = new PDO($conn_string);
+        $insert = $dbh-> prepare($sql);
+        $insert-> bindParam(":post", $id, PDO::PARAM_INT);
+        $insert->execute();
 
-  $sql = "INSERT INTO Question(id) VALUES(:post)";
+        $sql = "SELECT * FROM Post p JOIN Question q ON p.id = q.id";
 
-  $insert = $dbh-> prepare($sql);
-  $insert-> bindParam(":post", $id, PDO::PARAM_INT);
-  $insert->execute();
+        $query = $dbh-> prepare($sql);
+        $query-> execute();
 
-} catch (Exception $e) {
-  echo"error: $e";
-}
+        while ($question = $query->fetch())
+            echo implode($question);
+
+    } catch (Exception $e) {
+        echo"error: $e";
+    }
 }
 ?>
 
