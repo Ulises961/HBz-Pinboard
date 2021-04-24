@@ -41,7 +41,7 @@ $id = $_GET["id"];
 
                             <div class="col">
                                 <div>
-                                    <h2 id ="title">
+                                    <h2 id ="title">Hello World
                                 </div>
                             </div>   
 
@@ -52,7 +52,7 @@ $id = $_GET["id"];
                             </div>
                         </div>
                         <!-- Question  -->
-                            <div class="card-body pl-3 question-content" id="text"></div>
+                            <div class="card-body pl-3 question-content" id="text">This is some text</div>
                         <!-- /Question -->
 
                         <!-- Answers -->

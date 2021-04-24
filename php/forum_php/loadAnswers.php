@@ -1,7 +1,7 @@
 <?php
 
 include "forum_credentials.php";
-include "components/answer.php";
+include "php/forum_php/components/post.php";
 
 $dbh = new PDO($conn_string);
 $question = $_REQUEST["id"];

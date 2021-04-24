@@ -1,11 +1,25 @@
 <?php
-function createPost($post){
+
+function createPost($post,$isAnswer){
     
-    include ("php/forum_php/loadVotes.php");
+    include "php/forum_php/loadVotes.php";
+  
+    
+$titleFormat = "<div class='col'>".
+                    "<div>".
+                        "<h2 id ='title'>".$post["title"].
+                    "</div>".
+                "</div>";   
+
+
 
     // WILL CREATE THE HTML ANSWER ELEMENT
- 
-    echo "<div class='".$post['class']." form-inline'>";
+    if( $isAnswer){
+        $class = "answer";
+    }
+    else $class = "";
+    echo "<div class='". $class ." form-inline'>";
+
 
     echo    "<div class='col question-content' id='text'>".$post['text']."</div>";
 
@@ -19,5 +33,11 @@ function createPost($post){
     echo "</div>";
     
     echo "<hr>";
+}
+
+function createAnswer($answer){
+  
+    createPost($answer,true);
+
 }
 ?>

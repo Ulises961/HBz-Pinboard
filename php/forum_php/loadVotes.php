@@ -1,13 +1,10 @@
 <?php
 
 include "forum_credentials.php";
-$post;
-if(isset($answer)){
-  $post = $answer["id"];
-}else{
-  $post= $_REQUEST["post"];
-}
+
+
 $result;
+
 try {
   $dbh = new PDO($conn_string);
   
@@ -19,13 +16,12 @@ try {
 
   $select = $dbh-> prepare($stmt);
 
-  $select-> bindParam(":post", $post, PDO::PARAM_INT);
+  $select-> bindParam(":post", $post["id"], PDO::PARAM_INT);
   
   $select->execute();
 
   $result = $select->fetch(PDO::FETCH_ASSOC);
 
-  echo $result["total"]; 
 
 
 } catch (Exception $e) {

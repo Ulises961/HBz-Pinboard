@@ -1,10 +1,12 @@
 <?php 
 
 include "forum_credentials.php";
+include "php/forum_php/components/post.php";
+
 
 try {
 
-$id = $_REQUEST["post"];
+$id = $_REQUEST["postID"];
 
   $dbh = new PDO($conn_string);
   $select_from = "SELECT * FROM Post";
@@ -16,11 +18,10 @@ $id = $_REQUEST["post"];
   $query-> bindParam(":id", $id, PDO::PARAM_INT);
   $query-> execute();
 
-  $question = $query -> fetchAll(PDO::FETCH_ASSOC);
+  $post = $query -> fetchAll(PDO::FETCH_ASSOC);
   
-  $questionJson = json_encode($question);
+  createPost($post, false);
 
-  echo $questionJson;
 
 } catch (Exception $e) {
   echo"error";
