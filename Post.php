@@ -49,10 +49,10 @@
 </head>
 
 <body>
-    <!-- <?php //include 'navbar.php'; 
+    <?php include 'navbar.php'; 
             ?>
-    <script>changeActiveLink("forum-link");</script> -->
-
+    <script>changeActiveLink("forum-link");</script> 
+ 
 
     <div class="container-fluid">
         <div class="main-body p-0">
@@ -68,15 +68,15 @@
                                         <div class="media-body">
 
                                             <div class="row">
-                                                <h2 class="h2 mb-4">Realtime Fetching Data</h2>
+                                                <h2 class="h2 mb-4">Ask the forum</h2>
                                                 <div>
                                                     <input name="title" class="container-fluid" type="text"
                                                         placeholder="Title" />
                                                 </div>
                                             </div>
+                                            <br>
                                             <div class="row">
-                                                <h3 class="h3 pt-4">Your Idea</h3>
-                                                <label>Describe the issue in detail</label>
+                                               
                                                 <div class="container-fluid">
                                                     <textarea name="text" id="editor"></textarea>
                                                 </div>

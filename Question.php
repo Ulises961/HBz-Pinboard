@@ -43,22 +43,26 @@ $id = $_GET["id"];
                                 <div>
                                     <h2 id ="title">
                                 </div>
-                            
                             </div>   
 
                             <div class="col-1 vote-box">
-                                    <button class="btn btn-sm" onclick="vote(true, <?php echo $id?>)" >🔺</button>
-                                    <div  id="count"></div>
-                                    <button class="btn btn-sm" onclick="vote(false, <?php echo $id?>)" >🔻</button>      
+                                    <button type="button" class="btn btn-default btn-lg btn-block responsive-width" onclick="vote(true, <?php echo $id?>)" >🔺</button>
+                                    <div class ="count" id="count-<?php echo $id?>"></div>
+                                    <button type="button" class="btn btn-default btn-lg btn-block responsive-width" onclick="vote(false, <?php echo $id?>)">🔻</button>    
                             </div>
-                                
                         </div>
-                        <div class="card-body pl-3" id="text">
-                         
-                        </div> 
-                        <hr>
-                        <form method='POST'> 
+                        <!-- Question  -->
+                            <div class="card-body pl-3 question-content" id="text"></div>
+                        <!-- /Question -->
+
+                        <!-- Answers -->
+                            <div id="answer"><?php include "php/forum_php/loadAnswers.php" ?></div>
+                        <!-- /Answers -->
+            
+
+                        <form target="_blank" id="form"> 
                             <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
+                            <div id="answer"></div>
                                     <div class="card mb-2">
                                         <div class="card-body p-2 p-sm-3">
                                             <div>
@@ -93,11 +97,13 @@ $id = $_GET["id"];
 </html>
 
 
-
 <script src="js/question_js/question.js"></script>
 
 <script>document.addEventListener("load",getQuestion(<?php echo "$id"?>)); </script>
-
+<script>document.getElementById("form").addEventListener("click", function(event) {
+         insertAnswer(<?php echo $id?> ,1);
+         event.preventDefault();
+}, false);</script>
 <!-- Text Editor Template -->
 <script src="https://cdn.tiny.cloud/1/6qotqw98ccr1b86gtt4n68fo95mv1vbgdr3ov36z6cm83qxu/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <!-- <script>
@@ -120,3 +126,4 @@ $id = $_GET["id"];
         
     });
 </script> -->
+

@@ -1,8 +1,12 @@
 <?php
 
 include "forum_credentials.php";
-
-$post = $_REQUEST["post"];
+$post;
+if(isset($answer)){
+  $post = $answer["id"];
+}else{
+  $post= $_REQUEST["post"];
+}
 $result;
 try {
   $dbh = new PDO($conn_string);
