@@ -1,12 +1,10 @@
 <?php 
 
 include "forum_credentials.php";
-include "php/forum_php/components/post.php";
-
 
 try {
 
-$id = $_REQUEST["postID"];
+$id = $_REQUEST["id"];
 
   $dbh = new PDO($conn_string);
   $select_from = "SELECT * FROM Post";
@@ -19,8 +17,8 @@ $id = $_REQUEST["postID"];
   $query-> execute();
 
   $post = $query -> fetchAll(PDO::FETCH_ASSOC);
-  
-  createPost($post, false);
+
+  createPost($post[0], false);
 
 
 } catch (Exception $e) {

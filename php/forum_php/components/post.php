@@ -1,8 +1,10 @@
 <?php
 
+
 function createPost($post,$isAnswer){
     
-    include "php/forum_php/loadVotes.php";
+  
+include "php/forum_php/loadVotes.php";
   
     
 $titleFormat = "<div class='col'>".
@@ -16,8 +18,12 @@ $titleFormat = "<div class='col'>".
     // WILL CREATE THE HTML ANSWER ELEMENT
     if( $isAnswer){
         $class = "answer";
+        $titleFormat="";
+    }else{
+        $class = "";
     }
-    else $class = "";
+    echo $titleFormat;
+
     echo "<div class='". $class ." form-inline'>";
 
 
@@ -40,4 +46,7 @@ function createAnswer($answer){
     createPost($answer,true);
 
 }
+
+
+
 ?>

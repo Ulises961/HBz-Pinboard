@@ -24,7 +24,7 @@
 <?php
 
 include 'navbar.php'; 
-
+include "php/forum_php/components/post.php";
 $id = $_GET["id"];
 
 ?>
@@ -37,24 +37,27 @@ $id = $_GET["id"];
                 <!-- Inner main -->
                 <div class="container">
                     <div class ="card">
-                        <div class="form-inline">                        
 
-                            <div class="col">
+                <?php include "php/forum_php/loadSelectedQuestion.php"  ?>
+                    <!-- <div class="col">
                                 <div>
                                     <h2 id ="title">Hello World
                                 </div>
-                            </div>   
+                            </div>  
+                        <div class="form-inline">                        
 
-                            <div class="col-1 vote-box">
+                             -->
+                            <!-- Question  -->
+                            <!-- <div class="col question-content" id="text">This is some text</div> -->
+                            <!-- /Question -->
+
+                            <!-- <div class="col-1 vote-box">
                                     <button type="button" class="btn btn-default btn-lg btn-block responsive-width" onclick="vote(true, <?php echo $id?>)" >🔺</button>
                                     <div class ="count" id="count-<?php echo $id?>"></div>
                                     <button type="button" class="btn btn-default btn-lg btn-block responsive-width" onclick="vote(false, <?php echo $id?>)">🔻</button>    
                             </div>
                         </div>
-                        <!-- Question  -->
-                            <div class="card-body pl-3 question-content" id="text">This is some text</div>
-                        <!-- /Question -->
-
+                        -->
                         <!-- Answers -->
                             <div id="answer"><?php include "php/forum_php/loadAnswers.php" ?></div>
                         <!-- /Answers -->
