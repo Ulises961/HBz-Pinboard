@@ -2,9 +2,9 @@
 
   include "forum_credentials.php";
   
-  if(isset($_REQUEST))
-    $post = $_REQUEST["post"];
-  else $post = $post["id"];
+  if(isset($_REQUEST["show"]))
+    $postID = $_REQUEST["post"];
+  else $postID = $post["id"];
   
   try {
     $dbh = new PDO($conn_string);
@@ -17,7 +17,7 @@
 
     $select = $dbh-> prepare($stmt);
 
-    $select-> bindParam(":post", $post, PDO::PARAM_INT);
+    $select-> bindParam(":post", $postID, PDO::PARAM_INT);
     
     $select->execute();
 
