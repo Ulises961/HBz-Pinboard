@@ -13,9 +13,7 @@ $sucess;
     $insert-> bindParam(":post", $post, PDO::PARAM_INT);
     $insert-> bindParam(":question", $question, PDO::PARAM_INT);
     $insert->execute();
-    $success = true;
-   
-    return $success;
+
   } catch (Exception $e) {
     echo"error: $e";
   }

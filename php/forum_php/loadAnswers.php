@@ -13,7 +13,8 @@ $query-> bindParam(":question", $question, PDO::PARAM_INT);
 $query-> execute();
 
 while ($answer = $query->fetch()){
-    
+   
+    //located in component/post.php
     createAnswer($answer);
    
 

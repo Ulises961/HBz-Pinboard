@@ -25,52 +25,32 @@ function showAnswerVotes(id){
        
         if (this.readyState == 4 && this.status == 200) {
             votes.innerHTML=this.response;
+            console.log("votes: " +this.response);
         }
     };
 
-      xmlhttp.open("GET", "php/forum_php/loadVotes.php?post="+id, true);
+      xmlhttp.open("GET", "php/forum_php/loadVotes.php?post="+id+"&show=true", true);
       xmlhttp.send();
 
 }
 
-function getQuestion(id){
-  
-    let title = document.getElementById("title");
-    let content = document.getElementById("text");
 
-    let xmlhttp= new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-        
-        if (this.readyState == 4 && this.status == 200) {
-            let responseObj= JSON.parse(this.responseText);
-            console.log((this.responseText));
-            title.innerHTML=responseObj[0].title;
-            content.innerHTML=responseObj[0].text;
-            showAnswerVotes(id);
-        }
-    };
-
-      xmlhttp.open("GET", "php/forum_php/loadSelectedQuestion.php?post="+id, true);
-      xmlhttp.send();
-
-}
 function insertAnswer(questionId,user){
   
     var xmlhttp = new XMLHttpRequest();
     var text = document.getElementById("editor");
-    console.debug();
+  
     var json = {"questionId":questionId, "user":user, "text":text.value, "title":"answer"};
-    console.log(questionId,user,text,title,json);
+    text.value="";
+
     var data = JSON.stringify(json);
-    console.log(data);
-    console.log("calling insertAnswer");
+   
     xmlhttp.onreadystatechange = function () {
 
         if ( this.readyState == 4 && this.status == 200){
-            console.log("sucessful connection");
-            console.log(this.responseText);
+
             showAnswers(this.responseText);
-            text.value="";
+            
         }
     }
     xmlhttp.open("POST", "php/forum_php/insertPost.php");
@@ -81,10 +61,8 @@ function showAnswers(post){
 
     var answers = document.getElementById("answer");
     var newAnswer = document.createElement("div");
-    var content = document.createTextNode(post);
-    newAnswer.setAttribute("class", "card-body pl-3 answer");
-    newAnswer.setAttribute("id", "text");
-    newAnswer.appendChild(content);
+    newAnswer.innerHTML=post;
     answers.appendChild(newAnswer);
+    
     
 }

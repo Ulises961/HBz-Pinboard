@@ -1,6 +1,8 @@
 <?php
-include "forum_credentials.php";
-include "insertAnswer.php";
+
+include __DIR__."/forum_credentials.php";
+include __DIR__."/insertAnswer.php";
+include __DIR__."/components/post.php";
 
 $data = json_decode(file_get_contents("php://input"));
 
@@ -11,11 +13,12 @@ $data = json_decode(file_get_contents("php://input"));
   $text  = $data-> text;
   $question = $data -> questionId;
   $postId;
+  $post;
   try {
     $dbh = new PDO($conn_string);
 
     $insert_into = "INSERT INTO Post(id, users, date, time, title, text) ";
-    $values = "VALUES(default, :user, :date, :time, :title, :text)";
+    $values = "VALUES(default, :user, :date, :time, :title, :text) RETURNING *";
     $sql = $insert_into.$values;
 
     $insert = $dbh-> prepare($sql);
@@ -26,14 +29,17 @@ $data = json_decode(file_get_contents("php://input"));
     $insert-> bindParam(":title", $title, PDO::PARAM_STR);
     $insert-> bindParam(":text", $text, PDO::PARAM_STR);
     $insert->execute();
-    $postId= $dbh->lastInsertId();
+  
+    $post = $insert->fetch(PDO::FETCH_ASSOC);
+ 
+
   } catch (Exception $e) {
     echo"error: $e";
   }
 
   if($question != ""){
    
-    $sucess = insertAnswer($postId, $question);
-    echo $text;
+    insertAnswer($post["id"], $question);
+    createAnswer($post);
   }
 ?>

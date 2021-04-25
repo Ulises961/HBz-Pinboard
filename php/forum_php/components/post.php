@@ -4,8 +4,8 @@
 function createPost($post,$isAnswer){
     
   
-include "php/forum_php/loadVotes.php";
-  
+include __DIR__."/../loadVotes.php";
+
     
 $titleFormat = "<div class='col'>".
                     "<div>".

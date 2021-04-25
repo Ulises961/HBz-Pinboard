@@ -1,31 +1,38 @@
 <?php
 
-include "forum_credentials.php";
-
-
-$result;
-
-try {
-  $dbh = new PDO($conn_string);
+  include "forum_credentials.php";
   
-  $selectSum = "SELECT SUM";
-  $voteUp= "((SELECT Count(*) FROM Vote JOIN Post on Vote.post=Post.id WHERE value=TRUE and Post.id = :post) ";
-  $minusVoteDown = "- (SELECT Count(*) FROM Vote JOIN Post on Vote.post=Post.id WHERE value=FALSE AND Post.id = :post)) AS total";
+  if(isset($_REQUEST))
+    $post = $_REQUEST["post"];
+  else $post = $post["id"];
   
-  $stmt = $selectSum.$voteUp.$minusVoteDown;
+  try {
+    $dbh = new PDO($conn_string);
+    
+    $selectSum = "SELECT SUM";
+    $voteUp= "((SELECT Count(*) FROM Vote JOIN Post on Vote.post=Post.id WHERE value=TRUE and Post.id = :post) ";
+    $minusVoteDown = "- (SELECT Count(*) FROM Vote JOIN Post on Vote.post=Post.id WHERE value=FALSE AND Post.id = :post)) AS total";
+    
+    $stmt = $selectSum.$voteUp.$minusVoteDown;
 
-  $select = $dbh-> prepare($stmt);
+    $select = $dbh-> prepare($stmt);
 
-  $select-> bindParam(":post", $post["id"], PDO::PARAM_INT);
+    $select-> bindParam(":post", $post, PDO::PARAM_INT);
+    
+    $select->execute();
+
+    $result = $select->fetch(PDO::FETCH_ASSOC);
+
+   
+    if(isset($_REQUEST["show"]))
+    echo $result["total"];
+
   
-  $select->execute();
+  } catch (Exception $e) {
+    echo"error";
+    echo $e;
+  }
 
-  $result = $select->fetch(PDO::FETCH_ASSOC);
 
 
-
-} catch (Exception $e) {
-  echo"error";
-  echo $e;
-}
 ?>

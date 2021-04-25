@@ -39,31 +39,13 @@ $id = $_GET["id"];
                     <div class ="card">
 
                 <?php include "php/forum_php/loadSelectedQuestion.php"  ?>
-                    <!-- <div class="col">
-                                <div>
-                                    <h2 id ="title">Hello World
-                                </div>
-                            </div>  
-                        <div class="form-inline">                        
-
-                             -->
-                            <!-- Question  -->
-                            <!-- <div class="col question-content" id="text">This is some text</div> -->
-                            <!-- /Question -->
-
-                            <!-- <div class="col-1 vote-box">
-                                    <button type="button" class="btn btn-default btn-lg btn-block responsive-width" onclick="vote(true, <?php echo $id?>)" >🔺</button>
-                                    <div class ="count" id="count-<?php echo $id?>"></div>
-                                    <button type="button" class="btn btn-default btn-lg btn-block responsive-width" onclick="vote(false, <?php echo $id?>)">🔻</button>    
-                            </div>
-                        </div>
-                        -->
+                 
                         <!-- Answers -->
                             <div id="answer"><?php include "php/forum_php/loadAnswers.php" ?></div>
                         <!-- /Answers -->
             
 
-                        <form target="_blank" id="form"> 
+                        <form id="form"> 
                             <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
                             <div id="answer"></div>
                                     <div class="card mb-2">
@@ -102,11 +84,12 @@ $id = $_GET["id"];
 
 <script src="js/question_js/question.js"></script>
 
-<script>document.addEventListener("load",getQuestion(<?php echo "$id"?>)); </script>
-<script>document.getElementById("form").addEventListener("click", function(event) {
+
+<script>document.getElementById("form").addEventListener("submit", function(event) {
          insertAnswer(<?php echo $id?> ,1);
          event.preventDefault();
 }, false);</script>
+
 <!-- Text Editor Template -->
 <script src="https://cdn.tiny.cloud/1/6qotqw98ccr1b86gtt4n68fo95mv1vbgdr3ov36z6cm83qxu/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <!-- <script>
