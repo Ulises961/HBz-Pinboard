@@ -126,8 +126,8 @@ if (isset($_POST['submit'])) {
         $text  = $_REQUEST["text"];
         $dbh = new PDO($conn_string);
 
-        $insert_into = "INSERT INTO Post(id, users, date, time, title, text) ";
-        $values = "VALUES(default, :user, :date, :time, :title, :text)";
+        $insert_into = "INSERT INTO Post(id, users, date, time, title, text, votes) ";
+        $values = "VALUES(default, :user, :date, :time, :title, :text, 0)";
         $sql = $insert_into . $values;
 
         $insert = $dbh->prepare($sql);

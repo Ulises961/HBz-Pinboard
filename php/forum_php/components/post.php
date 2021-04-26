@@ -4,7 +4,7 @@
 function createPost($post,$isAnswer){
     
   
-include __DIR__."/../loadVotes.php";
+// include __DIR__."/../loadVotes.php"; NOT NECESSARY SINCE THE POST NOW CONTAIN THE VOTES
 
     
 $titleFormat = "<div class='col'>".
@@ -31,7 +31,7 @@ $titleFormat = "<div class='col'>".
 
     echo    "<div class='col-1 vote-box'>";
     echo        "<button type='button' class='btn btn-default btn-lg btn-block responsive-width' onclick='vote(true,". $post['id'].")' >🔺</button>";
-    echo        "<div  class='count' id='count-".$post['id']."'>".$result['total']."</div>";
+    echo        "<div  class='count' id='count-".$post['id']."'>".$post['votes']."</div>";
     echo        "<button type='button' class='btn btn-default btn-lg btn-block responsive-width' onclick='vote(false,".$post["id"].")'>🔻</button>";
     echo    "</div>";
 
