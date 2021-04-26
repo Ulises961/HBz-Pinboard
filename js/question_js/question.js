@@ -29,9 +29,11 @@ function showAnswerVotes(id){
         }
     };
 
-      xmlhttp.open("GET", "php/forum_php/loadVotes.php?post="+id+"&show=true", true);
-      xmlhttp.send();
+    xmlhttp.open("GET", "php/forum_php/getPostVotes.php?post="+id, true);
+    xmlhttp.send();
 
+    // xmlhttp.open("GET", "php/forum_php/loadVotes.php?post="+id+"&show=true", true);
+    // xmlhttp.send();
 }
 
 

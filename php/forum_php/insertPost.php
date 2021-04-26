@@ -17,8 +17,8 @@ $data = json_decode(file_get_contents("php://input"));
   try {
     $dbh = new PDO($conn_string);
 
-    $insert_into = "INSERT INTO Post(id, users, date, time, title, text) ";
-    $values = "VALUES(default, :user, :date, :time, :title, :text) RETURNING *";
+    $insert_into = "INSERT INTO Post(id, users, date, time, title, text, votes) ";
+    $values = "VALUES(default, :user, :date, :time, :title, :text, 0) RETURNING *";
     $sql = $insert_into.$values;
 
     $insert = $dbh-> prepare($sql);

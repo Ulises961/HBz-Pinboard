@@ -158,9 +158,13 @@ BEGIN
     SELECT EXISTS( SELECT * FROM Vote WHERE users = NEW.users AND post = NEW.post) INTO vote;
 
     IF vote.exists THEN 
-        UPDATE Vote
-        SET value = NEW.value
-        WHERE users = NEW.users AND post = NEW.post;
+        SELECT * FROM Vote WHERE users = NEW.users AND post = NEW.post INTO vote;
+
+        IF vote.value != NEW.value THEN
+            UPDATE Vote
+            SET value = NEW.value
+            WHERE users = NEW.users AND post = NEW.post;
+        END IF;
 
         RETURN NULL;
     ELSE
@@ -169,7 +173,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION update_post_votes()
+CREATE OR REPLACE FUNCTION update_post_votes_on_insert()
 RETURNS TRIGGER AS $$
 BEGIN
 
@@ -180,6 +184,24 @@ BEGIN
     ELSE
         UPDATE Post
         SET votes = votes - 1
+        WHERE id = NEW.post;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION update_post_votes_on_update()
+RETURNS TRIGGER AS $$
+BEGIN
+
+    IF NEW.value THEN 
+        UPDATE Post
+        SET votes = votes + 2
+        WHERE id = NEW.post;
+    ELSE
+        UPDATE Post
+        SET votes = votes - 2
         WHERE id = NEW.post;
     END IF;
 
@@ -204,10 +226,15 @@ BEFORE INSERT ON Vote
 FOR EACH ROW EXECUTE
 PROCEDURE update_vote_if_it_exists();
 
-CREATE TRIGGER change_post_votes
+CREATE TRIGGER change_post_votes_on_insert
 AFTER INSERT ON Vote
 FOR EACH ROW EXECUTE
-PROCEDURE update_post_votes();
+PROCEDURE update_post_votes_on_insert();
+
+CREATE TRIGGER change_post_votes_on_update
+AFTER UPDATE ON Vote
+FOR EACH ROW EXECUTE
+PROCEDURE update_post_votes_on_update();
 
 -- INSERTS
 
