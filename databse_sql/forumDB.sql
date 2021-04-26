@@ -19,6 +19,7 @@ CREATE TABLE Post(
     time TIME NOT NULL,
     title VARCHAR(255) NOT NULL,
     text TEXT NOT NULL,
+    votes INTEGER NOT NULL,
 
     CONSTRAINT postBelongsToUser FOREIGN KEY(users)
         REFERENCES Users(id)
@@ -150,6 +151,42 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION update_vote_if_it_exists()
+RETURNS TRIGGER AS $$
+DECLARE vote RECORD;
+BEGIN
+    SELECT EXISTS( SELECT * FROM Vote WHERE users = NEW.users AND post = NEW.post) INTO vote;
+
+    IF vote.exists THEN 
+        UPDATE Vote
+        SET value = NEW.value
+        WHERE users = NEW.users AND post = NEW.post;
+
+        RETURN NULL;
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION update_post_votes()
+RETURNS TRIGGER AS $$
+BEGIN
+
+    IF NEW.value THEN 
+        UPDATE Post
+        SET votes = votes + 1
+        WHERE id = NEW.post;
+    ELSE
+        UPDATE Post
+        SET votes = votes - 1
+        WHERE id = NEW.post;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
 -- TRIGGERS
 
 CREATE TRIGGER check_if_question_is_an_answer
@@ -161,6 +198,16 @@ CREATE TRIGGER check_if_answer_is_a_question
 BEFORE INSERT ON Answer
 FOR EACH ROW EXECUTE
 PROCEDURE is_post_a_question();
+
+CREATE TRIGGER if_user_already_voted_update_vote
+BEFORE INSERT ON Vote
+FOR EACH ROW EXECUTE
+PROCEDURE update_vote_if_it_exists();
+
+CREATE TRIGGER change_post_votes
+AFTER INSERT ON Vote
+FOR EACH ROW EXECUTE
+PROCEDURE update_post_votes();
 
 -- INSERTS
 
