@@ -146,13 +146,15 @@ if (isset($_POST['submit'])) {
         $insert->bindParam(":post", $id, PDO::PARAM_INT);
         $insert->execute();
 
-        $sql = "SELECT * FROM Post p JOIN Question q ON p.id = q.id";
+        // THE FOLLOWING PHP CODE IS TO BE USED ONLY WHEN TESTING
 
-        $query = $dbh->prepare($sql);
-        $query->execute();
+        // $sql = "SELECT * FROM Post p JOIN Question q ON p.id = q.id";
 
-        while ($question = $query->fetch())
-            echo implode($question);
+        // $query = $dbh->prepare($sql);
+        // $query->execute();
+
+        // while ($question = $query->fetch())
+        //     echo implode($question);
     } catch (Exception $e) {
         echo "error: $e";
     }
