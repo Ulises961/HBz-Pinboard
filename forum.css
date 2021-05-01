@@ -87,7 +87,7 @@ body{
     color: #3367b5;
     background-color: #c9d8f0;
 }
-
+/* 
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
     color: #fff;
     background-color: #467bcb;
@@ -104,7 +104,7 @@ body{
 }
 .nav-link {
     color: #4a5568;
-}
+} */
 .card {
     box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
 }

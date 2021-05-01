@@ -12,7 +12,7 @@
     <base href="/HBz/">
 
     <!-- Title Page-->
-    <title>Hedgehogs Sign Up</title>
+    <title>Sign Up Hedgehogs </title>
 
     <!--===============================================================================================-->
     <link rel="icon" type="image/png" href="images/icons/favicon.ico" />

@@ -16,7 +16,8 @@ $data = json_decode(file_get_contents("php://input"));
   $post;
   try {
     $dbh = new PDO($conn_string);
-
+    if ($text ==="" || $text ==="<p><br></p>" || $text ==="<p><br data-mce-bogus='1'></p>")
+      throw new Exception();
     $insert_into = "INSERT INTO Post(id, users, date, time, title, text, votes) ";
     $values = "VALUES(default, :user, :date, :time, :title, :text, 0) RETURNING *";
     $sql = $insert_into.$values;
@@ -36,10 +37,11 @@ $data = json_decode(file_get_contents("php://input"));
   } catch (Exception $e) {
     echo"error: $e";
   }
-
   if($question != ""){
    
     insertAnswer($post["id"], $question);
+    echo "<script> alert('doing something');</script>";
     createAnswer($post);
-  }
+  
+}
 ?>

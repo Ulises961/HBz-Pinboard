@@ -16,41 +16,25 @@
     <!-- Custom styles for this template -->
     <link href="css/home_main.css" rel="stylesheet">
     <link href="forum.css" rel="stylesheet">
+    
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 
-    <script src="https://cdn.tiny.cloud/1/6qotqw98ccr1b86gtt4n68fo95mv1vbgdr3ov36z6cm83qxu/tinymce/5/tinymce.min.js"
-        referrerpolicy="origin"></script>
+<!-- tags -->
+    <link rel="stylesheet" type="text/css" href="js/question_js/jQuery-Tags-Input/src/jquery.tagsinput.css" />
+    <script type="text/javascript" src="js/question_js/jQuery-Tags-Input/dist/jquery.tagsinput.min.js"></script>
+    <script type="text/javascript" src="js/question_js/jQuery-Tags-Input/src/jquery.tagsinput.js"></script>
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js'></script>
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/themes/start/jquery-ui.css" />
 
-    <!-- Text Editor Template -->
-    <script src="https://cdn.tiny.cloud/1/6qotqw98ccr1b86gtt4n68fo95mv1vbgdr3ov36z6cm83qxu/tinymce/5/tinymce.min.js"
-        referrerpolicy="origin"></script>
-
-    <script>
-        tinymce.init({
-            selector: 'textarea#editor',
-            plugins: [
-                'advlist autolink link image lists charmap print preview hr anchor pagebreak',
-                'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
-                'table emoticons template paste help'
-            ],
-            toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | ' +
-                'bullist numlist outdent indent | link image | print preview media fullpage | ' +
-                'forecolor backcolor emoticons | help',
-
-            menubar: 'file edit view insert format tools table help',
-            content_css: 'css/content.css',
-            mobile: {
-                menubar: true
-            }
-
-        });
-    </script>
-
+<!-- /tags -->
 </head>
 
 <body>
-    <?php include 'navbar.php'; 
-            ?>
+    <?php include 'navbar.php'?>
     <script>changeActiveLink("forum-link");</script> 
  
 
@@ -60,7 +44,7 @@
 
                 <!-- Inner main -->
                 <div class="jumbotron">
-                    <form method='POST'>
+                    <form method='GET'>
                         <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
                             <div class="card mb-2">
                                 <div class="card-body p-2 p-sm-3">
@@ -71,24 +55,25 @@
                                                 <h2 class="h2 mb-4">Ask the forum</h2>
                                                 <div>
                                                     <input name="title" class="container-fluid" type="text"
-                                                        placeholder="Title" />
+                                                        placeholder="Title" required/>
                                                 </div>
                                             </div>
                                             <br>
                                             <div class="row">
-                                               
                                                 <div class="container-fluid">
                                                     <textarea name="text" id="editor"></textarea>
                                                 </div>
+                                                <div class="container-fluid">
+                                                    <input name="tags" id="tags" placeholder="Add Tag"/>
+                                                </div>
                                             </div>
+                                           
                                             <button name="submit" type="submit" class="btn btn-primary">Submit</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-
-
+                            
                         </div>
                     </form>
                 </div>
@@ -99,6 +84,44 @@
     </div>
 
 
+
+<script src="js/question_js/question.js"> </script>
+
+<script>   
+    $('#tags').tagsInput({width:'inherit', height:'inherit'});
+</script>
+
+    <!-- Text Editor Template -->
+    <script src="https://cdn.tiny.cloud/1/6qotqw98ccr1b86gtt4n68fo95mv1vbgdr3ov36z6cm83qxu/tinymce/5/tinymce.min.js"
+        referrerpolicy="origin"></script>
+
+    <script>
+        tinymce.init({
+        selector: 'textarea#editor',
+        plugins: [
+        'advlist autolink link lists charmap print preview hr anchor pagebreak',
+        'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime nonbreaking',
+        'table emoticons template paste'
+        ],
+        toolbar: 'styleselect | bold italic underline | alignleft aligncenter alignright alignjustify | ' +
+            'bullist numlist outdent indent | link | print preview media fullpage | ' +
+            'forecolor backcolor emoticons',
+        
+        menubar: 'file edit view insert format tools table',
+            
+            mobile: {
+                menubar: true
+            },
+
+        setup: function (editor) {
+        editor.on('change', function () {
+            tinymce.triggerSave();
+        });
+    }   
+    });
+    </script>
+
+
 </body>
 
 </html>
@@ -106,8 +129,8 @@
 <?php
 
 include 'footer.php';
-
-if (isset($_POST['submit'])) {
+include 'php/forum_php/selectTags.php';
+if (isset($_REQUEST['submit'])) {
 
     try {
 
@@ -124,6 +147,9 @@ if (isset($_POST['submit'])) {
         $time  = date("H:i:s");
         $title = $_REQUEST["title"];
         $text  = $_REQUEST["text"];
+        if ($text === "" || $text === "<p><br></p>" || $text === "<p><br data-mce-bogus='1'></p>")
+            throw new Exception("No question provided");
+       
         $dbh = new PDO($conn_string);
 
         $insert_into = "INSERT INTO Post(id, users, date, time, title, text, votes) ";
@@ -146,6 +172,42 @@ if (isset($_POST['submit'])) {
         $insert->bindParam(":post", $id, PDO::PARAM_INT);
         $insert->execute();
 
+        if($_REQUEST["tags"] !== "")
+         {      
+             $tagId;
+             $inputString = $_REQUEST['tags'];
+             $lines = explode(",",$inputString);
+       
+            foreach($lines as $tag){
+            
+            try{
+                $tagId = findTagId($tag);
+             
+                if( $tagId < 0){
+                    
+                    $intoTags= "INSERT INTO Tag(id,name) VALUES(default, :tag)";
+                    $insert = $dbh->prepare($intoTags);
+                    $insert->bindParam(":tag", $tag, PDO::PARAM_INT);
+                    $insert->execute();
+                    $tagId = $dbh->lastInsertId();
+
+                }
+
+                $intoHasTags = "INSERT INTO HasTag (tag,post) VALUES(:tag, :post)";
+                $insert = $dbh->prepare($intoHasTags);
+                $insert->bindParam(":tag", $tagId, PDO::PARAM_INT);
+                $insert->bindParam(":post", $id, PDO::PARAM_INT);
+                $insert->execute();
+                
+            
+            }
+            catch(Exception $e){
+                echo "<script>alert('Error: Failed to insert tag');</script>";
+                throw new Exception("Failed to insert tag");
+            }
+           
+         }
+        }
         // THE FOLLOWING PHP CODE IS TO BE USED ONLY WHEN TESTING
 
         // $sql = "SELECT * FROM Post p JOIN Question q ON p.id = q.id";
@@ -156,7 +218,12 @@ if (isset($_POST['submit'])) {
         // while ($question = $query->fetch())
         //     echo implode($question);
     } catch (Exception $e) {
-        echo "error: $e";
+        $error = $e->getMessage();
+        echo "<script>alert('Error: $error');</script>";
+       
     }
+
 }
+
+
 ?>

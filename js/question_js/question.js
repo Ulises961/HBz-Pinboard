@@ -38,25 +38,27 @@ function showAnswerVotes(id){
 
 
 function insertAnswer(questionId,user){
-  
-    var xmlhttp = new XMLHttpRequest();
-    var text = document.getElementById("editor");
-  
-    var json = {"questionId":questionId, "user":user, "text":text.value, "title":"answer"};
-    text.value="";
-
-    var data = JSON.stringify(json);
    
-    xmlhttp.onreadystatechange = function () {
+        var xmlhttp = new XMLHttpRequest();
+        var text = document.getElementById("editor");
+    
+        var json = {"questionId":questionId, "user":user, "text":text.value, "title":"answer"};
+    
+        text.value="";
 
-        if ( this.readyState == 4 && this.status == 200){
+        var data = JSON.stringify(json);
+    
+        xmlhttp.onreadystatechange = function () {
 
-            showAnswers(this.responseText);
-            
+            if ( this.readyState == 4 && this.status == 200){
+
+                showAnswers(this.responseText);
+                
+            }
         }
-    }
-    xmlhttp.open("POST", "php/forum_php/insertPost.php");
-    xmlhttp.send(data);
+        xmlhttp.open("POST", "php/forum_php/insertPost.php");
+        xmlhttp.send(data);
+    
 }
 
 function showAnswers(post){
@@ -67,4 +69,11 @@ function showAnswers(post){
     answers.appendChild(newAnswer);
     
     
+}
+
+function addTag (){
+    
+    $('#tags').tagsInput({width:'auto'});
+
+
 }

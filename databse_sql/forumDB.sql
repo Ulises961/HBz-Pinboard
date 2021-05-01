@@ -99,7 +99,7 @@ CREATE TABLE Vote(
 
 CREATE TABLE Tag(
     id SERIAL PRIMARY KEY,
-    name VARCHAR(25) NOT NULL
+    name VARCHAR(25) UNIQUE
 );
 
 CREATE TABLE HasTag(
@@ -151,10 +151,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> e43257ac1048ebb5c73f3971f07329998c3ef354
 CREATE OR REPLACE FUNCTION update_vote_if_it_exists()
 RETURNS TRIGGER AS $$
 DECLARE vote RECORD;

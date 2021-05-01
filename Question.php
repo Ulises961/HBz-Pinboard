@@ -55,7 +55,7 @@ $id = $_GET["id"];
                                                  
                                                     <div class="row">
                                                         <h3 class="h3 pt-4">Your Idea</h3>
-                                                        <label>Describe the issue in detail</label>
+                                                        
                                                         <div class="container-fluid">
                                                             <textarea name="text" id="editor"></textarea>
                                                         </div>
@@ -86,13 +86,27 @@ $id = $_GET["id"];
 
 
 <script>document.getElementById("form").addEventListener("submit", function(event) {
-         insertAnswer(<?php echo $id?> ,1);
-         event.preventDefault();
-}, false);</script>
+   try{
+        console.log(event.srcElement[0].value);
+        if (event.srcElement[0].value === "" || event.srcElement[0].value ==='<p><br data-mce-bogus="1"></p>' || event.srcElement[0].value ==="<p><br></p>"){
+            console.log(event.srcElement[0].value);
+         throw( "Empty Answer");
+        }
+    
+        else{
+            insertAnswer(<?php echo $id?> ,1);
+            event.preventDefault(); 
+        }
+    } catch(e){
+        alert("Error: "+ e);
+    }
+
+
+}, true);</script>
 
 <!-- Text Editor Template -->
 <script src="https://cdn.tiny.cloud/1/6qotqw98ccr1b86gtt4n68fo95mv1vbgdr3ov36z6cm83qxu/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-<!-- <script>
+<script>
     tinymce.init({
         selector: 'textarea#editor',
         plugins: [
@@ -105,11 +119,16 @@ $id = $_GET["id"];
             'forecolor backcolor emoticons',
         
         menubar: 'file edit view insert format tools table',
-            content_css: 'css/content.css',
-            mobile: {
-                menubar: true
-            }
+           
+        mobile: {
+            menubar: true
+        },
+        setup: function (editor) {
+        editor.on('change', function () {
+            tinymce.triggerSave();
+        });
+    }
         
     });
-</script> -->
+</script>
 
