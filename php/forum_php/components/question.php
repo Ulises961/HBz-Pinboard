@@ -12,7 +12,7 @@ $user = $question["users"];
 echo "   <div class='card mb-2'>";
 echo "      <div class='card-body p-2 p-sm-3'>";
 echo "         <div class='media forum-item'>";
-echo "          <a href='Profile.php?user=$user'><img";
+echo "          <a href='https://webservices.scientificnet.org/rest/uisdata/api/v1/people/3466/image'><img";
 echo "             src='https://webservices.scientificnet.org/rest/uisdata/api/v1/people/3466/image'";
 echo "             class='mr-3 rounded-circle' width='70' alt='User' />
                 </a>";

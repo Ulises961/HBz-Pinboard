@@ -26,10 +26,8 @@
 <body>
     <?php 
         include "navbar.php";
-        include "php/forum_php/loadQuestions.php";
-        $filter="";
-        if(isset($_REQUEST["tag"]))
-            $filter = $_REQUEST["tag"];
+      
+       
     
     ?>
     <script>changeActiveLink("forum-link");</script>
@@ -41,7 +39,9 @@
                 <!-- Inner sidebar -->
                 <div class="inner-sidebar">
                     <!-- Inner sidebar header -->
-                    <div class="inner-sidebar-header justify-content-center">
+                    
+                    <!-- <div class="inner-sidebar-header justify-content-center">
+                        
                         <a href="Post.php">
                                 <button class="btn btn-primary has-icon btn-block" type="button" data-toggle="modal"
                                     data-target="#threadModal">
@@ -51,14 +51,17 @@
                                         <line x1="12" y1="5" x2="12" y2="19"></line>
                                         <line x1="5" y1="12" x2="19" y2="12"></line>
                                     </svg>
-                                    NEW DISCUSSIONs
+                                    NEW DISCUSSION
                                 </button>
                         </a>
-                    </div>
+
+                    </div> -->
+
                     <!-- /Inner sidebar header -->
 
                     <!-- Inner sidebar body -->
-                    <div class="inner-sidebar-body p-0">
+                    
+                    <!-- <div class="inner-sidebar-body p-0">
                         <div class="p-3 h-100" data-simplebar="init">
                             <div class="simplebar-wrapper" style="margin: -16px;">
                                 <div class="simplebar-height-auto-observer-wrapper">
@@ -97,7 +100,8 @@
                                     style="height: 151px; display: block; transform: translate3d(0px, 0px, 0px);"></div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
+
                     <!-- /Inner sidebar body -->
                 </div>
                 <!-- /Inner sidebar -->
@@ -106,20 +110,38 @@
                 <div class="inner-main">
                     <!-- Inner main header -->
                     <div class="inner-main-header">
-                        <a class="nav-link nav-icon rounded-circle nav-link-faded mr-3 d-md-none" href="#"
-                            data-toggle="inner-sidebar"><i class="material-icons">arrow_forward_ios</i></a>
-                        <select class="custom-select custom-select-sm w-auto mr-1">
-                            <option selected="">Latest</option>
-                            <option value="1">Popular</option>
-                            <option value="3">Solved</option>
-                            <option value="3">Unsolved</option>
-                            <option value="3">No Replies Yet</option>
-                        </select>
-                        <span class="input-icon input-icon-sm ml-auto w-auto">
-                            <input type="text"
-                                class="form-control form-control-sm bg-gray-200 border-gray-200 shadow-none mb-4 mt-4"
-                                placeholder="Search forum" />
-                        </span>
+
+                          
+                    <a href="Post.php">
+                                <button class="btn btn-primary has-icon btn-block" type="button" data-toggle="modal"
+                                    data-target="#threadModal">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="feather feather-plus mr-2">
+                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    </svg>
+                                    NEW DISCUSSION
+                                </button>
+                        </a>
+
+                        <!-- <a class="nav-link nav-icon rounded-circle nav-link-faded mr-3 d-md-none" href="#"
+                            data-toggle="inner-sidebar"><i class="material-icons">arrow_forward_ios</i></a> -->
+                        <div>
+                            <select class="custom-select custom-select-sm w-auto mr-1" name="filters" onchange="location = 'forum.php?orderby='+this.value;">
+                                <option selected="">Sort by</option>
+                                <option value="latest">Latest</option>
+                                <option value="popular">Popular</option>
+                           
+                            </select>
+                        </div>
+                            <span class="input-icon input-icon-sm ml-auto w-auto">
+                                <input type="text"
+                                    class="form-control form-control-sm bg-gray-200 border-gray-200 shadow-none mb-4 mt-4"
+                                    placeholder="Search forum" />
+                            </span>
+                  
+
                     </div>
                     <!-- /Inner main header -->
 
@@ -129,7 +151,7 @@
                
                     <!-- Forum List -->
                     <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
-                        <?php loadQuestions($filter)?>
+                        <?php  include "php/forum_php/loadQuestions.php"?>
                        
                         <ul class="pagination pagination-sm pagination-circle justify-content-center mb-0">
                             <li class="page-item disabled">
