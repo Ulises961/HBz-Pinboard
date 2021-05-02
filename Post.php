@@ -129,7 +129,7 @@
 <?php
 
 include 'footer.php';
-include 'php/forum_php/selectTags.php';
+include 'php/forum_php/tag.php';
 if (isset($_REQUEST['submit'])) {
 
     try {
@@ -211,15 +211,7 @@ if (isset($_REQUEST['submit'])) {
            
          }
         }
-        // THE FOLLOWING PHP CODE IS TO BE USED ONLY WHEN TESTING
 
-        // $sql = "SELECT * FROM Post p JOIN Question q ON p.id = q.id";
-
-        // $query = $dbh->prepare($sql);
-        // $query->execute();
-
-        // while ($question = $query->fetch())
-        //     echo implode($question);
     } catch (Exception $e) {
         $error = $e->getMessage();
         echo "<script>alert('Error: $error');</script>";

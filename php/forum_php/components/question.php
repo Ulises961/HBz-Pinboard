@@ -8,6 +8,7 @@ $id = $question["id"];
 $time= $question["time"];
 $date= $question["date"];
 $user = $question["users"];
+$jTags=json_encode($tags);
 
 echo "   <div class='card mb-2'>";
 echo "      <div class='card-body p-2 p-sm-3'>";
@@ -18,7 +19,7 @@ echo "             class='mr-3 rounded-circle' width='70' alt='User' />
                 </a>";
 echo "           <div class='media-body'>";
 echo "              <h4>
-                        <a href='Question.php?id=$id' class='text-body'>$title</a>
+                        <a href='Question.php?id=$id&tags=$jTags' class='text-body'>$title</a>
                     </h4>";
 
 echo    "<div class='row'>";
@@ -39,19 +40,7 @@ echo "              <p class='text-muted'> Posted on
                         at  <span class='text-secondary'> $time</span>
                     </p>";
             if(count($tags) > 0){
-
-                echo  " <div class='row'>";
-                
-                foreach($tags as $tag){
-                    $tagName = $tag['name'];
-                  
-                    $tagId= $tag['id'];
-                    echo 
-                            "<div class='cols tag'>".
-                               "<a href='forum.php?tag=$tagId'><span class='text-secondary font-weight-bold'># $tagName</span></a>".
-                            "</div>";          
-                }
-                echo  "</div>";
+                include "tag.php";
             }
 echo "           </div>";
 echo "         </div>";

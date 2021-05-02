@@ -6,6 +6,8 @@ try {
 
 
 $id = $_REQUEST["id"];
+$tags = $_REQUEST["tags"];
+//$tags = json_decode($tags);
 
   $dbh = new PDO($conn_string);
   $select_from = "SELECT * FROM Post P";
@@ -22,11 +24,11 @@ $id = $_REQUEST["id"];
   if (count($post) < 1)
     throw new Exception();
 
-  createPost($post[0], false);
+  createPost($post[0],$tags, false);
 
 
 } catch (Exception $e) {
-  http_response_code(404);
+  
   header("Location: forum.php");
   // provide your own HTML for the error page
   die();

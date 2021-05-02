@@ -3,7 +3,7 @@
 
     include "forum_credentials.php";
     include "components/question.php";
-    include "tag.php";
+    include "loadTags.php";
 
 
     $dbh = new PDO($conn_string);
