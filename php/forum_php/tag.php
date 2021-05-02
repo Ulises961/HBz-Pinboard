@@ -28,7 +28,7 @@ function findAllTags($question){
 
     $dbh = new PDO($conn_string);
     
-    $select =  "SELECT name";
+    $select =  "SELECT * ";
     $from = " FROM Question q JOIN HasTag H ON q.id=H.post JOIN Tag T ON T.id=H.tag ";
     $where =  "WHERE q.id=:question;";
 
@@ -43,5 +43,7 @@ function findAllTags($question){
     return $tags;
     
 }
+
+
 
 ?>

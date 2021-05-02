@@ -5,30 +5,50 @@ function createQuestion($question, $tags){
 $content = $question["text"];
 $title= $question["title"];
 $id = $question["id"];
+$time= $question["time"];
+$date= $question["date"];
+$user = $question["users"];
 
 echo "   <div class='card mb-2'>";
 echo "      <div class='card-body p-2 p-sm-3'>";
 echo "         <div class='media forum-item'>";
-echo "          <a href='#' data-toggle='collapse' data-target='.forum-content'><img";
-echo "             src='https://bootdey.com/img/Content/avatar/avatar2.png'";
-echo "             class='mr-3 rounded-circle' width='50' alt='User' />
+echo "          <a href='Profile.php?user=$user'><img";
+echo "             src='https://webservices.scientificnet.org/rest/uisdata/api/v1/people/3466/image'";
+echo "             class='mr-3 rounded-circle' width='70' alt='User' />
                 </a>";
 echo "           <div class='media-body'>";
-echo "              <h4><a href='Question.php?id=$id' data-toggle='collapse' data-target='.forum-content'";
-echo "                       class='text-body'>$title</a>
+echo "              <h4>
+                        <a href='Question.php?id=$id' class='text-body'>$title</a>
                     </h4>";
-echo "              <p class='text-secondary'> $content</p>";
-echo "              <p class='text-muted'><a href='javascript:void(0)'>jlrdw</a> replied 
-                        <span class='text-secondary font-weight-bold'>3 hours ago</span>
+
+echo    "<div class='row'>";
+            
+echo "   <div class='col'> <p class='text-secondary'> $content</p> </div>";
+
+                
+echo    "<div class='col-1 vote-box'>";
+echo        "<button type='button' class='btn btn-default btn-lg btn-block responsive-width' onclick='vote(true,". $question['id'].")' >🔺</button>";
+echo        "<div  class='count' id='count-".$question['id']."'>".$question['votes']."</div>";
+echo        "<button type='button' class='btn btn-default btn-lg btn-block responsive-width' onclick='vote(false,".$question["id"].")'>🔻</button>";
+echo    "</div>";
+
+echo    "</div>";
+
+echo "              <p class='text-muted'> Posted on  
+                        <span class='text-secondary '> $date</span>
+                        at  <span class='text-secondary'> $time</span>
                     </p>";
             if(count($tags) > 0){
+
                 echo  " <div class='row'>";
                 
                 foreach($tags as $tag){
-                    $tag = $tag['name'];
+                    $tagName = $tag['name'];
+                  
+                    $tagId= $tag['id'];
                     echo 
                             "<div class='cols tag'>".
-                               "<p> <span class='text-secondary font-weight-bold'># $tag</span></p>".
+                               "<a href='forum.php?tag=$tagId'><span class='text-secondary font-weight-bold'># $tagName</span></a>".
                             "</div>";          
                 }
                 echo  "</div>";
