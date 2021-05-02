@@ -117,6 +117,8 @@
 
                     <!-- Inner main body -->
 
+
+               
                     <!-- Forum List -->
                     <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
                         <?php include "php/forum_php/loadQuestions.php"?>

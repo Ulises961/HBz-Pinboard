@@ -163,3 +163,16 @@ div hr{
   left:25%;
   
 }
+
+div.cols.tag{
+  width: auto;
+  
+}
+
+div.cols.tag p{
+  background-color:rgb(243, 233, 233);
+  border: 1pt solid gainsboro;
+
+  padding: 5pt;
+  display: inline-flex;
+}
