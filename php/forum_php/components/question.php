@@ -1,5 +1,6 @@
 <?php
-function createQuestion($question, $tags){
+include "post.php";
+function createQuestion($question){
     // WILL CREATE THE HTML QUESTION ELEMENT
 
 $content = $question["text"];
@@ -8,7 +9,7 @@ $id = $question["id"];
 $time= $question["time"];
 $date= $question["date"];
 $user = $question["users"];
-$jTags=json_encode($tags);
+
 
 echo "   <div class='card mb-2'>";
 echo "      <div class='card-body p-2 p-sm-3'>";
@@ -18,30 +19,10 @@ echo "             src='https://webservices.scientificnet.org/rest/uisdata/api/v
 echo "             class='mr-3 rounded-circle' width='70' alt='User' />
                 </a>";
 echo "           <div class='media-body'>";
-echo "              <h4>
-                        <a href='Question.php?id=$id&tags=$jTags' class='text-body'>$title</a>
-                    </h4>";
+   
+    createPost($question,true);
 
-echo    "<div class='row'>";
-            
-echo "   <div class='col'> <p class='text-secondary'> $content</p> </div>";
 
-                
-echo    "<div class='col-1 vote-box'>";
-echo        "<button type='button' class='btn btn-default btn-lg btn-block responsive-width' onclick='vote(true,". $question['id'].")' >🔺</button>";
-echo        "<div  class='count' id='count-".$question['id']."'>".$question['votes']."</div>";
-echo        "<button type='button' class='btn btn-default btn-lg btn-block responsive-width' onclick='vote(false,".$question["id"].")'>🔻</button>";
-echo    "</div>";
-
-echo    "</div>";
-
-echo "              <p class='text-muted'> Posted on  
-                        <span class='text-secondary '> $date</span>
-                        at  <span class='text-secondary'> $time</span>
-                    </p>";
-            if(count($tags) > 0){
-                include "tag.php";
-            }
 echo "           </div>";
 echo "         </div>";
 echo "      </div>";

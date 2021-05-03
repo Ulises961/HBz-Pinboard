@@ -3,8 +3,6 @@
 
     include "forum_credentials.php";
     include "components/question.php";
-    include "loadTags.php";
-
 
     $dbh = new PDO($conn_string);
     $query;
@@ -21,11 +19,9 @@
             case "popular": $orderby = "ORDER BY (votes) DESC;";
                 break;
             
-            }
-           
+            }     
     }
       
-
     if($tag !== ""){    
         
         $sql = "SELECT * FROM Post p JOIN Question q ON p.id = q.id JOIN HasTag h ON p.id=h.post WHERE h.tag=:tag ".$orderby;
@@ -42,9 +38,10 @@
     $sql = "SELECT * FROM Post p JOIN Question q ON p.id = q.id";
     $query = $dbh-> prepare($sql);
 
-}
-
-$query-> execute();
+    while ($question = $query->fetch()){
+   
+        createQuestion($question);
+    }
 
 
 ?>
