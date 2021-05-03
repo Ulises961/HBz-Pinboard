@@ -24,14 +24,8 @@
 </head>
 
 <body>
-    <?php 
-        include "navbar.php";
-        include "php/forum_php/loadQuestions.php";
-        $filter="";
-        if(isset($_REQUEST["tag"]))
-            $filter = $_REQUEST["tag"];
+    <?php include "navbar.php"; ?>
     
-    ?>
     <script>changeActiveLink("forum-link");</script>
  
 
@@ -129,7 +123,7 @@
                
                     <!-- Forum List -->
                     <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
-                        <?php loadQuestions($filter)?>
+                        <?php include "php/forum_php/loadQuestions.php";?>
                        
                         <ul class="pagination pagination-sm pagination-circle justify-content-center mb-0">
                             <li class="page-item disabled">
