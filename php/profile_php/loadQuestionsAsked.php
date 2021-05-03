@@ -7,7 +7,7 @@ include "components/askedQuestion.php";
 try {
     $dbh = new PDO($conn_string);
     
-    $sql = "SELECT * FROM POST p JOIN Quesiton q ON p.id = q.id AND p.users = :user";
+    $sql = "SELECT * FROM POST p JOIN Question q ON p.id = q.id AND p.users = :user";
 
     $query = $dbh-> prepare($sql);
     $query-> bindParam("user", $_SESSION["user_id"], PDO::PARAM_INT);

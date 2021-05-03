@@ -5,7 +5,7 @@ function createAskedQuestion($askedQuestion){
     $questionTitle = $askedQuestion["title"];
 
     echo "<li>";
-    echo    "<a href='Question.php?id=$questionId'>$questionTitle</a>";
+    echo    "<a href='Question.php?id=$questionId' style='color: black'>$questionTitle</a>";
     echo "</li>";
 }
 

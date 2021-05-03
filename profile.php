@@ -31,7 +31,7 @@
   <?php include "navbar.php"; ?>
   <script>changeActiveLink("profile-link");</script>
   
-  <?php session_start(); $_SESSION["user_id"] = 2; include "php/profile_php/getUserInfo.php"; ?>
+  <?php session_start(); $_SESSION["user_id"] = 1; include "php/profile_php/getUserInfo.php"; ?>
 
     <div class="container">
       <div class="main-body">
