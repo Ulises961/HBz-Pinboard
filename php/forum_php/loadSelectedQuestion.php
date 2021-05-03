@@ -6,8 +6,7 @@ try {
 
 
 $id = $_REQUEST["id"];
-$tags = $_REQUEST["tags"];
-//$tags = json_decode($tags);
+
 
   $dbh = new PDO($conn_string);
   $select_from = "SELECT * FROM Post P";
@@ -24,7 +23,8 @@ $tags = $_REQUEST["tags"];
   if (count($post) < 1)
     throw new Exception();
 
-  createPost($post[0],$tags, false);
+ 
+  createPost($post[0], true);
 
 
 } catch (Exception $e) {

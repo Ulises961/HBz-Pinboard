@@ -1,9 +1,6 @@
 <?php
 
-if(isset($_REQUEST["tags"])){
-    $tags = $_REQUEST["tags"];
-    $tags = json_decode($tags,true);
-}
+
 echo  " <div class='row'>";
                 foreach($tags as $tag){
 
