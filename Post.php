@@ -129,7 +129,7 @@
 <?php
 
 include 'footer.php';
-include 'php/forum_php/selectTags.php';
+include 'php/forum_php/tag.php';
 if (isset($_REQUEST['submit'])) {
 
     try {
@@ -181,10 +181,13 @@ if (isset($_REQUEST['submit'])) {
             foreach($lines as $tag){
             
             try{
+               
+                $tag = strtolower($tag);
+
                 $tagId = findTagId($tag);
              
                 if( $tagId < 0){
-                    
+
                     $intoTags= "INSERT INTO Tag(id,name) VALUES(default, :tag)";
                     $insert = $dbh->prepare($intoTags);
                     $insert->bindParam(":tag", $tag, PDO::PARAM_INT);

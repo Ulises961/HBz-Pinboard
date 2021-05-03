@@ -1,7 +1,7 @@
 <?php
 
 
-function createPost($post,$isAnswer){
+function createPost($post,$tags, $isAnswer){
     
   
 // include __DIR__."/../loadVotes.php"; NOT NECESSARY SINCE THE POST NOW CONTAIN THE VOTES
@@ -35,15 +35,21 @@ $titleFormat = "<div class='col'>".
     echo        "<button type='button' class='btn btn-default btn-lg btn-block responsive-width' onclick='vote(false,".$post["id"].")'>🔻</button>";
     echo    "</div>";
 
-    
+ 
     echo "</div>";
-    
+    if($tags !== null){
+        echo "<div class='container'>";
+            include "tag.php";
+        echo "  </div>";
+
+    }
+  
     echo "<hr>";
 }
 
 function createAnswer($answer){
   
-    createPost($answer,true);
+    createPost($answer,null,true);
 
 }
 
