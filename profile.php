@@ -31,7 +31,7 @@
   <?php include "navbar.php"; ?>
   <script>changeActiveLink("profile-link");</script>
   
-  <?php session_start(); $_SESSION["user_id"] = 1; include "php/profile_php/getUserInfo.php"; ?>
+  <?php session_start(); $_SESSION["user_id"] = 2; include "php/profile_php/getUserInfo.php"; ?>
 
     <div class="container">
       <div class="main-body">
@@ -53,9 +53,16 @@
                     <div class="d-flex flex-column align-items-center text-center">
                       <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
                       <div class="mt-3">
-                        <h4><?php echo $user["name"]." ".$user["surname"]; ?></h4>
-                        <p class="text-secondary mb-1">Full Stack Developer</p>
-                        <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
+                        <!-- FULL NAME -->
+                        <h4>
+                          <?php echo $user["name"]." ".$user["surname"]; ?>
+                        </h4>
+
+                        <!-- STUDENT OF / PROFESSOR OF -->
+                        <p class="text-secondary mb-1">
+                          <!-- THIS IS COMMENTED SINCE THE COMPLETE DATABASE IS NOT IN USE -->
+                          <?php //echo $user["job"]; ?>
+                        </p>
                         <button class="btn btn-primary">Follow</button>
                         <button class="btn btn-outline-primary">Message</button>
                       </div>
@@ -87,6 +94,7 @@
                   </ul>
                 </div>
               </div>
+
               <div class="col-md-8">
                 <div class="card mb-3">
                   <div class="card-body">
@@ -118,6 +126,40 @@
                     </div>
                   </div>
                 </div>
+
+                <!-- QUESTIONS ASKED -->
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <i class="material-icons text-info mr-2">Questions asked</i>
+                      </div>
+                      <div class="col-sm-9 text-secondary">
+                        <ul>
+                          <?php include "php/profile_php/loadQuestionsAsked.php"; ?>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ANSWERS GIVEN -->
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <i class="material-icons text-info mr-2">Answers given</i>
+                      </div>
+                      <div class="col-sm-9 text-secondary">
+                        <ul>
+                          <?php include "php/profile_php/loadAnswersGiven.php"; ?>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ANNOUNCMENTS -->
                 <div class="row gutters-sm">
                   <div class="col-sm-6 mb-3">
                     <div class="card h-100">
@@ -143,30 +185,8 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-sm-6 mb-3">
-                    <div class="card h-100">
-                      <div class="card-body">
-                       
-                    
-                       
-                       
-                        <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">Add your question</i></h6>
-                        <div class="wrap-input100 validate-input">
-                          <input class="input100" type="question" name="question" id="question" placeholder="Write your question">
-                          <span class="focus-input100"></span>
-                          <span class="symbol-input100">
-                            <i class="fa fa-envelope" aria-hidden="true"></i>
-                          </span>
-                        </div>
-                        
-                        
-                        <button class="btn btn-primary">Add tags</button>
-                          <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
+
               </div>
             </div>
           </div>
