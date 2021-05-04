@@ -69,8 +69,13 @@
 
                     <!-- Forum List -->
                     <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
+<<<<<<< HEAD
+                        <?php include "php/forum_php/loadQuestions.php";?>
+                       
+=======
                         <?php  include "php/forum_php/loadQuestions.php"?>
                         
+>>>>>>> 2904b353cee2bb948ea16e99bfa4e7f00343c625
                         <ul class="pagination pagination-sm pagination-circle justify-content-center mb-0">
                             <li class="page-item disabled">
                                 <span class="page-link has-icon"><i class="material-icons">chevron_left</i></span>
