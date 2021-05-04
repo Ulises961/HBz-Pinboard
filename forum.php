@@ -25,10 +25,6 @@
 
 <body>
     <?php include "navbar.php"; ?>
-<<<<<<< HEAD
-    
-=======
->>>>>>> 2904b353cee2bb948ea16e99bfa4e7f00343c625
     <script>changeActiveLink("forum-link");</script>
  
 
