@@ -40,7 +40,6 @@ $data = json_decode(file_get_contents("php://input"));
   if($question != ""){
    
     insertAnswer($post["id"], $question);
-    echo "<script> alert('doing something');</script>";
     createAnswer($post);
   
 }

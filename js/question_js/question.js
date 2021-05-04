@@ -32,8 +32,6 @@ function showAnswerVotes(id){
     xmlhttp.open("GET", "php/forum_php/getPostVotes.php?post="+id, true);
     xmlhttp.send();
 
-    // xmlhttp.open("GET", "php/forum_php/loadVotes.php?post="+id+"&show=true", true);
-    // xmlhttp.send();
 }
 
 
@@ -71,9 +69,34 @@ function showAnswers(post){
     
 }
 
-function addTag (){
+
+function insertComment(obj,id){
+ 
+ 
+    var xmlhttp = new XMLHttpRequest();
+    // var input = document.getElementById("commentInput");
+    var input = obj;
+    xmlhttp.onreadystatechange = function () {
+
+        if ( this.readyState == 4 && this.status == 200){
+           
+           showComment(this.responseText);
+           input.value="";
+        }
+    }
+  
+    var data = {"comment":input.value,"question":id};
+    var json = JSON.stringify(data);
+    xmlhttp.open("POST", "php/forum_php/insertComment.php");
+    xmlhttp.send(json);
+
+
+}
+function showComment(comment){
+    var comments= document.getElementById("comments");
+    var newComment = document.createElement("div");
+    newComment.innerHTML=comment;
+    comments.appendChild(newComment);
     
-    $('#tags').tagsInput({width:'auto'});
-
-
+    
 }

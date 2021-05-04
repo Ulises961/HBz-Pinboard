@@ -49,21 +49,22 @@ $postInfo= "<div>
     }
     echo $titleFormat;
  
-    echo "<div>";
-    echo "<div class='$class form-inline '>";
+    echo "<div>
+            <div class='$class form-inline '>
  
 
-    echo "   <div class='col secondary-text' id='text'> $content </div>";
+                <div class='col secondary-text' id='text'> $content </div>
 
 
-    echo    "<div class='col-1 vote-box'>";
-    echo        "<button type='button' class='btn btn-default btn-lg btn-block responsive-width' onclick='vote(true,$id)' >🔺</button>";
-    echo        "<div  class='count' id='count-$id'> $votes </div>";
-    echo        "<button type='button' class='btn btn-default btn-lg btn-block responsive-width' onclick='vote(false,$id)'>🔻</button>";
-    echo    "</div>";
-    echo    "</div>";
+                <div class='col-1 vote-box'>
+                    <button type='button' class='btn btn-default btn-lg btn-block responsive-width' onclick='vote(true,$id)' >🔺</button>
+                    <div  class='count' id='count-$id'> $votes </div>
+                    <button type='button' class='btn btn-default btn-lg btn-block responsive-width' onclick='vote(false,$id)'>🔻</button>
+                </div>
+            </div>";
 
-    
+   
+
     if(count($tags) > 0){
         echo "<div class='container'>";
             include "tag.php";
@@ -71,11 +72,16 @@ $postInfo= "<div>
 
     }
 
-    echo    "<div class='container'>"; 
-    echo $postInfo;
-    echo    "</div>";
+    echo    "<div class='container'>
+             $postInfo
+            </div>
   
-    echo    "</div>";
+            </div>
+            <div id='comments'>";
+    
+    include __DIR__."/../loadComments.php";
+   echo  "</div>";
+    
     echo $break;
 }
 
