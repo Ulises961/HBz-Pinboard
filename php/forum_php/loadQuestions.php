@@ -35,8 +35,10 @@
     $query -> execute();
     
     while ($question = $query->fetch()){
-   
-        createQuestion($question);
+        
+        $class = ["class" => ""];
+        $question = array_merge($question,$class);
+        createForumQuestion($question);
     }
 
 

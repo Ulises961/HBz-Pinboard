@@ -40,6 +40,7 @@ function findAllTags($question){
     
     $tags = $query-> fetchAll(PDO::FETCH_ASSOC);
     
+    
     return $tags;
     
 }

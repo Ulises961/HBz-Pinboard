@@ -1,33 +1,73 @@
 <?php
-include "post.php";
-function createQuestion($question){
-    // WILL CREATE THE HTML QUESTION ELEMENT
 
-$content = $question["text"];
-$title= $question["title"];
-$id = $question["id"];
-$time= $question["time"];
-$date= $question["date"];
-$user = $question["users"];
+include_once __DIR__."/../loadTags.php";
+include_once "post.php";
 
+// WILL CREATE THE HTML QUESTION ELEMENT
+function createForumQuestion($question){
 
-echo "   <div class='card mb-2'>";
-echo "      <div class='card-body p-2 p-sm-3'>";
-echo "         <div class='media forum-item'>";
-echo "          <a href='https://webservices.scientificnet.org/rest/uisdata/api/v1/people/3466/image'><img";
-echo "             src='https://webservices.scientificnet.org/rest/uisdata/api/v1/people/3466/image'";
-echo "             class='mr-3 rounded-circle' width='70' alt='User' />
-                </a>";
-echo "           <div class='media-body'>";
-   
-    createPost($question,true);
+    $tags = findAllTags($question["id"]);
+    $thereAreTags= count($tags) > 0;
+ 
+    echo 
+    "<!-- Question -->".
 
+        "<div class='card mb-2'>
+            <div class='card-body p-2 p-sm-3'>
+                <div class='media forum-item'>
+                    <a href=''><img src='' class='mr-3 rounded-circle' width='70' alt='User'></a>
+                        <div class='media-body'>";
 
-echo "           </div>";
-echo "         </div>";
-echo "      </div>";
-echo "   </div>";
-
+                            createPost($question);
+                        
+                            if($thereAreTags) 
+                                includeTags($tags);
+    echo "
+                        </div>
+                </div>
+            </div>     
+        </div>
+    <!--/ Question -->";
 
 }
+
+function createQuestionToBeAnswered($question){
+  
+    $tags = findAllTags($question["id"]);
+    $thereAreTags= count($tags) > 0;
+    $id = $question["id"];
+  echo  " <!-- Question -->";
+
+    createPost($question);
+  
+    if($thereAreTags) 
+        includeTags($tags);
+        
+    echo    
+            "<div id='comments-$id'>";
+                include_once __DIR__."/../loadComments.php";
+    echo    
+            "</div>
+            <div class='row' >
+                <div class='col-9'>
+                    <input class='' type='text' id='insertComment-$id' placeholder='Insert Comment'>
+                </div>
+                <div class='col'>
+                    <button class='btn btn-primary btn-lg' onclick='insertComment($id)'> Post </button>
+                </div>
+            
+            
+            </div>
+        <!-- / Question -->";
+
+}
+
+
+function includeTags($tags){
+
+    echo "<div class='container'>";
+            include "tag.php";
+    echo "</div>";
+  }
+  
 ?>

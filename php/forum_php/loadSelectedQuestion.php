@@ -1,11 +1,12 @@
 <?php 
 
 include "forum_credentials.php";
+include "components/question.php";
 
 try {
 
 
-$id = $_REQUEST["id"];
+  $id = $_REQUEST["id"];
 
 
   $dbh = new PDO($conn_string);
@@ -18,13 +19,17 @@ $id = $_REQUEST["id"];
   $query-> bindParam(":id", $id, PDO::PARAM_INT);
   $query-> execute();
 
-  $post = $query -> fetchAll(PDO::FETCH_ASSOC);
+  $post = $query -> fetch(PDO::FETCH_ASSOC);
 
   if (count($post) < 1)
     throw new Exception();
 
- 
-  createPost($post[0], true);
+  $class = ["class" => ""];
+   
+  $post = array_merge($post,$class);
+
+  createQuestionToBeAnswered($post, true);
+
 
 
 } catch (Exception $e) {
@@ -34,5 +39,6 @@ $id = $_REQUEST["id"];
   die();
 
 }
+
 
 ?>

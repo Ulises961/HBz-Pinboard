@@ -2,7 +2,7 @@
 
 include __DIR__."/forum_credentials.php";
 include __DIR__."/insertAnswer.php";
-include __DIR__."/components/post.php";
+include __DIR__."/components/answer.php";
 
 $data = json_decode(file_get_contents("php://input"));
 

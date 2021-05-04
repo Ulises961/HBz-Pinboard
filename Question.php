@@ -39,21 +39,10 @@ $id = $_GET["id"];
                 <div class="container">
                     <div class ="card">
 
-                <?php include "php/forum_php/loadSelectedQuestion.php"?>
+                        <?php include "php/forum_php/loadSelectedQuestion.php"?>
                
-               
-                <!-- comments -->
-                        
-                    <!--                 
-                        <div class="row">
-                            <div class="col-9">
-                            <input type="text" id="insertComment" placeholder="Insert Comment">
-                            <button onclick="insertComment(<?php echo $id?>)">Post</button>
-                            </div>
-                        </div> -->
-
-                <!-- / comments -->
-
+                    
+            
 
                         <!-- Answers -->
                             <div id="answer"><?php include "php/forum_php/loadAnswers.php" ?></div>
@@ -62,18 +51,15 @@ $id = $_GET["id"];
 
                         <form id="form"> 
                             <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
-                            <div id="answer"></div>
+                                <div id="answer"></div>
                                     <div class="card mb-2">
                                         <div class="card-body p-2 p-sm-3">
                                             <div>
-                                               
-                                                 
-                                                    <div class="row">
-                                                        <h3 class="h3 pt-4">Your Idea</h3>
+                                                <div class="row">
+                                                    <h3 class="h3 pt-4">Your Idea</h3>
                                                         
-                                                        <div class="container-fluid">
-                                                            <textarea name="text" id="editor"></textarea>
-                                                        </div>
+                                                    <div class="container-fluid">
+                                                        <textarea name="text" id="editor"></textarea> 
                                                     </div>
                                                     <button name="submit" id="submit"  class="btn btn-primary">Submit</button>
                                                 </div>           
