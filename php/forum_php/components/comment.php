@@ -11,8 +11,7 @@ $date = $comment["date"];
                           //   <div class ='col'><p> Author: John Wayne</p></div>
                             "<div class ='col'><p> Date: $date</p></div>
                         </div>
-                    </div>
-                    <hr>";
+                    </div>";
 
 }
 ?>

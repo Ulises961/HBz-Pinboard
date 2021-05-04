@@ -30,14 +30,10 @@
     }else{ 
         $sql = "SELECT * FROM Post p JOIN Question q ON p.id = q.id ".$orderby;
         $query = $dbh-> prepare($sql);
-    
-    $sql = "SELECT * FROM Post p JOIN Question q ON p.id = q.id JOIN HasTag h ON p.id=h.post WHERE h.tag=:tag";
-    $query = $dbh-> prepare($sql);
-    $query -> bindParam(":tag", $tag,PDO::PARAM_INT); 
-}else{ 
-    $sql = "SELECT * FROM Post p JOIN Question q ON p.id = q.id";
-    $query = $dbh-> prepare($sql);
+    }
 
+    $query -> execute();
+    
     while ($question = $query->fetch()){
    
         createQuestion($question);

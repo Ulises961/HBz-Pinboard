@@ -70,17 +70,18 @@ function showAnswers(post){
 }
 
 
-function insertComment(obj,id){
- 
+function insertComment(id){
  
     var xmlhttp = new XMLHttpRequest();
-    // var input = document.getElementById("commentInput");
-    var input = obj;
+    var input = document.getElementById("insertComment-"+id);
+    if (input.value !==""){
+    
+  
     xmlhttp.onreadystatechange = function () {
 
         if ( this.readyState == 4 && this.status == 200){
            
-           showComment(this.responseText);
+           showComment(this.responseText,id);
            input.value="";
         }
     }
@@ -89,11 +90,11 @@ function insertComment(obj,id){
     var json = JSON.stringify(data);
     xmlhttp.open("POST", "php/forum_php/insertComment.php");
     xmlhttp.send(json);
-
+    }
 
 }
-function showComment(comment){
-    var comments= document.getElementById("comments");
+function showComment(comment,id){
+    var comments= document.getElementById("comments-"+id);
     var newComment = document.createElement("div");
     newComment.innerHTML=comment;
     comments.appendChild(newComment);

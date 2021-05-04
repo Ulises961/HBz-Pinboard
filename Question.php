@@ -40,12 +40,21 @@ $id = $_GET["id"];
                     <div class ="card">
 
                 <?php include "php/forum_php/loadSelectedQuestion.php"?>
-                
+               
+               
+                <!-- comments -->
+                        
+                    <!--                 
                         <div class="row">
                             <div class="col-9">
                             <input type="text" id="insertComment" placeholder="Insert Comment">
+                            <button onclick="insertComment(<?php echo $id?>)">Post</button>
                             </div>
-                        </div>
+                        </div> -->
+
+                <!-- / comments -->
+
+
                         <!-- Answers -->
                             <div id="answer"><?php include "php/forum_php/loadAnswers.php" ?></div>
                         <!-- /Answers -->
@@ -89,12 +98,16 @@ $id = $_GET["id"];
 
 
 <script src="js/question_js/question.js"></script>
-<script>
+
+
+<!-- <script>
 $("#insertComment").on('keyup', function (e) {
     if (e.key === 'Enter' || e.keyCode === 13) {
     insertComment(this,<?php echo $id ?>);
     }
-});</script>
+});</script> -->
+
+
 <script>
     
     document.getElementById("form").addEventListener("submit", function(event) {

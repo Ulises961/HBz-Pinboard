@@ -9,6 +9,7 @@ function createAnswer($answer){
 }
 
 
+
 function createPost($post, $isPost){
 
     $content = $post["text"];
@@ -20,7 +21,7 @@ function createPost($post, $isPost){
     $votes = $post["votes"];
 
 $tags = findAllTags($post["id"]);
-
+$thereAreTags= count($tags) > 0;
 
 $titleFormat = "<div class='col'>".
                     "<div>".
@@ -63,28 +64,34 @@ $postInfo= "<div>
                 </div>
             </div>";
 
-   
 
-    if(count($tags) > 0){
-        echo "<div class='container'>";
-            include "tag.php";
-        echo "</div>";
-
+   if($thereAreTags) {
+    echo "<div class='container'>";
+        include "tag.php";
+    echo "</div>";
     }
 
     echo    "<div class='container'>
-             $postInfo
+                $postInfo
             </div>
-  
+          
+            <div id='comments-$id'>";
+    
+                include __DIR__."/../loadComments.php";
+           
+    echo    " </div>
+            <div class='row' >
+                <div class='col-9'>
+                    <input class='' type='text' id='insertComment-$id' placeholder='Insert Comment'>
+                </div>
+                <div class='col'>
+                    <button class='btn btn-primary btn-lg' onclick='insertComment($id)'> Post </button>
+                </div>
             </div>
-            <div id='comments'>";
+        </div>
     
-    include __DIR__."/../loadComments.php";
-   echo  "</div>";
-    
-    echo $break;
+     $break";
 }
-
 
 
 ?>
