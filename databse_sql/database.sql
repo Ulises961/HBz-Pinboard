@@ -113,6 +113,7 @@ CREATE TABLE Post(
     time TIME NOT NULL,
     title VARCHAR(255) NOT NULL,
     text TEXT NOT NULL,
+    votes INTEGER NOT NULL,
 
     CONSTRAINT postBelongsToUser FOREIGN KEY(users)
         REFERENCES Users(id)
@@ -141,7 +142,7 @@ CREATE TABLE Answer(
         ON DELETE CASCADE
         DEFERRABLE INITIALLY DEFERRED,
         
-    CONSTRAINT questionid_IsFKInAnswer FOREIGN KEY(question_id)
+    CONSTRAINT answer_must_belong_to_an_existing_question FOREIGN KEY(question_id)
         REFERENCES Question(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
@@ -168,13 +169,13 @@ CREATE TABLE Comment(
     users INTEGER NOT NULL,
     post INTEGER NOT NULL,
 
-    CONSTRAINT commentBelongsToUser FOREIGN KEY(users)
+    CONSTRAINT comment_must_belong_to_an_existing_user FOREIGN KEY(users)
         REFERENCES Users(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
         DEFERRABLE INITIALLY DEFERRED,
     
-    CONSTRAINT commentIsPutOnPost FOREIGN KEY(post)
+    CONSTRAINT comment_must_belong_to_an_existing_post FOREIGN KEY(post)
         REFERENCES Post(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
@@ -189,13 +190,13 @@ CREATE TABLE Vote(
     users INTEGER NOT NULL,
     post INTEGER NOT NULL,
 
-    CONSTRAINT voteBelongsToUser FOREIGN KEY(users)
+    CONSTRAINT vote_must_belong_to_an_existing_user FOREIGN KEY(users)
         REFERENCES Users(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
         DEFERRABLE INITIALLY DEFERRED,
     
-    CONSTRAINT voteIsPutOnPost FOREIGN KEY(post)
+    CONSTRAINT vote_must_belong_to_an_existing_post FOREIGN KEY(post)
         REFERENCES Post(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
@@ -204,7 +205,7 @@ CREATE TABLE Vote(
 
 CREATE TABLE Tag(
     id SERIAL PRIMARY KEY,
-    name VARCHAR(25) NOT NULL
+    name VARCHAR(25) UNIQUE
 );
 
 CREATE TABLE HasTag(
@@ -213,13 +214,13 @@ CREATE TABLE HasTag(
     
     PRIMARY KEY(tag, post),
 
-    CONSTRAINT  tag_is_FK_in_HasTag FOREIGN KEY(tag)
+    CONSTRAINT  tag_must_exist FOREIGN KEY(tag)
         REFERENCES Tag(id)
         ON UPDATE CASCADE
         ON DELETE RESTRICT
         DEFERRABLE INITIALLY DEFERRED,
     
-    CONSTRAINT  post_is_FK_in_HasTag FOREIGN KEY(tag)
+    CONSTRAINT  tag_must_belong_to_an_existing_post FOREIGN KEY(tag)
         REFERENCES Tag(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
@@ -441,6 +442,63 @@ END;
 $$ LANGUAGE plpgsql;
 
 
+CREATE OR REPLACE FUNCTION update_vote_if_it_exists()
+RETURNS TRIGGER AS $$
+DECLARE vote RECORD;
+BEGIN
+    SELECT EXISTS( SELECT * FROM Vote WHERE users = NEW.users AND post = NEW.post) INTO vote;
+
+    IF vote.exists THEN 
+        SELECT * FROM Vote WHERE users = NEW.users AND post = NEW.post INTO vote;
+
+        IF vote.value != NEW.value THEN
+            UPDATE Vote
+            SET value = NEW.value
+            WHERE users = NEW.users AND post = NEW.post;
+        END IF;
+
+        RETURN NULL;
+    ELSE
+        RETURN NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION update_post_votes_on_insert()
+RETURNS TRIGGER AS $$
+BEGIN
+
+    IF NEW.value THEN 
+        UPDATE Post
+        SET votes = votes + 1
+        WHERE id = NEW.post;
+    ELSE
+        UPDATE Post
+        SET votes = votes - 1
+        WHERE id = NEW.post;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION update_post_votes_on_update()
+RETURNS TRIGGER AS $$
+BEGIN
+
+    IF NEW.value THEN 
+        UPDATE Post
+        SET votes = votes + 2
+        WHERE id = NEW.post;
+    ELSE
+        UPDATE Post
+        SET votes = votes - 2
+        WHERE id = NEW.post;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
 -- TRIGGERS
 
@@ -522,6 +580,21 @@ FOR EACH ROW EXECUTE PROCEDURE is_user_logged_in();
 CREATE TRIGGER checkExistingProfessor
 BEFORE INSERT  ON Users
 FOR EACH ROW EXECUTE PROCEDURE checkExistingProfessor();
+
+CREATE TRIGGER has_user_already_voted_update_vote
+BEFORE INSERT ON Vote
+FOR EACH ROW EXECUTE
+PROCEDURE update_vote_if_it_exists();
+
+CREATE TRIGGER change_post_votes_on_insert
+AFTER INSERT ON Vote
+FOR EACH ROW EXECUTE
+PROCEDURE update_post_votes_on_insert();
+
+CREATE TRIGGER change_post_votes_on_update
+AFTER UPDATE ON Vote
+FOR EACH ROW EXECUTE
+PROCEDURE update_post_votes_on_update();
 
 
 

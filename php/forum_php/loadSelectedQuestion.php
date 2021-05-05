@@ -1,14 +1,17 @@
 <?php 
 
 include "forum_credentials.php";
+include "components/question.php";
 
 try {
 
-$id = $_REQUEST["id"];
+
+  $id = $_REQUEST["id"];
+
 
   $dbh = new PDO($conn_string);
-  $select_from = "SELECT * FROM Post";
-  $where = " WHERE id = :id";
+  $select_from = "SELECT * FROM Post P";
+  $where = " WHERE P.id = :id AND NOT EXISTS ( SELECT * FROM Answer A WHERE P.id = A.id )";
   
   $sql = $select_from.$where;
   $query = $dbh -> prepare($sql);
@@ -16,14 +19,26 @@ $id = $_REQUEST["id"];
   $query-> bindParam(":id", $id, PDO::PARAM_INT);
   $query-> execute();
 
-  $post = $query -> fetchAll(PDO::FETCH_ASSOC);
+  $post = $query -> fetch(PDO::FETCH_ASSOC);
 
-  createPost($post[0], false);
+  if (count($post) < 1)
+    throw new Exception();
+
+  $class = ["class" => ""];
+   
+  $post = array_merge($post,$class);
+
+  createQuestionToBeAnswered($post, true);
+
 
 
 } catch (Exception $e) {
-  echo"error";
-  echo $e;
+  
+  header("Location: forum.php");
+  // provide your own HTML for the error page
+  die();
+
 }
+
 
 ?>

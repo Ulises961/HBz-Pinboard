@@ -2,7 +2,7 @@
 
 include __DIR__."/forum_credentials.php";
 include __DIR__."/insertAnswer.php";
-include __DIR__."/components/post.php";
+include __DIR__."/components/answer.php";
 
 $data = json_decode(file_get_contents("php://input"));
 
@@ -16,9 +16,10 @@ $data = json_decode(file_get_contents("php://input"));
   $post;
   try {
     $dbh = new PDO($conn_string);
-
-    $insert_into = "INSERT INTO Post(id, users, date, time, title, text) ";
-    $values = "VALUES(default, :user, :date, :time, :title, :text) RETURNING *";
+    if ($text ==="" || $text ==="<p><br></p>" || $text ==="<p><br data-mce-bogus='1'></p>")
+      throw new Exception();
+    $insert_into = "INSERT INTO Post(id, users, date, time, title, text, votes) ";
+    $values = "VALUES(default, :user, :date, :time, :title, :text, 0) RETURNING *";
     $sql = $insert_into.$values;
 
     $insert = $dbh-> prepare($sql);
@@ -36,10 +37,10 @@ $data = json_decode(file_get_contents("php://input"));
   } catch (Exception $e) {
     echo"error: $e";
   }
-
   if($question != ""){
    
     insertAnswer($post["id"], $question);
     createAnswer($post);
-  }
+  
+}
 ?>

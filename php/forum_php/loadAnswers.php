@@ -1,6 +1,7 @@
 <?php
 
 include "forum_credentials.php";
+include "components/answer.php";
 
 $dbh = new PDO($conn_string);
 $question = $_REQUEST["id"];
@@ -14,7 +15,7 @@ $query-> execute();
 
 while ($answer = $query->fetch()){
    
-    //located in component/post.php
+    //located in component/answer.php
     createAnswer($answer);
    
 

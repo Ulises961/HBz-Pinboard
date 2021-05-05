@@ -1,10 +1,10 @@
 <?php
 
 include "forum_credentials.php";
-include "components/comment.php";
+include_once "components/comment.php";
 
 $dbh = new PDO($conn_string);
-$post = $_REQUEST["post"];
+$post = $id;
 
 $sql = "SELECT * FROM Comment WHERE post = :post";
 

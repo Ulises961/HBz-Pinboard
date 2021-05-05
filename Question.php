@@ -17,6 +17,7 @@
     <link href="css/home_main.css" rel="stylesheet">
     <link href="forum.css" rel="stylesheet">
   
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -38,8 +39,11 @@ $id = $_GET["id"];
                 <div class="container">
                     <div class ="card">
 
-                <?php include "php/forum_php/loadSelectedQuestion.php"  ?>
-                 
+                        <?php include "php/forum_php/loadSelectedQuestion.php"?>
+               
+                    
+            
+
                         <!-- Answers -->
                             <div id="answer"><?php include "php/forum_php/loadAnswers.php" ?></div>
                         <!-- /Answers -->
@@ -47,20 +51,17 @@ $id = $_GET["id"];
 
                         <form id="form"> 
                             <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
-                            <div id="answer"></div>
+                                <div id="answer"></div>
                                     <div class="card mb-2">
                                         <div class="card-body p-2 p-sm-3">
                                             <div>
-                                                <div>
-                                                 
-                                                    <div class="row">
-                                                        <h3 class="h3 pt-4">Your Idea</h3>
-                                                        <label>Describe the issue in detail</label>
-                                                        <div class="container-fluid">
-                                                            <textarea name="text" id="editor"></textarea>
-                                                        </div>
+                                                <div class="row">
+                                                    <h3 class="h3 pt-4">Your Idea</h3>
+                                                        
+                                                    <div class="container-fluid">
+                                                        <textarea name="text" id="editor"></textarea> 
                                                     </div>
-                                                    <button name="submit" type="submit" class="btn btn-primary">Submit</button>
+                                                    <button name="submit" id="submit"  class="btn btn-primary">Submit</button>
                                                 </div>           
                                             </div>
                                         </div>
@@ -85,14 +86,38 @@ $id = $_GET["id"];
 <script src="js/question_js/question.js"></script>
 
 
-<script>document.getElementById("form").addEventListener("submit", function(event) {
-         insertAnswer(<?php echo $id?> ,1);
-         event.preventDefault();
-}, false);</script>
+<!-- <script>
+$("#insertComment").on('keyup', function (e) {
+    if (e.key === 'Enter' || e.keyCode === 13) {
+    insertComment(this,<?php echo $id ?>);
+    }
+});</script> -->
+
+
+<script>
+    
+    document.getElementById("form").addEventListener("submit", function(event) {
+   try{
+    
+        console.log(event.srcElement[0].value);
+        if (event.srcElement[0].value === "" || event.srcElement[0].value ==='<p><br data-mce-bogus="1"></p>' || event.srcElement[0].value ==="<p><br></p>"){
+            console.log(event.srcElement[0].value);
+         throw( "Empty Answer");
+        }
+        else{
+            insertAnswer(<?php echo $id?> ,1);  
+            event.preventDefault(); 
+        }
+    } catch(e){
+        alert("Error: "+ e);
+    }
+
+
+}, true);</script>
 
 <!-- Text Editor Template -->
 <script src="https://cdn.tiny.cloud/1/6qotqw98ccr1b86gtt4n68fo95mv1vbgdr3ov36z6cm83qxu/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-<!-- <script>
+<script>
     tinymce.init({
         selector: 'textarea#editor',
         plugins: [
@@ -105,11 +130,16 @@ $id = $_GET["id"];
             'forecolor backcolor emoticons',
         
         menubar: 'file edit view insert format tools table',
-            content_css: 'css/content.css',
-            mobile: {
-                menubar: true
-            }
+           
+        mobile: {
+            menubar: true
+        },
+        setup: function (editor) {
+        editor.on('change', function () {
+            tinymce.triggerSave();
+        });
+    }
         
     });
-</script> -->
+</script>
 

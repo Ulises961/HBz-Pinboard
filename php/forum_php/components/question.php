@@ -1,31 +1,73 @@
 <?php
-function createQuestion($question){
-    // WILL CREATE THE HTML QUESTION ELEMENT
 
-$content = $question["text"];
-$title= $question["title"];
-$id = $question["id"];
+include_once __DIR__."/../loadTags.php";
+include_once "post.php";
 
-echo "   <div class='card mb-2'>";
-echo "      <div class='card-body p-2 p-sm-3'>";
-echo "         <div class='media forum-item'>";
-echo "          <a href='#' data-toggle='collapse' data-target='.forum-content'><img";
-echo "             src='https://bootdey.com/img/Content/avatar/avatar2.png'";
-echo "             class='mr-3 rounded-circle' width='50' alt='User' />
-                </a>";
-echo "           <div class='media-body'>";
-echo "              <h6><a href='Question.php?id=$id' data-toggle='collapse' data-target='.forum-content'";
-echo "                       class='text-body'>$title</a>
-                    </h6>";
-echo "              <p class='text-secondary'> $content</p>";
-echo "              <p class='text-muted'><a href='javascript:void(0)'>jlrdw</a> replied 
-                        <span class='text-secondary font-weight-bold'>3 hours ago</span>
-                    </p>";
-echo "           </div>";
-echo "         </div>";
-echo "      </div>";
-echo "   </div>";
+// WILL CREATE THE HTML QUESTION ELEMENT
+function createForumQuestion($question){
 
+    $tags = findAllTags($question["id"]);
+    $thereAreTags= count($tags) > 0;
+ 
+    echo 
+    "<!-- Question -->".
+
+        "<div class='card mb-2'>
+            <div class='card-body p-2 p-sm-3'>
+                <div class='media forum-item'>
+                    <a href=''><img src='' class='mr-3 rounded-circle' width='70' alt='User'></a>
+                        <div class='media-body'>";
+
+                            createPost($question);
+                        
+                            if($thereAreTags) 
+                                includeTags($tags);
+    echo "
+                        </div>
+                </div>
+            </div>     
+        </div>
+    <!--/ Question -->";
 
 }
+
+function createQuestionToBeAnswered($question){
+  
+    $tags = findAllTags($question["id"]);
+    $thereAreTags= count($tags) > 0;
+    $id = $question["id"];
+  echo  " <!-- Question -->";
+
+    createPost($question);
+  
+    if($thereAreTags) 
+        includeTags($tags);
+        
+    echo    
+            "<div id='comments-$id'>";
+                include_once __DIR__."/../loadComments.php";
+    echo    
+            "</div>
+            <div class='row' >
+                <div class='col-9'>
+                    <input class='' type='text' id='insertComment-$id' placeholder='Insert Comment'>
+                </div>
+                <div class='col'>
+                    <button class='btn btn-primary btn-lg' onclick='insertComment($id)'> Post </button>
+                </div>
+            
+            
+            </div>
+        <!-- / Question -->";
+
+}
+
+
+function includeTags($tags){
+
+    echo "<div class='container'>";
+            include "tag.php";
+    echo "</div>";
+  }
+  
 ?>

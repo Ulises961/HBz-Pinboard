@@ -3,7 +3,7 @@
 function insertAnswer($post,$question){
 
 include "forum_credentials.php";
-$sucess;
+
   try {
     $dbh = new PDO($conn_string);
 
