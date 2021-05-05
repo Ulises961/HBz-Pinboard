@@ -1,63 +1,60 @@
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<head>
-    <!-- Required meta tags-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Colorlib Templates">
-    <meta name="author" content="Colorlib">
-    <meta name="keywords" content="Colorlib Templates">
-
-    <!-- Title Page-->
-    <title>HBZ</title>
-
-    <!-- Font special for pages-->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
-
-    <!-- Vendor CSS-->
-    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
-
-    <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-
-
-    <!-- Main CSS-->
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link href="css/office_hours.css" rel="stylesheet">
     <link href="css/home_main.css" rel="stylesheet">
 
-</head>
+    <title>Office hours</title>
+  </head>
 
-  <?php include "navbar.php"; ?>
-  <script>changeActiveLink("office_hours-link");</script>
+  <body>
 
-    
-<!-- Footer -->
-<div class=footer>
-    <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
+    <?php include "navbar.php"; ?>
+    <script>changeActiveLink("office-hours-link");</script>
+
+    <header class="office-hours-form">
+     
+      <h1>Office Hours Booking</h1>
+
+      <div class="sel-forms-office">
+        <select class="form-select" aria-label="Default select example">
+          <option selected>Select Faculty</option>
+          <?php include "php/office_hours_php/getFaculties.php" ?>
+        </select>
+        <select class="form-select" aria-label="Default select example">
+            <option selected>Study Program</option>
+            <?php include "php/office_hours_php/getStudyProgram.php" ?>
+        </select>
+        <select class="form-select" aria-label="Default select example">
+            <option selected>Courses</option>
+            <?php include "php/office_hours_php/getCourses.php" ?>
+        </select>
       </div>
-      <!-- /.container -->
-    </footer>
-  </div>
-  
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Jquery JS-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <!-- Vendor JS-->
-    <script src="vendor/select2/select2.min.js"></script>
-    <script src="vendor/datepicker/moment.min.js"></script>
-    <script src="vendor/datepicker/daterangepicker.js"></script>
+      <button class="btn btn-primary" type="submit">Search</button>
 
-    <!-- Main JS-->
-    <script src="js/global.js"></script>
+    </header>
+      
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
+  </body>
 </html>
-<!-- end document-->
+
+
+
+            
+                
+                    
+            
+                        
+
+  

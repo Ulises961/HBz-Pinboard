@@ -35,11 +35,12 @@ nav{
 
 h2
 {
-  text-align: Left;
+  text-align: center;
   font-weight: 500;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
 
 }
+
 
 .page-header {
   font-size: 1.25rem;
@@ -135,10 +136,8 @@ div.answer{
   font-size: small;
 
 }
-div h2{
-margin: 0%;
-padding: 0%;
-}
+
+
 div.col-1{
   margin: 1rem 1rem 0rem 0rem;
   align-content:center;
