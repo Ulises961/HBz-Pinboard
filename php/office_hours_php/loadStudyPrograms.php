@@ -4,7 +4,7 @@ include "components/StudyProgramOption.php";
 
 $dbh = new PDO($conn_string);
 
-$faculty = $_REQUEST["Faculty"];
+$faculty = $_REQUEST["faculty"];
 
 $select = "SELECT * 
            FROM Program 
