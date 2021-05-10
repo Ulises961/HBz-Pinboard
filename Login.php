@@ -38,7 +38,7 @@
 						Member Login
 					</span>
 
-					<form action="php/login_php/Login.php" method="POST" target="_self">
+					<form action="php/session_php/login.php" method="POST" target="_self">
 						<div class="wrap-input100 validate-input">
 							<input class="input100" type="email" name="email" id="email" placeholder="Email" required>
 							<span class="focus-input100"></span>
@@ -74,7 +74,7 @@
 					</div>
 
 					<div class="text-center p-t-136">
-						<a class="txt2" href="Registration.html">
+						<a class="txt2" href="Register.php">
 							Create your Account
 							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
 						</a>

@@ -53,7 +53,7 @@
                             </div>
 
                             <div class="col-sm-4">
-                                <select class="custom-select custom-select-sm mr-1" name="filters" onchange="location = 'forum.php?orderby='+this.value;">
+                                <select class="custom-select custom-select-sm mr-1" name="filters" onchange="location = 'Forum.php?orderby='+this.value;">
                                     <option selected="">Sort by</option>
                                     <option value="latest">Latest</option>
                                     <option value="popular">Popular</option>

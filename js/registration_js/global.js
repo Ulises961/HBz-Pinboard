@@ -15,7 +15,6 @@ function displayOptions(obj){
     var office_hours =document.getElementById("office_hours_block");
     var office =document.getElementById("office_block");
     
-
     
     if( selected === "student"){
      
@@ -31,7 +30,7 @@ function displayOptions(obj){
         isProfessorSelected=false;
         
         loadPrograms();
-    }else if (selected === "professor"){
+    }else{
         
        subjects_taught.style.display="block";
        student_program.style.display="none";
@@ -43,19 +42,7 @@ function displayOptions(obj){
        office_hours.style.display="flex";
 
    }
-    else{
-        student_program.style.display="none";
-        subjects_taught.style.display="none";
-        
-        student_input.disabled="enabled";
-        subject_input.disabled="enabled";
 
-
-        office.style.display="none";
-        office_hours.style.display="none";
-        isProfessorSelected=false;
-
-    }
     console.log(document.getElementById("email"));
     uniqueMail(document.getElementById("email"));
    

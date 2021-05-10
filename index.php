@@ -23,42 +23,6 @@
       <?php include "navbar.php"; ?>
       <script>changeActiveLink("office_hours-link");</script>
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top align-items-end gradient">
-            <div class="container">
-              <a class="navbar-brand" href="#"><img src ="images/logo.png" alt="logo"></a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                  <li class="nav-item" id="home-link">
-                      <a class="nav-link" href="index.php">Home</a>
-                  </li>
-                  <!-- <li class="nav-item" id="office_hours-link">
-                      <a class="nav-link" href="office_hours.php">Office Hours</a>
-                  </li> -->
-                  <li class="nav-item" id="forum-link">
-                      <a class="nav-link" href="forum.php">Forum</a>
-                  </li>
-                  <li class="nav-item" id="profile-link">
-                      <a class="nav-link" href="profile.php">Profile</a>
-                  </li>
-                  <li class="nav-item " id="contact-link">
-                      <a class="nav-link" href="contact.php">Contact</a>
-                  </li>
-                  <li class="nav-item" id="team-link">
-                      <a class="nav-link" href="team.php">Our Team</a>
-                  </li>
-                  <li class="nav-item" id="register-link">
-                      <a class="nav-link" href="register.php">Register</a>
-                  </li>
-                  <li class="nav-item" id="login-link">
-                      <a class="nav-link" href="login.php">Login</a>
-                  </li>
-              </ul>
-              </div>
-            </div>
-          </nav>
 
           <header class="page-header ">
             <div class="container pt-3">
@@ -78,10 +42,10 @@
                     <li>Make new friends</li>
                   </ul>
 
-                  <button type="button" class="btn btn-outline-success btn-lg">
+                  <button type="button" class="btn btn-outline-success btn-lg" onclick="location.href='Register.php'">
                     Register
                   </button>
-                  <button type="button" class="btn btn-outline-warning btn-lg">
+                  <button type="button" class="btn btn-outline-warning btn-lg" onclick="location.href='Login.php'">
                     Ask a question
                   </button>
             

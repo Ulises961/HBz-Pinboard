@@ -6,3 +6,4 @@ function createStudyOption($studyProgram){
     
     echo "<option value = '$studyProgramCode'>$studyProgramName</option>";
 }
+?>

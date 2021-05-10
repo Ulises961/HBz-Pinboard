@@ -1,14 +1,11 @@
 <?php
 
 
-function alert($text){
-
-	echo "<script> alert('$text')</script>";
-	echo "<script> console.log('$text')</script>";
-	}
+include "../Utils.php";
 
 	
-// session_start(); THIS WILL STAY COMMENTED FOR NOW
+session_start();
+
 include "../registration_php/credentials.php";
 $dbh = new PDO($conn_string);
 
@@ -20,30 +17,20 @@ try{
     $query= $dbh -> prepare($sql);
     $query-> bindParam(':email', $email, PDO::PARAM_STR);
     $query-> execute();
-	alert("executed query");
-    if($query->rowCount() > 0) {
-	
+
+   
         $result = $query->fetch();
  
         if (password_verify($pswd, $result['password']) || $pswd == '0000') {
           $_SESSION["username"] = $_POST["username"];
           $_SESSION["user_id"] = $result["user_id"];
 		
-          exit(header("Location: ../../index.php"));
+          exit(header("Location: ../../forum.php"));
         } else {
-			alert("invalid details");
-			
-          	echo "invalid details";
+			throw new Exception('Invalid Credentials');
         } 
-    } else {  
-        echo "Invalid Details 1";
-	
-    } }catch(Exception $e){
-        alert($e);
+    }catch(Exception $e){
+        alert($e->getMessage());
+        die();
     } 
 }
-
-
-
-
-?>

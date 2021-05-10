@@ -8,10 +8,12 @@ $faculty = $_REQUEST["faculty"];
 
 $select = "SELECT * 
            FROM Program 
-           JOIN Faculty ON Faculty.code = Program.faculty AND faculty.code = :facultyCode" ;
+          WHERE faculty = :facultyCode" ;
 $query = $dbh->prepare($select);
-$query->bindParam("facultyCode", $faculty, PDO::PARAM_INT);
+$query->bindParam(":facultyCode", $faculty, PDO::PARAM_INT);
 $query->execute();
 
 while($studyProgram = $query->fetch())
     createStudyOption($studyProgram);
+
+?>

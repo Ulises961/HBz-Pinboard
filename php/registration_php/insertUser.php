@@ -2,7 +2,7 @@
 <?php
 
 include "credentials.php";
-include "Utils.php";
+include "../Utils.php";
 
 
 
@@ -108,6 +108,7 @@ if($prefix === "" || $number === ""){
         }
     }catch(Exception $e){
             alert($e);
+            die();
         }
 
 

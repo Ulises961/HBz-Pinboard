@@ -4,7 +4,7 @@
 $data = json_decode(file_get_contents("php://input"));
 $post = $data -> id;
 $vote = $data -> value;
-$user  = 1;
+$user = $_SESSION["user_id"];
 $date  = date("d/m/y");
 $time  = date("H:i:s");
 

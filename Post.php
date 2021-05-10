@@ -44,7 +44,7 @@
 
                 <!-- Inner main -->
                 <div class="jumbotron">
-                    <form method='GET'>
+                    <form method='POST' action="php/forum_php/insertPost.php">
                         <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
                             <div class="card mb-2">
                                 <div class="card-body p-2 p-sm-3">
@@ -129,96 +129,96 @@
 <?php
 
 include 'footer.php';
-include 'php/forum_php/tag.php';
-if (isset($_REQUEST['submit'])) {
+// include 'php/forum_php/tag.php';
+// if (isset($_REQUEST['submit'])) {
 
-    try {
+//     try {
 
-        $host = "localhost";
-        $dbname = "forum";
-        $user = "postgres";
-        $port = "5432";
-        $password = "postgres";
+//         $host = "localhost";
+//         $dbname = "forum";
+//         $user = "postgres";
+//         $port = "5432";
+//         $password = "postgres";
 
-        $conn_string = "pgsql:host=$host port=$port dbname=$dbname user=$user password=$password";
+//         $conn_string = "pgsql:host=$host port=$port dbname=$dbname user=$user password=$password";
 
-        $user  = 1;
-        $date  = date("d/m/y");
-        $time  = date("H:i:s");
-        $title = $_REQUEST["title"];
-        $text  = $_REQUEST["text"];
-        if ($text === "" || $text === "<p><br></p>" || $text === "<p><br data-mce-bogus='1'></p>")
-            throw new Exception("No question provided");
+//         $user  = 1;
+//         $date  = date("d/m/y");
+//         $time  = date("H:i:s");
+//         $title = $_REQUEST["title"];
+//         $text  = $_REQUEST["text"];
+//         if ($text === "" || $text === "<p><br></p>" || $text === "<p><br data-mce-bogus='1'></p>")
+//             throw new Exception("No question provided");
        
-        $dbh = new PDO($conn_string);
+//         $dbh = new PDO($conn_string);
 
-        $insert_into = "INSERT INTO Post(id, users, date, time, title, text, votes) ";
-        $values = "VALUES(default, :user, :date, :time, :title, :text, 0)";
-        $sql = $insert_into . $values;
+//         $insert_into = "INSERT INTO Post(id, users, date, time, title, text, votes) ";
+//         $values = "VALUES(default, :user, :date, :time, :title, :text, 0)";
+//         $sql = $insert_into . $values;
 
-        $insert = $dbh->prepare($sql);
+//         $insert = $dbh->prepare($sql);
 
-        $insert->bindParam(":user", $user, PDO::PARAM_INT);
-        $insert->bindParam(":date", $date, PDO::PARAM_STR);
-        $insert->bindParam(":time", $time, PDO::PARAM_STR);
-        $insert->bindParam(":title", $title, PDO::PARAM_STR);
-        $insert->bindParam(":text", $text, PDO::PARAM_STR);
-        $insert->execute();
-        $id = $dbh->lastInsertId();
+//         $insert->bindParam(":user", $user, PDO::PARAM_INT);
+//         $insert->bindParam(":date", $date, PDO::PARAM_STR);
+//         $insert->bindParam(":time", $time, PDO::PARAM_STR);
+//         $insert->bindParam(":title", $title, PDO::PARAM_STR);
+//         $insert->bindParam(":text", $text, PDO::PARAM_STR);
+//         $insert->execute();
+//         $id = $dbh->lastInsertId();
 
-        $sql = "INSERT INTO Question(id) VALUES(:post)";
+//         $sql = "INSERT INTO Question(id) VALUES(:post)";
 
-        $insert = $dbh->prepare($sql);
-        $insert->bindParam(":post", $id, PDO::PARAM_INT);
-        $insert->execute();
+//         $insert = $dbh->prepare($sql);
+//         $insert->bindParam(":post", $id, PDO::PARAM_INT);
+//         $insert->execute();
 
-        if($_REQUEST["tags"] !== "")
-         {      
-             $tagId;
-             $inputString = $_REQUEST['tags'];
-             $lines = explode(",",$inputString);
+//         if($_REQUEST["tags"] !== "")
+//          {      
+//              $tagId;
+//              $inputString = $_REQUEST['tags'];
+//              $lines = explode(",",$inputString);
        
-            foreach($lines as $tag){
+//             foreach($lines as $tag){
             
-            try{
+//             try{
                
-                $tag = strtolower($tag);
+//                 $tag = strtolower($tag);
 
-                $tagId = findTagId($tag);
+//                 $tagId = findTagId($tag);
              
-                if( $tagId < 0){
+//                 if( $tagId < 0){
 
-                    $intoTags= "INSERT INTO Tag(id,name) VALUES(default, :tag)";
-                    $insert = $dbh->prepare($intoTags);
-                    $insert->bindParam(":tag", $tag, PDO::PARAM_INT);
-                    $insert->execute();
-                    $tagId = $dbh->lastInsertId();
+//                     $intoTags= "INSERT INTO Tag(id,name) VALUES(default, :tag)";
+//                     $insert = $dbh->prepare($intoTags);
+//                     $insert->bindParam(":tag", $tag, PDO::PARAM_INT);
+//                     $insert->execute();
+//                     $tagId = $dbh->lastInsertId();
 
-                }
+//                 }
 
-                $intoHasTags = "INSERT INTO HasTag (tag,post) VALUES(:tag, :post)";
-                $insert = $dbh->prepare($intoHasTags);
-                $insert->bindParam(":tag", $tagId, PDO::PARAM_INT);
-                $insert->bindParam(":post", $id, PDO::PARAM_INT);
-                $insert->execute();
+//                 $intoHasTags = "INSERT INTO HasTag (tag,post) VALUES(:tag, :post)";
+//                 $insert = $dbh->prepare($intoHasTags);
+//                 $insert->bindParam(":tag", $tagId, PDO::PARAM_INT);
+//                 $insert->bindParam(":post", $id, PDO::PARAM_INT);
+//                 $insert->execute();
                 
             
-            }
-            catch(Exception $e){
-                echo "<script>alert('Error: Failed to insert tag');</script>";
-                throw new Exception("Failed to insert tag");
-            }
+//             }
+//             catch(Exception $e){
+//                 echo "<script>alert('Error: Failed to insert tag');</script>";
+//                 throw new Exception("Failed to insert tag");
+//             }
            
-         }
-        }
+//          }
+//         }
 
-    } catch (Exception $e) {
-        $error = $e->getMessage();
-        echo "<script>alert('Error: $error');</script>";
+//     } catch (Exception $e) {
+//         $error = $e->getMessage();
+//         echo "<script>alert('Error: $error');</script>";
        
-    }
+//     }
 
-}
+// }
 
 
 ?>
