@@ -21,7 +21,7 @@
     <body>
 
       <?php include "navbar.php"; ?>
-      <script>changeActiveLink("office_hours-link");</script>
+      <script>changeActiveLink("home-link");</script>
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top align-items-end gradient">
             <div class="container">

@@ -9,9 +9,9 @@
                   <li class="nav-item" id="home-link">
                       <a class="nav-link" href="index.php">Home</a>
                   </li>
-                  <!-- <li class="nav-item" id="office_hours-link">
+                  <li class="nav-item" id="office_hours-link">
                       <a class="nav-link" href="office_hours.php">Office Hours</a>
-                  </li> -->
+                  </li>
                   <li class="nav-item" id="forum-link">
                       <a class="nav-link" href="forum.php">Forum</a>
                   </li>
