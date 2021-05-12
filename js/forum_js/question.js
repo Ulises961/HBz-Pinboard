@@ -108,8 +108,8 @@ function searchForum(obj){
         $.ajax({
             url: "./php/forum_php/searchQuestion.php?question=" + question, 
             success: function(response){
-              $("#officeHoursTable").append(response);
-        
+                $("#questions").empty();
+                $("#questions").append(response);
             }
           });
     

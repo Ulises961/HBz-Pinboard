@@ -48,7 +48,7 @@
                                 <span class="input-icon input-icon-sm ml-auto w-auto">
                                     <input type="text"
                                         class="form-control form-control-sm bg-gray-200 border-gray-200 shadow-none mb-4 mt-4"
-                                        placeholder="Search forum" onkeypress="searchForum(this)" />
+                                        placeholder="Search forum" onchange="searchForum(this)" />
                                 </span>
                             </div>
 
@@ -69,8 +69,9 @@
 
                     <!-- Forum List -->
                     <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
-                        <?php include "php/forum_php/loadQuestions.php";?>
-                       
+                        <div id="questions">
+                            <?php include "php/forum_php/loadQuestions.php";?>
+                        </div>
                         <ul class="pagination pagination-sm pagination-circle justify-content-center mb-0">
                             <li class="page-item disabled">
                                 <span class="page-link has-icon"><i class="material-icons">chevron_left</i></span>
@@ -98,6 +99,9 @@
 
 
     <script src="js/forum_js/question.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
 </body>
 
 </html>
