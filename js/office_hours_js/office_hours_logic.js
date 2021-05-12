@@ -1,10 +1,11 @@
 function loadProfessor(){
     let course = document.getElementById("course-select");
-
+    $("#officeHourRow").empty();
     $.ajax({
         url: "./php/office_hours_php/loadOfficeHours.php?course=" + course.value, 
         success: function(response){
-          $("#officeHoursTable").append(response);
+          
+          $("#officeHourRow").append(response);
     
         }
       });

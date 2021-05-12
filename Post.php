@@ -85,7 +85,7 @@
 
 
 
-<script src="js/question_js/question.js"> </script>
+<script src="js/forum_js/question.js"> </script>
 
 <script>   
     $('#tags').tagsInput({width:'inherit', height:'inherit'});
@@ -129,96 +129,6 @@
 <?php
 
 include 'footer.php';
-// include 'php/forum_php/tag.php';
-// if (isset($_REQUEST['submit'])) {
-
-//     try {
-
-//         $host = "localhost";
-//         $dbname = "forum";
-//         $user = "postgres";
-//         $port = "5432";
-//         $password = "postgres";
-
-//         $conn_string = "pgsql:host=$host port=$port dbname=$dbname user=$user password=$password";
-
-//         $user  = 1;
-//         $date  = date("d/m/y");
-//         $time  = date("H:i:s");
-//         $title = $_REQUEST["title"];
-//         $text  = $_REQUEST["text"];
-//         if ($text === "" || $text === "<p><br></p>" || $text === "<p><br data-mce-bogus='1'></p>")
-//             throw new Exception("No question provided");
-       
-//         $dbh = new PDO($conn_string);
-
-//         $insert_into = "INSERT INTO Post(id, users, date, time, title, text, votes) ";
-//         $values = "VALUES(default, :user, :date, :time, :title, :text, 0)";
-//         $sql = $insert_into . $values;
-
-//         $insert = $dbh->prepare($sql);
-
-//         $insert->bindParam(":user", $user, PDO::PARAM_INT);
-//         $insert->bindParam(":date", $date, PDO::PARAM_STR);
-//         $insert->bindParam(":time", $time, PDO::PARAM_STR);
-//         $insert->bindParam(":title", $title, PDO::PARAM_STR);
-//         $insert->bindParam(":text", $text, PDO::PARAM_STR);
-//         $insert->execute();
-//         $id = $dbh->lastInsertId();
-
-//         $sql = "INSERT INTO Question(id) VALUES(:post)";
-
-//         $insert = $dbh->prepare($sql);
-//         $insert->bindParam(":post", $id, PDO::PARAM_INT);
-//         $insert->execute();
-
-//         if($_REQUEST["tags"] !== "")
-//          {      
-//              $tagId;
-//              $inputString = $_REQUEST['tags'];
-//              $lines = explode(",",$inputString);
-       
-//             foreach($lines as $tag){
-            
-//             try{
-               
-//                 $tag = strtolower($tag);
-
-//                 $tagId = findTagId($tag);
-             
-//                 if( $tagId < 0){
-
-//                     $intoTags= "INSERT INTO Tag(id,name) VALUES(default, :tag)";
-//                     $insert = $dbh->prepare($intoTags);
-//                     $insert->bindParam(":tag", $tag, PDO::PARAM_INT);
-//                     $insert->execute();
-//                     $tagId = $dbh->lastInsertId();
-
-//                 }
-
-//                 $intoHasTags = "INSERT INTO HasTag (tag,post) VALUES(:tag, :post)";
-//                 $insert = $dbh->prepare($intoHasTags);
-//                 $insert->bindParam(":tag", $tagId, PDO::PARAM_INT);
-//                 $insert->bindParam(":post", $id, PDO::PARAM_INT);
-//                 $insert->execute();
-                
-            
-//             }
-//             catch(Exception $e){
-//                 echo "<script>alert('Error: Failed to insert tag');</script>";
-//                 throw new Exception("Failed to insert tag");
-//             }
-           
-//          }
-//         }
-
-//     } catch (Exception $e) {
-//         $error = $e->getMessage();
-//         echo "<script>alert('Error: $error');</script>";
-       
-//     }
-
-// }
 
 
 ?>

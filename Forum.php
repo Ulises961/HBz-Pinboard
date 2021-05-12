@@ -48,7 +48,7 @@
                                 <span class="input-icon input-icon-sm ml-auto w-auto">
                                     <input type="text"
                                         class="form-control form-control-sm bg-gray-200 border-gray-200 shadow-none mb-4 mt-4"
-                                        placeholder="Search forum" />
+                                        placeholder="Search forum" onkeypress="searchForum(this)" />
                                 </span>
                             </div>
 
@@ -97,7 +97,7 @@
     </div>
 
 
-    <script src="js/question_js/question.js"></script>
+    <script src="js/forum_js/question.js"></script>
 </body>
 
 </html>

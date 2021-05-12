@@ -17,7 +17,7 @@
     <link href="css/home_main.css" rel="stylesheet">
     <link href="forum.css" rel="stylesheet">
   
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 
 <body>
@@ -81,15 +81,9 @@ $id = $_GET["id"];
 </html>
 
 
-<script src="js/question_js/question.js"></script>
+<script src="js/forum_js/question.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-
-<!-- <script>
-$("#insertComment").on('keyup', function (e) {
-    if (e.key === 'Enter' || e.keyCode === 13) {
-    insertComment(this,<?php echo $id ?>);
-    }
-});</script> -->
 
 
 <script>

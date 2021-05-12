@@ -99,5 +99,21 @@ function showComment(comment,id){
     newComment.innerHTML=comment;
     comments.appendChild(newComment);
     
+}
+
+function searchForum(obj){
+  
+        let question= obj.value;
     
+        $.ajax({
+            url: "./php/forum_php/searchQuestion.php?question=" + question, 
+            success: function(response){
+              $("#officeHoursTable").append(response);
+        
+            }
+          });
+    
+
+    var xmlhttp = new XMLHttpRequest();
+
 }

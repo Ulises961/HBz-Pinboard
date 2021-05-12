@@ -112,8 +112,9 @@ for faculty in faculties:
                 cur.execute("""SELECT id FROM Subject WHERE name = %s;""",[course])
 
                 subjectId = cur.fetchone()
+                
                 if subjectId != None:
-                  
+                    
                     cur.execute('INSERT INTO Teaches VALUES(%s,%s)',(id,subjectId)) #for each course we create and entry of the same professor
             
             conn.commit()      

@@ -104,17 +104,15 @@ for faculty in faculties:
                 
                 tags=soup.find_all(class_='g g-6@md g-4@lg g-6@print u-pbi-avoid u-push-btm-threeQuarter')
                     
-                for tag in tags:
-                    
-                    
+                for tag in tags:            
 
                     if tag.find_all(class_='u-push-top-2'): # then it has sub modules with a p tag for credits and b class for name of subject 
                         module_tags = tag.find_all(class_='u-push-top-2')
                         for module_tag in module_tags:    
                             
-                            credit = re.sub(r'[\r+\n+\t+|\**]', '',module_tag.span.get_text()).strip()
+                            credit = re.sub(r'[\r+\n+\t+]', '',module_tag.span.get_text()).strip()
                             credit= str.replace(credit,'CP', '')
-                            subject = re.sub(r'[\r+\n+\t+]', '',module_tag.b.get_text()).strip()
+                            subject = re.sub(r'[\r+\n+\t+\**]', '',module_tag.b.get_text()).strip()
                             subject += '('+tag.h4.get_text()+')'
 
                             result=(credit ,'\'' + subject + '\'')
@@ -123,8 +121,8 @@ for faculty in faculties:
                         
                         if not re.match(special_subjects, tag.h4.get_text()):
 
-                            subject=re.sub(r'[\r+\n+\t+]', '',tag.h4.get_text()).strip()
-                            credit= re.sub(r'[\r+\n+\t+\**]', '',tag.p.get_text()).strip()
+                            subject=re.sub(r'[\r+\n+\t+\**]', '',tag.h4.get_text()).strip()
+                            credit= re.sub(r'[\r+\n+\t+]', '',tag.p.get_text()).strip()
                             
                             credit= str.replace(credit,'CP', '')
                         
@@ -132,7 +130,7 @@ for faculty in faculties:
                                 credit='0'
 
 
-                            print(tag.h4.get_text()+' - '+credit)
+                            print(subject+' - '+credit)
                             
                     
 

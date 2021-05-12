@@ -22,7 +22,7 @@
                       <a class="nav-link" href="Contact.php">Contact</a>
                   </li>
                   <li class="nav-item" id="login-link">
-                      <a class="nav-link" href="php/session_php/logout.php">Log Out</a>
+                      <a class="nav-link" href="php/session_php/logout.php">Chat</a>
                   </li>
                   <li class="nav-item" id="chat">
                       <a class="nav-link" href="Chat.php">Log Out</a>
