@@ -1,4 +1,5 @@
 <?php
+include "components/tag.php";
 
 function findTagId($tagContent){
 include "forum_credentials.php";
