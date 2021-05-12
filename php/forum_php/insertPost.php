@@ -4,43 +4,66 @@ include __DIR__."/forum_credentials.php";
 include __DIR__."/insertAnswer.php";
 include __DIR__."/components/answer.php";
 
-$data = json_decode(file_get_contents("php://input"));
 
-  $user  = $data-> user;
-  $date  = date("d/m/y");
-  $time  = date("H:i:s");
+
+$data = json_decode(file_get_contents("php://input"));
+var_dump($data);
+if ($data !== NULL){
+
   $title = $data-> title;
   $text  = $data-> text;
-  $question = $data -> questionId;
-  $postId;
-  $post;
-  try {
-    $dbh = new PDO($conn_string);
-    if ($text ==="" || $text ==="<p><br></p>" || $text ==="<p><br data-mce-bogus='1'></p>")
-      throw new Exception();
-    $insert_into = "INSERT INTO Post(id, users, date, time, title, text, votes) ";
-    $values = "VALUES(default, :user, :date, :time, :title, :text, 0) RETURNING *";
-    $sql = $insert_into.$values;
+  $questionId = $data -> questionId;
 
-    $insert = $dbh-> prepare($sql);
+}else{
+  $title = $_REQUEST["title"];
+  $text  = $_REQUEST["text"];
+  $tags= $_REQUEST["tags"];
+  var_dump($tags);
+}
 
-    $insert-> bindParam(":user", $user, PDO::PARAM_INT);
-    $insert-> bindParam(":date", $date, PDO::PARAM_STR);
-    $insert-> bindParam(":time", $time, PDO::PARAM_STR);
-    $insert-> bindParam(":title", $title, PDO::PARAM_STR);
-    $insert-> bindParam(":text", $text, PDO::PARAM_STR);
-    $insert->execute();
+$date  = date("d/m/y");
+$time  = date("H:i:s");
+$user  = 1; //$_SESSION["user_id"];
+$postId;
+$post;
+try {
+  $dbh = new PDO($conn_string);
+  if ($text ==="" || $text ==="<p><br></p>" || $text ==="<p><br data-mce-bogus='1'></p>")
+    throw new Exception();
+  $insert_into = "INSERT INTO Post(id, users, date, time, title, text, votes) ";
+  $values = "VALUES(default, :user, :date, :time, :title, :text, 0) RETURNING *";
+  $sql = $insert_into.$values;
+
+  $insert = $dbh-> prepare($sql);
+
+  $insert-> bindParam(":user", $user, PDO::PARAM_INT);
+  $insert-> bindParam(":date", $date, PDO::PARAM_STR);
+  $insert-> bindParam(":time", $time, PDO::PARAM_STR);
+  $insert-> bindParam(":title", $title, PDO::PARAM_STR);
+  $insert-> bindParam(":text", $text, PDO::PARAM_STR);
+  $insert->execute();
+
+  $post = $insert->fetch(PDO::FETCH_ASSOC);
+
+
+} catch (Exception $e) {
+  echo"error: $e";
+}
+
+if(isset($questionId) && $questionId != ""){
   
-    $post = $insert->fetch(PDO::FETCH_ASSOC);
- 
+  insertAnswer($post["id"], $questionId);
+  createAnswer($post);
 
-  } catch (Exception $e) {
-    echo"error: $e";
+}else{
+        $sql = "INSERT INTO Question(id) VALUES(:post)";
+        $insert = $dbh->prepare($sql);
+        $insert->bindParam(":post", $post["id"], PDO::PARAM_INT);
+        $insert->execute();
+
+  if($tags !== ""){
+    include "insertTag.php";
   }
-  if($question != ""){
-   
-    insertAnswer($post["id"], $question);
-    createAnswer($post);
-  
+
 }
 ?>

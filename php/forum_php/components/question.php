@@ -20,8 +20,11 @@ function createForumQuestion($question){
 
                             createPost($question);
                         
-                            if($thereAreTags) 
+                            if($thereAreTags){
+                               
                                 includeTags($tags);
+                            }
+                               
     echo "
                         </div>
                 </div>
@@ -40,8 +43,12 @@ function createQuestionToBeAnswered($question){
 
     createPost($question);
   
-    if($thereAreTags) 
+    if($thereAreTags) {
+     
         includeTags($tags);
+
+    }
+       
         
     echo    
             "<div id='comments-$id'>";

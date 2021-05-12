@@ -10,22 +10,22 @@
                       <a class="nav-link" href="index.php">Home</a>
                   </li>
                   <li class="nav-item" id="office_hours-link">
-                      <a class="nav-link" href="office_hours.php">Office Hours</a>
+                      <a class="nav-link" href="Office_hours.php">Office Hours</a>
                   </li>
                   <li class="nav-item" id="forum-link">
-                      <a class="nav-link" href="forum.php">Forum</a>
+                      <a class="nav-link" href="Forum.php">Forum</a>
                   </li>
                   <li class="nav-item" id="profile-link">
-                      <a class="nav-link" href="profile.php">Profile</a>
+                      <a class="nav-link" href="Profile.php">Profile</a>
                   </li>
                   <li class="nav-item " id="contact-link">
-                      <a class="nav-link" href="contact.php">Contact</a>
-                  </li>
-                  <li class="nav-item" id="register-link">
-                      <a class="nav-link" href="register.php">Register</a>
+                      <a class="nav-link" href="Contact.php">Contact</a>
                   </li>
                   <li class="nav-item" id="login-link">
-                      <a class="nav-link" href="login.php">Login</a>
+                      <a class="nav-link" href="php/session_php/logout.php">Log Out</a>
+                  </li>
+                  <li class="nav-item" id="chat">
+                      <a class="nav-link" href="Chat.php">Log Out</a>
                   </li>
               </ul>
               </div>

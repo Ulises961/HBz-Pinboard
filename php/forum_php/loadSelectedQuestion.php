@@ -2,6 +2,7 @@
 
 include "forum_credentials.php";
 include "components/question.php";
+include __DIR__."/../Utils.php";
 
 try {
 
@@ -33,7 +34,7 @@ try {
 
 
 } catch (Exception $e) {
-  
+  alert($e);
   header("Location: forum.php");
   // provide your own HTML for the error page
   die();

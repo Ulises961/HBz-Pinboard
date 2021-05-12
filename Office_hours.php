@@ -10,6 +10,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
   <link href="css/office_hours.css" rel="stylesheet">
   <link href="css/home_main.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
   <!-- Load the logic for the page -->
   <script src="js/office_hours_js/office_hours_logic.js"> </script>
@@ -31,7 +32,7 @@
     <div class="sel-forms-office">
       <select id="faculty-select" onchange="loadStudyPrograms()" class="form-select" aria-label="Default select example">
         <option selected>Select Faculty</option>
-        <?php include "php/office_hours_php/getFaculties.php" ?>
+        <?php include "php/office_hours_php/loadFaculties.php" ?>
       </select>
       <select id="study-program-select" onchange="loadCourses()" class="form-select" aria-label="Default select example">
         <option selected>Study Program</option>

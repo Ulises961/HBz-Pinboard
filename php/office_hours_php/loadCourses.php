@@ -16,3 +16,4 @@ $query->execute();
 
 while($course = $query->fetch())
     createCourseOption($course);
+?>

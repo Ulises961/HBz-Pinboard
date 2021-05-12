@@ -11,3 +11,4 @@ $query->execute();
 while($faculty = $query->fetch())
     createFacultyOption($faculty);
 
+?>

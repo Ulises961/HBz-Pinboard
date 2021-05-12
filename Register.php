@@ -148,7 +148,6 @@
                                         <option disabled="enabled" selected="selected">Choose option</option>
                                         <option value="student">Student</option>
                                         <option value="professor">Professor</option>
-                                        <option value="external-user">External User</option>
                                     </select>
                                     <div class="select-dropdown"></div>
                              

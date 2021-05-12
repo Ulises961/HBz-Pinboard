@@ -42,8 +42,6 @@ $id = $_GET["id"];
                         <?php include "php/forum_php/loadSelectedQuestion.php"?>
                
                     
-            
-
                         <!-- Answers -->
                             <div id="answer"><?php include "php/forum_php/loadAnswers.php" ?></div>
                         <!-- /Answers -->
