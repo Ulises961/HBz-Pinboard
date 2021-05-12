@@ -21,92 +21,94 @@ if($prefix === "" || $number === ""){
     $prefix = null;
     $number = null;
 }
+    try{
+    $insertInto= "INSERT INTO Users(id, name, surname, prefix, number, mail, password) ";
+    $values= "VALUES (default, :name, :surname, :prefix,:number, :mail, :pswd) ";
 
-$insertInto= "INSERT INTO Users(id, name, surname, prefix, number, mail, password) ";
-$values= "VALUES (default, :name, :surname, :prefix,:number, :mail, :pswd) ";
+    $sql = $insertInto.$values;
 
-$sql = $insertInto.$values;
+    $insert = $dbh-> prepare($sql);
 
-$insert = $dbh-> prepare($sql);
+    $insert-> bindParam(":name",$name,PDO::PARAM_STR);
+    $insert-> bindParam(":surname",$surname,PDO::PARAM_STR);
+    $insert-> bindParam(":prefix",$prefix,PDO::PARAM_STR);
+    $insert-> bindParam(":number",$number,PDO::PARAM_STR);
+    $insert-> bindParam(":mail",$mail,PDO::PARAM_STR);
+    $insert-> bindParam(":pswd",$pswd,PDO::PARAM_STR);
 
-$insert-> bindParam(":name",$name,PDO::PARAM_STR);
-$insert-> bindParam(":surname",$surname,PDO::PARAM_STR);
-$insert-> bindParam(":prefix",$prefix,PDO::PARAM_STR);
-$insert-> bindParam(":number",$number,PDO::PARAM_STR);
-$insert-> bindParam(":mail",$mail,PDO::PARAM_STR);
-$insert-> bindParam(":pswd",$pswd,PDO::PARAM_STR);
-
-$insert-> execute();
+    $insert-> execute();
 
 
-$id = $dbh->lastInsertId();
+    $id = $dbh->lastInsertId();
 
-alert($id);
+    alert($id);
 
-if($usertype === "student"){
+    if($usertype === "student"){
 
-        $program=$_REQUEST['study_programs'];
+            $program=$_REQUEST['study_programs'];
 
-        $selectProgram = "SELECT code FROM Program WHERE name= :program";
+            $selectProgram = "SELECT code FROM Program WHERE name= :program";
 
-        $query = $dbh-> prepare($selectProgram);
+            $query = $dbh-> prepare($selectProgram);
+            
+            $query->execute();
+
+            $row = $query->fetch(PDO::FETCH_ASSOC);
+
+                
+            $program_id = $row[0];
+            
+            $insertStudent= "INSERT INTO Student (id,program) VALUES (:id, :program) ";
+
+            $insertion = $dbh->prepare($insertStudent);
+            $insertion-> bindParam(":id", intval($id),PDO::PARAM_INT);          
         
-        $query->execute();
+            exit(header("Location: ./../../login.php"));
+            }
 
-        $row = $query->fetch(PDO::FETCH_ASSOC);
+    elseif($usertype === "professor"){
+
+            $subjects=$_REQUEST['subject-input'];
+            $office=$_REQUEST['office'];
+            $office_hours=$_REQUEST['office_hours'];
+            
+
+            //testing null values on optional fields of the form
+
+            $insertProfessor = 'INSERT INTO Professor (id,office_hours,office) VALUES(:id,:office_hours,:office)';
+        
+            $insertion = $dbh -> prepare($insertProfessor);
+            $insertion-> bindParam(":id",intval($id),PDO::PARAM_INT);
+            $insertion -> bindParam(":office_hours", $office_hours,PDO::PARAM_STR);
+            $insertion -> bindParam(":office",$office, PDO::PARAM_STR);
+
+            $insertion -> execute();
 
             
-        $program_id = $row[0];
+            foreach($subjects as $index => $subject){
         
-        $insertStudent= "INSERT INTO Student (id,program) VALUES (:id, :program) ";
+                $selectSubjectId = "SELECT id FROM Subject WHERE name=:subject";
+                $subjectSelection = $dbh -> prepare($selectSubjectId);
+                $subjectSelection -> bindParam(":subject", $subject,PDO::PARAM_STR);
+                $subjectSelection -> execute();
+                $row = $subjectSelection -> fetch(PDO::FETCH_ASSOC);
+                $result = $row[0];
+                
+                
+                
+                $insertionString= "INSERT INTO Teaches (professor,subject) VALUES(:professor,:result)";
+                $insertTeaches = $dbh -> prepare($insertionString); 
+                $insertTeaches -> bindParam(":professor",intval($id),PDO::PARAM_INT);
+                $insertTeaches -> bindParam(":result", intval($subject),PDO::PARAM_INT);
+                $insertTeaches -> execute();
 
-        $insertion = $dbh->prepare($insertStudent);
-        $insertion-> bindParam(":id", intval($id),PDO::PARAM_INT);          
-    
-        alert("success");
+            
+                exit(header("Location: ./../../login.php"));
+            }
+        }
+    }catch(Exception $e){
+            alert($e);
         }
 
-elseif($usertype === "professor"){
-
-        $subjects=$_REQUEST['subject-input'];
-        $office=$_REQUEST['office'];
-        $office_hours=$_REQUEST['office_hours'];
-        
-
-        //testing null values on optional fields of the form
-
-        $insertProfessor = 'INSERT INTO Professor (id,office_hours,office) VALUES(:id,:office_hours,:office)';
-    
-        $insertion = $dbh -> prepare($insertProfessor);
-        $insertion-> bindParam(":id",intval($id),PDO::PARAM_INT);
-        $insertion -> bindParam(":office_hours", $office_hours,PDO::PARAM_STR);
-        $insertion -> bindParam(":office",$office, PDO::PARAM_STR);
-
-        $insertion -> execute();
-
-        
-        foreach($subjects as $index => $subject){
-    
-            $selectSubjectId = "SELECT id FROM Subject WHERE name=:subject";
-            $subjectSelection = $dbh -> prepare($selectSubjectId);
-            $subjectSelection -> bindParam(":subject", $subject,PDO::PARAM_STR);
-            $subjectSelection -> execute();
-            $row = $subjectSelection -> fetch(PDO::FETCH_ASSOC);
-            $result = $row[0];
-            
-            
-            
-            $insertionString= "INSERT INTO Teaches (professor,subject) VALUES(:professor,:result)";
-            $insertTeaches = $dbh -> prepare($insertionString); 
-            $insertTeaches -> bindParam(":professor",intval($id),PDO::PARAM_INT);
-            $insertTeaches -> bindParam(":result", intval($subject),PDO::PARAM_INT);
-            $insertTeaches -> execute();
-
-           
-            alert($insertTeaches);
-        }
-            
-
-}
 
 ?> 

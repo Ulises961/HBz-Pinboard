@@ -51,7 +51,7 @@
                     <h2 class="title">Registration Form</h2>
                 </div>
                 <div class="card-body">
-                    <form action="php/registration_php/insertUser.php" method="POST" target="_blank">
+                    <form action="php/registration_php/insertUser.php" method="POST">
                                            <!-- <form action="http://10.42.0.1/HBz/response_generic.php" method="POST" target="_blank"> -->
                         <div class="form-row m-b-55">
                             <div class="name">Name*</div>
