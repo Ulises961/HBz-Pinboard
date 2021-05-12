@@ -1,16 +1,21 @@
 <?php
 
+function includeTags($tags){
 
-echo  " <div class='row'>";
-                foreach($tags as $tag){
+   echo "<div class='container'>";
+   echo  " <div class='row'>";
+      foreach($tags as $tag){
 
-                    $tagName = $tag['name'];
-                    $tagId= $tag['tag'];
-                    echo 
-                            "<div class='cols tag'>".
-                               "<a href='forum.php?tag=$tagId'><span class='text-secondary font-weight-bold'># $tagName</span></a>".
-                            "</div>";          
-                }
-                echo  "</div>";
+         $tagName = $tag['name'];
+         $tagId= $tag['tag'];
+         echo 
+                  "<div class='cols tag'>".
+                     "<a href='forum.php?tag=$tagId'><span class='text-secondary font-weight-bold'># $tagName</span></a>".
+                  "</div>";          
+      }
+   echo  "</div>";
+   echo "</div>";
+ }
+
 
 ?>

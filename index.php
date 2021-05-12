@@ -21,7 +21,7 @@
     <body>
 
       <?php include "navbar.php"; ?>
-      <script>changeActiveLink("office_hours-link");</script>
+      <script>changeActiveLink("home-link");</script>
 
 
           <header class="page-header ">

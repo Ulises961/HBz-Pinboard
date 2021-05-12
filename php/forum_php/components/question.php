@@ -1,13 +1,12 @@
 <?php
 
 include_once __DIR__."/../loadTags.php";
-include_once "post.php";
+include_once __DIR__."/post.php";
 
 // WILL CREATE THE HTML QUESTION ELEMENT
 function createForumQuestion($question){
 
     $tags = findAllTags($question["id"]);
-    $thereAreTags= count($tags) > 0;
  
     echo 
     "<!-- Question -->".
@@ -19,11 +18,7 @@ function createForumQuestion($question){
                         <div class='media-body'>";
 
                             createPost($question);
-                        
-                            if($thereAreTags){
-                               
-                                includeTags($tags);
-                            }
+                            includeTags($tags);    
                                
     echo "
                         </div>
@@ -68,13 +63,5 @@ function createQuestionToBeAnswered($question){
         <!-- / Question -->";
 
 }
-
-
-function includeTags($tags){
-
-    echo "<div class='container'>";
-            include "tag.php";
-    echo "</div>";
-  }
   
 ?>
