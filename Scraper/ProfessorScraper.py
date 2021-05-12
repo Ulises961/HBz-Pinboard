@@ -3,7 +3,6 @@ import psycopg2
 import WebScraperUtil
 
 
-
 uni = 'https://unibz.it/en/'
 academic_staff=[]
 

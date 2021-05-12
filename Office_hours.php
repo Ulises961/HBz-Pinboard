@@ -38,7 +38,7 @@
         <option selected>Study Program</option>
 
       </select>
-      <select id="course-select" onchange="loadProfessors()" class="form-select" aria-label="Default select example">
+      <select id="course-select" onclick="loadProfessor()" class="form-select" aria-label="Default select example">
         <option selected>Courses</option>
 
       </select>
