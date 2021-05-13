@@ -36,7 +36,6 @@
 <body>
     <?php include 'navbar.php'?>
     <script>changeActiveLink("forum-link");</script> 
- <h1><?php echo $_SESSION["user_id"] ?></h1>
 
     <div class="container-fluid">
         <div class="main-body p-0">

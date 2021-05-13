@@ -9,7 +9,8 @@
     if(isset($_REQUEST["question"]))
         $searchWords= explode(" ",$_REQUEST["question"]);
         $searchWordsLength = count($searchWords);
-  
+
+        $searchWords = filter_var($searchWords,FILTER_SANITIZE_STRING);
     
     if( $searchWordsLength > 0){
         $sql = "SELECT * FROM Post p JOIN Question q ON p.id = q.id WHERE p.title LIKE '%$searchWords[0]%' ";

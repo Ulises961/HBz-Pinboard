@@ -13,6 +13,10 @@ if(isset($_POST["login"])) {
     $email = $_POST["email"];
     $pswd = $_POST["password"];
 try{
+
+    $email = filter_var($email,FILTER_SANITIZE_EMAIL);
+    $pswd = filter_var($pswd,FILTER_SANITIZE_STRING);
+
     $sql =  "SELECT id, mail, password FROM users WHERE mail=:email";
     $query= $dbh -> prepare($sql);
     $query-> bindParam(':email', $email, PDO::PARAM_STR);

@@ -20,8 +20,19 @@ $dbh = new PDO($conn_string);
 if($prefix === "" || $number === ""){
     $prefix = null;
     $number = null;
+}else{
+    $number = filter_var($number,FILTER_SANITIZE_NUMBER_INT);
+    $prefix = filter_var($prefix,FILTER_SANITIZE_NUMBER_INT);
 }
-    try{
+try{
+
+    $mail = filter_var($mail,FILTER_SANITIZE_EMAIL);
+    $name = filter_var($name,FILTER_SANITIZE_STRING);
+    $surname = filter_var($surname,FILTER_SANITIZE_STRING);
+    $pswd = filter_var($pswd,FILTER_SANITIZE_STRING);
+    
+
+
     $insertInto= "INSERT INTO Users(id, name, surname, prefix, number, mail, password) ";
     $values= "VALUES (default, :name, :surname, :prefix,:number, :mail, :pswd) ";
 
@@ -106,10 +117,10 @@ if($prefix === "" || $number === ""){
                 exit(header("Location: ./../../login.php"));
             }
         }
-    }catch(Exception $e){
-            alert($e);
-            die();
-        }
+}catch(Exception $e){
+        alert($e);
+        die();
+    }
 
 
 ?> 
