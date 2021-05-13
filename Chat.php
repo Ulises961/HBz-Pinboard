@@ -33,7 +33,7 @@
 <?php include "navbar.php"?>
 <body>
   <div class="container-fluid">
-    <h3 class=" text-center" id="conversationTitle">Messaging</h3>
+    <h3 class=" text-center">Conversations</h3>
     <div class="messaging">
       <div class="inbox_msg">
         <div class="inbox_people">
@@ -58,6 +58,21 @@
 
         </div>
         <div class="mesgs">
+
+          <div class="headind_srch">
+            <div class="chat_heading">
+              <h4 id="conversationTitle"></h4>
+            </div>
+            <div class="srch_bar">
+              <div class="stylish-input-group">
+                <image src="images/blockConversationIcon.png" class="icon" onclick="blockConversation()">
+                <input type="text" class="search-bar" placeholder="Search">
+                <span class="input-group-addon">
+                  <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                </span>
+              </div>
+            </div>
+          </div>
 
           <div class="msg_history" id="msg_history">
             <!-- THE MESSAGES OF THE CHAT WILL BE LOADED HERE USING AJAX -->

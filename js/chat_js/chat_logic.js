@@ -52,6 +52,7 @@ function updateChat(conversation, lastMessageTime) {
   $.ajax({
     url: "./php/chat_php/updateChat.php?" + parameters, 
     success: function(response){
+      
       if(response != ""){
         $("#msg_history").append(response);
         lastMessageTime = $(".time").last().text();
@@ -92,6 +93,20 @@ function updateConversationPreview(json_conversation) {
 
   document.getElementById("last_message_" + conversation.id)
           .innerText = conversation.last_message;
+}
+
+// THIS FUNCTION LOADS THE BLOCKS A CONVERSATION
+function blockConversation() {
+  var conversation = document.getElementById("msg_send_btn").value;
+  var parameters = "conversation=" + conversation + "&user=" + user;
+
+  $.ajax({
+    url: "./php/chat_php/blockConversationStatus.php?" + parameters, 
+    success: function(response){
+      console.log(response);
+    }
+
+  });
 }
 
 function scrollToLastMessage() {
