@@ -32,7 +32,7 @@
             </div>
 </nav>
 
-
+<?php session_start(); ?>
 
 
 <!-- DO NOT CHANGE THE SCRIPT -->

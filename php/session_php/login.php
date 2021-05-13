@@ -22,10 +22,10 @@ try{
         $result = $query->fetch();
  
         if (password_verify($pswd, $result['password']) || $pswd == '0000') {
-          $_SESSION["username"] = $_POST["username"];
-          $_SESSION["user_id"] = $result["user_id"];
+          
+          $_SESSION["user_id"] = $result["id"];
 		
-          exit(header("Location: ../../forum.php"));
+          exit(header("Location: ../../Forum.php"));
         } else {
 			throw new Exception('Invalid Credentials');
         } 
