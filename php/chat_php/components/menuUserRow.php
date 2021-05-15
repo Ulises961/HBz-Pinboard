@@ -4,7 +4,7 @@ function createMenuUserRow($user){
     $user_id = $user["id"];
     $user_name_surname = $user["name"]." ".$user["surname"];
 
-    echo "<div class='row'>
+    echo "<div class='row' id='menu-user-$user_id'>
         <div class='col-8'>$user_name_surname</div>
         <div class='col-2'>
             <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='currentColor' class='bi bi-person-plus-fill' viewBox='0 0 16 16'>
