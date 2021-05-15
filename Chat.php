@@ -41,14 +41,6 @@
             <div class="recent_heading">
               <h4>Recent</h4>
             </div>
-            <div class="srch_bar">
-              <div class="stylish-input-group">
-                <input type="text" class="search-bar" placeholder="Search">
-                <span class="input-group-addon">
-                  <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-                </span>
-              </div>
-            </div>
           </div>
   
           <!-- ALL THE ONGOING CONVERSATIONS WILL BE LOADED INSIDE THIS DIV -->
@@ -65,17 +57,18 @@
             </div>
             <div class="srch_bar">
               <div class="stylish-input-group">
-                <image src="images/blockConversationIcon.png" class="icon" onclick="blockConversation()">
-                <input type="text" class="search-bar" placeholder="Search">
-                <span class="input-group-addon">
-                  <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-                </span>
+                <h4 onclick="showMenu()">⋮</h4>
               </div>
             </div>
           </div>
 
           <div class="msg_history" id="msg_history">
             <!-- THE MESSAGES OF THE CHAT WILL BE LOADED HERE USING AJAX -->
+          </div>
+
+          <div class="msg_history" id="chat-menu" style="display: none">
+            <!-- ADDS THE CHAT MENU -->
+            <?php include "menu.php";?>
           </div>
 
           <!-- INPUT-FIELD AND BUTTON TO SEND A MESSAGE -->

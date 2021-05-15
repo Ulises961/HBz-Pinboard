@@ -96,6 +96,23 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION block_message_if_conversation_is_blocked()
+RETURNS TRIGGER AS $$
+DECLARE participation RECORD;
+BEGIN
+
+    SELECT * FROM PartecipatesInConversation WHERE users = NEW.users AND conversation = NEW.conversation INTO participation;
+
+    IF participation.exists THEN 
+        RETURN NEW;     
+    ELSE
+        RAISE EXCEPTION 'THE USER IS NOT A PARTECIPANT OF THIS CONVERSATION';
+        RETURN NULL;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+
 -- STORED PROCEDURES
 
 CREATE TRIGGER update_conversation
@@ -108,7 +125,6 @@ BEFORE INSERT ON SendsMessageTo
 FOR EACH ROW EXECUTE
 PROCEDURE isUserPartOfConversation();
 
-
 -- INSERTS
 
 INSERT INTO Users VALUES(1,'Bob', 'Freeman', '+39', '3961 415473', 'bob@gmail.com', 'password');
@@ -119,5 +135,3 @@ INSERT INTO Conversation VALUES(1,'test_conversation');
 
 INSERT INTO PartecipatesInConversation VALUES(1,1, false);
 INSERT INTO PartecipatesInConversation VALUES(1,2, false);
-
-

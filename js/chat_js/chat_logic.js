@@ -109,6 +109,22 @@ function blockConversation() {
   });
 }
 
+function showMenu() {
+
+  var isChatVisible = document.
+                      getElementById('msg_history').
+                      style.display;
+
+  if(isChatVisible == 'none') {
+    $("#msg_history").show();
+    $("#chat-menu").hide();
+  }
+  else {
+    $("#msg_history").hide();
+    $("#chat-menu").show();
+  }
+}
+
 function scrollToLastMessage() {
   $("#msg_history").animate({
     scrollTop: $("#msg_history")[0].scrollHeight
