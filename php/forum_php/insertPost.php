@@ -5,9 +5,10 @@ include __DIR__."/insertAnswer.php";
 include __DIR__."/components/answer.php";
 
 
+session_start();
 
 $data = json_decode(file_get_contents("php://input"));
-var_dump($data);
+
 if ($data !== NULL){
 
   $title = $data-> title;
@@ -18,15 +19,20 @@ if ($data !== NULL){
   $title = $_REQUEST["title"];
   $text  = $_REQUEST["text"];
   $tags= $_REQUEST["tags"];
-  var_dump($tags);
+
 }
 
 $date  = date("d/m/y");
 $time  = date("H:i:s");
-$user  = 1; //$_SESSION["user_id"];
+$user  = $_SESSION["user_id"];
 $postId;
 $post;
 try {
+
+  $title = filter_var($title,FILTER_SANITIZE_STRING);
+  $text = filter_var($text,FILTER_SANITIZE_STRING,FILTER_FLAG_ENCODE_AMP);
+  $tags = filter_var($tags,FILTER_SANITIZE_STRING);
+
   $dbh = new PDO($conn_string);
   if ($text ==="" || $text ==="<p><br></p>" || $text ==="<p><br data-mce-bogus='1'></p>")
     throw new Exception();
@@ -44,10 +50,9 @@ try {
   $insert->execute();
 
   $post = $insert->fetch(PDO::FETCH_ASSOC);
-
-
+ 
 } catch (Exception $e) {
-  echo"error: $e";
+  echo"error:". $e->getMessage();
 }
 
 if(isset($questionId) && $questionId != ""){
@@ -56,14 +61,14 @@ if(isset($questionId) && $questionId != ""){
   createAnswer($post);
 
 }else{
-        $sql = "INSERT INTO Question(id) VALUES(:post)";
-        $insert = $dbh->prepare($sql);
-        $insert->bindParam(":post", $post["id"], PDO::PARAM_INT);
-        $insert->execute();
+  $sql = "INSERT INTO Question(id) VALUES(:post)";
+  $insert = $dbh->prepare($sql);
+  $insert->bindParam(":post", $post["id"], PDO::PARAM_INT);
+  $insert->execute();
 
   if($tags !== ""){
     include "insertTag.php";
   }
-
+  header("Location: ./../../Forum.php");
 }
 ?>

@@ -36,7 +36,6 @@
 <body>
     <?php include 'navbar.php'?>
     <script>changeActiveLink("forum-link");</script> 
- 
 
     <div class="container-fluid">
         <div class="main-body p-0">

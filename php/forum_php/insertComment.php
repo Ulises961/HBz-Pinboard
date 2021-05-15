@@ -2,6 +2,9 @@
 include "forum_credentials.php";
 include "components/comment.php";
 
+
+
+start_session();
 $data = json_decode(file_get_contents("php://input"));
 
 $post = $data -> question;
@@ -11,6 +14,11 @@ $date = date("d/m/y");
 $time = date("H:i:s");
 
 try {
+  $comment = filter_var($comment,FILTER_SANITIZE_STRING);
+  $post = filter_var($post,FILTER_SANITIZE_NUMBER_INT);
+  
+
+
   $dbh = new PDO($conn_string);
 
   $insert_into = "INSERT INTO Comment(id, date, time, text, users, post) ";
