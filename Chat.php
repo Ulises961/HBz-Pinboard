@@ -68,7 +68,7 @@
 
           <div class="chat_menu" id="chat-menu" style="display: none">
             <!-- ADDS THE CHAT MENU -->
-            <?php include "menu.php";?>
+            <?php include "php/chat_php/menu.php";?>
           </div>
 
           <!-- INPUT-FIELD AND BUTTON TO SEND A MESSAGE -->

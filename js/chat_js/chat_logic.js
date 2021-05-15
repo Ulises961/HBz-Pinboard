@@ -111,7 +111,7 @@ function blockConversation() {
 
 // THIS FUNCTION TOGGLES BETWEEN THE CHAT AND THE CHAT-MENU
 function toggleMenu() {
-
+  var conversation = document.getElementById("msg_send_btn").value;
   var isChatVisible = document.
                       getElementById('msg_history').
                       style.display;
@@ -123,6 +123,14 @@ function toggleMenu() {
   else {
     $("#msg_history").hide();
     $("#chat-menu").show();
+
+    $.ajax({
+      url: "./php/chat_php/loadConversationUsers.php?conversation=" + conversation, 
+      success: function(response){
+        console.log(response);
+        $("#conversationUsers").append(response);
+      }
+    });
   }
 }
 
