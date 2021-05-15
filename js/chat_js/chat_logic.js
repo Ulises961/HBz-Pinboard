@@ -52,6 +52,7 @@ function updateChat(conversation, lastMessageTime) {
   $.ajax({
     url: "./php/chat_php/updateChat.php?" + parameters, 
     success: function(response){
+      
       if(response != ""){
         $("#msg_history").append(response);
         lastMessageTime = $(".time").last().text();
@@ -92,6 +93,108 @@ function updateConversationPreview(json_conversation) {
 
   document.getElementById("last_message_" + conversation.id)
           .innerText = conversation.last_message;
+}
+
+// THIS FUNCTION LOADS THE BLOCKS A CONVERSATION
+function blockConversation() {
+  var conversation = document.getElementById("msg_send_btn").value;
+  var parameters = "conversation=" + conversation + "&user=" + user;
+
+  $.ajax({
+    url: "./php/chat_php/changeConversationStatus.php?" + parameters, 
+    success: function(response){
+      console.log(response);
+    }
+
+  });
+}
+
+function leaveConversation() {
+  var conversation = document.getElementById("msg_send_btn").value;
+  var parameters = "conversation=" + conversation + "&user=" + user;
+
+  $.ajax({
+    url: "./php/chat_php/leaveConversation.php?" + parameters, 
+    success: function(response){
+      console.log(response);
+    }
+
+  });
+}
+
+function kickUser(targetUser) {
+  var conversation = document.getElementById("msg_send_btn").value;
+  var parameters = "conversation=" + conversation + "&user=" + targetUser;
+
+  $.ajax({
+    url: "./php/chat_php/kickUserFromConversation.php?" + parameters, 
+    success: function(response){
+      location.reload();
+    }
+  });
+}
+
+// THIS FUNCTION TOGGLES BETWEEN THE CHAT AND THE CHAT-MENU
+function toggleMenu() {
+  var conversation = document.getElementById("msg_send_btn").value;
+  var isChatVisible = document.
+                      getElementById('msg_history').
+                      style.display;
+
+  if(isChatVisible == 'none') {
+    $("#msg_history").show();
+    $("#chat-menu").hide();
+    $("#conversationUsers").empty();
+  }
+  else {
+    $("#msg_history").hide();
+    $("#chat-menu").show();
+
+    $.ajax({
+      url: "./php/chat_php/loadConversationUsers.php?conversation=" + conversation, 
+      success: function(response){
+        $("#conversationUsers").append(response);
+      }
+    });
+  }
+}
+
+function addUserToConversation() {
+  var conversation = document.getElementById("msg_send_btn").value;
+  var new_user = document.getElementById("user-list").value;
+  var parameters = "conversation=" + conversation + "&newUser=" + new_user;
+
+  $.ajax({
+    url: "./php/chat_php/addUserToConversation.php?" + parameters, 
+    success: function(response){
+      $("#user-list").empty();
+    }
+  });
+}
+
+function updateAvailableUsers(){
+  var conversation = document.getElementById("msg_send_btn").value;
+  var searchTerm = document.getElementById("user-search").value;
+  var parameters = "conversation=" + conversation + "&searchTerm=" + searchTerm;
+
+  $.ajax({
+    url: "./php/chat_php/loadAvailableUsers.php?" + parameters, 
+    success: function(response){
+      $("#user-list").empty();
+      $("#user-list").append(response);      
+    }
+  });
+}
+
+function isJSON(string){
+  try {
+    let x = JSON.parse(string);
+    x = null;
+  } catch (error) {
+    return false
+  }
+
+  return true;
 }
 
 function scrollToLastMessage() {

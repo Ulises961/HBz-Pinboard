@@ -30,6 +30,16 @@ img {
     width: 40%;
 }
 
+.chat_heading {
+    float: left;
+    width: 40%;
+}
+
+.icon {
+    width: 10%;
+    height: 10%;
+}
+
 .srch_bar {
     display: inline-block;
     text-align: right;
@@ -152,7 +162,7 @@ img {
 
 .mesgs {
     float: left;
-    padding: 30px 15px 0 25px;
+    padding: 0px 15px 0 25px;
     width: 60%;
 }
 
@@ -209,6 +219,11 @@ img {
 }
 
 .msg_history {
+    height: 516px;
+    overflow-y: auto;
+}
+
+.chat_menu {
     height: 516px;
     overflow-y: auto;
 }
