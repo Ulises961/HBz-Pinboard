@@ -101,11 +101,36 @@ function blockConversation() {
   var parameters = "conversation=" + conversation + "&user=" + user;
 
   $.ajax({
-    url: "./php/chat_php/blockConversationStatus.php?" + parameters, 
+    url: "./php/chat_php/changeConversationStatus.php?" + parameters, 
     success: function(response){
       console.log(response);
     }
 
+  });
+}
+
+function leaveConversation() {
+  var conversation = document.getElementById("msg_send_btn").value;
+  var parameters = "conversation=" + conversation + "&user=" + user;
+
+  $.ajax({
+    url: "./php/chat_php/leaveConversation.php?" + parameters, 
+    success: function(response){
+      console.log(response);
+    }
+
+  });
+}
+
+function kickUser(targetUser) {
+  var conversation = document.getElementById("msg_send_btn").value;
+  var parameters = "conversation=" + conversation + "&user=" + targetUser;
+
+  $.ajax({
+    url: "./php/chat_php/kickUserFromConversation.php?" + parameters, 
+    success: function(response){
+      location.reload();
+    }
   });
 }
 
