@@ -109,7 +109,8 @@ function blockConversation() {
   });
 }
 
-function showMenu() {
+// THIS FUNCTION TOGGLES BETWEEN THE CHAT AND THE CHAT-MENU
+function toggleMenu() {
 
   var isChatVisible = document.
                       getElementById('msg_history').
@@ -123,6 +124,46 @@ function showMenu() {
     $("#msg_history").hide();
     $("#chat-menu").show();
   }
+}
+
+function addUserToConversation() {
+  var conversation = document.getElementById("msg_send_btn").value;
+  var new_user = document.getElementById("user-list").value;
+  var parameters = "conversation=" + conversation + "&newUser=" + new_user;
+
+  $.ajax({
+    url: "./php/chat_php/addUserToConversation.php?" + parameters, 
+    success: function(response){
+      $("#user-list").empty();
+    }
+  });
+}
+
+function updateAvailableUsers(){
+  var conversation = document.getElementById("msg_send_btn").value;
+  var searchTerm = document.getElementById("user-search").value;
+  var parameters = "conversation=" + conversation + "&searchTerm=" + searchTerm;
+
+  $.ajax({
+    url: "./php/chat_php/searchForUsers.php?" + parameters, 
+    success: function(response){
+      $("#user-list").empty();
+      $("#user-list").append(response);      
+    }
+  });
+}
+
+
+
+function isJSON(string){
+  try {
+    let x = JSON.parse(string);
+    x = null;
+  } catch (error) {
+    return false
+  }
+
+  return true;
 }
 
 function scrollToLastMessage() {

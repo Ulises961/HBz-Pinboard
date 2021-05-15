@@ -57,7 +57,7 @@
             </div>
             <div class="srch_bar">
               <div class="stylish-input-group">
-                <h4 onclick="showMenu()">⋮</h4>
+                <h4 onclick="toggleMenu()">⋮</h4>
               </div>
             </div>
           </div>
@@ -66,7 +66,7 @@
             <!-- THE MESSAGES OF THE CHAT WILL BE LOADED HERE USING AJAX -->
           </div>
 
-          <div class="msg_history" id="chat-menu" style="display: none">
+          <div class="chat_menu" id="chat-menu" style="display: none">
             <!-- ADDS THE CHAT MENU -->
             <?php include "menu.php";?>
           </div>
