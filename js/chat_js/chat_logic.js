@@ -119,6 +119,7 @@ function toggleMenu() {
   if(isChatVisible == 'none') {
     $("#msg_history").show();
     $("#chat-menu").hide();
+    $("#conversationUsers").empty();
   }
   else {
     $("#msg_history").hide();
@@ -127,7 +128,6 @@ function toggleMenu() {
     $.ajax({
       url: "./php/chat_php/loadConversationUsers.php?conversation=" + conversation, 
       success: function(response){
-        console.log(response);
         $("#conversationUsers").append(response);
       }
     });
@@ -160,8 +160,6 @@ function updateAvailableUsers(){
     }
   });
 }
-
-
 
 function isJSON(string){
   try {
