@@ -145,7 +145,7 @@ function updateAvailableUsers(){
   var parameters = "conversation=" + conversation + "&searchTerm=" + searchTerm;
 
   $.ajax({
-    url: "./php/chat_php/searchForUsers.php?" + parameters, 
+    url: "./php/chat_php/loadAvailableUsers.php?" + parameters, 
     success: function(response){
       $("#user-list").empty();
       $("#user-list").append(response);      
