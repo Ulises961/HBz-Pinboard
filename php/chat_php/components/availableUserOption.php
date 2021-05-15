@@ -1,6 +1,6 @@
 <?php
 
-function createUserOption($user){
+function createAvailableUserOption($user){
     $user_id = $user["id"];
     $user_name_surname = $user["name"]." ".$user["surname"];
 

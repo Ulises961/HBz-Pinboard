@@ -1,6 +1,6 @@
 <?php
 include "chat_credentials.php";
-include "components/userOption.php";
+include "components/availableUserOption.php";
 
 $conversation = $_REQUEST["conversation"];
 $search_term = "%".$_REQUEST["searchTerm"]."%"; // The % will match any character
@@ -23,7 +23,7 @@ try {
     $query-> execute();
 
     while ($user = $query->fetch())
-        createUserOption($user);
+      createAvailableUserOption($user);
 
 
 } catch (Exception $e) {
