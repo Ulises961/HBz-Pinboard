@@ -10,13 +10,15 @@
 
 body, html {
 	height: 100%;
-	font-family: Poppins-Regular, sans-serif;
+  font-size: 1rem;
+  font-family: "Montserrat", sans-serif;
 }
 
 /*---------------------------------------------*/
 a {
-	font-family: Poppins-Regular;
-	font-size: 14px;
+	height: 100%;
+  font-size: 1rem;
+  font-family: "Montserrat", sans-serif;
 	line-height: 1.7;
 	color: #666666;
 	margin: 0px;
@@ -41,7 +43,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 p {
-	font-family: Poppins-Regular;
+	font-family: "Montserrat", sans-serif;
 	font-size: 14px;
 	line-height: 1.7;
 	color: #666666;
@@ -108,14 +110,14 @@ iframe {
 /*//////////////////////////////////////////////////////////////////
 [ Utility ]*/
 .txt1 {
-  font-family: Poppins-Regular;
+  font-family: "Montserrat", sans-serif;
   font-size: 13px;
   line-height: 1.5;
   color: #999999;
 }
 
 .txt2 {
-  font-family: Poppins-Regular;
+  font-family: "Montserrat", sans-serif;
   font-size: 13px;
   line-height: 1.5;
   color: #666666;
@@ -179,7 +181,7 @@ iframe {
 }
 
 .login100-form-title {
-  font-family: Poppins-Bold;
+  font-family: "Montserrat", sans-serif;
   font-size: 24px;
   color: #333333;
   line-height: 1.2;
@@ -200,7 +202,7 @@ iframe {
 }
 
 .input100 {
-  font-family: Poppins-Medium;
+  font-family: "Montserrat", sans-serif;
   font-size: 15px;
   line-height: 1.5;
   color: #666666;
@@ -293,7 +295,7 @@ iframe {
 }
 
 .login100-form-btn {
-  font-family: Montserrat-Bold;
+  font-family: "Montserrat", sans-serif;
   font-size: 15px;
   line-height: 1.5;
   color: #fff;
