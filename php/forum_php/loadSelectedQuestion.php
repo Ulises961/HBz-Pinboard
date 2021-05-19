@@ -25,15 +25,11 @@ try {
   if (count($post) < 1)
     throw new Exception();
 
-
   $link = ["link" => "Question.php?id=".$post['id']];
    
- 
   $post = array_merge($post,$link);
 
-  createQuestionToBeAnswered($post, true);
-
-
+  createQuestion($post);
 
 } catch (Exception $e) {
   alert($e->getMessage());

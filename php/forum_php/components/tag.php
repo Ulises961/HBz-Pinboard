@@ -2,8 +2,9 @@
 
 function includeTags($tags){
 
-   echo "<div class='container'>";
-   echo  " <div class='row'>";
+   echo 
+      "
+         <div class='row'>";
       foreach($tags as $tag){
 
          $tagName = $tag['name'];
@@ -13,8 +14,8 @@ function includeTags($tags){
                      "<a href='Forum.php?tag=$tagId'><span class='text-secondary font-weight-bold'># $tagName</span></a>".
                   "</div>";          
       }
-   echo  "</div>";
-   echo "</div>";
+   echo
+         "</div>";
  }
 
 

@@ -33,11 +33,11 @@ $id = $_GET["id"];
     
     <div class="container-fluid">
         <div class="main-body p-0">
-            <div class="inner-wrapper">
+            <div class="container">
              
                 <!-- Inner main -->
-                <div class="container">
-                    <div class ="card">
+               
+                    <div class ="card mb-2">
 
                         <?php include "php/forum_php/loadSelectedQuestion.php"?>
                
@@ -66,9 +66,9 @@ $id = $_GET["id"];
                                     </div>
                             </div>
                         </form>
-                    </div>
+                    </div> <!-- /Inner main -->
                 
-                </div>    <!-- /Inner main -->
+                   
             </div>
 
         </div>
@@ -83,9 +83,6 @@ $id = $_GET["id"];
 
 <script src="js/forum_js/question.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-
-
 <script>
     
     document.getElementById("form").addEventListener("submit", function(event) {

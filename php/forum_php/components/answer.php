@@ -8,8 +8,10 @@ function createAnswer($answer){
     $answer["title"]="";
     $answer = array_merge($answer,$class);
     $id = $answer["id"];
-echo " <!-- Answer -->  ";
-    createPost($answer);
+    
+    echo " <!-- Answer -->  ";
+    createPostHeader($answer);
+    createPostBody($answer);
 
 
 

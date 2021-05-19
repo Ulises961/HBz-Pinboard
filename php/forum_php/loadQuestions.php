@@ -57,11 +57,12 @@
     while($j < $i && $j < $total_questions) {
 
         if( $question = $questions[$j])
+        $question["text"]="";
 
         $class = ["class" => ""];
         $question = array_merge($question,$class);
        
-        createForumQuestion($question);
+        createQuestion($question);
         $j++;
     }
 

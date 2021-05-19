@@ -30,7 +30,7 @@
 
     <div class="container-fluid">
         <div class="main-body p-0">
-            <div class="inner-wrapper">
+            <div class="container">
               
               
                 <!-- Inner main -->
