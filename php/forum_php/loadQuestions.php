@@ -3,16 +3,26 @@
 
     include "forum_credentials.php";
     include "components/question.php";
-
+    
+    
     $dbh = new PDO($conn_string);
     $query;
     $tag="";
+    $index = 1;
+
     $orderby="";
     if(isset($_REQUEST["tag"]))
         $tag = $_REQUEST["tag"];
+    if(isset($_REQUEST["page"]))
+        $index = $_REQUEST["page"];
+
+      
     if(isset($_REQUEST["orderby"])){
         $parameter= $_REQUEST["orderby"];
-        
+    
+    
+    
+    
         switch ($parameter){
             case "latest": $orderby = "ORDER BY (date,time) DESC;";
                 break;
@@ -35,14 +45,27 @@
     }
 
     $query -> execute();
+    $questions= $query ->fetchAll(PDO::FETCH_ASSOC);
     
-    while ($question = $query->fetch()){
-        
+
+    
+    $j = $index * 5 - 5; // starts from the first element of that page
+
+    $i = $j + 5; // up to 5 questions per page
+    $total_questions = count($questions);
+    $total_pages = ceil($total_questions/5);
+    while($j < $i && $j < $total_questions) {
+
+        if( $question = $questions[$j])
+
         $class = ["class" => ""];
         $question = array_merge($question,$class);
        
         createForumQuestion($question);
+        $j++;
     }
 
+    include "components/paginator.php";
+       
 
 ?>

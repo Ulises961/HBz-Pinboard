@@ -4,8 +4,8 @@
         $ProfessorOfficeHours = $professor["office_hours"];
     
     echo "<tr>
-            <td>$professorEmail</td>
-            <td>$ProfessorOfficeHours</td>
+            <th>$professorEmail</th>
+            <th>$ProfessorOfficeHours</th>
           </tr>";
     }
 

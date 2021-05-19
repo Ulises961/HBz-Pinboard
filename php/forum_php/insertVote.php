@@ -24,7 +24,7 @@ try {
   $insert-> bindParam(":post", $post, PDO::PARAM_INT);
   $insert->execute();
 
-  echo"executed";
+
 
 } catch (Exception $e) {
   echo"error: $e";

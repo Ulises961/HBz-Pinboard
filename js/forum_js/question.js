@@ -35,12 +35,12 @@ function showAnswerVotes(id){
 }
 
 
-function insertAnswer(questionId,user){
-   
+function insertAnswer(questionId){
+  
         var xmlhttp = new XMLHttpRequest();
         var text = document.getElementById("editor");
     
-        var json = {"questionId":questionId, "user":user, "text":text.value, "title":"answer"};
+        var json = {"questionId":questionId, "text":text.value, "title":"answer"};
     
         text.value="";
 
@@ -64,12 +64,11 @@ function showAnswers(post){
     var answers = document.getElementById("answer");
     var newAnswer = document.createElement("div");
     newAnswer.innerHTML=post;
+   console.log(post);
     answers.appendChild(newAnswer);
     
-    
+       
 }
-
-
 function insertComment(id){
  
     var xmlhttp = new XMLHttpRequest();
@@ -104,16 +103,39 @@ function showComment(comment,id){
 function searchForum(obj){
   
         let question= obj.value;
+        var query = "question="+question;
+       getQuestions(query);
     
-        $.ajax({
-            url: "./php/forum_php/searchQuestion.php?question=" + question, 
-            success: function(response){
-                $("#questions").empty();
-                $("#questions").append(response);
-            }
-          });
-    
-
-    var xmlhttp = new XMLHttpRequest();
-
 }
+
+function nextPage(){
+    changePage(+1);
+}
+
+function previousPage(){
+    changePage(-1);
+ }
+
+function selectPage(index){
+    getQuestions("page="+index);
+}
+
+ function changePage(nextpos){
+     
+    var activepage = $(".page-item.active");
+    var index = parseInt(activepage[0].innerText) + nextpos;
+    console.log(index);
+ 
+    getQuestions("page="+index);
+ }
+
+ function getQuestions(query){
+    $.ajax({
+        url: "./php/forum_php/loadQuestions.php?"+query, 
+        success: function(response){
+            $("#questions").empty();
+            $("#questions").append(response);
+            console.log(response);
+        }
+      });
+ }

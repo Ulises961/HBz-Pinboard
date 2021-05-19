@@ -11,9 +11,7 @@ function createPost($post){
     $date= $post["date"];
     $user = $post["users"];
     $votes = $post["votes"];
-    $class = $post["class"];
-
-
+ 
     // WILL CREATE THE HTML ANSWER ELEMENT
 
 
@@ -24,7 +22,7 @@ function createPost($post){
                 </div>
             </div> 
 
-            <div class='$class form-inline '>
+            <div class='form-inline'>
  
                 <div class='col secondary-text' id='text'> $content </div>
 

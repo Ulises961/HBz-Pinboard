@@ -69,21 +69,9 @@
 
                     <!-- Forum List -->
                     <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
-                        <div id="questions">
+                        <div id="questions" onready="location = 'Forum.php?page=1">
                             <?php include "php/forum_php/loadQuestions.php";?>
                         </div>
-                        <ul class="pagination pagination-sm pagination-circle justify-content-center mb-0">
-                            <li class="page-item disabled">
-                                <span class="page-link has-icon"><i class="material-icons">chevron_left</i></span>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="javascript:void(0)">1</a></li>
-                            <li class="page-item active"><span class="page-link">2</span></li>
-                            <li class="page-item"><a class="page-link" href="javascript:void(0)">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link has-icon" href="javascript:void(0)"><i
-                                        class="material-icons">chevron_right</i></a>
-                            </li>
-                        </ul>
                     </div>
                     <!-- /Forum List -->
 

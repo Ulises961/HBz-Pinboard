@@ -15,11 +15,13 @@ if ($data !== NULL){
   $text  = $data-> text;
   $questionId = $data -> questionId;
 
+  
+
 }else{
   $title = $_REQUEST["title"];
   $text  = $_REQUEST["text"];
   $tags= $_REQUEST["tags"];
-
+  $tags = filter_var($tags,FILTER_SANITIZE_STRING);
 }
 
 $date  = date("d/m/y");
@@ -31,7 +33,7 @@ try {
 
   $title = filter_var($title,FILTER_SANITIZE_STRING);
   $text = filter_var($text,FILTER_SANITIZE_STRING,FILTER_FLAG_ENCODE_AMP);
-  $tags = filter_var($tags,FILTER_SANITIZE_STRING);
+
 
   $dbh = new PDO($conn_string);
   if ($text ==="" || $text ==="<p><br></p>" || $text ==="<p><br data-mce-bogus='1'></p>")
@@ -56,7 +58,7 @@ try {
 }
 
 if(isset($questionId) && $questionId != ""){
-  
+
   insertAnswer($post["id"], $questionId);
   createAnswer($post);
 
@@ -69,6 +71,6 @@ if(isset($questionId) && $questionId != ""){
   if($tags !== ""){
     include "insertTag.php";
   }
-  header("Location: ./../../Forum.php");
+ // header("Location: ./../../Forum.php");
 }
 ?>

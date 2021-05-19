@@ -49,17 +49,14 @@
     <table id="officeHoursTable" class="table">
       <thead>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">First</th>
-          <th scope="col">Last</th>
+          <th scope="col">Professor's Mail</th>
+          <th scope="col">Office Hour</th>
+      
           
         </tr>
       </thead>
-      <tbody>
-      <tr>
-      <th id="officeHourRow"></th>
-          
-        </tr>
+      <tbody id="officeHourRow">
+     
       
       </tbody>
     </table>

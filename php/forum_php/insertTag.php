@@ -4,11 +4,10 @@ include "loadTags.php";
 $tagId;
 $postId = $post['id'];
 
-var_dump($tags." ".$postId);
 $lines = explode(",",$tags);
 
 foreach($lines as $tag){
-    var_dump($lines);
+  
     try{
   
         $tag = strtolower($tag);
@@ -30,7 +29,7 @@ foreach($lines as $tag){
         $insert->bindParam(":tag", $tagId, PDO::PARAM_INT);
         $insert->bindParam(":post", $postId, PDO::PARAM_INT);
         $insert->execute();
-        var_dump($insert->fetch(PDO::FETCH_ASSOC));
+  
 
     }catch(Exception $e){
         echo "<script>alert('Error: Failed to insert tag');</script>";

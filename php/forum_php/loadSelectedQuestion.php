@@ -25,17 +25,19 @@ try {
   if (count($post) < 1)
     throw new Exception();
 
-  $class = ["class" => ""];
+
+  $link = ["link" => "Question.php?id=".$post['id']];
    
-  $post = array_merge($post,$class);
+ 
+  $post = array_merge($post,$link);
 
   createQuestionToBeAnswered($post, true);
 
 
 
 } catch (Exception $e) {
-  alert($e);
-  header("Location: forum.php");
+  alert($e->getMessage());
+  header("Location: Forum.php");
   // provide your own HTML for the error page
   die();
 

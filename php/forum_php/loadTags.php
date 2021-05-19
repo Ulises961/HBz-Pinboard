@@ -13,13 +13,13 @@ $query = $dbh-> prepare($sql);
 $query->bindParam(":input", $tagContent, PDO::PARAM_INT);
 $query-> execute();
 
-$tag = $query-> fetchAll(PDO::FETCH_ASSOC);
+$tag = $query-> fetch(PDO::FETCH_ASSOC);
 
 if (count($tag) < 1 )
     
     return -1;
 
-return $tag[0]["id"];
+return $tag["id"];
 
 }
 
