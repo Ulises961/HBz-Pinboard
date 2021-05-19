@@ -24,7 +24,7 @@
 </head>
 
 <body>
-    <?php include "navbar.php"; ?>
+    <?php include "navbar2.php"; ?>
     <script>changeActiveLink("forum-link");</script>
  
 

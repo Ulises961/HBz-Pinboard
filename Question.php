@@ -24,7 +24,7 @@
 
 <?php
 
-include 'navbar.php'; 
+include 'navbar2.php'; 
 include "php/forum_php/components/post.php";
 $id = $_GET["id"];
 

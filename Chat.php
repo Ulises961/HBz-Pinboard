@@ -30,7 +30,7 @@
   <script src="js/chat_js/chat_logic.js"></script>
   
 </head>
-<?php include "navbar.php"?>
+<?php include "navbar2.php"?>
 <body>
   <div class="container-fluid">
     <h3 class=" text-center">Conversations</h3>

@@ -28,7 +28,7 @@
 
 <body>
 
-  <?php include "navbar.php"; ?>
+  <?php include "navbar2.php"; ?>
   <script>changeActiveLink("profile-link");</script>
   
   <?php session_start(); $_SESSION["user_id"] = 1; include "php/profile_php/getUserInfo.php"; ?>
