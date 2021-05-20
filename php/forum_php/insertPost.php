@@ -71,6 +71,6 @@ if(isset($questionId) && $questionId != ""){
   if($tags !== ""){
     include "insertTag.php";
   }
- // header("Location: ./../../Forum.php");
+  header("Location: ./../../Question.php?id=".$post["id"]);
 }
 ?>

@@ -11,10 +11,11 @@ try {
 
 
   $dbh = new PDO($conn_string);
-  $select_from = "SELECT * FROM Post P JOIN Users u ON p.users = u.id";
+  $select = "SELECT p.id AS id, p.date AS date, p.time AS time, p.title AS title, u.name AS users,  p.votes AS votes ,p.text AS text";
+  $from = " FROM Post P JOIN Users u ON p.users = u.id";
   $where = " WHERE P.id = :id AND NOT EXISTS ( SELECT * FROM Answer A WHERE P.id = A.id )";
   
-  $sql = $select_from.$where;
+  $sql = $select.$from.$where;
   $query = $dbh -> prepare($sql);
 
   $query-> bindParam(":id", $id, PDO::PARAM_INT);
@@ -25,14 +26,12 @@ try {
   if (count($post) < 1)
     throw new Exception();
 
-  $link = ["link" => "Question.php?id=".$post['id']];
-   
-  $post = array_merge($post,$link);
-
   createQuestion($post);
 
 } catch (Exception $e) {
-  alert($e->getMessage());
+  
+  $_SESSION["message"]= $e->getMessage();
+   
   header("Location: Forum.php");
   // provide your own HTML for the error page
   die();

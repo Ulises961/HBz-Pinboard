@@ -34,12 +34,17 @@
       
     if($tag === ""){    
         
-        $sql = "SELECT * FROM Post p JOIN Question q ON p.id = q.id JOIN Users u on p.users = u.id ".$orderby;
+        $select = "SELECT p.id AS id, p.date AS date, p.time AS time, p.title AS title, u.name AS users,  p.votes AS votes";
+        $from = " FROM Post p JOIN Question q ON p.id = q.id JOIN Users u on p.users = u.id ".$orderby;
+        $sql =$select.$from;
         $query = $dbh-> prepare($sql);
 
     }else{ 
 
-        $sql = "SELECT * FROM Post p JOIN Question q ON p.id = q.id JOIN HasTag h ON p.id=h.post WHERE h.tag=:tag JOIN Users u on p.users = u.id ".$orderby;
+        $select = "SELECT p.id AS id, p.date AS date, p.time AS time, p.title AS title, u.name AS users,  p.votes AS votes";
+        $from = " FROM Post p JOIN Question q ON p.id = q.id JOIN HasTag h ON p.id=h.post JOIN Users u on p.users = u.id";
+        $where = " WHERE h.tag=:tag ".$orderby;
+        $sql =$select.$from.$where;
         $query = $dbh-> prepare($sql);
         $query -> bindParam(":tag", $tag,PDO::PARAM_INT); 
     }

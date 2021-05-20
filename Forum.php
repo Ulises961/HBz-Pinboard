@@ -24,7 +24,13 @@
 </head>
 
 <body>
-    <?php include "navbar2.php"; ?>
+    <?php include "navbar2.php"; 
+    
+    if (isset($_SESSION['message'])){
+        echo "<script>alert('".$_SESSION['message']."')</script>";
+        unset($_SESSION['message']);
+    }
+?>
     <script>changeActiveLink("forum-link");</script>
  
 
