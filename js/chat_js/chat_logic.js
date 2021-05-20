@@ -17,16 +17,17 @@ function changeConversation(id, title) {
 // THIS FUNCTION IS CALLED WHEN THE USER PRESSES THE SEND MESSAGE BUTTON
 // AND THE FUNCTION MAKES AN AJAX CALL TO A PHP SCRIPT THAT INSERTS THE MESSAGE INTO THE DB
 function sendMessage() {
-  var xmlhttp = new XMLHttpRequest();
-
   var conversation = document.getElementById("msg_send_btn").value;
   var message_text = document.getElementById("inputMessage").value;
   var parameters = "conversation=" + conversation + "&message=" + message_text + "&user=" + user;
 
-  document.getElementById("inputMessage").value = " "; // empties the message input field
+  $.ajax({
+    url: "./php/chat_php/sendMessage.php?" + parameters, 
+    success: function(response){
+      document.getElementById("inputMessage").value = " "; // empties the message input field
+    }
+  });
 
-  xmlhttp.open("GET", "./php/chat_php/sendMessage.php?" + parameters, true);
-  xmlhttp.send();
 }
 
 // THIS FUNCTION LOADS THE OLD MESSAGES BELONGING TO A CONVERSATION
@@ -146,7 +147,7 @@ function toggleMenu() {
     $("#chat-menu").hide();
     $("#conversationUsers").empty();
   }
-  else {
+  else if(conversation != "empty"){
     $("#msg_history").hide();
     $("#chat-menu").show();
 
@@ -167,6 +168,7 @@ function addUserToConversation() {
   $.ajax({
     url: "./php/chat_php/addUserToConversation.php?" + parameters, 
     success: function(response){
+      console.log("This is the response: " + response);
       $("#user-list").empty();
     }
   });
