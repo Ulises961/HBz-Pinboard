@@ -42,7 +42,7 @@
             <div class="inner-wrapper">
 
                 <!-- Inner main -->
-                <div class="jumbotron">
+                <div class ="container">
                     <form method='POST' action="php/forum_php/insertPost.php">
                         <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
                             <div class="card mb-2">
