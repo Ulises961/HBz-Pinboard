@@ -124,7 +124,8 @@ body{
 .card-body {
     flex: 1 1 auto;
     min-height: 1px;
-    padding: 1rem;
+    padding: 3rem;
+    margin: 1rem;
 }
 
 li.page-item.active.page-link {
@@ -133,3 +134,35 @@ li.page-item.active.page-link {
     background-color: #007bff;
     border-color: #007bff;
   }
+
+.comment{
+    margin: 20px 50px 0px;
+    padding: .5px 2em;
+    border: 1 solid  rgba(0,0,0,.125);
+    background-color: rgb(252, 248, 248);
+ 
+}
+p{
+ margin: 2px auto 1px;   
+}
+
+div .insert-comment {
+    width: 700px;
+    margin: 20px 50px 0px;
+    padding: 10pt;
+    display:flex;
+    flex-direction:row
+}
+.insert-comment > input {
+    flex:2;
+}
+
+.insert-comment > button.btn.btn-primary {
+  margin: .5em;
+  float: right;
+}
+
+.answer{
+
+    padding-left: 2rem;
+}

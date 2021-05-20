@@ -1,5 +1,6 @@
 function vote(value, id){
   
+ 
     let xmlhttp= new XMLHttpRequest();
     
     xmlhttp.onreadystatechange = function () {

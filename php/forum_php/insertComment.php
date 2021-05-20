@@ -3,8 +3,7 @@ include "forum_credentials.php";
 include "components/comment.php";
 
 
-
-start_session();
+session_start();
 $data = json_decode(file_get_contents("php://input"));
 
 $post = $data -> question;

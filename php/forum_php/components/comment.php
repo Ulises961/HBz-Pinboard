@@ -6,11 +6,11 @@ $content = $comment["text"];
 $date = $comment["date"];
 
   echo        " <!-- Comment -->  ".  
-                  "<div class='container'>
-                        <p class='secondary-text'>$content</p>
+                  "<div class='comment'>
+                        <p >$content</p>
                         <div class='row'>".
                           //   <div class ='col'><p> Author: John Wayne</p></div>
-                            "<div class ='col'><p> Date: $date</p></div>
+                            "<div class ='col text-secondary'><p> Date: $date</p></div>
                         </div>
                     </div>
                 <!-- / Comment -->  ";
