@@ -17,7 +17,7 @@
 	<link rel="stylesheet" type="text/css" href="css/Loginutil.css">
 	<link rel="stylesheet" type="text/css" href="css/Loginmain.css">
 <!--===============================================================================================-->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <!-- footer css -->
 <link href="css/home_main.css" rel="stylesheet">
 <!-- / footer css -->
