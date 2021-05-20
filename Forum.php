@@ -40,7 +40,7 @@
 
                             <div class="col-sm-2">
                                 <button class="btn btn-primary has-icon btn-block" type="button" onclick="location = 'Post.php'"> 
-                                    + NEW DISCUSSION
+                                    New Question
                                 </button>
                             </div>
 

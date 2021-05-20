@@ -38,6 +38,7 @@ try {
   createComment($comment);
 
 } catch (Exception $e) {
-  echo"s<script>alert('$e');</script>";
+ 
+  header("Location:" __DIR__."/../../Login.php");
 }
 ?>

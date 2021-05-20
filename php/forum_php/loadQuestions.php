@@ -2,8 +2,8 @@
 
 
     include "forum_credentials.php";
-    include "components/question.php";
-    
+
+
     
     $dbh = new PDO($conn_string);
     $query;
@@ -45,28 +45,12 @@
     }
 
     $query -> execute();
-    $questions= $query ->fetchAll(PDO::FETCH_ASSOC);
+    $results= $query ->fetchAll(PDO::FETCH_ASSOC);
     
 
-    
-    $j = $index * 5 - 5; // starts from the first element of that page
-
-    $i = $j + 5; // up to 5 questions per page
-    $total_questions = count($questions);
-    $total_pages = ceil($total_questions/5);
-    while($j < $i && $j < $total_questions) {
-
-        if( $question = $questions[$j])
-        $question["text"]="";
-
-        $class = ["class" => ""];
-        $question = array_merge($question,$class);
-       
-        createQuestion($question);
-        $j++;
-    }
-
-    include "components/paginator.php";
+    $_SESSION["questions"] = serialize($results);
+   
+    include "indexer.php";
        
 
 ?>

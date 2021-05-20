@@ -104,7 +104,7 @@ function showComment(comment,id){
 function searchForum(obj){
   
         let question= obj.value;
-        var query = "question="+question;
+        var query = "./php/forum_php/searchQuestion.php?question="+question;
        getQuestions(query);
     
 }
@@ -117,26 +117,31 @@ function previousPage(){
     changePage(-1);
  }
 
-function selectPage(index){
-    getQuestions("page="+index);
-}
-
  function changePage(nextpos){
      
     var activepage = $(".page-item.active");
     var index = parseInt(activepage[0].innerText) + nextpos;
     console.log(index);
  
-    getQuestions("page="+index);
+    getQuestions("./php/forum_php/indexer.php?+page="+index);
  }
 
- function getQuestions(query){
+function selectPage(index){
+    getQuestions("./php/forum_php/indexer.php?+page="+index);
+}
+
+
+
+function insertQuestions(response){
+        $("#questions").empty();
+        $("#questions").append(response);
+        console.log(response);
+    
+}
+
+function getQuestions(query){
     $.ajax({
-        url: "./php/forum_php/loadQuestions.php?"+query, 
-        success: function(response){
-            $("#questions").empty();
-            $("#questions").append(response);
-            console.log(response);
-        }
+        url: query, 
+        success: function(response){insertQuestions(response);}
       });
  }
