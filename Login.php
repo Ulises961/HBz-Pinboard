@@ -24,7 +24,16 @@
 </head>
 
 <body>
-<?php include 'navbar.php'; ?>
+<?php include 'navbar.php';
+
+if (isset($_SESSION['message']))
+{
+    echo "<script>alert('".$_SESSION['message']."')</script>";
+    unset($_SESSION['message']);
+	
+}
+
+ ?>
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">

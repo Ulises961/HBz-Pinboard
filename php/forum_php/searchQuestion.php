@@ -14,7 +14,7 @@
             $searchWord = filter_var($searchWord,FILTER_SANITIZE_STRING);
             $cleanWords= array_merge($cleanWords,[$searchWord]);}
     if( $searchWordsLength > 0){
-        $sql = "SELECT * FROM Post p JOIN Question q ON p.id = q.id WHERE p.title LIKE '%$cleanWords[0]%' ";
+        $sql = "SELECT * FROM Post p JOIN Question q ON p.id = q.id JOIN Users u ON p.users = u.id WHERE p.title LIKE '%$cleanWords[0]%' ";
         $i = 1;
         while($i < $searchWordsLength){
             $sql .= "or p.title LIKE '%$cleanWords[$i]%'";

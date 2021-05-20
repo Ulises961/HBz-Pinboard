@@ -1,7 +1,9 @@
 import re
 import psycopg2
 import WebScraperUtil
+from argon2 import PasswordHasher
 
+ph = PasswordHasher()
 
 uni = 'https://unibz.it/en/'
 academic_staff=[]
@@ -82,7 +84,7 @@ for faculty in faculties:
                 
       
         #password
-        person.append('0000')
+        person.append(ph.hash('0000'))
         print(person)
         try:
             conn = psycopg2.connect(database="hbz", user = "postgres", password = "postgres", host = "localhost", port = "5432")

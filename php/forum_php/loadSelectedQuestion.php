@@ -11,7 +11,7 @@ try {
 
 
   $dbh = new PDO($conn_string);
-  $select_from = "SELECT * FROM Post P";
+  $select_from = "SELECT * FROM Post P JOIN Users u ON p.users = u.id";
   $where = " WHERE P.id = :id AND NOT EXISTS ( SELECT * FROM Answer A WHERE P.id = A.id )";
   
   $sql = $select_from.$where;

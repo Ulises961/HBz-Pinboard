@@ -25,7 +25,7 @@ function createPostBody($post){
     $date= $post["date"]; 
     $id = $post["id"];
     $title = $post["title"];
-
+    $user = $post["name"];
     echo"
             <div class='col'>
                 
@@ -38,7 +38,7 @@ function createPostBody($post){
                 <p class='text-muted'> Posted on  
                     <span class='text-secondary '> $date </span>
                     at  <span class='text-secondary'> $time </span>
-                    <span> by  <a href=''><img src='images/andres.png' class='mr-3 rounded-circle' width='70' alt='User'></a></span>
+                    <span> by  $user <a href=''><img src='images/andres.png' class='mr-3 rounded-circle' width='70' alt='User'></a></span>
                 </p>
        
             </div>";

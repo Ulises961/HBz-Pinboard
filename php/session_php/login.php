@@ -24,8 +24,8 @@ try{
 
    
         $result = $query->fetch();
- 
-        if (password_verify($pswd, $result['password']) || $pswd == '0000') {
+      
+        if (password_verify($pswd, $result['password'])) {
           
           $_SESSION["user_id"] = $result["id"];
 		
@@ -34,7 +34,8 @@ try{
 			throw new Exception('Invalid Credentials');
         } 
     }catch(Exception $e){
-        alert($e->getMessage());
-        die();
+        $_SESSION["message"]= $e->getMessage();
+   
+       header("Location: ./../../Login.php");
     } 
 }

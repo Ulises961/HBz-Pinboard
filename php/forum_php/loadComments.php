@@ -6,7 +6,7 @@ include_once "components/comment.php";
 $dbh = new PDO($conn_string);
 $post = $id;
 
-$sql = "SELECT * FROM Comment WHERE post = :post";
+$sql = "SELECT * FROM Comment c JOIN Users u on c.users=u.id WHERE post = :post";
 
 $query = $dbh-> prepare($sql);
 

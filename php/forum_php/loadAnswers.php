@@ -6,7 +6,7 @@ include "components/answer.php";
 $dbh = new PDO($conn_string);
 $question = $_REQUEST["id"];
 $answer;
-$sql = "SELECT * FROM Post p JOIN Answer a ON p.id = a.id AND a.question_id = :question";
+$sql = "SELECT *  FROM Post p JOIN Answer a ON p.id = a.id JOIN Users u ON p.users = u.id  WHERE a.question_id = :question";
 
 $query = $dbh-> prepare($sql);
 
