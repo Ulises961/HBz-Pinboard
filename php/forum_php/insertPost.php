@@ -60,6 +60,14 @@ try {
 if(isset($questionId) && $questionId != ""){
 
   insertAnswer($post["id"], $questionId);
+
+  $select= "SELECT name FROM users WHERE id = :user";
+  $sql = $dbh -> prepare($select);
+  $sql->bindParam(":user", $user); 
+  $sql-> execute();
+
+  $name = $sql-> fetch(PDO::FETCH_ASSOC);
+  $post = array_merge($name,$post);
   createAnswer($post);
 
 }else{

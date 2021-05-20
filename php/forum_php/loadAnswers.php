@@ -6,8 +6,13 @@ include "components/answer.php";
 $dbh = new PDO($conn_string);
 $question = $_REQUEST["id"];
 $answer;
-$sql = "SELECT *  FROM Post p JOIN Answer a ON p.id = a.id JOIN Users u ON p.users = u.id  WHERE a.question_id = :question";
 
+
+
+$select = "SELECT p.id AS id, p.date AS date, p.time AS time, p.text AS text, u.name AS name,  p.votes AS votes";
+$from = " FROM Post p JOIN Answer a ON p.id = a.id JOIN Users u ON p.users = u.id";
+$where = "  WHERE a.question_id = :question";
+$sql = $select.$from.$where;
 $query = $dbh-> prepare($sql);
 
 $query-> bindParam(":question", $question, PDO::PARAM_INT);

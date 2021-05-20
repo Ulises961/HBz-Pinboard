@@ -14,14 +14,20 @@
             $searchWord = filter_var($searchWord,FILTER_SANITIZE_STRING);
             $cleanWords= array_merge($cleanWords,[$searchWord]);}
     if( $searchWordsLength > 0){
-        $sql = "SELECT * FROM Post p JOIN Question q ON p.id = q.id JOIN Users u ON p.users = u.id WHERE p.title LIKE '%$cleanWords[0]%' ";
+
+        $select = "SELECT p.id AS id, p.date AS date, p.time AS time, p.title AS title, u.name AS name,  p.votes AS votes ,p.text AS text";
+        $from = " FROM Post p JOIN Question q ON p.id = q.id JOIN Users u ON p.users = u.id";
+        $where = " WHERE p.title LIKE '%$cleanWords[0]%' ";
+        
         $i = 1;
         while($i < $searchWordsLength){
-            $sql .= "or p.title LIKE '%$cleanWords[$i]%'";
+            $where .= "or p.title LIKE '%$cleanWords[$i]%'";
        
             $i++;
         }
     }
+
+    $sql = $select.$from.$where;
 
     $query = $dbh-> prepare($sql);
   

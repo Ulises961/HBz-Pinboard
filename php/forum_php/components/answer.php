@@ -4,9 +4,8 @@ include_once __DIR__."/post.php";
 
 
 function createAnswer($answer){
-    $class = ["class" => ""];
+  
     $answer["title"]="";
-    $answer = array_merge($answer,$class);
     $id = $answer["id"];
     
     echo " <!-- Answer -->  \n

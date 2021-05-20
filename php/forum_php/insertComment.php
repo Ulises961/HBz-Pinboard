@@ -4,6 +4,9 @@ include "components/comment.php";
 
 
 session_start();
+
+try {
+
 $data = json_decode(file_get_contents("php://input"));
 
 $post = $data -> question;
@@ -12,7 +15,7 @@ $user = $_SESSION["user_id"];
 $date = date("d/m/y");
 $time = date("H:i:s");
 
-try {
+
   $comment = filter_var($comment,FILTER_SANITIZE_STRING);
   $post = filter_var($post,FILTER_SANITIZE_NUMBER_INT);
   
@@ -35,10 +38,18 @@ try {
   
   $comment = $insert->fetch(PDO::FETCH_ASSOC);
 
+  $select = "SELECT name from Users where id = :user";
+
+  $sql = $dbh -> prepare($select);
+  $sql ->bindParam(":user",$user);
+  $sql -> execute();
+
+  $name = $sql->fetch(PDO::FETCH_ASSOC);
+  $comment = array_merge($name, $comment);
   createComment($comment);
 
 } catch (Exception $e) {
  
-  header("Location:" __DIR__."/../../Login.php");
+  header("Location: Login.php");
 }
 ?>

@@ -25,7 +25,7 @@ function createPostBody($post){
     $date= $post["date"]; 
     $id = $post["id"];
     $title = $post["title"];
-    $user = $post["users"];
+    $user = $post["name"];
     echo"
             <div class='col'>
                 
