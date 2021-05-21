@@ -130,7 +130,7 @@ function kickUser(targetUser) {
   $.ajax({
     url: "./php/chat_php/kickUserFromConversation.php?" + parameters, 
     success: function(response){
-      location.reload();
+      updateConversationUsers(conversation);
     }
   });
 }
@@ -150,14 +150,18 @@ function toggleMenu() {
   else if(conversation != "empty"){
     $("#msg_history").hide();
     $("#chat-menu").show();
-
-    $.ajax({
-      url: "./php/chat_php/loadConversationUsers.php?conversation=" + conversation, 
-      success: function(response){
-        $("#conversationUsers").append(response);
-      }
-    });
+    updateConversationUsers(conversation);
   }
+}
+
+function updateConversationUsers(conversation){
+  $.ajax({
+    url: "./php/chat_php/loadConversationUsers.php?conversation=" + conversation, 
+    success: function(response){
+      $("#conversationUsers").empty();
+      $("#conversationUsers").append(response);
+    }
+  });
 }
 
 function addUserToConversation() {
@@ -168,8 +172,8 @@ function addUserToConversation() {
   $.ajax({
     url: "./php/chat_php/addUserToConversation.php?" + parameters, 
     success: function(response){
-      console.log("This is the response: " + response);
       $("#user-list").empty();
+      updateConversationUsers(conversation);
     }
   });
 }
@@ -186,17 +190,6 @@ function updateAvailableUsers(){
       $("#user-list").append(response);      
     }
   });
-}
-
-function isJSON(string){
-  try {
-    let x = JSON.parse(string);
-    x = null;
-  } catch (error) {
-    return false
-  }
-
-  return true;
 }
 
 function scrollToLastMessage() {
