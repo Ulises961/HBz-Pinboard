@@ -34,6 +34,11 @@
   
   <?php
     $_SESSION["user_id"] = 1; //This line is just for test purposes, it must be removed in the final version
+    $user = $_SESSION["user_id"];
+     
+    if(isset($_REQUEST["user"]) && $_REQUEST["user"] != $_SESSION["user_id"])
+      $user = $_REQUEST["user"];
+
     include "php/profile_php/getUserInfo.php"; 
   ?>
 
@@ -57,10 +62,16 @@
                           <!-- THIS IS COMMENTED SINCE THE COMPLETE DATABASE IS NOT IN USE -->
                           <?php //echo $user["job"]; ?>
                         </p>
+
+                        <!-- THIS WILL ENSURE THAT WE CANNOT CHAT WITH OURSELVES BUT ONLY WITH OTHER USERS -->
+                        <?php
+                          if(isset($_REQUEST["user"]) && $_REQUEST["user"] != $_SESSION["user_id"]){
+                            echo "<a href='chat.php?startConversationWithUser='".$user["id"]."'>".
+                                    "<button class='btn btn-outline-primary'> Message </button>".
+                                  "</a>";
+                          }
+                        ?>
                         
-                        <a href="chat.php?startConversationWithUser=<?php echo $user["id"];?>">
-                          <button class="btn btn-outline-primary"> Message </button>
-                        </a>
                       </div>
                     </div>
                   </div>
