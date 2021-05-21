@@ -9,9 +9,6 @@
                   <li class="nav-item" id="home-link">
                       <a class="nav-link" href="index.php">Home</a>
                   </li>
-                  <li class="nav-item" id="profile-link">
-                      <a class="nav-link" href="Profile.php">Profile</a>
-                  </li>
                   <li class="nav-item " id="login-link">
                       <a class="nav-link" href="Login.php">Login</a>
                   </li>
