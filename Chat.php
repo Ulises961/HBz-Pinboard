@@ -29,8 +29,8 @@
   <!-- this script contains the whole chat logic -->
   <script src="js/chat_js/chat_logic.js"></script>
   
-  <!-- This script will start a new conversation if the startConversationWithUser parameter is set -->
-  <?php include "php/chat_php/startNewConversation.php";?>
+  <!-- This script will start a new private conversation if the startConversationWithUser parameter is set -->
+  <?php include "php/chat_php/startPrivateConversation.php";?>
 </head>
 
 <body>

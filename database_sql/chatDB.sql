@@ -31,17 +31,17 @@ CREATE TABLE PrivateConversation(
     CONSTRAINT there_can_be_only_one_privateConversation_between_users 
     UNIQUE (user_a, user_b),
 
-    CONSTRAINT user_a__must_exist FOREIGN KEY(users)
+    CONSTRAINT user_a__must_exist FOREIGN KEY(user_a)
         REFERENCES Users(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
         DEFERRABLE INITIALLY DEFERRED,
 
-    CONSTRAINT user_b__must_exist FOREIGN KEY(users)
+    CONSTRAINT user_b__must_exist FOREIGN KEY(user_b)
         REFERENCES Users(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
-        DEFERRABLE INITIALLY DEFERRED,
+        DEFERRABLE INITIALLY DEFERRED
 );
 
 CREATE TABLE PrivateMessageTo(

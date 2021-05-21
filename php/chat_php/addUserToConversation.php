@@ -7,7 +7,7 @@ $new_user = $_REQUEST["newUser"];
 
 try {
   $dbh = new PDO($conn_string);
-  $sql = "INSERT INTO PartecipatesInConversation VALUES(:conversation, :user, false);";
+  $sql = "INSERT INTO PartecipatesInConversation VALUES(:conversation, :user);";
 
   $query = $dbh -> prepare($sql);
 
