@@ -3,8 +3,8 @@ include "chat_credentials.php";
 include "components/conversation.php";
 
 // right now we are onlu testing and there is no session vairable set
-// $user = $_SESSION["user"]; 
-$user = 1; 
+$user = $_SESSION["user_id"]; 
+// $user = 1; 
 
 try {
   $isConversationPriavte = false;

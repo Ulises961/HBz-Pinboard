@@ -138,7 +138,7 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION update_privateConversation()
 RETURNS TRIGGER AS $$
 BEGIN
-    UPDATE privateConversation
+    UPDATE PrivateConversation
     SET last_change = NEW.date, last_message = NEW.text
     WHERE id = NEW.conversation;
 
@@ -148,12 +148,12 @@ $$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION block_message_if_conversation_is_blocked()
 RETURNS TRIGGER AS $$
-DECLARE conversation RECORD;
+DECLARE privateConversation RECORD;
 BEGIN
 
-    SELECT * FROM PrivateConversation WHERE id = NEW.privateConversation INTO conversation;
+    SELECT * FROM PrivateConversation WHERE id = NEW.conversation INTO privateConversation;
 
-    IF conversation.blocked THEN 
+    IF privateConversation.blocked THEN 
         RAISE EXCEPTION 'The conversation has been blocked';
         RETURN NULL;         
     ELSE

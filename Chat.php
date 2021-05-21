@@ -29,12 +29,15 @@
   <!-- this script contains the whole chat logic -->
   <script src="js/chat_js/chat_logic.js"></script>
   
-  <!-- This script will start a new private conversation if the startConversationWithUser parameter is set -->
-  <?php include "php/chat_php/startPrivateConversation.php";?>
 </head>
 
 <body>
-  <?php include "navbar2.php"?>
+  <?php 
+    include "navbar2.php"; 
+    $_SESSION["user_id"] = 1; 
+    //  This script will start a new private conversation if the startConversationWithUser parameter is set
+    include "php/chat_php/startPrivateConversation.php";
+  ?>
 
   <div class="container-fluid">
     <h3 class=" text-center">Conversations</h3>
@@ -69,10 +72,8 @@
           <div class="msg_history" id="msg_history">
             <!-- THE MESSAGES OF THE CHAT WILL BE LOADED HERE USING AJAX -->
           </div>
-
+          <p id="isCovnersationPrivate" hidden>0</p>
           <div class="chat_menu" id="chat-menu" style="display: none">
-            <!-- ADDS THE CHAT MENU -->
-            <?php include "php/chat_php/menu.php";?>
           </div>
 
           <!-- INPUT-FIELD AND BUTTON TO SEND A MESSAGE -->
