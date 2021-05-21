@@ -110,7 +110,7 @@ function updateConversationPreview(json_conversation) {
 // THIS FUNCTION LOADS THE BLOCKS A CONVERSATION
 function blockConversation() {
   var conversation = document.getElementById("msg_send_btn").value;
-  var parameters = "conversation=" + conversation + "&user=" + user;
+  var parameters = "conversation=" + conversation;
 
   $.ajax({
     url: "./php/chat_php/changeConversationStatus.php?" + parameters, 

@@ -6,9 +6,9 @@ $conversation = $_REQUEST["conversation"];
 try {
     $dbh = new PDO($conn_string);
 
-    $update = "UPDATE PrivateCoversation "
+    $update = "UPDATE PrivateConversation "
               ."SET blocked = (NOT blocked) "
-              ."WHERE conversation = :conversation";
+              ."WHERE id = :conversation";
 
     $query = $dbh -> prepare($update);
 
