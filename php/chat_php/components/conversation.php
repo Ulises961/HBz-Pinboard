@@ -1,6 +1,6 @@
 <?php
 
-function createConversationElement($conversation){
+function createConversationElement($conversation, $isConversationPrivate){
     $conversation_id        = $conversation["id"];
     $last_message           = $conversation["last_change"];
     $conversation_name      = $conversation["name"];
