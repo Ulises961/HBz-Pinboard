@@ -20,10 +20,54 @@ CREATE TABLE Conversation(
     last_message VARCHAR(255) 
 );
 
+CREATE TABLE PrivateConversation(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    last_change DATE,
+    last_message VARCHAR(255),
+    user_a INTEGER NOT NULL,
+    user_b INTEGER NOT NULL,
+    blocked BOOLEAN NOT NULL,
+    CONSTRAINT there_can_be_only_one_privateConversation_between_users 
+    UNIQUE (user_a, user_b),
+
+    CONSTRAINT user_a__must_exist FOREIGN KEY(users)
+        REFERENCES Users(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+        DEFERRABLE INITIALLY DEFERRED,
+
+    CONSTRAINT user_b__must_exist FOREIGN KEY(users)
+        REFERENCES Users(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+        DEFERRABLE INITIALLY DEFERRED,
+);
+
+CREATE TABLE PrivateMessageTo(
+    id SERIAL PRIMARY KEY,
+    date DATE NOT NULL,
+    time TIME NOT NULL,
+    text VARCHAR(255) NOT NULL,
+    users INTEGER NOT NULL,
+    conversation INTEGER NOT NULL,
+
+    CONSTRAINT message_belongs_to_user FOREIGN KEY(users)
+        REFERENCES Users(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+        DEFERRABLE INITIALLY DEFERRED,
+    
+    CONSTRAINT message_is_sent_in_privateConversation FOREIGN KEY(conversation)
+        REFERENCES PrivateConversation(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+        DEFERRABLE INITIALLY DEFERRED
+);
+
 CREATE TABLE PartecipatesInConversation(
     conversation INTEGER NOT NULL,
     users INTEGER NOT NULL,
-    blocked BOOLEAN NOT NULL,
     
     PRIMARY KEY(conversation, users)
 );
@@ -49,7 +93,7 @@ CREATE TABLE SendsMessageTo(
         DEFERRABLE INITIALLY DEFERRED
 );
 
--- TRIGGERS
+-- STORED PROCEDURES
 
 CREATE OR REPLACE FUNCTION insertSendsMessageTo()
 RETURNS TRIGGER AS $$
@@ -63,11 +107,6 @@ BEGIN
     END IF;
 END;
 $$ LANGUAGE plpgsql;
-
-CREATE TRIGGER insert_sendsMessageTo
-BEFORE INSERT ON SendsMessageTo
-FOR EACH ROW EXECUTE
-PROCEDURE insertSendsMessageTo();
 
 CREATE OR REPLACE FUNCTION isUserPartOfConversation()
 RETURNS TRIGGER AS $$
@@ -96,34 +135,60 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION update_privateConversation()
+RETURNS TRIGGER AS $$
+BEGIN
+    UPDATE privateConversation
+    SET last_change = NEW.date, last_message = NEW.text
+    WHERE id = NEW.conversation;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
 CREATE OR REPLACE FUNCTION block_message_if_conversation_is_blocked()
 RETURNS TRIGGER AS $$
-DECLARE participation RECORD;
+DECLARE conversation RECORD;
 BEGIN
 
-    SELECT * FROM PartecipatesInConversation WHERE users = NEW.users AND conversation = NEW.conversation INTO participation;
+    SELECT * FROM PrivateConversation WHERE id = NEW.privateConversation INTO conversation;
 
-    IF participation.exists THEN 
-        RETURN NEW;     
+    IF conversation.blocked THEN 
+        RAISE EXCEPTION 'The conversation has been blocked';
+        RETURN NULL;         
     ELSE
-        RAISE EXCEPTION 'THE USER IS NOT A PARTECIPANT OF THIS CONVERSATION';
-        RETURN NULL;
+        RETURN NEW;  
     END IF;
 END;
 $$ LANGUAGE plpgsql;
 
 
--- STORED PROCEDURES
+-- TRIGGERS
 
 CREATE TRIGGER update_conversation
 AFTER INSERT ON SendsMessageTo
 FOR EACH ROW EXECUTE
 PROCEDURE update_conversation();
 
+CREATE TRIGGER update_privateConversation
+AFTER INSERT ON PrivateMessageTo
+FOR EACH ROW EXECUTE
+PROCEDURE update_privateConversation();
+
 CREATE TRIGGER is_user_part_of_conversation
 BEFORE INSERT ON SendsMessageTo
 FOR EACH ROW EXECUTE
 PROCEDURE isUserPartOfConversation();
+
+CREATE TRIGGER insert_sendsMessageTo
+BEFORE INSERT ON SendsMessageTo
+FOR EACH ROW EXECUTE
+PROCEDURE insertSendsMessageTo();
+
+CREATE TRIGGER is_user_blocked
+BEFORE INSERT ON PrivateMessageTo
+FOR EACH ROW EXECUTE
+PROCEDURE block_message_if_conversation_is_blocked();
 
 -- INSERTS
 
@@ -133,5 +198,5 @@ INSERT INTO Users VALUES(3,'Markus', 'Zanker', '+39', '3961 415473','zanker@gmai
 
 INSERT INTO Conversation VALUES(1,'test_conversation');
 
-INSERT INTO PartecipatesInConversation VALUES(1,1, false);
-INSERT INTO PartecipatesInConversation VALUES(1,2, false);
+INSERT INTO PartecipatesInConversation VALUES(1,1);
+INSERT INTO PartecipatesInConversation VALUES(1,2);
