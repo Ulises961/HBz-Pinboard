@@ -1,7 +1,7 @@
 <?php
 
 function createGivenAnswer($givenAnswer){
-    $questionId = $givenAnswer["question_id"];
+    $questionId = $givenAnswer["id"];
     $question = $givenAnswer["title"];
 
     echo "<li>";

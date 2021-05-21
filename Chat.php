@@ -29,9 +29,13 @@
   <!-- this script contains the whole chat logic -->
   <script src="js/chat_js/chat_logic.js"></script>
   
+  <!-- This script will start a new conversation if the startConversationWithUser parameter is set -->
+  <?php include "php/chat_php/startNewConversation.php";?>
 </head>
-<?php include "navbar2.php"?>
+
 <body>
+  <?php include "navbar2.php"?>
+
   <div class="container-fluid">
     <h3 class=" text-center">Conversations</h3>
     <div class="messaging">

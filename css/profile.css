@@ -1,0 +1,9 @@
+.questionsAskedCard{
+    max-height: 50px;
+    overflow-y: auto;
+}
+
+.givenAnswersCard{
+    max-height: 50px;
+    overflow-y: auto;
+}

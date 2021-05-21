@@ -7,7 +7,7 @@ include "components/givenAnswer.php";
 try {
     $dbh = new PDO($conn_string);
     
-    $sql = "SELECT * ".
+    $sql = "SELECT p1.id, p1.title ".
            "FROM Post p1 ".
            "JOIN Question q ON q.id = p1.id ".
            "JOIN Answer a ON a.question_id = q.id ".
