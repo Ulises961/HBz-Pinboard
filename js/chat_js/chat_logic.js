@@ -145,9 +145,8 @@ function toggleMenu() {
   if(isChatVisible == 'none') {
     $("#msg_history").show();
     $("#chat-menu").hide();
-    $("#conversationUsers").empty();
-  }
-  else if(conversation != "empty"){
+    
+  }else if(conversation != "empty"){
     $("#msg_history").hide();
     $("#chat-menu").show();
     updateConversationUsers(conversation);
