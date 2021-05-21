@@ -17,16 +17,17 @@ function changeConversation(id, title) {
 // THIS FUNCTION IS CALLED WHEN THE USER PRESSES THE SEND MESSAGE BUTTON
 // AND THE FUNCTION MAKES AN AJAX CALL TO A PHP SCRIPT THAT INSERTS THE MESSAGE INTO THE DB
 function sendMessage() {
-  var xmlhttp = new XMLHttpRequest();
-
   var conversation = document.getElementById("msg_send_btn").value;
   var message_text = document.getElementById("inputMessage").value;
   var parameters = "conversation=" + conversation + "&message=" + message_text + "&user=" + user;
 
-  document.getElementById("inputMessage").value = " "; // empties the message input field
+  $.ajax({
+    url: "./php/chat_php/sendMessage.php?" + parameters, 
+    success: function(response){
+      document.getElementById("inputMessage").value = " "; // empties the message input field
+    }
+  });
 
-  xmlhttp.open("GET", "./php/chat_php/sendMessage.php?" + parameters, true);
-  xmlhttp.send();
 }
 
 // THIS FUNCTION LOADS THE OLD MESSAGES BELONGING TO A CONVERSATION
@@ -129,7 +130,7 @@ function kickUser(targetUser) {
   $.ajax({
     url: "./php/chat_php/kickUserFromConversation.php?" + parameters, 
     success: function(response){
-      location.reload();
+      updateConversationUsers(conversation);
     }
   });
 }
@@ -144,19 +145,22 @@ function toggleMenu() {
   if(isChatVisible == 'none') {
     $("#msg_history").show();
     $("#chat-menu").hide();
-    $("#conversationUsers").empty();
-  }
-  else {
+    
+  }else if(conversation != "empty"){
     $("#msg_history").hide();
     $("#chat-menu").show();
-
-    $.ajax({
-      url: "./php/chat_php/loadConversationUsers.php?conversation=" + conversation, 
-      success: function(response){
-        $("#conversationUsers").append(response);
-      }
-    });
+    updateConversationUsers(conversation);
   }
+}
+
+function updateConversationUsers(conversation){
+  $.ajax({
+    url: "./php/chat_php/loadConversationUsers.php?conversation=" + conversation, 
+    success: function(response){
+      $("#conversationUsers").empty();
+      $("#conversationUsers").append(response);
+    }
+  });
 }
 
 function addUserToConversation() {
@@ -168,6 +172,7 @@ function addUserToConversation() {
     url: "./php/chat_php/addUserToConversation.php?" + parameters, 
     success: function(response){
       $("#user-list").empty();
+      updateConversationUsers(conversation);
     }
   });
 }
@@ -184,17 +189,6 @@ function updateAvailableUsers(){
       $("#user-list").append(response);      
     }
   });
-}
-
-function isJSON(string){
-  try {
-    let x = JSON.parse(string);
-    x = null;
-  } catch (error) {
-    return false
-  }
-
-  return true;
 }
 
 function scrollToLastMessage() {

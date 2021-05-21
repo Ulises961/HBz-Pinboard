@@ -10,7 +10,9 @@ $time = date("H:i:s");
 try {
 
   $conversation = filter_var($conversation,FILTER_SANITIZE_STRING);
+  echo "The conversation is $conversation";
   $message = filter_var($message,FILTER_SANITIZE_STRING);
+  echo "The message is $message";
   
   $dbh = new PDO($conn_string);
 

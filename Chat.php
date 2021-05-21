@@ -29,9 +29,13 @@
   <!-- this script contains the whole chat logic -->
   <script src="js/chat_js/chat_logic.js"></script>
   
+  <!-- This script will start a new conversation if the startConversationWithUser parameter is set -->
+  <?php include "php/chat_php/startNewConversation.php";?>
 </head>
-<?php include "navbar2.php"?>
+
 <body>
+  <?php include "navbar2.php"?>
+
   <div class="container-fluid">
     <h3 class=" text-center">Conversations</h3>
     <div class="messaging">
@@ -75,7 +79,7 @@
           <div class="type_msg">
             <div class="input_msg_write">
               <input type="text" class="write_msg" name="inputMessage" id="inputMessage" placeholder="Type a message" />
-              <button class="msg_send_btn" type="button" id="msg_send_btn" onclick="sendMessage()">
+              <button class="msg_send_btn" value="empty" type="button" id="msg_send_btn" onclick="sendMessage()">
                 <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
               </button>
             </div>
@@ -83,7 +87,6 @@
 
         </div>
       </div>
-
 
     </div>
   </div>

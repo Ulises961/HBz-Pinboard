@@ -3,8 +3,7 @@
 include_once "profile_credentials.php";
 include_once "getStudentProgram.php";
 include_once "getProfessorSubjects.php";
-
-$user = null;
+include_once "php/Utils.php";
 
 try {
     $dbh = new PDO($conn_string);
@@ -12,7 +11,7 @@ try {
     $sql = "SELECT * FROM Users WHERE id = :userid";
 
     $query = $dbh-> prepare($sql);
-    $query-> bindParam("userid", $_SESSION["user_id"], PDO::PARAM_INT);
+    $query-> bindParam("userid", $user, PDO::PARAM_INT);
     $query-> execute();
 
 
@@ -28,8 +27,9 @@ try {
         // if($user["job"] == null)
         //     $user["job"] = getProfessorSubjects($_SESSION["user_id"]);
 
-    }else
-        echo "// REDIRECT TO 404 PAGE"; // REDIRECT TO 404 PAGE
+    }else{
+        header("Location:Profile.php");
+    }
 
 } catch (Exception $e) {
     echo $e;

@@ -1,9 +1,9 @@
 <?php
 $host = "localhost";
 $dbname = "forum";
-$user = "postgres";
+$dbuser = "postgres";
 $port = "5432";
 $password = "postgres";
 
-$conn_string = "pgsql:host=$host port=$port dbname=$dbname user=$user password=$password";
+$conn_string = "pgsql:host=$host port=$port dbname=$dbname user=$dbuser password=$password";
 ?>
