@@ -1,9 +1,11 @@
 <?php
 include "chat_credentials.php";
 
+$isConversationPrivate = $_REQUEST["isPrivate"];
 $conversation = $_REQUEST["conversation"];
 $message = $_REQUEST["message"];
 $sender = $_SESSION["user_id"];
+
 $date = date("d/m/y");
 $time = date("H:i:s");
 
@@ -14,11 +16,14 @@ try {
   
   $dbh = new PDO($conn_string);
 
-  $insert_into = "INSERT INTO SendsMessageTo(id, date, time, text, users, conversation) ";
-  $values = "VALUES(default, :date, :time, :message, :sender, :conversation)";
-  $sql = $insert_into.$values;
+  $table = "SendsMessageTo";
+  
+  if($isConversationPrivate == 1)
+    $table = "PrivateMessageTo";
 
-  $insert = $dbh-> prepare($sql);
+  $sendMessage = "INSERT INTO $table VALUES(default, :date, :time, :message, :sender, :conversation)";
+  echo "INSERT INTO $table VALUES(default, '$date', '$time', '$message', $sender, $conversation)";
+  $insert = $dbh-> prepare($sendMessage);
 
   $insert-> bindParam(":date", $date, PDO::PARAM_STR);
   $insert-> bindParam(":time", $time, PDO::PARAM_STR);

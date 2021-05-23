@@ -30,6 +30,9 @@
   <script src="js/chat_js/chat_logic.js"></script>
   
 </head>
+
+<body>
+
 <?php 
   include "navbar2.php";
 
@@ -38,8 +41,10 @@
     header("Location: /HBz/Login.php",TRUE,302);
     die();
 }
+include "php/chat_php/startPrivateConversation.php";
 ?>
-<body>
+ 
+
   <div class="container-fluid">
     <h3 class=" text-center">Conversations</h3>
     <div class="messaging">
@@ -73,17 +78,15 @@
           <div class="msg_history" id="msg_history">
             <!-- THE MESSAGES OF THE CHAT WILL BE LOADED HERE USING AJAX -->
           </div>
-
+          <p id="isCovnersationPrivate" hidden>0</p>
           <div class="chat_menu" id="chat-menu" style="display: none">
-            <!-- ADDS THE CHAT MENU -->
-            <?php include "php/chat_php/menu.php";?>
           </div>
 
           <!-- INPUT-FIELD AND BUTTON TO SEND A MESSAGE -->
           <div class="type_msg">
             <div class="input_msg_write">
               <input type="text" class="write_msg" name="inputMessage" id="inputMessage" placeholder="Type a message" />
-              <button class="msg_send_btn" type="button" id="msg_send_btn" onclick="sendMessage()">
+              <button class="msg_send_btn" value="empty" type="button" id="msg_send_btn" onclick="sendMessage()">
                 <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
               </button>
             </div>
@@ -91,7 +94,6 @@
 
         </div>
       </div>
-
 
     </div>
   </div>

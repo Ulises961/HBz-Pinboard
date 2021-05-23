@@ -1,3 +1,4 @@
+
 <label for="AddUser">Add user</label>
 
 <input 
@@ -16,7 +17,5 @@
 <button class="btn-info" onclick="addUserToConversation()">add</button>
 
 <div id="conversationUsers"></div>
-
-<button class="btn btn-info" onclick="blockConversation()">Block Group</button>
 
 <button class="btn btn-danger" onclick="leaveConversation()">Leave Group</button>

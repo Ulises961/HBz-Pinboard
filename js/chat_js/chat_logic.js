@@ -6,32 +6,44 @@ var user = 1; // this is the id of the currently logged user, it must be changed
 
 // THIS FUNCTION IS CALLED WHEN THE USER CHANGES CONVERSATION
 // AND IT STARTS LOADING THE MESSAGES BELONGING TO THAT CONVERSATION
-function changeConversation(id, title) {
+function changeConversation(id, title, isPrivate) {
   document.getElementById("conversationTitle").innerText = title;
   document.getElementById("msg_send_btn").value = id;
   document.getElementById("msg_history").innerHTML = '';
+  $("#msg_history").show();
+  $("#chat-menu").hide();
+  if(isPrivate == 1)
+    document.getElementById("isCovnersationPrivate").value = 1;
+  else
+    document.getElementById("isCovnersationPrivate").value = 0;
+
   clearTimeout(chat_update_timeout); // stops updating the previous conversation
-  loadChat(id);
+  loadChat(id, isPrivate);
 }
 
 // THIS FUNCTION IS CALLED WHEN THE USER PRESSES THE SEND MESSAGE BUTTON
 // AND THE FUNCTION MAKES AN AJAX CALL TO A PHP SCRIPT THAT INSERTS THE MESSAGE INTO THE DB
 function sendMessage() {
-  var xmlhttp = new XMLHttpRequest();
-
+  var isConversationPrivate = document.getElementById("isCovnersationPrivate").value;
   var conversation = document.getElementById("msg_send_btn").value;
   var message_text = document.getElementById("inputMessage").value;
-  var parameters = "conversation=" + conversation + "&message=" + message_text + "&user=" + user;
 
-  document.getElementById("inputMessage").value = " "; // empties the message input field
+  var parameters = "conversation=" + conversation + "&message=" 
+                   + message_text + "&isPrivate=" + isConversationPrivate;
 
-  xmlhttp.open("GET", "./php/chat_php/sendMessage.php?" + parameters, true);
-  xmlhttp.send();
+  $.ajax({
+    url: "./php/chat_php/sendMessage.php?" + parameters, 
+    success: function(response){
+      console.log(response);
+      document.getElementById("inputMessage").value = " "; // empties the message input field
+    }
+  });
+
 }
 
 // THIS FUNCTION LOADS THE OLD MESSAGES BELONGING TO A CONVERSATION
-function loadChat(conversation) {
-  var parameters = "conversation=" + conversation + "&user=" + user;
+function loadChat(conversation, isConversationPrivate) {
+  var parameters = "conversation=" + conversation + "&isPrivate=" + isConversationPrivate;
 
   $.ajax({
     url: "./php/chat_php/loadChat.php?" + parameters, 
@@ -40,14 +52,14 @@ function loadChat(conversation) {
       scrollToLastMessage();
 
       var lastMessageTime = $(".time").last().text();
-      updateChat(conversation, lastMessageTime);
+      updateChat(conversation, lastMessageTime, isConversationPrivate);
     }
   });
 }
 
 // THIS FUNCTION KEEPS THE CHAT UPDATED AND EVERY 2.5 SECONDS CHECKS FOR NEW MESSAGES
-function updateChat(conversation, lastMessageTime) {
-  var parameters = "conversation=" + conversation + "&user=" + user + "&time=" + lastMessageTime;
+function updateChat(conversation, lastMessageTime, isConversationPrivate) {
+  var parameters = "conversation=" + conversation + "&time=" + lastMessageTime + "&isPrivate=" + isConversationPrivate;
 
   $.ajax({
     url: "./php/chat_php/updateChat.php?" + parameters, 
@@ -60,7 +72,7 @@ function updateChat(conversation, lastMessageTime) {
       }
 
       chat_update_timeout = setTimeout(function () {
-        updateChat(conversation, lastMessageTime); 
+        updateChat(conversation, lastMessageTime, isConversationPrivate); 
       }, update_interval);
     }
   });
@@ -98,7 +110,7 @@ function updateConversationPreview(json_conversation) {
 // THIS FUNCTION LOADS THE BLOCKS A CONVERSATION
 function blockConversation() {
   var conversation = document.getElementById("msg_send_btn").value;
-  var parameters = "conversation=" + conversation + "&user=" + user;
+  var parameters = "conversation=" + conversation;
 
   $.ajax({
     url: "./php/chat_php/changeConversationStatus.php?" + parameters, 
@@ -129,13 +141,14 @@ function kickUser(targetUser) {
   $.ajax({
     url: "./php/chat_php/kickUserFromConversation.php?" + parameters, 
     success: function(response){
-      location.reload();
+      updateConversationUsers(conversation);
     }
   });
 }
 
 // THIS FUNCTION TOGGLES BETWEEN THE CHAT AND THE CHAT-MENU
 function toggleMenu() {
+  var isConversationPrivate = document.getElementById("isCovnersationPrivate").value;
   var conversation = document.getElementById("msg_send_btn").value;
   var isChatVisible = document.
                       getElementById('msg_history').
@@ -144,19 +157,48 @@ function toggleMenu() {
   if(isChatVisible == 'none') {
     $("#msg_history").show();
     $("#chat-menu").hide();
-    $("#conversationUsers").empty();
-  }
-  else {
+    
+  }else if(conversation != "empty"){
     $("#msg_history").hide();
-    $("#chat-menu").show();
 
-    $.ajax({
-      url: "./php/chat_php/loadConversationUsers.php?conversation=" + conversation, 
-      success: function(response){
-        $("#conversationUsers").append(response);
-      }
-    });
+    if(isConversationPrivate == 1)
+      loadPrivateMenu();
+    else
+      loadGroupMenu(conversation);
   }
+}
+
+function loadGroupMenu(conversation){
+  $.ajax({
+    url: "./php/chat_php/groupMenu.php", 
+    success: function(response){
+      $("#chat-menu").empty();
+      $("#chat-menu").append(response);
+      updateConversationUsers(conversation);
+      $("#chat-menu").show();
+    }
+  });
+}
+
+function loadPrivateMenu(){
+  $.ajax({
+    url: "./php/chat_php/privateMenu.php", 
+    success: function(response){
+      $("#chat-menu").empty();
+      $("#chat-menu").append(response);
+      $("#chat-menu").show();
+    }
+  });
+}
+
+function updateConversationUsers(conversation){
+  $.ajax({
+    url: "./php/chat_php/loadConversationUsers.php?conversation=" + conversation, 
+    success: function(response){
+      $("#conversationUsers").empty();
+      $("#conversationUsers").append(response);
+    }
+  });
 }
 
 function addUserToConversation() {
@@ -168,6 +210,7 @@ function addUserToConversation() {
     url: "./php/chat_php/addUserToConversation.php?" + parameters, 
     success: function(response){
       $("#user-list").empty();
+      updateConversationUsers(conversation);
     }
   });
 }
@@ -184,17 +227,6 @@ function updateAvailableUsers(){
       $("#user-list").append(response);      
     }
   });
-}
-
-function isJSON(string){
-  try {
-    let x = JSON.parse(string);
-    x = null;
-  } catch (error) {
-    return false
-  }
-
-  return true;
 }
 
 function scrollToLastMessage() {

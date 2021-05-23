@@ -4,18 +4,24 @@ include "components/incomingMessage.php";
 include "components/outgoingMessage.php";
 
 
+$isConversationPrivate = $_REQUEST["isPrivate"];
 $conversation = $_REQUEST["conversation"];
-$user = $_REQUEST["user"];
+$user = $_SESSION["user_id"];
 $time = $_REQUEST["time"];
 $date = date("d/m/y");
 
 try {
   $dbh = new PDO($conn_string);
-  $select_from = "SELECT * FROM SendsMessageTo ";
-  $where = "WHERE conversation = :conversation AND date = :date AND time > :time ORDER BY date ASC, time ASC";
+
+  $table = "SendsMessageTo";
   
-  $sql = $select_from.$where;
-  $query = $dbh -> prepare($sql);
+  if($isConversationPrivate == 1)
+    $table = "PrivateMessageTo";
+
+  $getMessages = "SELECT * FROM $table ".
+                 "WHERE conversation = :conversation AND date = :date AND time > :time ORDER BY date ASC, time ASC";
+  
+  $query = $dbh -> prepare($getMessages);
 
   $query-> bindParam(':conversation', $conversation, PDO::PARAM_INT);
   $query-> bindParam(':date', $date, PDO::PARAM_STR);
