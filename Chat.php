@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
-
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
     <!-- Custom styles for this template -->
     <link href="css/home_main.css" rel="stylesheet">
     <link href="forum.css" rel="stylesheet">
@@ -30,7 +30,15 @@
   <script src="js/chat_js/chat_logic.js"></script>
   
 </head>
-<?php include "navbar2.php"?>
+<?php 
+  include "navbar2.php";
+
+  if (!isset($_SESSION["user_id"])) {
+    session_destroy();
+    header("Location: /HBz/Login.php",TRUE,302);
+    die();
+}
+?>
 <body>
   <div class="container-fluid">
     <h3 class=" text-center">Conversations</h3>

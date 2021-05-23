@@ -1,4 +1,4 @@
-\c postgres;
+g\c postgres;
 DROP database hbz;
 CREATE database hbz;
 \c hbz;

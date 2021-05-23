@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forum</title>
-
+    
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -30,6 +31,16 @@
         echo "<script>alert('".$_SESSION['message']."')</script>";
         unset($_SESSION['message']);
     }
+
+    if (!isset($_SESSION["user_id"])) {
+      
+        // destroy the session
+        session_destroy(); 
+      
+        header("Location: /HBz/Login.php",TRUE,302);
+        die();
+    }
+    
 ?>
     <script>changeActiveLink("forum-link");</script>
  

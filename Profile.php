@@ -28,7 +28,13 @@
 
 <body>
 
-  <?php include "navbar2.php"; ?>
+  <?php include "navbar2.php"; 
+  if (!isset($_SESSION["user_id"])) {
+    session_destroy();
+    header("Location: /HBz/Login.php",TRUE,302);
+    die();
+}
+?>
   <script>changeActiveLink("profile-link");</script>
   
   <?php include "php/profile_php/getUserInfo.php"; ?>

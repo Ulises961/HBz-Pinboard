@@ -5,7 +5,9 @@ include "components/question.php";
 include __DIR__."/../Utils.php";
 
 try {
-
+  if (session_status() == PHP_SESSION_NONE) {
+    header("Location: ./../../Login.php");
+}
 
   $id = $_REQUEST["id"];
 

@@ -11,7 +11,7 @@
   <link href="css/office_hours.css" rel="stylesheet">
   <link href="css/home_main.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+  <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
   <!-- Load the logic for the page -->
   <script src="js/office_hours_js/office_hours_logic.js"> </script>
 
@@ -22,7 +22,7 @@
 
   <?php include "navbar2.php"; ?>
   <script>
-    changeActiveLink("office-hours-link");
+    changeActiveLink("office_hours-link");
   </script>
 
   <header class="office-hours-form">
