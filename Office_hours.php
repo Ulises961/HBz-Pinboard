@@ -38,13 +38,13 @@
         <option selected>Study Program</option>
 
       </select>
-      <select id="course-select" onchange="loadProfessor()" class="form-select" aria-label="Default select example">
+      <select id="course-select"  class="form-select" aria-label="Default select example">
         <option selected>Courses</option>
 
       </select>
     </div>
 
-    <button class="btn btn-primary" type="submit">Search</button>
+    <button class="btn btn-primary" onclick="loadProfessor()">Search</button>
 
     <table id="officeHoursTable" class="table">
       <thead>

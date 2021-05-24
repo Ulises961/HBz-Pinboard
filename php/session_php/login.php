@@ -15,17 +15,17 @@ if(isset($_POST["login"])) {
 try{
 
     $email = filter_var($email,FILTER_SANITIZE_EMAIL);
-    $pswd = filter_var($pswd,FILTER_SANITIZE_STRING);
+    $pswd = filter_var($pswd,FILTER_SANITIZE_URL);
 
-    $sql =  "SELECT id, mail, password FROM users WHERE mail=:email";
+    $sql =  "SELECT id, password FROM users WHERE mail=:email";
     $query= $dbh -> prepare($sql);
     $query-> bindParam(':email', $email, PDO::PARAM_STR);
     $query-> execute();
 
    
-        $result = $query->fetch();
+        $result = $query->fetch(PDO::FETCH_ASSOC);
       
-        if (password_verify($pswd, $result['password'])) {
+        if ($res= password_verify($pswd, $result['password'])) {
           
           $_SESSION["user_id"] = $result["id"];
 		
@@ -34,8 +34,10 @@ try{
 			throw new Exception('Invalid Credentials');
         } 
     }catch(Exception $e){
-        $_SESSION["message"]= $e->getMessage();
+        var_dump($result);
+        
+    //     $_SESSION["message"]= $e->getMessage();
    
-       header("Location: ./../../Login.php");
+    //    header("Location: ./../../Login.php");
     } 
 }

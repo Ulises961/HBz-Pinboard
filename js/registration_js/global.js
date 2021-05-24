@@ -81,7 +81,7 @@ function deleteSubjectBlock(obj){
 function matchesPassword(obj){
 
         var firstPsswd= document.getElementById("password");
-        var psswdCheck= obj;// document.getElementById("password-check");
+        var psswdCheck= obj;
         var matching_feedback= document.getElementById("matching-feedback");
     
        
@@ -114,8 +114,6 @@ function validPswd(obj){
 
     var regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
     var message = "Password must be at least 6 charachters long, contain an uppercase letter (A-Z), a lowercase letter (a-z) and a digit (1-9).";
-    
-    
     var pswd=obj.value;
   
     var pswdFeedback=document.getElementById("pswd-feedback");
@@ -164,7 +162,7 @@ function prefixCheck(obj){
 
     var regex = /^(\+)?(?:[0-9]?){1,4}$/;
 
-    var message = "'+'/'00'(prefix)";
+    var message = "+ or 00 (prefix)";
  
     var number=obj.value;
     var prefixFeedback=document.getElementById("prefix-feedback");
@@ -179,53 +177,40 @@ function prefixCheck(obj){
 }
 
 function loadPrograms() {
-    var xmlhttp = new XMLHttpRequest();
 
-    xmlhttp.onreadystatechange = function () {
-        console.log(this.response);
-        if (this.readyState == 4 && this.status == 200) {
-            var result = JSON.parse(this.response); 
+     $.post(
+         {
+            url:  "php/registration_php/loadPrograms.php",
+            success: function(response){
+                var result = JSON.parse(response); 
             
-          for(var i = 0 ; i < result.length; i++){
-                var option= document.createElement("option");
-    
-                var line = result[i];
-                option.value= line["name"];
-                document.getElementById("programs").appendChild(option);
-                  
-            }
-                
-        }
-    };
-    
-
-    xmlhttp.open("POST", "php/registration_php/loadPrograms.php", true);
-    xmlhttp.send();
+                  for(var i = 0 ; i < result.length; i++){
+                        var option= document.createElement("option");
+                        var line = result[i];
+                        option.value= line["name"];
+                        $("#programs").append(option);}
+                  }}
+     );
+ 
 }
 
 function loadSubjects() {
-    var xmlhttp = new XMLHttpRequest();
-  
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
-            var displayedSubjects = JSON.parse(this.response); 
+    $.post(
+        {
+           url:  "php/registration_php/loadSubjects.php",
+           success: function(response){
+            var displayedSubjects = JSON.parse(response); 
             for(var i = 0 ; i < displayedSubjects.length; i++){
-                var lines = displayedSubjects[i];
-                var option= document.createElement("option");
-                option.value=lines["name"];
-              
-             
-                document.getElementById("subjects").appendChild(option);
-             
-            }   
-          
-        }
-    };
-    
+                            var lines = displayedSubjects[i];
+                            var option= document.createElement("option");
+                            option.value=lines["name"];
+                            $("#subjects").append(option);
+                         
+                        }
+            }
+        } 
+    );
 
-    xmlhttp.open("POST", "php/registration_php/loadSubjects.php", true);
-    xmlhttp.send();
 }
 
 function findId(id,obj){
@@ -262,58 +247,43 @@ function showPswd() {
     }
   } 
 
-  function uniqueMail(obj){
-    var xmlhttp = new XMLHttpRequest();
-    var email_alert = document.getElementById("mail-feedback");
-    //var professor = document.getElementById("professor_form");
+   function uniqueMail(obj){
+       $.ajax({
+           url: "php/registration_php/getMail.php?mail="+obj.value,
+           success: function(response){
+                var email_alert = document.getElementById("mail-feedback");
+
+                console.log(response);
     
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
-
-            if(obj.value === ""){
-                email_alert.style.display="none";
-            
-            }else if (!obj.value.match(/^(.+)@(.+)$/)){
-                console.log("invalid mail");
-                email_alert.className = "invalid-feedback";
-                email_alert.innerText ='Invalid mail';
+                if(obj.value === ""){
+                    email_alert.style.display="none";
                 
-                email_alert.style.display="flex";
-
-            }else{
-
-                if (Number(this.response) != 0 && !isProfessorSelected){
-                   
-                        console.log("invalid");
-                        email_alert.className = "invalid-feedback";
-                        email_alert.innerText ='The mail inserted belongs to a registered user';
-               
+                }else if (!obj.value.match(/^(.+)@(.+)$/)){
+                    console.log("invalid mail");
+                    email_alert.className = "invalid-feedback";
+                    email_alert.innerText ='Invalid mail';
                     
-                }else{
-                    email_alert.className = "valid-feedback";
-                    email_alert.innerText ="Valid ✔";
-                    console.log("valid");
-
-                }
-
-                email_alert.style.display="flex";
-                
-            }   
-        };
-        
-    };
+                    email_alert.style.display="flex";
     
+                }else{
+    
+                    if (Number(response) != 0 && !isProfessorSelected){
+                        
+                            console.log("invalid");
+                            email_alert.className = "invalid-feedback";
+                            email_alert.innerText ='The mail inserted belongs to a registered user';
+                    
+                    }else{
+                        email_alert.className = "valid-feedback";
+                        email_alert.innerText ="Valid ✔";
+                        console.log("valid");
+    
+                    }
+    
+                    email_alert.style.display="flex";
+                }
+           }
+       });
 
-    xmlhttp.open("GET", "./php/registration_php/getMail.php?mail="+obj.value, true);
-    xmlhttp.send();
   }
 
- function checkAndSubmit(){
-
-    var xmlhttp = new XMLHttpRequest();
-
-    
-
-
- }
