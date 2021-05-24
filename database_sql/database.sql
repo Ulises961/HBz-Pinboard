@@ -38,6 +38,7 @@ CREATE TABLE Users(
     number VARCHAR(20),
     mail VARCHAR(100) NOT NULL UNIQUE,
     password TEXT NOT NULL,
+    oneTimeCode NUMERIC,
 
     CONSTRAINT valid_mail CHECK (mail ~ '^(.+)@(.+)$'),
     CONSTRAINT valid_prefix CHECK (prefix ~ '^(\+)?(?:[0-9]?){1,4}'),

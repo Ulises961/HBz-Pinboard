@@ -5,17 +5,18 @@ include "credentials.php";
 include "../Utils.php";
 
 
-
-$name =$_REQUEST['first_name'];
-$surname=$_REQUEST['last_name'];
+$dbh = new PDO($conn_string);
 $prefix=$_REQUEST['area_code'];
 $number=$_REQUEST['phone'];
-$mail=$_REQUEST['email'];
-$pswd= password_hash($_REQUEST["pswd"], PASSWORD_ARGON2I);
 $usertype=$_REQUEST['usertypes'];
 
 
-$dbh = new PDO($conn_string);
+$mail = filter_var($_REQUEST['email'],FILTER_SANITIZE_EMAIL);
+$name = filter_var($_REQUEST['first_name'],FILTER_SANITIZE_STRING);
+$surname = filter_var($_REQUEST['last_name'],FILTER_SANITIZE_STRING);
+$pswd = filter_var($_REQUEST["pswd"],FILTER_SANITIZE_URL);
+
+$pswd= password_hash($pswd, PASSWORD_ARGON2I);
 
 if($prefix === "" || $number === ""){
     $prefix = null;
@@ -25,13 +26,6 @@ if($prefix === "" || $number === ""){
     $prefix = filter_var($prefix,FILTER_SANITIZE_NUMBER_INT);
 }
 try{
-
-    $mail = filter_var($mail,FILTER_SANITIZE_EMAIL);
-    $name = filter_var($name,FILTER_SANITIZE_STRING);
-    $surname = filter_var($surname,FILTER_SANITIZE_STRING);
-    $pswd = filter_var($pswd,FILTER_SANITIZE_STRING);
-    
-
 
     $insertInto= "INSERT INTO Users(id, name, surname, prefix, number, mail, password) ";
     $values= "VALUES (default, :name, :surname, :prefix,:number, :mail, :pswd) ";
@@ -114,7 +108,7 @@ try{
                 $insertTeaches -> execute();
 
             
-                exit(header("Location: ./../../login.php"));
+                exit(header("Location: ./../../Login.php"));
             }
         }
 }catch(Exception $e){
