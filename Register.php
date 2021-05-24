@@ -40,7 +40,14 @@
 
 <body>
 
-  <?php include "navbar.php"; ?>
+  <?php 
+    include "navbar.php";
+    if (isset($_SESSION['message']))
+    {
+        echo "<script>alert('".$_SESSION['message']."')</script>";
+        unset($_SESSION['message']);
+    }
+   ?>
   <script>changeActiveLink("register-link");</script>
 
 
@@ -131,7 +138,7 @@
                             <div class="name">Repeat Password*</div>
                             <div class="value">
                                 <div class="input-group-desc">
-                                    <input class="input--style-5" type="password" id="password-check"
+                                    <input class="input--style-5" type="password" id="pswd-check" name = "pswd-check" 
                                         onkeyup="matchesPassword(this)" required>
                                     <div id="matching-feedback"></div>
                             

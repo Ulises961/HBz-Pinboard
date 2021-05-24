@@ -147,8 +147,8 @@ p{
 }
 
 div .insert-comment {
-    width: 700px;
-    margin: 20px 50px 0px;
+    flex-grow: 1;
+    margin: 20px auto 0px;
     padding: 10pt;
     display:flex;
     flex-direction:row

@@ -8,8 +8,9 @@ $dbh = new PDO($conn_string);
 
 try {
     $newPassword = $_REQUEST["pswd"];
+    $newPasswordCheck = $_REQUEST["pswd-check"];
     
-    if(strlen($newPassword)<6){
+    if(!(strlen($newPassword)<6  && $newPassword === $newPasswordCheck)){
         throw new Exception("Password not valid");
        
     }else{

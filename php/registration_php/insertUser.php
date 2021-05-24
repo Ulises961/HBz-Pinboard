@@ -3,7 +3,7 @@
 
 include "credentials.php";
 include "../Utils.php";
-
+session_start();
 
 $dbh = new PDO($conn_string);
 $prefix=$_REQUEST['area_code'];
@@ -15,8 +15,9 @@ $mail = filter_var($_REQUEST['email'],FILTER_SANITIZE_EMAIL);
 $name = filter_var($_REQUEST['first_name'],FILTER_SANITIZE_STRING);
 $surname = filter_var($_REQUEST['last_name'],FILTER_SANITIZE_STRING);
 $pswd = filter_var($_REQUEST["pswd"],FILTER_SANITIZE_URL);
+$pswdCheck =filter_var($_REQUEST["pswd-check"],FILTER_SANITIZE_URL);
 
-$pswd= password_hash($pswd, PASSWORD_ARGON2I);
+
 
 if($prefix === "" || $number === ""){
     $prefix = null;
@@ -25,7 +26,14 @@ if($prefix === "" || $number === ""){
     $number = filter_var($number,FILTER_SANITIZE_NUMBER_INT);
     $prefix = filter_var($prefix,FILTER_SANITIZE_NUMBER_INT);
 }
+
 try{
+
+    if(!($pswd === $pswdCheck && strlen($pswd) < 6))
+        throw new Exception("Invalid credentials");
+    $pswd= password_hash($pswd, PASSWORD_ARGON2I);
+
+
 
     $insertInto= "INSERT INTO Users(id, name, surname, prefix, number, mail, password) ";
     $values= "VALUES (default, :name, :surname, :prefix,:number, :mail, :pswd) ";
@@ -68,7 +76,7 @@ try{
             $insertion = $dbh->prepare($insertStudent);
             $insertion-> bindParam(":id", intval($id),PDO::PARAM_INT);          
         
-            exit(header("Location: ./../../login.php"));
+            exit(header("Location: ./../../Login.php"));
             }
 
     elseif($usertype === "professor"){
@@ -112,8 +120,8 @@ try{
             }
         }
 }catch(Exception $e){
-        alert($e);
-        die();
+    $_SESSION["message"] = $e->getMessage();
+    exit(header("Location: ./../../Register.php"));;
     }
 
 

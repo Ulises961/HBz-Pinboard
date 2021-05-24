@@ -11,20 +11,16 @@ function submitToServer() {
                 $("#pswd-block").css("display","block");
                 $("#check-block").css("display","block");
                 $("#submitBtn").css("display","block");
-               
-                }
-        
-            },
-            error: function(){  
-                alert("error");
-                window.location.href = "ForgottenPassword.php"
+               }else{
+                   validCode.validity=false;
+                   submitToServer();
+               }
             }
-        } 
-    );
+        }
+               
+       );
     }else{
-        alert("Invalid code");
-        $("#code")[0].value="";
-        validCode.code ="";
+        alertInvalidInput("Invalid Code");
     }
 }
 
@@ -58,13 +54,19 @@ function codeCheck(input){
 function checkAndSubmitForm(){
        
         var validPassword = validPswd($("#password")[0]); 
-        var matchingPassword = matchesPassword($("#password-check")[0]);
+        var matchingPassword = matchesPassword($("#pswd-check")[0]);
         console.log("V.P "+validPassword+" M.P."+matchingPassword);
         if(validPassword && matchingPassword && validCode.validity){
             $("#form").submit();
         }else{
-            alert("Invalid password");
-            $("#password")[0].value="";
-            $("#password-check")[0].value="";
+            alertInvalidInput("Invalid Password");
         }
+}
+function alertInvalidInput(message){
+    alert(message);
+    $("#password")[0].value= "";
+    $("#pswd-check").value= "";
+    $("#code")[0].value= "";
+
+    window.location.href = "ResetPassword.php";
 }
