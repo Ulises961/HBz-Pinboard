@@ -63,6 +63,10 @@ if (isset($_SESSION['message']))
 							<span class="symbol-input100">
 								<i class="fa fa-lock" aria-hidden="true"></i>
 							</span>
+							<div class='d-md-table-row'>
+                            <input class='d-table-cell p-t-15' type='checkbox' id=show-pswd onclick='showPswd()'>
+                            <label class='d-table-cell p-t-15' label--desc'>Show password</label>
+                        </div>   
 						</div>
 
 						<div id="login-feedback"></div>
@@ -99,6 +103,7 @@ if (isset($_SESSION['message']))
 	 
 <!--===============================================================================================-->
 	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="js/registration_js/global.js"></script>
 <!--===============================================================================================-->
 <?php include 'footer.php'; ?>
             

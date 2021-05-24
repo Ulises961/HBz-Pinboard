@@ -5,32 +5,39 @@ include './../registration_php/credentials.php';
 
 $dbh = new PDO($conn_string);
 
-$newPassword= filter_var( $_REQUEST["pswd"],FILTER_SANITIZE_URL);
-$code = filter_var( $_REQUEST["code"],FILTER_SANITIZE_NUMBER_INT);
-var_dump($newPassword);
-$newPassword = password_hash($newPassword, PASSWORD_ARGON2I);
-var_dump($newPassword);
+
 try {
-
-    $update = "UPDATE users SET password =:password, onetimecode=0";
-    $where= " WHERE onetimecode=:code RETURNING *";
-    $sql = $update.$where;
-
-    $query= $dbh -> prepare($sql);
-    $query-> bindParam(':password', $newPassword, PDO::PARAM_STR);
-    $query-> bindParam(':code', $code, PDO::PARAM_STR);
-
+    $newPassword = $_REQUEST["pswd"];
+    
+    if(strlen($newPassword)<6){
+        throw new Exception("Password not valid");
+       
+    }else{
+        
+        $newPassword= filter_var( $newPassword ,FILTER_SANITIZE_URL);
+        $code = filter_var($_REQUEST["code"],FILTER_SANITIZE_NUMBER_INT);
 
     
-    $query-> execute();
-    $resulting = $query-> fetch();
-    var_dump($resulting);
-    // $_SESSION["message"] = "Password updated successfully";
-    // header("Location: ../../Login.php");
+
+        $update = "UPDATE users SET password =:password, onetimecode=NULL, recoveryMode=FALSE";
+        $where= " WHERE onetimecode=:code AND recoverymode=TRUE RETURNING *";
+        $sql = $update.$where;
+
+        $query= $dbh -> prepare($sql);
+        $query-> bindParam(':password', $newPassword, PDO::PARAM_STR);
+        $query-> bindParam(':code', $code, PDO::PARAM_STR);
+        $query-> bindParam(':mail', $mail, PDO::PARAM_STR);
+        
+        $query-> execute();
+        $resulting = $query-> fetch();
+        var_dump($resulting);
+        $_SESSION["message"] = "Password updated successfully";
+        header("Location: ../../Login.php");
+    }
 } catch (Exception $e) {
-    // $dbh -> rollBack();
-    // $_SESSION["message"] = "Something went wrong, try again";
-    // header("Location: ../../ForgottenPassword.php");
+    
+    $_SESSION["message"] = $e-> getMessage();
+    header("Location: ../../ForgottenPassword.php");
 }
 
 ?>

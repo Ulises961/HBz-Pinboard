@@ -1,7 +1,7 @@
 <?php
 
 echo " 
-                                      
+                          
             <div class='form-row m-b-55'>
             <div class='name'>Password*</div>
             <div class='value'>
@@ -9,7 +9,7 @@ echo "
                 <div class='input-group-desc'>
                     <input class='input--style-5' type='password' name='pswd'
                         id='password'
-                        onkeyup='validPswd(this)' required>
+                        onkeyup = 'validPswd(this)' required>
                     
                     <div id='pswd-feedback'></div>
                     
@@ -34,7 +34,7 @@ echo "
             </div>
 
             <div>
-                <button class='btn btn--radius-2 btn--red' id='submitBtn' type='submit'>Confirm</button>
+                <button class='btn btn--radius-2 btn--red' id='submitBtn' onclick='checkAndSubmitForm()'>Confirm</button>
             </div>
 
   ";

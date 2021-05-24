@@ -19,15 +19,15 @@ $dbh = new PDO($conn_string);
 $userMail= filter_var( $_REQUEST["email"],FILTER_SANITIZE_EMAIL);
 $firstName = filter_var( $_REQUEST["first_name"],FILTER_SANITIZE_STRING);
 $lastName = filter_var( $_REQUEST["last_name"],FILTER_SANITIZE_STRING);
-$code = random_int(10001,99999);
+$code = random_int(100001,999999);
 
 var_dump("user mail ".$senderMailPassword);
 var_dump("sender mail ".$username);
 
 try {
 
-    $update =  "UPDATE users SET oneTimeCode =:code";
-    $where= " WHERE mail=:email AND name=:name AND surname=:lastname";
+    $update =  "UPDATE users SET oneTimeCode =:code, recoveryMode=TRUE";
+    $where= " WHERE mail=:email AND name=:name AND surname=:lastname RETURNING recoveryMode";
     $sql = $update.$where;
     $query= $dbh -> prepare($sql);
     $query-> bindParam(':code', $code, PDO::PARAM_STR);
@@ -37,7 +37,11 @@ try {
     
     $query-> execute();
 
-
+    $result = $query -> fetch(PDO::FETCH_ASSOC);
+    if ($result["recoverymode"] !== true){ 
+    
+    throw new Exception("Invalid Credentials ");
+    }
     // Server settings
     // $mail->SMTPDebug = SMTP::DEBUG_SERVER; // for detailed debug output
     $mail->isSMTP();
@@ -50,25 +54,25 @@ try {
     $mail->Password = $senderMailPassword; 
 
     // Sender and recipient settings
-    $mail->setFrom('no-reply@hbz.com', 'No Reply');
+    $mail->setFrom('no-reply@hbz.com', 'HBz.com');
     $mail->addAddress($userMail, $firstName);
     $mail->addReplyTo('no-reply@hbz.com', 'No Reply'); // to set the reply to
 
     // Setting the email content
     $mail->IsHTML(true);
     $mail->Subject = "One Time Code";
-    $mail->Body = "Hi ". $firstName.",%n This is your one time code to reset the password ". $code;
-    $mail->AltBody = "Hi ". $firstName.",%n This is your one time code to reset the password ". $code;
+    $mail->Body = "Hi ". $firstName.", \r Your one time code to reset the password is ". $code;
+    $mail->AltBody = "Hi ". $firstName.",\n This is your one time code to reset the password ". $code;
 
     $mail->send();
 
     $_SESSION["message"] = "A code was sent to the email provided";
-    header("Location: ./../../ResetPassword.php");
+    header("Location: ./../../ResetPassword.php?mail=$userMail");
+
 } catch (Exception $e) {
-    echo  $e->getMessage();
-    die();
-    // $_SESSION["message"] = $e->getMessage(); // " Invalid Email. Please try again";
-    // header("Location: ./../../ForgottenPassword.php");
+    
+    $_SESSION["message"] = $e->getMessage(); 
+    header("Location: ./../../ForgottenPassword.php");
 }
 
 ?>

@@ -93,17 +93,20 @@ function matchesPassword(obj){
             
                 matching_feedback.setAttribute("class","valid-feedback");
                 matching_feedback.innerText='Matching ✔';
+                return true;
         
             }else{
 
                 matching_feedback.setAttribute("class","invalid-feedback");
                 matching_feedback.innerText='Not Matching ✘';
+                return false;
             
             }
            
         }else{
             matching_feedback.style.display="none";
             console.log("no input");
+            return false;
             
         }
           
@@ -118,9 +121,10 @@ function validPswd(obj){
   
     var pswdFeedback=document.getElementById("pswd-feedback");
     if (obj.value !== ""){
-        validityCheck(regex,message,pswd,pswdFeedback);
+       return validityCheck(regex,message,pswd,pswdFeedback);
     }else{
         pswdFeedback.style.display="none";
+        return false;
     }
   
     
@@ -133,10 +137,12 @@ function validityCheck(regex, message, valueToTest,messageDiv){
         messageDiv.setAttribute("class","valid-feedback");
         messageDiv.innerText="Valid ✔";
         messageDiv.style.display="flex";
+        return true;
     }else{
         messageDiv.setAttribute("class","invalid-feedback");
         messageDiv.innerText=message;
         messageDiv.style.display="flex";
+        return false;
 
     }
 

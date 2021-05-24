@@ -34,10 +34,9 @@ try{
 			throw new Exception('Invalid Credentials');
         } 
     }catch(Exception $e){
-        var_dump($result);
-        
-    //     $_SESSION["message"]= $e->getMessage();
+    
+        $_SESSION["message"]= $e->getMessage();
    
-    //    header("Location: ./../../Login.php");
+       header("Location: ./../../Login.php");
     } 
 }

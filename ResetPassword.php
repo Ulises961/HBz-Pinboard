@@ -45,7 +45,8 @@
   {
       echo "<script>alert('".$_SESSION['message']."')</script>";
       unset($_SESSION['message']);
-      
+
+      $mail= $_REQUEST["mail"];   
   }
   ?>
   <script>changeActiveLink("register-link");</script>
@@ -58,21 +59,63 @@
                     <h2 class="title">Reset Password</h2>
                 </div>
                 <div class="card-body">
-                <form action='php/session_php/updatePassword.php' method='POST'>
+                <form action="php/session_php/updatePassword.php" METHOD="POST">
+
                     <div class="form-row m-b-55">
-                                <div class="name">Code</div>
-                                <div class="value">
-                                    <div class="input-group-desc">
-                                        <input class="input--style-5" type="text" name="code" onchange="check(this)" required>  
-                                    </div>
-                                
-                                </div>
+                        <div class="name">Code</div>
+                        
+                        <!-- <div class="value"> -->
+                        <div class="input-group-desc">
+                            <input class="cols input--style-5" type="text" onchange="codeCheck(this)" name="code" id="code" required>
+                        </div>
+                        <!-- </div> -->
+                        
+                        <button class="cols-2 btn btn-info btn-sm mx-2" onclick="submitToServer()">Check code</button>
+                        <div id="code-feedback"></div>
                     </div>
 
-                    <div id="new-pswd"></div>
+                    <div class='form-row m-b-55' id="pswd-block" style="display: none;" >
+            
+                    <div class='name'>Password*</div>
+                    <div class='value'>
+                        
+                        <div class='input-group-desc'>
+                            <input class='input--style-5' type='password' name='pswd'
+                                id='password'
+                                onkeyup = 'validPswd(this)' required>
+                            
+                            <div id='pswd-feedback'></div>
+                            
+                        </div>
+                        <div class='d-md-table-row'>
+                            <input class='d-table-cell p-t-15' type='checkbox' id=show-pswd onclick='showPswd()'>
+                            <label class='d-table-cell p-t-15' label--desc'>Show password</label>
+                        </div>   
+                    </div>
+                                                
+                    </div>
+                    <div class='form-row m-b-55' id="check-block" style="display: none;" >
+                    <div class='name'>Repeat Password*</div>
+                    <div class='value'>
+                        <div class='input-group-desc'>
+                            <input class='input--style-5' type='password' id='password-check'
+                                onkeyup='matchesPassword(this)' required>
+                            <div id='matching-feedback'></div>
+
+                        </div>
+                    </div>
+                    </div>
+
+                    <div>
+                        <button class='btn btn--radius-2 btn--red' 
+                            id='submitBtn' onclick='checkAndSubmitForm()' 
+                            style="display: none;" >Confirm
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
+    </div>
     </div>
 
 
