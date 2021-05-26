@@ -10,8 +10,8 @@ try {
     $newPassword = $_REQUEST["pswd"];
     $newPasswordCheck = $_REQUEST["pswd-check"];
     
-    if(!(strlen($newPassword)<6  && $newPassword === $newPasswordCheck)){
-        throw new Exception("Password not valid");
+    if(!(strlen($newPassword)<= 6  && $newPassword === $newPasswordCheck)){
+        throw new Exception("Password not valid!!!!");
        
     }else{
         

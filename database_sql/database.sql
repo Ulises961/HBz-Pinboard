@@ -39,6 +39,7 @@ CREATE TABLE Users(
     mail VARCHAR(100) NOT NULL UNIQUE,
     password TEXT NOT NULL,
     oneTimeCode NUMERIC,
+    recoveryMode BOOLEAN UNIQUE,
 
     CONSTRAINT valid_mail CHECK (mail ~ '^(.+)@(.+)$'),
     CONSTRAINT valid_prefix CHECK (prefix ~ '^(\+)?(?:[0-9]?){1,4}'),

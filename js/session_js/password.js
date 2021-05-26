@@ -55,7 +55,7 @@ function checkAndSubmitForm(){
        
         var validPassword = validPswd($("#password")[0]); 
         var matchingPassword = matchesPassword($("#pswd-check")[0]);
-        console.log("V.P "+validPassword+" M.P."+matchingPassword);
+        console.log("V.P "+validPassword+" M.P."+matchingPassword+ " Code valid: "+ validCode.validity);
         if(validPassword && matchingPassword && validCode.validity){
             $("#form").submit();
         }else{

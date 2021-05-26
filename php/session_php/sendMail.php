@@ -50,8 +50,8 @@ try {
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port = 587;
 
-    $mail->Username = $username ; 
-    $mail->Password = $senderMailPassword; 
+      $mail->Username = $username ; // sender user email
+    $mail->Password = $senderMailPassword; // sender user password
 
     // Sender and recipient settings
     $mail->setFrom('no-reply@hbz.com', 'HBz.com');

@@ -24,6 +24,7 @@ $code = filter_var( $_REQUEST["code"],FILTER_SANITIZE_NUMBER_INT);
 
     
     if($res["count"] > 0){
+       // echo var_dump($res["count"]);
        echo "true";
     }else{
 
