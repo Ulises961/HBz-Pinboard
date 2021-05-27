@@ -20,6 +20,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
+  <script src="js/contact_js/contact_logic.js"></script>
 
 </head>
 
@@ -43,33 +44,30 @@
       <div class="col-lg-12 card-margin">
           <div class="card search-form">
               <div class="card-body p-0">
-                  <form id="search-form">
                       <div class="row">
                           <div class="col-12">
                               <div class="row no-gutters">
-                                  <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                                  <div class="col-lg-3 col-md-4 col-sm-12 p-0">
                                       <select class="form-control" id="exampleFormControlSelect1">
-                                          <option>Location</option>
-                                          <option>London</option>
-                                          <option>Boston</option>
-                                          <option>Mumbai</option>
-                                          <option>New York</option>
-                                          <option>Toronto</option>
-                                          <option>Paris</option>
+
+                                          <option>Computer Science</option>
+                                          <option>Design and Art</option>
+                                          <option>Economics and Management</option>
+                                          <option>Education</option>
+                                          <option>Science and Technology</option>
                                       </select>
                                   </div>
                                   <div class="col-lg-8 col-md-6 col-sm-12 p-0">
-                                      <input type="text" placeholder="Search..." class="form-control" id="search" name="search">
+                                      <input type="text" placeholder="Search..." class="form-control" id="search"  name="search">
                                   </div>
-                                  <div class="col-lg-1 col-md-3 col-sm-12 p-0">
-                                      <button type="submit" class="btn btn-base">
+                                  <div class="col-lg-1 col-md-2 col-sm-12 p-0">
+                                      <button type="submit" class="btn btn-base" onclick="searchUsers()">
                                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                                       </button>
                                   </div>
                               </div>
                           </div>
                       </div>
-                  </form>
               </div>
           </div>
       </div>
@@ -84,79 +82,18 @@
                                   <div class="result-header">
                                       <div class="row">
                                           <div class="col-lg-6">
-                                              <div class="records">Showing: <b>1-20</b> of <b>200</b> result</div>
+                                              <div class="records">Showing: <b>1-5</b> of <b>200</b> result</div>
                                           </div>
-                                          <div class="col-lg-6">
-                                              <div class="result-actions">
-                                                  <div class="result-sorting">
-                                                      <span>Sort By:</span>
-                                                      <select class="form-control border-0" id="exampleOption">
-                                                          <option value="1">Relevance</option>
-                                                          <option value="2">Names (A-Z)</option>
-                                                          <option value="3">Names (Z-A)</option>
-                                                      </select>
-                                                  </div>
-                                                  <div class="result-views">
-                                                      <button type="button" class="btn btn-soft-base btn-icon">
-                                                          <svg
-                                                              xmlns="http://www.w3.org/2000/svg"
-                                                              width="24"
-                                                              height="24"
-                                                              viewBox="0 0 24 24"
-                                                              fill="none"
-                                                              stroke="currentColor"
-                                                              stroke-width="2"
-                                                              stroke-linecap="round"
-                                                              stroke-linejoin="round"
-                                                              class="feather feather-list"
-                                                          >
-                                                              <line x1="8" y1="6" x2="21" y2="6"></line>
-                                                              <line x1="8" y1="12" x2="21" y2="12"></line>
-                                                              <line x1="8" y1="18" x2="21" y2="18"></line>
-                                                              <line x1="3" y1="6" x2="3" y2="6"></line>
-                                                              <line x1="3" y1="12" x2="3" y2="12"></line>
-                                                              <line x1="3" y1="18" x2="3" y2="18"></line>
-                                                          </svg>
-                                                      </button>
-                                                      <button type="button" class="btn btn-soft-base btn-icon">
-                                                          <svg
-                                                              xmlns="http://www.w3.org/2000/svg"
-                                                              width="24"
-                                                              height="24"
-                                                              viewBox="0 0 24 24"
-                                                              fill="none"
-                                                              stroke="currentColor"
-                                                              stroke-width="2"
-                                                              stroke-linecap="round"
-                                                              stroke-linejoin="round"
-                                                              class="feather feather-grid"
-                                                          >
-                                                              <rect x="3" y="3" width="7" height="7"></rect>
-                                                              <rect x="14" y="3" width="7" height="7"></rect>
-                                                              <rect x="14" y="14" width="7" height="7"></rect>
-                                                              <rect x="3" y="14" width="7" height="7"></rect>
-                                                          </svg>
-                                                      </button>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
+                                          
                                   <div class="result-body">
                                       <div class="table-responsive">
                                           <table class="table widget-26">
-                                              <tbody>
+                                              <tbody id = "contactTable">
                                                 <?php 
-                                                    include "php/contact_php/loadContactRow.php"; 
-
-                                                    
+                                                    include "php/contact_php/loadContactRow.php";
                                                 ?>
                                               </tbody>
                                           </table>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
                       </div>
                       <nav class="d-flex justify-content-center">
                           <ul class="pagination pagination-base pagination-boxed pagination-square mb-0">
