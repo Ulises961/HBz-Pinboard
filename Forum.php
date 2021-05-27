@@ -86,7 +86,7 @@
 
                     <!-- Forum List -->
                     <div class="inner-main-body p-2 p-sm-3 collapse forum-content show">
-                        <div id="questions" onready="location = 'Forum.php?page=1">
+                        <div id="questions" onready="location = 'Forum.php?page=1'">
                             <?php include "php/forum_php/loadQuestions.php";?>
                         </div>
                     </div>
