@@ -36,6 +36,7 @@
     $results= $query ->fetchAll(PDO::FETCH_ASSOC);
 
 
+    $_SESSION["current_set"]= 10;
 
     $_SESSION["questions"] = serialize($results);
    

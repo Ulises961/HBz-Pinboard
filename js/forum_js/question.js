@@ -105,7 +105,7 @@ function searchForum(obj){
   
         let question= obj.value;
         var query = "./php/forum_php/searchQuestion.php?question="+question;
-       getQuestions(query);
+       getRows(query);
     
 }
 
@@ -123,25 +123,37 @@ function previousPage(){
     var index = parseInt(activepage[0].innerText) + nextpos;
     console.log(index);
  
-    getQuestions("./php/forum_php/indexer.php?+page="+index);
+    getRows("./php/forum_php/indexer.php?+page="+index);
  }
 
 function selectPage(index){
-    getQuestions("./php/forum_php/indexer.php?+page="+index);
+    getRows("./php/forum_php/indexer.php?+page="+index);
 }
 
+function nextSet(){
+    changeSet("next");
+}
+
+function previousSet(){
+    changeSet("prev");
+ }
+
+ function changeSet(nextpos){
+    
+    getRows("./php/forum_php/indexer.php?+next_set="+nextpos);
+ }
 
 
-function insertQuestions(response){
+function insertRows(response){
         $("#questions").empty();
         $("#questions").append(response);
-        console.log(response);
+       // console.log(response);
     
 }
 
-function getQuestions(query){
+function getRows(query){
     $.ajax({
         url: query, 
-        success: function(response){insertQuestions(response);}
+        success: function(response){insertRows(response);}
       });
  }

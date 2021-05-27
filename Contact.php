@@ -17,6 +17,8 @@
 
   <!-- Custom styles for this template -->
   <link href="css/home_main.css" rel="stylesheet">
+  <link href="forum.css" rel="stylesheet">
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
@@ -78,43 +80,14 @@
                   <div class="card-body">
                       <div class="row search-body">
                           <div class="col-lg-12">
-                              <div class="search-result">
-                                  <div class="result-header">
-                                      <div class="row">
-                                          <div class="col-lg-6">
-                                              <div class="records">Showing: <b>1-5</b> of <b>200</b> result</div>
-                                          </div>
-                                          
-                                  <div class="result-body">
-                                      <div class="table-responsive">
-                                          <table class="table widget-26">
-                                              <tbody id = "contactTable">
+                              <div class="search-result" id="search-result">
+                                 
+                                              
                                                 <?php 
                                                     include "php/contact_php/loadContactRow.php";
                                                 ?>
-                                              </tbody>
-                                          </table>
-                      </div>
-                      <nav class="d-flex justify-content-center">
-                          <ul class="pagination pagination-base pagination-boxed pagination-square mb-0">
-                              <li class="page-item">
-                                  <a class="page-link no-border" href="#">
-                                      <span aria-hidden="true">«</span>
-                                      <span class="sr-only">Previous</span>
-                                  </a>
-                              </li>
-                              <li class="page-item active"><a class="page-link no-border" href="#">1</a></li>
-                              <li class="page-item"><a class="page-link no-border" href="#">2</a></li>
-                              <li class="page-item"><a class="page-link no-border" href="#">3</a></li>
-                              <li class="page-item"><a class="page-link no-border" href="#">4</a></li>
-                              <li class="page-item">
-                                  <a class="page-link no-border" href="#">
-                                      <span aria-hidden="true">»</span>
-                                      <span class="sr-only">Next</span>
-                                  </a>
-                              </li>
-                          </ul>
-                      </nav>
+                                          
+                    
                   </div>
               </div>
           </div>

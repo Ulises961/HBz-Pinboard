@@ -256,6 +256,12 @@ body{
 
 
 
+li.page-item.active.page-link {
+  z-index: 3;
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
 
 
 

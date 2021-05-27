@@ -1,15 +1,13 @@
 <?php 
 
-include "components/question.php";
+include "components/contactRow.php";
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-$questions = unserialize($_SESSION["questions"]);
-
-$total_questions = count($questions);
-$total_pages = ceil($total_questions/5);
-
+$contacts = unserialize($_SESSION["contacts"]);
+$total_contacts = count($contacts);
+$total_pages = ceil($total_contacts/5);
 
 $index = 1;
 
@@ -45,17 +43,32 @@ $j = $index * 5 - 5; // starts from the first element of that page
 
 $i = $j + 5; // up to 5 questions per page
 
-while($j < $i && $j < $total_questions) {
+echo " 
+<div class='result-header'>
+<div class='row'>
+    <div class='col-lg-6'>
+        <div class='records'>Showing: <b>". ($j+1) ."- $i </b> of <b>$total_contacts</b> result</div>
+    </div>
+    
+<div class='result-body'>
+<div class='table-responsive'>
+    <table class='table widget-26' >
+    <tbody id = 'contactTableBody'>";
+                                           
+                                           
+while($j < $i && $j < $total_contacts) {
 
-    if( $question = $questions[$j])
-    $question["text"]="";
-
-    $class = ["class" => ""];
-    $question = array_merge($question,$class);
+    if( $contact = $contacts[$j])
    
-    createQuestion($question);
+     createContactRow($contact);
     $j++;
 }
+
+echo"     
+        </table>
+        </div>
+  </tbody>
+        </table>";
 
 include "components/paginator.php";
 

@@ -7,24 +7,15 @@
   
 
     if(intval($currentSet) >= intval($total_pages)) // WHENEVER WE ARE IN THE LAST PAGE OF RESULTS WE HIDE THE ARROW "NEXT"
-        $fwenabled="style='display:none'";
-    else $fwenabled ="style='display:block'";
-    
-    if(intval($start_of_set <= 1)) //WHENEVER WE ARE IN THE FIRST PAGE WE HIDE THE ARROW "PREVIOUS"
-        $bwenabled ="style='display:none'";
-    else $bwenabled ="style='display:block'";
-
-    if(intval($index) >= intval($total_pages)) // WHENEVER WE ARE IN THE LAST PAGE OF RESULTS WE HIDE THE ARROW "NEXT"
         $fenabled="style='display:none'";
     else $fenabled ="style='display:block'";
-
-    if(intval($index) <= 1) //WHENEVER WE ARE IN THE FIRST PAGE WE HIDE THE ARROW "PREVIOUS"
+    
+    if(intval($start_of_set) <= 1) //WHENEVER WE ARE IN THE FIRST PAGE WE HIDE THE ARROW "PREVIOUS"
         $benabled="style='display:none'";
     else $benabled ="style='display:block'";
 
-
     echo "<ul class='pagination pagination-sm pagination-circle justify-content-center mb-0'>
-                            <li $bwenabled>
+                            <li $benabled>
                                 <span aria-hidden='true' class='page-item page-link has-icon no-border'  onclick='previousSet()' >«</span>
                             </li>
 
@@ -48,7 +39,7 @@
                                         <span ></span>
                                       <span class='sr-only'>Next</span>
                             </li>
-                            <li $fwenabled>
+                            <li $fenabled>
                                 <span aria-hidden='true' class='page-item page-link has-icon no-border' onclick='nextSet()' $fenabled>»</span>
                                         <span ></span>
                                       <span class='sr-only'>Next</span>
