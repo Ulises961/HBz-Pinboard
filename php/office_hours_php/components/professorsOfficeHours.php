@@ -10,7 +10,7 @@
             <th>$professorFullName</th>
             <th>$professorOfficeHours</th>
             <th>$professorEmail</th>
-            <th><button class='btn btn-primary' onclick= "location.href='mailto:$professorEmail';" > Booking </button></th>
+            <th><button class='btn btn-primary' onclick= 'location.href=\'mailto:$professorEmail\';' > Booking </button></th>
 
           </tr>";
     }
