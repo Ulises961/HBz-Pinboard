@@ -1,11 +1,9 @@
-from collections import UserList
-from os import write
-from typing import Text
+
 from bs4 import BeautifulSoup
-from bs4.element import ResultSet
+
 from requests import get  # --it comes with get for requests
 import re
-import csv
+
 
 ## connects to the url passed and parses it with beautiful soup
 def visitSite(url):

@@ -10,7 +10,7 @@
             <th>$professorFullName</th>
             <th>$professorOfficeHours</th>
             <th>$professorEmail</th>
-            <th><button class='btn btn-primary' onclick= \"location.href=\'mailto:$professorEmail?subject = Booking office hours, &body= Dear professor $professorSurname,\n I would like to have a meeting with you to discuss about some doubts and problem I have got regarding: (insert your question about the unclear topics).';\" > Booking </button></th>
+            <th><button class='btn btn-primary' onclick= \" location.href='mailto:$professorEmail?subject=Booking office hours&body=Dear professor $professorSurname,  I would like to have a meeting with you to discuss about some doubts and problem I have got regarding: (insert your question about the unclear topics).';\" > Booking </button></th>
 
           </tr>";
     }
