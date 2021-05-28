@@ -1,11 +1,17 @@
 <?php
     function createProfessorsOfficeHours($professor){
+        $professorName = $professor["name"];
+        $professorSurname = $professor["surname"];
+        $professorFullName = $professorName." ".$professorSurname;
+        $professorOfficeHours = $professor["office_hours"];
         $professorEmail = $professor["mail"];
-        $ProfessorOfficeHours = $professor["office_hours"];
     
     echo "<tr>
+            <th>$professorFullName</th>
+            <th>$professorOfficeHours</th>
             <th>$professorEmail</th>
-            <th>$ProfessorOfficeHours</th>
+            <th><button class='btn btn-primary' onclick= 'mailto:$professorEmail'; > Booking </button></th>
+
           </tr>";
     }
 

@@ -49,10 +49,9 @@
     <table id="officeHoursTable" class="table">
       <thead>
         <tr>
-          <th scope="col">Professor's Mail</th>
+          <th scope="col">Professor's Full Name</th>
           <th scope="col">Office Hour</th>
-      
-          
+          <th scope="col">Email</th>
         </tr>
       </thead>
       <tbody id="officeHourRow">
