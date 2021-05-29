@@ -4,13 +4,13 @@ session_start();
 include './../registration_php/credentials.php';
 
 $dbh = new PDO($conn_string);
-
+$regex = "/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/";
 
 try {
     $newPassword = $_REQUEST["pswd"];
     $newPasswordCheck = $_REQUEST["pswd-check"];
     
-    if(!(strlen($newPassword)<= 6  && $newPassword === $newPasswordCheck)){
+    if(!(preg_match($regex, $newPassword)  && $newPassword === $newPasswordCheck)){
         throw new Exception("Password not valid!!!!");
        
     }else{
