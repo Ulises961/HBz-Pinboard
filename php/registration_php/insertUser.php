@@ -28,9 +28,10 @@ if($prefix === "" || $number === ""){
 }
 
 try{
-
-    if(!($pswd === $pswdCheck && strlen($pswd) < 6))
-        throw new Exception("Invalid credentials");
+    $regex = "/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/";
+ 
+    if(!(preg_match($regex, $newPassword)  && $newPassword === $newPasswordCheck)){
+        throw new Exception("Password not valid!!!!");
     $pswd= password_hash($pswd, PASSWORD_ARGON2I);
 
 
