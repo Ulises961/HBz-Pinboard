@@ -56,7 +56,7 @@
         <div class="wrapper wrapper--w790">
             <div class="card card-5">
                 <div class="card-heading">
-                    <h2 class="title">Reset Password</h2>
+                    <h1 class="title">Reset Password</h1>
                 </div>
                 <div class="card-body">
                     <form action="php/session_php/sendMail.php" method="POST">
@@ -67,14 +67,14 @@
                                 <div class="row row-space">
                                     <div class="col-6">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="first_name" required>
-                                            <label class="label--desc">first name</label>
+                                            <input class="input--style-5" type="text" id="first_name" name="first_name" required>
+                                            <label for="first_name" class="label--desc">first name</label>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="last_name" required>
-                                            <label class="label--desc">last name</label>
+                                            <input class="input--style-5" type="text" id="last_name" name="last_name" required>
+                                            <label for="last_name" class="label--desc">last name</label>
                                         </div>
                                     </div>
                                 </div>
@@ -84,7 +84,8 @@
                             <div class="name">Email*</div>
                             <div class="value">
                                 <div class="input-group">
-                                    <input class="input--style-5" type="email" name="email" oninput=" uniqueMail(this)" id="email" placeholder="name@domain.com" required>
+                                    <input class="input--style-5" type="email" name="email" oninput=" uniqueMail(this)" 
+                                    id="email" placeholder="name@domain.com" aria-label="Email" required>
                                     <div id="mail-feedback"></div>
                                 </div>
                             </div>

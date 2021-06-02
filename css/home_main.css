@@ -108,7 +108,7 @@ a {
 }
 
 div .btn{
-  padding: 0%;
+  padding: 1%;
   margin: 0%;
   flex-shrink: initial;
   display:block;

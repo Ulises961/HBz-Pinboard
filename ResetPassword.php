@@ -55,7 +55,7 @@
         <div class="wrapper wrapper--w790">
             <div class="card card-5">
                 <div class="card-heading">
-                    <h2 class="title">Reset Password</h2>
+                    <h1 class="title">Reset Password</h1>
                 </div>
                 <div class="card-body">
                 <form action="php/session_php/updatePassword.php" METHOD="POST">
@@ -65,7 +65,10 @@
                         
                         <!-- <div class="value"> -->
                         <div class="input-group-desc">
-                            <input class="cols input--style-5" type="text" onkeyup="codeCheck(this)" name="code" id="code" required>
+                            <input class="cols input--style-5" type="text" onkeyup="codeCheck(this)" 
+                            name="code" id="code" aria-label="One-time code" required>
+                   
+
                         </div>
                         <!-- </div> -->
                         
@@ -81,14 +84,14 @@
                         <div class='input-group-desc'>
                             <input class='input--style-5' type='password' name='pswd'
                                 id='password'
-                                onkeyup = 'validPswd(this)' required>
+                                onkeyup = 'validPswd(this)' aria-label="Password" required>
                             
                             <div id='pswd-feedback'></div>
                             
                         </div>
                         <div class='d-md-table-row'>
-                            <input class='d-table-cell p-t-15' type='checkbox' id=show-pswd onclick='showPswd()'>
-                            <label class='d-table-cell p-t-15' label--desc'>Show password</label>
+                            <input class="d-table-cell p-t-15" type='checkbox' id=show-pswd onclick='showPswd()'>
+                            <label for="show-pswd" class="d-table-cell p-t-15 label--desc">Show password</label>
                         </div>   
                     </div>
                                                 
@@ -98,7 +101,7 @@
                     <div class='value'>
                         <div class='input-group-desc'>
                             <input class='input--style-5' type='password' id='pswd-check' name = 'pswd-check'
-                                onkeyup='matchesPassword(this)' required>
+                                onkeyup='matchesPassword(this)' aria-label="Password check" required>
                             <div id='matching-feedback'></div>
 
                         </div>

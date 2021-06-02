@@ -1,4 +1,4 @@
-var validCode;
+var validCode = {validity:false, code:null};
 
 function submitToServer() {
     if(validCode.validity){

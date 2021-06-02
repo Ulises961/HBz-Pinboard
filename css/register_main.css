@@ -361,8 +361,8 @@ h6 {
   cursor: pointer;
   font-size: 15px;
   text-transform: uppercase;
-  font-weight: 600;
-  color: #fff;
+  font-weight: 510;
+  color: rgb(12, 61, 117);
   font-family: inherit;
 }
 
@@ -398,11 +398,14 @@ h6 {
 
 .btn--blue:hover {
   background: #3868cd;
+  
 }
 
 .btn--red {
   background: #ff4b5a;
-  color:#151618
+  
+  font-weight: 505;
+  color:#4e5053
 }
 
 .btn--red:hover {
@@ -420,6 +423,10 @@ h6 {
   width: 100px;
  
 
+}
+.btn-info:hover{
+  color: aliceblue;
+  background-color: deepskyblue;
 }
 /* ==========================================================================
    #DATE PICKER
