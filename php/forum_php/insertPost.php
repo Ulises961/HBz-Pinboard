@@ -4,8 +4,7 @@ include __DIR__."/forum_credentials.php";
 include __DIR__."/insertAnswer.php";
 include __DIR__."/components/answer.php";
 
-
-session_start();
+session_start(['cookie_lifetime' => 43200,'cookie_secure' => true,'cookie_httponly' => true]);
 
 $data = json_decode(file_get_contents("php://input"));
 

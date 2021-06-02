@@ -20,7 +20,7 @@
             </div>
 </nav>
 
-<?php session_start(); 
+<?php session_start(['cookie_lifetime' => 43200,'cookie_secure' => true,'cookie_httponly' => true, 'cookie_samesite'=>'Strict']); 
 
  
 

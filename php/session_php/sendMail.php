@@ -9,8 +9,7 @@ require_once __DIR__ . '/../../vendor/phpmailer/src/SMTP.php';
 require_once  __DIR__ . '/../../../mailCredentials.php';
 include './../registration_php/credentials.php';
 
-session_start();
-
+session_start(['cookie_lifetime' => 43200,'cookie_secure' => true,'cookie_httponly' => true,'cookie_samesite'=>'Strict']);
 // passing true in constructor enables exceptions in PHPMailer
 $mail = new PHPMailer(true);
 

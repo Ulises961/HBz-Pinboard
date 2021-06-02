@@ -59,20 +59,20 @@
                 </div>
                 <div class="card-body">
                     <form action="php/registration_php/insertUser.php"  method="POST">
-                                           <!-- <form action="http://10.42.0.1/HBz/response_generic.php" method="POST" target="_blank"> -->
+                                         
                         <div class="form-row m-b-55">
                             <div class="name">Name*</div>
                             <div class="value">
                                 <div class="row row-space">
                                     <div class="col-6">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="first_name" id="first_name" required>
+                                            <input class="input--style-5" type="text" name="first_name" id="first_name" >
                                             <label for="first_name" class="label--desc">First name</label>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="last_name" id="last_name" required>
+                                            <input class="input--style-5" type="text" name="last_name" id="last_name" >
                                             <label for="last_name" class="label--desc">last name</label>
                                         </div>
                                     </div>
@@ -83,7 +83,7 @@
                             <div class="name">Email*</div>
                             <div class="value">
                                 <div class="input-group">
-                                    <input class="input--style-5" type="email" name="email" oninput=" uniqueMail(this)" aria-label="Email" id="email" placeholder="name@domain.com" required>
+                                    <input class="input--style-5" type="email" name="email" oninput=" uniqueMail(this)" aria-label="Email" id="email" placeholder="name@domain.com" >
                                     <div id="mail-feedback"></div>
                                 </div>
                             </div>
@@ -95,7 +95,7 @@
                                 <div class="row row-refine">
                                     <div class="col-3">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="area_code" onkeyup="prefixCheck(this)" placeholder="+39" id="prefix" required>
+                                            <input class="input--style-5" type="text" name="area_code" onkeyup="prefixCheck(this)" placeholder="+39" id="prefix" >
                                             <div id="prefix-feedback"></div>
                                             <label for="prefix" class="label--desc">Area Code</label>
                                             
@@ -104,7 +104,7 @@
 
                                     <div class="col-9">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="phone" onkeyup="phoneCheck(this)" placeholder="1234 123456" id="phone" required>
+                                            <input class="input--style-5" type="text" name="phone" onkeyup="phoneCheck(this)" placeholder="1234 123456" id="phone" >
                                             <div id="phone-feedback"></div>
                                             <label for="phone" class="label--desc">Phone Number</label>
                                             
@@ -122,7 +122,7 @@
                                 <div class="input-group-desc">
                                     <input class="input--style-5" type="password" name="pswd"
                                         id="password" aria-label="Password"
-                                        onkeyup="validPswd(this)" required>
+                                        onkeyup="validPswd(this)" >
                                        
                                     <div id="pswd-feedback"></div>
                                     
@@ -139,15 +139,13 @@
                             <div class="value">
                                 <div class="input-group-desc">
                                     <input class="input--style-5" type="password" id="pswd-check" name = "pswd-check" 
-                                        onkeyup="matchesPassword(this)" aria-label="Repeat password" required>
+                                        onkeyup="matchesPassword(this)" aria-label="Repeat password" >
                                     <div id="matching-feedback"></div>
                             
                                 </div>
                             </div>
                         </div>
 
-                      
-                        <!-- Student - Professor - External user -->
                         <div class="form-row m-b-55">
                             <div class="name">User*</div>
                             <div class="col-lg-4 col-md-6 col-sm-6">
@@ -168,7 +166,7 @@
                         <div class="form-row hidden" id="study_program" style="display: none;">
                             <label for="study_programs" class="label label--block">Select your program of studies</label>
                             <div class="p-t-15">
-                                <input  type="text" name="study_programs" id="study_programs" placeholder="Eg. Computer Science" list="programs" aria-label="Your study program" required >
+                                <input  type="text" name="study_programs" id="study_programs" placeholder="Eg. Computer Science" list="programs" aria-label="Your study program"  >
                                 <datalist class="program_list" id="programs"></datalist>
                             </div>
                         </div>
@@ -216,7 +214,7 @@
                                 moment</label>
                             <div class="row p-t-15" id="subjects-block">
                                  <div class="col-md-8 col-xs-12">
-                                    <input  type="text" name="subject-input[0]" id="subject-input" placeholder="Eg. Analysis" list="subjects" aria-label="Subjects taught" required>
+                                    <input  type="text" name="subject-input[0]" id="subject-input" placeholder="Eg. Analysis" list="subjects" aria-label="Subjects taught" >
                                     <datalist class="subjects_list" id="subjects"></datalist>
                                 </div>
                                 <div class="col">

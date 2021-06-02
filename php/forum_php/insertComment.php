@@ -2,8 +2,7 @@
 include "forum_credentials.php";
 include "components/comment.php";
 
-
-session_start();
+session_start(['cookie_lifetime' => 43200,'cookie_secure' => true,'cookie_httponly' => true]);
 
 try {
 

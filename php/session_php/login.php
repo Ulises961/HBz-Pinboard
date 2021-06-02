@@ -4,8 +4,7 @@
 include "../Utils.php";
 
 	
-session_start();
-
+session_start(['cookie_lifetime' => 43200,'cookie_secure' => true,'cookie_httponly' => true, 'cookie_samesite'=>'Strict']);
 include "../registration_php/credentials.php";
 $dbh = new PDO($conn_string);
 

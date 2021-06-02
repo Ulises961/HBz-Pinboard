@@ -3,7 +3,7 @@
 
 include "credentials.php";
 include "../Utils.php";
-session_start();
+session_start(['cookie_lifetime' => 43200,'cookie_secure' => true,'cookie_httponly' => true,'cookie_samesite'=>'Strict']);
 
 $dbh = new PDO($conn_string);
 $prefix=$_REQUEST['area_code'];
@@ -30,8 +30,10 @@ if($prefix === "" || $number === ""){
 try{
     $regex = "/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/";
  
-    if(!(preg_match($regex, $newPassword)  && $newPassword === $newPasswordCheck)){
-        throw new Exception("Password not valid!!!!");
+    if(!(preg_match($regex, $pswd) && $pswd === $pswdCheck)){
+        throw new Exception("Password not valid");
+    }
+        
     $pswd= password_hash($pswd, PASSWORD_ARGON2I);
 
 
@@ -77,7 +79,6 @@ try{
             $insertion = $dbh->prepare($insertStudent);
             $insertion-> bindParam(":id", intval($id),PDO::PARAM_INT);          
         
-            exit(header("Location: ./../../Login.php"));
             }
 
     elseif($usertype === "professor"){
@@ -117,9 +118,10 @@ try{
                 $insertTeaches -> execute();
 
             
-                exit(header("Location: ./../../Login.php"));
+               
             }
         }
+        exit(header("Location: ./../../Login.php"));
 }catch(Exception $e){
     $_SESSION["message"] = $e->getMessage();
     exit(header("Location: ./../../Register.php"));;
