@@ -128,12 +128,6 @@ body{
     margin: 1rem;
 }
 
-li.page-item.active.page-link {
-    z-index: 3;
-    color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
-  }
 
 .comment{
     margin: 20px 50px 0px;
@@ -166,3 +160,27 @@ div .insert-comment {
 
     padding-left: 2rem;
 }
+div.container#sortColumn{
+    
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: left;
+}
+div.container#sortColumn > select{
+
+   flex-basis: 70%;
+   width: fit-content;
+   flex-grow: 4;
+   margin: auto;
+}
+
+button.btn.custom-btn {
+
+    background-color: #47def5;
+
+   
+  }
+button.btn.custom-btn > a{ color: #3e4a50;}
+
+

@@ -60,7 +60,7 @@ $id = $_GET["id"];
                                         <div class="card-body p-2 p-sm-3">
                                             <div>
                                                 <div class="row">
-                                                    <h3 class="h3 pt-4">Your Idea</h3>
+                                                   <label for="editor"> <h2 class="h3 pt-4">Your Idea</h3></label>
                                                         
                                                     <div class="container-fluid">
                                                         <textarea name="text" id="editor"></textarea> 

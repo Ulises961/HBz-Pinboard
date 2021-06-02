@@ -361,7 +361,7 @@ h6 {
   cursor: pointer;
   font-size: 15px;
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 600;
   color: #fff;
   font-family: inherit;
 }
@@ -402,10 +402,12 @@ h6 {
 
 .btn--red {
   background: #ff4b5a;
+  color:#151618
 }
 
 .btn--red:hover {
-  background: #eb3746;
+  background: #ff2b3d;
+  color: #ffffff;
 }
 
 .btn--grey{
@@ -593,7 +595,7 @@ input {
   position: absolute;
   text-transform: capitalize;
   display: block;
-  color: #999;
+  color: rgb(82, 73, 73);
   font-size: 14px;
   margin: 0;
   margin-top: 7px;
@@ -749,4 +751,19 @@ input {
 
 .form-row.hidden{
   display: none;
+}
+
+div.rs-select2.js-select-simple.select--no-search.container{
+    
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: left;
+}
+div.container > select{
+
+  flex-basis: 100%;
+  width:auto;
+  flex-grow: 4;
+  margin: 1rem;
 }

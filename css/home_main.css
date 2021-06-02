@@ -128,7 +128,7 @@ div.answer{
   flex-wrap: wrap;
   flex-shrink: initial;
   font-size: small;
-  text-align: justify;
+  text-align: left;
 
 }
 
@@ -174,4 +174,12 @@ div.cols.tag p{
 
   padding: 5pt;
   display: inline-flex;
+}
+
+li a.page-item.active.page-link {
+  z-index: 3;
+  color: rgb(8, 8, 8);
+  font-size: medium;
+  background-color: #007bff;
+  border-color: #002246;
 }

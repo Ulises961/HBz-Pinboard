@@ -31,7 +31,7 @@
 
 
     <!-- Navigation -->
-    <?php include "navbar.php";
+    <?php include "navbar2.php";
     // if (!isset($_SESSION["user_id"])) {
     //     session_destroy();
     //     header("Location: /HBz/Login.php",TRUE,302);
@@ -50,7 +50,8 @@
                           <div class="col-12">
                               <div class="row no-gutters">
                                   <div class="col-lg-3 col-md-4 col-sm-12 p-0">
-                                      <select class="form-control" id="exampleFormControlSelect1">
+                                      <select class="form-control" id="exampleFormControlSelect1" aria-label="Select
+                                       Faculty">
 
                                           <option>Computer Science</option>
                                           <option>Design and Art</option>
@@ -60,12 +61,13 @@
                                       </select>
                                   </div>
                                   <div class="col-lg-8 col-md-6 col-sm-12 p-0">
-                                      <input type="text" placeholder="Search..." class="form-control" id="search"  name="search">
+                                      
+                                      <input type="text" placeholder="Search..." class="form-control" id="search"  name="search" aria-label="Search Contact">
                                   </div>
                                   <div class="col-lg-1 col-md-2 col-sm-12 p-0">
                                       <button type="submit" class="btn btn-base" onclick="searchUsers()">
                                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                                      </button>
+                                          Find </button>
                                   </div>
                               </div>
                           </div>

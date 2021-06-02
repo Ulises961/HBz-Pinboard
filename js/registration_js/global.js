@@ -1,9 +1,9 @@
 
 isProfessorSelected= false;
 
-function displayOptions(obj){
+function displayOptions(){
 
-    var selectBox = obj;
+    var selectBox = $("#usertypes")[0];
     var selected = selectBox.options[selectBox.selectedIndex].value;
     
     var student_program = document.getElementById("study_program");
@@ -45,7 +45,7 @@ function displayOptions(obj){
 
     console.log(document.getElementById("email"));
     uniqueMail(document.getElementById("email"));
-   
+
 }
 
 var i = 0;

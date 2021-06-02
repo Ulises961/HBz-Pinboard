@@ -25,7 +25,7 @@ function createContactRow($user){
             </td>
             <td>
                 <div class='widget-26-job-starred'>
-                    <button type='button' class='btn btn-info'>
+                    <button type='button' class='btn custom-btn'>
                         <a href='Profile.php?user=$id'>Show profile</a>
                     </button>
                 </div>

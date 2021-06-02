@@ -50,7 +50,7 @@ if (isset($_SESSION['message']))
 
 					<form action="php/session_php/login.php" method="POST" target="_self">
 						<div class="wrap-input100 validate-input">
-							<input class="input100" type="email" name="email" id="email" placeholder="Email" required>
+							<input class="input100" type="email" name="email" id="email" placeholder="Email" aria-label="Insert email" required>
 							<span class="focus-input100"></span>
 							<span class="symbol-input100">
 								<i class="fa fa-envelope" aria-hidden="true"></i>
@@ -58,13 +58,13 @@ if (isset($_SESSION['message']))
 						</div>
 
 						<div class="wrap-input100 validate-input" data-validate = "Password is required" required>
-							<input class="input100" type="password" name="password" id="password" placeholder="Password">
+							<input class="input100" type="password" name="password" id="password" placeholder="Password" aria-label="Insert password">
 							<span class="focus-input100"></span>
 							<span class="symbol-input100">
 								<i class="fa fa-lock" aria-hidden="true"></i>
 							</span>
 							<div class='d-md-table-row'>
-                            <input class='d-table-cell p-t-15' type='checkbox' id=show-pswd onclick='showPswd()'>
+                            <input class='d-table-cell p-t-15' type='checkbox' id=show-pswd onclick='showPswd()'aria-label="Show password">
                             <label class='d-table-cell p-t-15' label--desc'>Show password</label>
                         </div>   
 						</div>

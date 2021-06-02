@@ -24,9 +24,8 @@
 
 
 <!-- tags -->
-    <link rel="stylesheet" type="text/css" href="js/question_js/jQuery-Tags-Input/src/jquery.tagsinput.css" />
-    <script type="text/javascript" src="js/question_js/jQuery-Tags-Input/dist/jquery.tagsinput.min.js"></script>
-    <script type="text/javascript" src="js/question_js/jQuery-Tags-Input/src/jquery.tagsinput.js"></script>
+    <link rel="stylesheet" type="text/css" href="vendor/jQuery-Tags-Input/dist/jquery.tagsinput.min.css" />
+    <script type="text/javascript" src="vendor/jQuery-Tags-Input/dist/jquery.tagsinput.min.js"></script>
     <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js'></script>
     <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/themes/start/jquery-ui.css" />
 
@@ -58,22 +57,26 @@
                                         <div class="media-body">
 
                                             <div class="row">
-                                                <h2 class="h2 mb-4">Ask the forum</h2>
+                                                <h1 class="h2 mb-4">Ask the forum</h1>
                                                 <div>
+                                                    
                                                     <input name="title" class="container-fluid" type="text"
-                                                        placeholder="Title" required/>
+                                                        placeholder="Title" aria-label="Title" required/>
                                                 </div>
                                             </div>
                                             <br>
                                             <div class="row">
                                                 <div class="container-fluid">
+                                                <label for="editor">Your question</label>
                                                     <textarea name="text" id="editor"></textarea>
                                                 </div>
+                                                <br>
                                                 <div class="container-fluid">
-                                                    <input name="tags" id="tags" placeholder="Add Tag"/>
+                                                    <label for="tags">Tags</label>
+                                                    <input name="tags" id="tags"/>
                                                 </div>
                                             </div>
-                                           
+                                           <br>
                                             <button name="submit" type="submit" class="btn btn-primary">Submit</button>
                                         </div>
                                     </div>
@@ -92,7 +95,6 @@
 
 
 <script src="js/forum_js/question.js"> </script>
-
 <script>   
     $('#tags').tagsInput({width:'inherit', height:'inherit'});
 </script>

@@ -25,11 +25,11 @@
 
     echo "<ul class='pagination pagination-sm pagination-circle justify-content-center mb-0'>
                             <li $bwenabled>
-                                <span aria-hidden='true' class='page-item page-link has-icon no-border'  onclick='previousSet()' >«</span>
+                                <a  class='page-item page-link has-icon no-border'  onclick='previousSet()'> << </a>
                             </li>
 
                             <li $benabled>
-                                <span aria-hidden='true' class='page-item page-link has-icon no-border'  onclick='previousPage()' ><</span>
+                                <a class='page-item page-link has-icon no-border'  onclick='previousPage()'> < </a>
                             </li>";
                          
                             while($page <= $total_pages && $page <= $currentSet ){ 
@@ -38,18 +38,18 @@
                                     else{$active = "active"; // SHOW THE ACTIVE PAGE
                                     }
                      
-                                echo " <li class='page-item page-link $active' id='li-$page' onclick='selectPage($page)'>$page</li>";
+                                echo " <li> <a class='page-item page-link $active' id='li-$page' onclick='selectPage($page)'>$page</a></li>";
                                 $page++;
                             }
 
                             echo "
                             <li $fenabled>
-                                <span aria-hidden='true' class='page-item page-link has-icon no-border' onclick='nextPage()' $fenabled>></span>
+                                <a class='page-item page-link has-icon no-border' onclick='nextPage()' $fenabled> > </a>
                                         <span ></span>
                                       <span class='sr-only'>Next</span>
                             </li>
                             <li $fwenabled>
-                                <span aria-hidden='true' class='page-item page-link has-icon no-border' onclick='nextSet()' $fenabled>»</span>
+                                <a class='page-item page-link has-icon no-border' onclick='nextSet()' $fenabled> >> </a>
                                         <span ></span>
                                       <span class='sr-only'>Next</span>
                             </li>

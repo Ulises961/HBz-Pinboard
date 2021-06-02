@@ -17,7 +17,7 @@ function createQuestion($question){
                     
                     <div class='row'>";
                         createPostHeader($question);     
-                        createPostBody($question);
+                        createPostBody($question,false);
                         includeTags($tags);        
     echo "
                     </div>

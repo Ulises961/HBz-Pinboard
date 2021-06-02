@@ -48,6 +48,7 @@
     <div class="container-fluid">
         <div class="main-body p-0">
             <div class="container">
+                <h1>HBz Forum</h1>
               
               
                 <!-- Inner main -->
@@ -61,21 +62,22 @@
                                 </button>
                             </div>
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-6 sort-flex">
                                 <span class="input-icon input-icon-sm ml-auto w-auto">
                                     <input type="text"
                                         class="form-control form-control-sm bg-gray-200 border-gray-200 shadow-none mb-4 mt-4"
-                                        placeholder="Search forum" onchange="searchForum(this)" />
+                                        placeholder="Search forum" onchange="searchForum(this)" aria-label="Search Forum" />
                                 </span>
                             </div>
 
-                            <div class="col-sm-4">
-                                <select class="custom-select custom-select-sm mr-1" name="filters" onchange="location = 'Forum.php?orderby='+this.value;">
+                            <div class="col-sm-4 container" id="sortColumn">
+                          
+                                <select class="custom-select custom-select-sm mr-1" name="filters" id="selectSort"  aria-label="Sort by">
                                     <option selected="">Sort by</option>
                                     <option value="latest">Latest</option>
                                     <option value="popular">Popular</option>
-                            
                                 </select>
+                                <button class="btn btn-secondary" onclick="sortForum()">Sort</button>
                             </div>        
                         </div>
                     <!-- /Inner main header -->

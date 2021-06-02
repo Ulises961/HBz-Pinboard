@@ -108,6 +108,13 @@ function searchForum(obj){
        getRows(query);
     
 }
+function sortForum(){
+  
+    let order= $("#selectSort")[0].value;
+   window.location.href="Forum.php?orderby="+order;
+
+
+}
 
 function nextPage(){
     changePage(+1);

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top align-items-end gradient mb-5">
             <div class="container">
-              <a class="navbar-brand" href="Forum.php"><img src ="images/logo.png" alt="logo"></a>
+              <a class="navbar-brand" href="Forum.php"><img src ="images/logo.png" alt="HBz logo"></a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -17,6 +17,9 @@
                   </li>
                   <li class="nav-item" id="profile-link">
                       <a class="nav-link" href="Profile.php">Profile</a>
+                  </li>
+                  <li class="nav-item" id="contact-link">
+                      <a class="nav-link" href="Contact.php">Contacts</a>
                   </li>
                   <li class="nav-item" id="logout">
                       <a class="nav-link" href="php/session_php/logout.php">Logout</a>

@@ -18,7 +18,7 @@ function createPostHeader($post){
             </div>";
 }
 
-function createPostBody($post){
+function createPostBody($post,$isAnswer){
 
     $content = $post["text"];
     $time= $post["time"];
@@ -26,12 +26,19 @@ function createPostBody($post){
     $id = $post["id"];
     $title = $post["title"];
     $user = $post["name"];
+    $show="";
+ $linkToQuestion = " <h1><a href='Question.php?id=$id' class='text-body'>$title</a></h1>";
+    if($isAnswer){
+        $linkToQuestion="";
+     
+    }
+        
     echo"
             <div class='col'>
                 
-                <h2><a href='Question.php?id=$id' class='text-body'>$title</a></h2>
+               $linkToQuestion
                 
-                <div class='secondary-text' id='text'> $content </div>
+                <div class='primary-text' id='text'> $content </div>
 
             </div>
             <div>

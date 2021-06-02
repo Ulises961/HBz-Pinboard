@@ -12,7 +12,7 @@ function createAnswer($answer){
     <div class ='answer'>
         <div class='row'>";
     createPostHeader($answer);
-    createPostBody($answer);
+    createPostBody($answer,true);
 
         echo "</div>";
 
@@ -23,7 +23,7 @@ function createAnswer($answer){
         " </div>
         <div class='insert-comment'>
            
-                <input class='' type='text' id='insertComment-$id' placeholder='Insert Comment'>
+                <input class='' type='text' id='insertComment-$id' placeholder='Insert Comment' aria-label='Insert comment'>
         
                 <button class='btn btn-primary' onclick='insertComment($id)'> Post </button>
         </div>";
