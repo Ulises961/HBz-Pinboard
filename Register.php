@@ -55,10 +55,10 @@
         <div class="wrapper wrapper--w790">
             <div class="card card-5">
                 <div class="card-heading">
-                    <h2 class="title">Registration Form</h2>
+                    <h1 class="title">Registration Form</h1>
                 </div>
                 <div class="card-body">
-                    <form action="php/registration_php/insertUser.php"  method="POST">
+                    <form action="php/registration_php/insertUser.php" enctype="multipart/form-data"  method="POST">
                                          
                         <div class="form-row m-b-55">
                             <div class="name">Name*</div>
@@ -66,13 +66,13 @@
                                 <div class="row row-space">
                                     <div class="col-6">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="first_name" id="first_name" >
+                                            <input class="input--style-5" type="text" name="first_name" id="first_name" required>
                                             <label for="first_name" class="label--desc">First name</label>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="last_name" id="last_name" >
+                                            <input class="input--style-5" type="text" name="last_name" id="last_name" required>
                                             <label for="last_name" class="label--desc">last name</label>
                                         </div>
                                     </div>
@@ -83,7 +83,7 @@
                             <div class="name">Email*</div>
                             <div class="value">
                                 <div class="input-group">
-                                    <input class="input--style-5" type="email" name="email" oninput=" uniqueMail(this)" aria-label="Email" id="email" placeholder="name@domain.com" >
+                                    <input class="input--style-5" type="email" name="email" oninput=" uniqueMail(this)" aria-label="Email" id="email" placeholder="name@domain.com" required>
                                     <div id="mail-feedback"></div>
                                 </div>
                             </div>
@@ -95,7 +95,7 @@
                                 <div class="row row-refine">
                                     <div class="col-3">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="area_code" onkeyup="prefixCheck(this)" placeholder="+39" id="prefix" >
+                                            <input class="input--style-5" type="text" name="area_code" onkeyup="prefixCheck(this)" placeholder="+39" id="prefix" required>
                                             <div id="prefix-feedback"></div>
                                             <label for="prefix" class="label--desc">Area Code</label>
                                             
@@ -104,7 +104,7 @@
 
                                     <div class="col-9">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="phone" onkeyup="phoneCheck(this)" placeholder="1234 123456" id="phone" >
+                                            <input class="input--style-5" type="text" name="phone" onkeyup="phoneCheck(this)" placeholder="1234 123456" id="phone" required>
                                             <div id="phone-feedback"></div>
                                             <label for="phone" class="label--desc">Phone Number</label>
                                             
@@ -122,7 +122,7 @@
                                 <div class="input-group-desc">
                                     <input class="input--style-5" type="password" name="pswd"
                                         id="password" aria-label="Password"
-                                        onkeyup="validPswd(this)" >
+                                        onkeyup="validPswd(this)" required>
                                        
                                     <div id="pswd-feedback"></div>
                                     
@@ -139,7 +139,7 @@
                             <div class="value">
                                 <div class="input-group-desc">
                                     <input class="input--style-5" type="password" id="pswd-check" name = "pswd-check" 
-                                        onkeyup="matchesPassword(this)" aria-label="Repeat password" >
+                                        onkeyup="matchesPassword(this)" aria-label="Repeat password" required>
                                     <div id="matching-feedback"></div>
                             
                                 </div>
@@ -166,7 +166,7 @@
                         <div class="form-row hidden" id="study_program" style="display: none;">
                             <label for="study_programs" class="label label--block">Select your program of studies</label>
                             <div class="p-t-15">
-                                <input  type="text" name="study_programs" id="study_programs" placeholder="Eg. Computer Science" list="programs" aria-label="Your study program"  >
+                                <input  type="text" name="study_programs" id="study_programs" placeholder="Eg. Computer Science" list="programs" aria-label="Your study program" required >
                                 <datalist class="program_list" id="programs"></datalist>
                             </div>
                         </div>
@@ -214,7 +214,7 @@
                                 moment</label>
                             <div class="row p-t-15" id="subjects-block">
                                  <div class="col-md-8 col-xs-12">
-                                    <input  type="text" name="subject-input[0]" id="subject-input" placeholder="Eg. Analysis" list="subjects" aria-label="Subjects taught" >
+                                    <input  type="text" name="subject-input[0]" id="subject-input" placeholder="Eg. Analysis" list="subjects" aria-label="Subjects taught" required>
                                     <datalist class="subjects_list" id="subjects"></datalist>
                                 </div>
                                 <div class="col">
@@ -232,7 +232,7 @@
                         <div>
                             <button class="btn btn--radius-2 btn--red" id="submitBtn" type="submit">Register</button>
                         </div>
-
+                        <?php require_once 'php/security/form-footer.php';?>
                     </form>
                 </div>
             </div>

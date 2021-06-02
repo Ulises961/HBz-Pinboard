@@ -48,7 +48,7 @@ if (isset($_SESSION['message']))
 						Member Login
 					</span>
 
-					<form action="php/session_php/login.php" method="POST" target="_self">
+					<form action="php/session_php/login.php" method="POST" enctype="multipart/form-data" target="_self">
 						<div class="wrap-input100 validate-input">
 							<input class="input100" type="email" name="email" id="email" placeholder="Email" aria-label="Insert email" required>
 							<span class="focus-input100"></span>
@@ -72,10 +72,10 @@ if (isset($_SESSION['message']))
 						<div id="login-feedback"></div>
 					
 						<div class="container-login100-form-btn">
-							<button class="login100-form-btn" type="submit" name="login">
-								Login
-							</button>
+							<input class="login100-form-btn" type="submit" name="login" value="Login"/>
+							
 						</div>
+						<?php require_once 'php/security/form-footer.php';?>
 					</form>
 
 					<div class="text-center p-t-12">

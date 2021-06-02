@@ -94,7 +94,7 @@
                         <div>
                             <button class="btn btn--radius-2 btn--red" id="submitBtn" type="submit">Get Code</button>
                         </div>
-
+                        <?php require_once 'php/security/form-footer.php';?>
                     </form>
                 </div>
             </div>
