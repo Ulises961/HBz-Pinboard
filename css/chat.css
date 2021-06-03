@@ -44,7 +44,7 @@ img {
     display: inline-block;
     text-align: right;
     width: 60%;
-    padding:
+    padding: auto;
 }
 
 .headind_srch {
