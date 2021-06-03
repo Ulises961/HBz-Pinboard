@@ -7,7 +7,7 @@ if(isset($_REQUEST["startConversationWithUser"])){
     $_SESSION["user_id"] = 1;
     $user_a = $_SESSION["user_id"];
     $user_b = $_REQUEST["startConversationWithUser"];
-    $conversationName = "this is a test name";
+    $conversationName = $_SESSION["userRow"]["name"].",".$_REQUEST["otherUserName"];
     $dbh = new PDO($conn_string);
     $date = date("d/m/y");
 
