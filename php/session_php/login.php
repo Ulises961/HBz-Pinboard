@@ -22,7 +22,7 @@ if (! empty($_POST['login'])) {
             $email = filter_var($email,FILTER_SANITIZE_EMAIL);
             $pswd = filter_var($pswd,FILTER_SANITIZE_URL);
 
-            $sql =  "SELECT id, password FROM users WHERE mail=:email";
+            $sql =  "SELECT id, password, name FROM users WHERE mail=:email";
             $query= $dbh -> prepare($sql);
             $query-> bindParam(':email', $email, PDO::PARAM_STR);
             $query-> execute();
@@ -33,7 +33,7 @@ if (! empty($_POST['login'])) {
                 if ($res= password_verify($pswd, $result['password'])) {
                 
                 $_SESSION["user_id"] = $result["id"];
-                $_SESSION["userRow"] = $result;
+                $_SESSION["user_name"] = $result["name"];
                 
                 exit(header("Location: ../../Forum.php"));
                 } else {

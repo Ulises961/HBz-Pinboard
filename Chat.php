@@ -1,4 +1,3 @@
-
 <html lang="en">
 
 <head>
@@ -37,9 +36,9 @@
   include "navbar2.php";
 
   if (!isset($_SESSION["user_id"])) {
-    session_destroy();
-    header("Location: /HBz/Login.php",TRUE,302);
-    die();
+    // session_destroy();
+    // header("Location: /HBz/Login.php",TRUE,302);
+    // die();
   }
 include "php/chat_php/startPrivateConversation.php";
 ?>
@@ -95,7 +94,7 @@ include "php/chat_php/startPrivateConversation.php";
               
               <div class="col-2 col-md">
 
-              <button class="msg_send_btn" value="empty" type="button" id="msg_send_btn" onclick="sendMessage()"><i class="fa fa-paper-plane-o">&#10240</i></button>
+              <button class="msg_send_btn" value="empty" aria-label="send" type="button" id="msg_send_btn" onclick="sendMessage()"><i class="fa fa-paper-plane-o"></i></button>
               </div>
               
             </div>

@@ -7,12 +7,11 @@ function createConversationElement($conversation, $isConversationPrivate){
     $last_modification_date = $conversation["last_change"];
 
     $img_url = "images/user.png";
-    $title = "'$conversation_name'";
 
     if($isConversationPrivate){
         $conversation_name = explode(",", $conversation_name);
 
-        if($conversation_name[0] == $_SESSION["userRow"]["name"])
+        if($conversation_name[0] == $_SESSION["user_name"])
             $conversation_name = $conversation_name[1];
         else
             $conversation_name = $conversation_name[0];
@@ -21,6 +20,9 @@ function createConversationElement($conversation, $isConversationPrivate){
     }
     else
         $isConversationPrivate = 0;
+
+    $title = "'$conversation_name'";
+    
 
     echo "<div class='chat_list active_chat' onclick=\"changeConversation($conversation_id, $title, $isConversationPrivate)\" >";
     echo "    <div class='chat_people'>";
