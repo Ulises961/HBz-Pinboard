@@ -6,7 +6,7 @@ function createConversationElement($conversation, $isConversationPrivate){
     $conversation_name      = $conversation["name"];
     $last_modification_date = $conversation["last_change"];
 
-    $img_url = "https://ptetutorials.com/images/user-profile.png";
+    $img_url = "images/user.png";
     $title = "'$conversation_name'";
 
     if($isConversationPrivate){
@@ -24,7 +24,7 @@ function createConversationElement($conversation, $isConversationPrivate){
 
     echo "<div class='chat_list active_chat' onclick=\"changeConversation($conversation_id, $title, $isConversationPrivate)\" >";
     echo "    <div class='chat_people'>";
-    echo "    <div class='chat_img'> <img src='$img_url' alt='sunil'> </div>";
+    echo "    <div class='chat_img'> <img src='$img_url' alt='Chat picture of: $conversation_name'> </div>";
     echo "    <div class='chat_ib'>";
     echo "        <h3 id='title_date$conversation_id'>$conversation_name<span class='chat_date'>$last_modification_date</span></h3>";
     echo "        <p id='last_message_$conversation_id'>$last_message</p>";
