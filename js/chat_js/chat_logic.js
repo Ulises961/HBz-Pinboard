@@ -179,7 +179,7 @@ function toggleMenu() {
     $("#msg_history").hide();
 
     if(isConversationPrivate == 1)
-      loadPrivateMenu();
+      loadPrivateMenu(conversation);
     else
       loadGroupMenu(conversation);
   }
@@ -197,9 +197,9 @@ function loadGroupMenu(conversation){
   });
 }
 
-function loadPrivateMenu(){
+function loadPrivateMenu(conversation){
   $.ajax({
-    url: "./php/chat_php/privateMenu.php", 
+    url: "./php/chat_php/privateMenu.php?conversation=" + conversation, 
     success: function(response){
       $("#chat-menu").empty();
       $("#chat-menu").append(response);

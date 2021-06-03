@@ -55,7 +55,7 @@ include "php/chat_php/startPrivateConversation.php";
               <h2>Recent</h2>
             </div>
             <div class="recent_heading col-3">
-              <button class="btn btn-info" id="open-create-group-menu-btn" onclick="createGroup()">Create group</button>
+              <button class="btn btn-lg btn-info" id="open-create-group-menu-btn" onclick="createGroup()">Create group</button>
             </div>
           </div>
   

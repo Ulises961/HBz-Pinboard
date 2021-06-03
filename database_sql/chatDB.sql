@@ -28,6 +28,8 @@ CREATE TABLE PrivateConversation(
     user_a INTEGER NOT NULL,
     user_b INTEGER NOT NULL,
     blocked BOOLEAN NOT NULL,
+    wasBlockedBy INTEGER,
+    
     CONSTRAINT there_can_be_only_one_privateConversation_between_users 
     UNIQUE (user_a, user_b),
 

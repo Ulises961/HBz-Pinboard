@@ -12,7 +12,7 @@ if(isset($_REQUEST["startConversationWithUser"])){
     $date = date("d/m/y");
 
     $createConversationSQL = "INSERT INTO PrivateConversation ". 
-                             "VALUES(default, :conversationName, :date, 'baseMessage', :userA, :userB, false)";
+                             "VALUES(default, :conversationName, :date, 'baseMessage', :userA, :userB, false, NULL)";
 
     $query = $dbh->prepare($createConversationSQL);
 
