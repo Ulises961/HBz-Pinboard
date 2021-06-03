@@ -100,8 +100,8 @@ function updateConversationPreview(json_conversation) {
   var conversation = JSON.parse(json_conversation);
 
   document.getElementById("title_date" + conversation.id)
-          .innerHTML = "<h5 id='title_date" + conversation.id + "'>" + conversation.name + 
-                       "<span class='chat_date'>" + conversation.last_change + "</span></h5>";
+          .innerHTML = "<h3 id='title_date" + conversation.id + "'>" + conversation.name + 
+                       "<span class='chat_date'>" + conversation.last_change + "</span></h3>";
 
   document.getElementById("last_message_" + conversation.id)
           .innerText = conversation.last_message;

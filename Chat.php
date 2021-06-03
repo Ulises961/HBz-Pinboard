@@ -52,7 +52,7 @@ include "php/chat_php/startPrivateConversation.php";
         <div class="inbox_people">
           <div class="headind_srch">
             <div class="recent_heading col-9">
-              <h4>Recent</h4>
+              <h2>Recent</h2>
             </div>
             <div class="recent_heading col-3">
               <button class="btn btn-info" id="open-create-group-menu-btn">Create group</button>
@@ -69,7 +69,7 @@ include "php/chat_php/startPrivateConversation.php";
 
           <div class="headind_srch">
             <div class="chat_heading">
-              <h4 id="conversationTitle">&#10240</h4>
+              <h3 id="conversationTitle">&#10240</h3>
             </div>
             <div class="srch_bar">
               <div class="stylish-input-group">

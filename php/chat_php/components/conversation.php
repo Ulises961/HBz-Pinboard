@@ -18,7 +18,7 @@ function createConversationElement($conversation, $isConversationPrivate){
     echo "    <div class='chat_people'>";
     echo "    <div class='chat_img'> <img src='$img_url' alt='sunil'> </div>";
     echo "    <div class='chat_ib'>";
-    echo "        <h5 id='title_date$conversation_id'>$conversation_name<span class='chat_date'>$last_modification_date</span></h5>";
+    echo "        <h3 id='title_date$conversation_id'>$conversation_name<span class='chat_date'>$last_modification_date</span></h3>";
     echo "        <p id='last_message_$conversation_id'>$last_message</p>";
     echo "    </div>";
     echo "    </div>";
