@@ -96,6 +96,23 @@ function updateConversations() {
   });
 }
 
+function createGroup(){
+  var groupName = prompt("Please enter the new group name: ", "");
+
+  if (groupName != null && groupName != "") {
+    $.ajax({
+      url: "./php/chat_php/createConversation.php?groupName=" + groupName, 
+      success: function(response){
+        if(response == "success")
+          location.reload();
+        else
+          alert("Error: could not create group!");
+      }
+    });
+  }
+
+}
+
 function updateConversationPreview(json_conversation) {
   var conversation = JSON.parse(json_conversation);
 
