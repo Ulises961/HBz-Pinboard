@@ -189,6 +189,7 @@ img {
 .input_msg_write input {
     background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
     border: medium none;
+    position: absolute;
     color: #4c4c4c;
     font-size: 15px;
     min-height: 48px;
@@ -198,6 +199,7 @@ img {
 .type_msg {
     border-top: 1px solid #c4c4c4;
     position: relative;
+    margin-bottom: 15px;
 }
 
 .msg_send_btn {
@@ -209,8 +211,8 @@ img {
     font-size: 17px;
     height: 33px;
     position: absolute;
-    right: 0;
-    top: 11px;
+    right: 9px;
+    top: 9px;
     width: 33px;
 }
 
@@ -219,7 +221,7 @@ img {
 }
 
 .msg_history {
-    height: 516px;
+    height: 526px;
     overflow-y: auto;
 }
 

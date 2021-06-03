@@ -55,7 +55,7 @@ include "php/chat_php/startPrivateConversation.php";
               <h4>Recent</h4>
             </div>
             <div class="recent_heading col-3">
-              <button class="btn btn-info" id="create-group-btn">Create group</button>
+              <button class="btn btn-info" id="open-create-group-menu-btn">Create group</button>
             </div>
           </div>
   
@@ -82,17 +82,22 @@ include "php/chat_php/startPrivateConversation.php";
             <!-- THE MESSAGES OF THE CHAT WILL BE LOADED HERE USING AJAX -->
           </div>
           <p id="isCovnersationPrivate" hidden>0</p>
-          <div class="chat_menu" id="chat-menu" style="display: none">
-          </div>
+          <div class="chat_menu" id="chat-menu" style="display: none"></div>
 
           <!-- INPUT-FIELD AND BUTTON TO SEND A MESSAGE -->
           <div class="type_msg">
-            <div class="input_msg_write">
-              <label for="inputMessage">Input Message</label>
+            <div class="input_msg_write row">
+              <div class="col-10">
+              <label for="inputMessage">&#10240</label>
               <input type="text" class="write_msg" name="inputMessage" id="inputMessage" placeholder="Type a message" />
-              <button class="msg_send_btn" value="empty" type="button" id="msg_send_btn" onclick="sendMessage()">
-                <i class="fa fa-paper-plane-o"></i>&#10240
-              </button>
+
+              </div>
+              
+              <div class="col-2 col-md">
+
+              <button class="msg_send_btn" value="empty" type="button" id="msg_send_btn" onclick="sendMessage()"><i class="fa fa-paper-plane-o">&#10240</i></button>
+              </div>
+              
             </div>
           </div>
 
