@@ -33,6 +33,7 @@ if (! empty($_POST['login'])) {
                 if ($res= password_verify($pswd, $result['password'])) {
                 
                 $_SESSION["user_id"] = $result["id"];
+                $_SESSION["userRow"] = $result;
                 
                 exit(header("Location: ../../Forum.php"));
                 } else {

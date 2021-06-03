@@ -72,7 +72,10 @@
                         <!-- THIS WILL ENSURE THAT WE CANNOT CHAT WITH OURSELVES BUT ONLY WITH OTHER USERS -->
                         <?php
                           if(isset($_REQUEST["user"]) && $_REQUEST["user"] != $_SESSION["user_id"]){
-                            echo "<a href='chat.php?startConversationWithUser=".$_REQUEST["user"]."'>".
+                            $privateConversationParameters = "startConversationWithUser=" . $_REQUEST["user"]
+                                                            ."&otherUserName=" . $user["name"];
+
+                            echo "<a href='chat.php?$privateConversationParameters'>".
                                     "<button class='btn btn-outline-primary'> Message </button>".
                                   "</a>";
                           }

@@ -1,8 +1,8 @@
 
-<html>
+<html lang="en">
 
 <head>
-
+    <title>Hbz</title>
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -40,19 +40,22 @@
     session_destroy();
     header("Location: /HBz/Login.php",TRUE,302);
     die();
-}
+  }
 include "php/chat_php/startPrivateConversation.php";
 ?>
  
 
   <div class="container-fluid">
-    <h3 class=" text-center">Conversations</h3>
+    <h1 class=" text-center">Conversations</h1>
     <div class="messaging">
       <div class="inbox_msg">
         <div class="inbox_people">
           <div class="headind_srch">
-            <div class="recent_heading">
-              <h4>Recent</h4>
+            <div class="recent_heading col-9">
+              <h2>Recent</h2>
+            </div>
+            <div class="recent_heading col-3">
+              <button class="btn btn-lg btn-info" id="open-create-group-menu-btn" onclick="createGroup()">Create group</button>
             </div>
           </div>
   
@@ -66,7 +69,7 @@ include "php/chat_php/startPrivateConversation.php";
 
           <div class="headind_srch">
             <div class="chat_heading">
-              <h4 id="conversationTitle"></h4>
+              <h3 id="conversationTitle">&#10240</h3>
             </div>
             <div class="srch_bar">
               <div class="stylish-input-group">
@@ -79,16 +82,22 @@ include "php/chat_php/startPrivateConversation.php";
             <!-- THE MESSAGES OF THE CHAT WILL BE LOADED HERE USING AJAX -->
           </div>
           <p id="isCovnersationPrivate" hidden>0</p>
-          <div class="chat_menu" id="chat-menu" style="display: none">
-          </div>
+          <div class="chat_menu" id="chat-menu" style="display: none"></div>
 
           <!-- INPUT-FIELD AND BUTTON TO SEND A MESSAGE -->
           <div class="type_msg">
-            <div class="input_msg_write">
+            <div class="input_msg_write row">
+              <div class="col-10">
+              <label for="inputMessage">&#10240</label>
               <input type="text" class="write_msg" name="inputMessage" id="inputMessage" placeholder="Type a message" />
-              <button class="msg_send_btn" value="empty" type="button" id="msg_send_btn" onclick="sendMessage()">
-                <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-              </button>
+
+              </div>
+              
+              <div class="col-2 col-md">
+
+              <button class="msg_send_btn" value="empty" type="button" id="msg_send_btn" onclick="sendMessage()"><i class="fa fa-paper-plane-o">&#10240</i></button>
+              </div>
+              
             </div>
           </div>
 
