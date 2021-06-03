@@ -9,8 +9,16 @@ function createConversationElement($conversation, $isConversationPrivate){
     $img_url = "https://ptetutorials.com/images/user-profile.png";
     $title = "'$conversation_name'";
 
-    if($isConversationPrivate)
+    if($isConversationPrivate){
+        $conversation_name = explode(",", $conversation_name);
+
+        if($conversation_name[0] == $_SESSION["userRow"]["name"])
+            $conversation_name = $conversation_name[1];
+        else
+            $conversation_name = $conversation_name[0];
+
         $isConversationPrivate = 1;
+    }
     else
         $isConversationPrivate = 0;
 
