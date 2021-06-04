@@ -16,7 +16,7 @@
 
     <!-- Custom styles for this template -->
     <link href="css/home_main.css" rel="stylesheet">
-    <link href="forum.css" rel="stylesheet">
+    <link href="css/forum.css" rel="stylesheet">
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
@@ -28,24 +28,24 @@
     <?php include "navbar2.php"; 
     
     if (isset($_SESSION['message'])){
-        echo "<script>alert('".$_SESSION['message']."')</script>";
-        unset($_SESSION['message']);
+        // echo "<script>alert('".$_SESSION['message']."')</script>";
+        // unset($_SESSION['message']);
     }
 
     if (!isset($_SESSION["user_id"])) {
       
         // destroy the session
-        session_destroy(); 
+        // session_destroy(); 
       
-        header("Location: /HBz/Login.php",TRUE,302);
-        die();
+        // header("Location: /HBz/Login.php",TRUE,302);
+        // die();
     }
     
 ?>
     <script>changeActiveLink("forum-link");</script>
- 
 
-    <div class="container-fluid">
+
+    <div class="container-fluid"  id="container">
         <div class="main-body p-0">
             <div class="container">
                 <h1>HBz Forum</h1>
@@ -103,6 +103,10 @@
             </div>
         </div>
     </div>
+    
+
+    <!-- Footer -->
+    <?php include 'footer.php'; ?>
 
 
     <script src="js/forum_js/question.js"></script>
