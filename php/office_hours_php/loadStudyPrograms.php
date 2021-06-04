@@ -6,7 +6,7 @@ $dbh = new PDO($conn_string);
 
 $faculty = $_REQUEST["faculty"];
 
-$select = "SELECT * 
+$select = "SELECT name, code
            FROM Program 
           WHERE faculty = :facultyCode" ;
 $query = $dbh->prepare($select);

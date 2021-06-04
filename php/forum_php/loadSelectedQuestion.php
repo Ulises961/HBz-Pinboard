@@ -2,7 +2,6 @@
 
 include "forum_credentials.php";
 include "components/question.php";
-include __DIR__."/../Utils.php";
 
 try {
   if (session_status() == PHP_SESSION_NONE) {

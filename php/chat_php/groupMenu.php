@@ -1,6 +1,5 @@
 
-<label for="AddUser">Add user</label>
-
+<label for="user-search">Add user</label>
 <input 
     class="form-input"
     id="user-search" 
@@ -10,8 +9,9 @@
     oninput="updateAvailableUsers()"
 >
 
+
+<label for="user-list">&#10240</label>
 <Select id="user-list">
-    
 </Select>
 
 <button class="btn-info" onclick="addUserToConversation()">add</button>

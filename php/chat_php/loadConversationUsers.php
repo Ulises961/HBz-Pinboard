@@ -7,7 +7,7 @@ $conversation = $_REQUEST["conversation"];
 try {
   $dbh = new PDO($conn_string);
 
-  $sql = "SELECT * FROM Users U ". 
+  $sql = "SELECT id, name, surname FROM Users U ". 
          "JOIN PartecipatesInConversation P ". 
          "ON P.users = U.id AND P.conversation = :conversation";
 

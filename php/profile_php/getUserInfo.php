@@ -3,7 +3,6 @@
 include_once "profile_credentials.php";
 include_once "getStudentProgram.php";
 include_once "getProfessorSubjects.php";
-include_once "php/Utils.php";
 
 try {
     $dbh = new PDO($conn_string);

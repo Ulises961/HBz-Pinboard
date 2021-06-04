@@ -7,7 +7,7 @@ include "forum_credentials.php";
 $dbh = new PDO($conn_string);
 
 
-$sql = "SELECT * FROM Tag WHERE name=:input";
+$sql = "SELECT id FROM Tag WHERE name=:input";
 
 $query = $dbh-> prepare($sql);
 $query->bindParam(":input", $tagContent, PDO::PARAM_INT);

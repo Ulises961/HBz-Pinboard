@@ -96,12 +96,29 @@ function updateConversations() {
   });
 }
 
+function createGroup(){
+  var groupName = prompt("Please enter the new group name: ", "");
+
+  if (groupName != null && groupName != "") {
+    $.ajax({
+      url: "./php/chat_php/createConversation.php?groupName=" + groupName, 
+      success: function(response){
+        if(response == "success")
+          location.reload();
+        else
+          alert("Error: could not create group!");
+      }
+    });
+  }
+
+}
+
 function updateConversationPreview(json_conversation) {
   var conversation = JSON.parse(json_conversation);
 
   document.getElementById("title_date" + conversation.id)
-          .innerHTML = "<h5 id='title_date" + conversation.id + "'>" + conversation.name + 
-                       "<span class='chat_date'>" + conversation.last_change + "</span></h5>";
+          .innerHTML = "<h3 id='title_date" + conversation.id + "'>" + conversation.name + 
+                       "<span class='chat_date'>" + conversation.last_change + "</span></h3>";
 
   document.getElementById("last_message_" + conversation.id)
           .innerText = conversation.last_message;
@@ -162,7 +179,7 @@ function toggleMenu() {
     $("#msg_history").hide();
 
     if(isConversationPrivate == 1)
-      loadPrivateMenu();
+      loadPrivateMenu(conversation);
     else
       loadGroupMenu(conversation);
   }
@@ -180,9 +197,9 @@ function loadGroupMenu(conversation){
   });
 }
 
-function loadPrivateMenu(){
+function loadPrivateMenu(conversation){
   $.ajax({
-    url: "./php/chat_php/privateMenu.php", 
+    url: "./php/chat_php/privateMenu.php?conversation=" + conversation, 
     success: function(response){
       $("#chat-menu").empty();
       $("#chat-menu").append(response);

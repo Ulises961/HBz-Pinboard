@@ -127,7 +127,7 @@ CREATE OR REPLACE FUNCTION is_post_a_question()
 RETURNS TRIGGER AS $$
 DECLARE question RECORD;
 BEGIN
-    SELECT EXISTS( SELECT * FROM Question WHERE id  = NEW.id) INTO question;
+    SELECT EXISTS( SELECT id FROM Question WHERE id  = NEW.id) INTO question;
 
     IF question.exists THEN 
         RETURN NULL;
@@ -141,7 +141,7 @@ CREATE OR REPLACE FUNCTION is_post_an_answer()
 RETURNS TRIGGER AS $$
 DECLARE answer RECORD;
 BEGIN
-    SELECT EXISTS( SELECT * FROM Answer WHERE id  = NEW.id) INTO answer;
+    SELECT EXISTS( SELECT id FROM Answer WHERE id  = NEW.id) INTO answer;
 
     IF answer.exists THEN 
         RETURN NULL;
@@ -155,10 +155,10 @@ CREATE OR REPLACE FUNCTION update_vote_if_it_exists()
 RETURNS TRIGGER AS $$
 DECLARE vote RECORD;
 BEGIN
-    SELECT EXISTS( SELECT * FROM Vote WHERE users = NEW.users AND post = NEW.post) INTO vote;
+    SELECT EXISTS( SELECT users FROM Vote WHERE users = NEW.users AND post = NEW.post) INTO vote;
 
     IF vote.exists THEN 
-        SELECT * FROM Vote WHERE users = NEW.users AND post = NEW.post INTO vote;
+        SELECT value FROM Vote WHERE users = NEW.users AND post = NEW.post INTO vote;
 
         IF vote.value != NEW.value THEN
             UPDATE Vote

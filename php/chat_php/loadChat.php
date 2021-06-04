@@ -15,7 +15,7 @@ try {
   if($isConversationPrivate == 1)
     $table = "PrivateMessageTo";
 
-  $getMessages = "SELECT * FROM $table ". 
+  $getMessages = "SELECT date, time, text FROM $table ". 
                  "WHERE conversation = :conversation ORDER BY date ASC, time ASC";
   
   $query = $dbh -> prepare($getMessages);

@@ -6,7 +6,7 @@ $dbh = new PDO($conn_string);
 
 $study_program = $_REQUEST["studyProgram"];
 
-$select = "SELECT * 
+$select = "SELECT name, id 
            FROM Subject S JOIN taught_in T 
            ON S.id = T.subject AND T.program = :studyProgram";
 

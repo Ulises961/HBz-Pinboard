@@ -6,7 +6,7 @@ function getProfessorSubjects($user_id){
     try {
         $dbh = new PDO($conn_string);
         
-        $sql = "SELECT * FROM Subject s JOIN Teaches t ON t.subject = s.id AND t.professor = :user";
+        $sql = "SELECT s.name FROM Subject s JOIN Teaches t ON t.subject = s.id AND t.professor = :user";
 
         $query = $dbh-> prepare($sql);
         $query-> bindParam("userid", $user_id, PDO::PARAM_INT);

@@ -5,7 +5,7 @@ include "./components/professorsOfficeHours.php";
 $course = $_REQUEST["course"];
 
 $dbh = new PDO($conn_string);
-$select = "SELECT *                                                                                   
+$select = "SELECT U.name, U.surname, U.mail, P.office_hours                                                                                   
            FROM users U JOIN Professor P ON U.id = P.id JOIN Teaches T ON T.professor = P.id
            WHERE T.subject = :course";
 
