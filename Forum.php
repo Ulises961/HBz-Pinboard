@@ -28,17 +28,17 @@
     <?php include "navbar2.php"; 
     
     if (isset($_SESSION['message'])){
-        echo "<script>alert('".$_SESSION['message']."')</script>";
-        unset($_SESSION['message']);
+        // echo "<script>alert('".$_SESSION['message']."')</script>";
+        // unset($_SESSION['message']);
     }
 
     if (!isset($_SESSION["user_id"])) {
       
         // destroy the session
-        session_destroy(); 
+        // session_destroy(); 
       
-        header("Location: /HBz/Login.php",TRUE,302);
-        die();
+        // header("Location: /HBz/Login.php",TRUE,302);
+        // die();
     }
     
 ?>
@@ -103,6 +103,9 @@
             </div>
         </div>
     </div>
+
+    <!-- Footer -->
+    <?php include 'footer.php'; ?>
 
 
     <script src="js/forum_js/question.js"></script>

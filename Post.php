@@ -36,9 +36,9 @@
 <?php 
     include 'navbar2.php';
     if (!isset($_SESSION["user_id"])) {
-        session_destroy();
-        header("Location: /HBz/Login.php",TRUE,302);
-        die();
+        // session_destroy();
+        // header("Location: /HBz/Login.php",TRUE,302);
+        // die();
     }
 ?>
     <script>changeActiveLink("forum-link");</script> 
@@ -92,7 +92,8 @@
         </div>
     </div>
 
-
+<!-- Footer -->
+<?php include 'footer.php'; ?>
 
 <script src="js/forum_js/question.js"> </script>
 <script>   
@@ -133,10 +134,3 @@
 </body>
 
 </html>
-
-<?php
-
-include 'footer.php';
-
-
-?>
