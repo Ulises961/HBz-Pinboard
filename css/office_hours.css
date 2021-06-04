@@ -1,26 +1,74 @@
 
-header
+h1
 {
+   margin: 0rem 1rem .5rem .5rem;
+   padding: 0 1rem;
+}
+
+.office-hours-form
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: left;
+    margin: 1rem 0rem 0.7rem 1rem;
+    padding: .5rem;
+
+}
+.office-hours-row
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: left;
+    margin: 1rem 1rem 0.7rem;
+    padding: .5rem;
+
+}
+
+.item{
+
+    padding: .2rem;
+    margin: .1rem .2rem .5rem;
     
 }
-
-.sel-forms-office
-{
-    margin-top: 3rem;
-    margin-bottom: 0.7rem;
+h4{
+    font-weight: bold;
 }
-
-
 .form-select
 {
     width: 600px;
     margin-bottom: 0.7rem;
 }
 
-.btn-primary
+.btn.btn-primary
 {
-    margin-top: 0.7rem;
     width: 600px;
     height: 40px;
+    padding: 0;
 }
 
+@media screen and (max-width:600px) {
+.form-select
+    {
+        width: 300px;
+        margin-bottom: 0.7rem;
+    }
+    .btn.btn-primary
+{
+    margin-top: 0.7rem;
+    width: 300px;
+    height: 40px;
+   
+}
+
+.item{
+    width: 300px;
+ 
+    flex-basis: auto;
+    align-items: left;
+    flex-wrap: wrap;
+ 
+}
+
+}

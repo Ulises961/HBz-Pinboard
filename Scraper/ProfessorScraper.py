@@ -80,7 +80,7 @@ for faculty in faculties:
                     professor.append(contact_info[0])
                     print(contact_info[0])   
                 else:
-                    professor.append(None)
+                    professor.append("---Information Not Available---")
                 
       
         #password
