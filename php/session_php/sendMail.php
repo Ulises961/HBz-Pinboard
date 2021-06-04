@@ -71,8 +71,8 @@ try{
       // Setting the email content
       $mail->IsHTML(true);
       $mail->Subject = "One Time Code";
-      $mail->Body = "Hi ". $firstName.", \r Your one time code to reset the password is ". $code;
-      $mail->AltBody = "Hi ". $firstName.",\n This is your one time code to reset the password ". $code;
+      $mail->Body = "Hi ". $firstName.", <br> Your one time code to reset the password is ". $code;
+      $mail->AltBody = "Hi ". $firstName." This is your one time code to reset the password ". $code;
 
       $mail->send();
 
