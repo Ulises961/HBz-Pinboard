@@ -90,12 +90,12 @@
                         </div>
 
                         <div class="form-row m-b-55">
-                            <div class="name">Phone*</div>
+                            <div class="name">Phone</div>
                             <div class="value">
                                 <div class="row row-refine">
                                     <div class="col-3">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="area_code" onkeyup="prefixCheck(this)" placeholder="+39" id="prefix" required>
+                                            <input class="input--style-5" type="text" name="area_code" onkeyup="prefixCheck(this)" placeholder="+39" id="prefix">
                                             <div id="prefix-feedback"></div>
                                             <label for="prefix" class="label--desc">Area Code</label>
                                             
@@ -104,7 +104,7 @@
 
                                     <div class="col-9">
                                         <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="phone" onkeyup="phoneCheck(this)" placeholder="1234 123456" id="phone" required>
+                                            <input class="input--style-5" type="text" name="phone" onkeyup="phoneCheck(this)" placeholder="1234 123456" id="phone">
                                             <div id="phone-feedback"></div>
                                             <label for="phone" class="label--desc">Phone Number</label>
                                             
@@ -156,7 +156,7 @@
                                         <option value="student">Student</option>
                                         <option value="professor">Professor</option>
                                     </select>
-                                    <button type="button" onclick ="displayOptions()">Select</button>
+                                    <button class="btn btn-secondaty btn--grey" type="button" onclick ="displayOptions()">Select</button>
                                     <div class="select-dropdown"></div>
                              
                                 </div>

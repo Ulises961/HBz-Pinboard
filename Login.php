@@ -79,17 +79,22 @@ if (isset($_SESSION['message']))
 					</form>
 
 					<div class="text-center p-t-12">
-						<span class="txt1">
-							Forgot
-						</span>
+						
+						
+				
 						<a class="txt2" href="ForgottenPassword.php">
-							Username / Password?
+							<h5>Forgot your Password?</h5>
 						</a>
 						<br>
+				
+							
 						<a class="txt2" href="Register.php">
-							Create your Account
+							<h5>Create your Account</h5>
 							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+
 						</a>
+				
+				
 					</div>
 				</div>
 			</div>
