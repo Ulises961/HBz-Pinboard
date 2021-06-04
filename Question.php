@@ -15,7 +15,7 @@
    <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
     <!-- Custom styles for this template -->
     <link href="css/home_main.css" rel="stylesheet">
-    <link href="forum.css" rel="stylesheet">
+    <link href="css/forum.css" rel="stylesheet">
   
 
 </head>

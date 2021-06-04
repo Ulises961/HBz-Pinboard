@@ -16,7 +16,7 @@
 
     <!-- Custom styles for this template -->
     <link href="css/home_main.css" rel="stylesheet">
-    <link href="forum.css" rel="stylesheet">
+    <link href="css/forum.css" rel="stylesheet">
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
