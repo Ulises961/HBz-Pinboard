@@ -4,7 +4,7 @@ include "components/facultyOptions.php";
 
 $dbh = new PDO($conn_string);
 
-$select = "SELECT * FROM Faculty";
+$select = "SELECT name, code FROM Faculty";
 $query = $dbh->prepare($select);
 $query->execute();
 

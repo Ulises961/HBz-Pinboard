@@ -11,7 +11,7 @@ if(isset($_REQUEST["user"]) && $_REQUEST["user"] != $_SESSION["user_id"])
 try {
     $dbh = new PDO($conn_string);
     
-    $sql = "SELECT * FROM POST p JOIN Question q ON p.id = q.id AND p.users = :user";
+    $sql = "SELECT p.id, p.title FROM POST p JOIN Question q ON p.id = q.id AND p.users = :user";
 
     $query = $dbh-> prepare($sql);
     $query-> bindParam("user", $user, PDO::PARAM_INT);

@@ -115,7 +115,7 @@ RETURNS TRIGGER AS $$
 DECLARE participation RECORD;
 BEGIN
 
-    SELECT EXISTS( SELECT * FROM PartecipatesInConversation WHERE users = NEW.users AND conversation = NEW.conversation) INTO participation;
+    SELECT EXISTS( SELECT users FROM PartecipatesInConversation WHERE users = NEW.users AND conversation = NEW.conversation) INTO participation;
 
     IF participation.exists THEN 
         RETURN NEW;     
@@ -153,7 +153,7 @@ RETURNS TRIGGER AS $$
 DECLARE privateConversation RECORD;
 BEGIN
 
-    SELECT * FROM PrivateConversation WHERE id = NEW.conversation INTO privateConversation;
+    SELECT blocked FROM PrivateConversation WHERE id = NEW.conversation INTO privateConversation;
 
     IF privateConversation.blocked THEN 
         RAISE EXCEPTION 'The conversation has been blocked';

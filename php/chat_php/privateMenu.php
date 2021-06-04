@@ -6,7 +6,7 @@
         
         $dbh = new PDO($conn_string);
 
-        $getPrivateConversation = "SELECT * FROM PrivateConversation WHERE id = :conversation";
+        $getPrivateConversation = "SELECT wasBlockedBy FROM PrivateConversation WHERE id = :conversation";
         $query = $dbh->prepare($getPrivateConversation);
 
         $query->bindParam(":conversation", $_REQUEST["conversation"], PDO::PARAM_INT);

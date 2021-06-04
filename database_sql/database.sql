@@ -315,7 +315,7 @@ RETURNS TRIGGER AS $$
 DECLARE participation RECORD;
 BEGIN
 
-    SELECT EXISTS(  SELECT * 
+    SELECT EXISTS(  SELECT users
                     FROM PartecipatesInConversation 
                     WHERE users = NEW.users AND conversation = NEW.conversation
                 ) INTO participation;
@@ -333,7 +333,7 @@ CREATE OR REPLACE FUNCTION is_post_a_question()
 RETURNS TRIGGER AS $$
 DECLARE question RECORD;
 BEGIN
-    SELECT EXISTS( SELECT * FROM Question WHERE id  = NEW.id) INTO question;
+    SELECT EXISTS( SELECT id FROM Question WHERE id  = NEW.id) INTO question;
 
     IF question.exists THEN 
         RETURN NULL;
@@ -347,7 +347,7 @@ CREATE OR REPLACE FUNCTION is_post_an_answer()
 RETURNS TRIGGER AS $$
 DECLARE answer RECORD;
 BEGIN
-    SELECT EXISTS( SELECT * FROM Answer WHERE id  = NEW.id) INTO answer;
+    SELECT EXISTS( SELECT id FROM Answer WHERE id  = NEW.id) INTO answer;
 
     IF answer.exists THEN 
         RETURN NULL;
@@ -361,7 +361,7 @@ CREATE OR REPLACE FUNCTION is_post_an_article()
 RETURNS TRIGGER AS $$
 DECLARE article RECORD;
 BEGIN
-    SELECT EXISTS( SELECT * FROM Article WHERE id  = NEW.id) INTO article;
+    SELECT EXISTS( SELECT id FROM Article WHERE id  = NEW.id) INTO article;
 
     IF article.exists THEN 
         RETURN NULL;
@@ -386,7 +386,7 @@ CREATE OR REPLACE FUNCTION is_user_logged_in()
 RETURNS TRIGGER AS $$
 DECLARE active_session RECORD;
 BEGIN
-    SELECT EXISTS(  SELECT * 
+    SELECT EXISTS(  SELECT id 
                     FROM Session 
                     WHERE id = NEW.users AND end_time IS NOT NULL AND date = CURRENT_DATE
                 ) INTO active_session;
@@ -404,7 +404,7 @@ CREATE OR REPLACE FUNCTION is_user_professor()
 RETURNS TRIGGER AS $$
 DECLARE professor RECORD;
 BEGIN
-    SELECT EXISTS( SELECT * FROM Professor WHERE id = NEW.id) INTO professor;
+    SELECT EXISTS( SELECT id FROM Professor WHERE id = NEW.id) INTO professor;
 
     IF professor.exists THEN 
         RETURN NULL;
@@ -418,7 +418,7 @@ CREATE OR REPLACE FUNCTION is_user_student()
 RETURNS TRIGGER AS $$
 DECLARE student RECORD;
 BEGIN
-    SELECT EXISTS( SELECT * FROM Student WHERE id  = NEW.id) INTO student;
+    SELECT EXISTS( SELECT id FROM Student WHERE id  = NEW.id) INTO student;
   
     IF student.exists THEN
         RETURN NULL;
@@ -432,7 +432,7 @@ CREATE OR REPLACE FUNCTION checkExistingProfessor()
 RETURNS TRIGGER AS $$
 DECLARE possibleProfessor RECORD;
 BEGIN
-    SELECT EXISTS( SELECT * FROM Professor JOIN Users on Professor.id = Users.id WHERE Users.mail=New.mail ) INTO possibleProfessor;
+    SELECT EXISTS( SELECT Professor.id FROM Professor JOIN Users on Professor.id = Users.id WHERE Users.mail=New.mail ) INTO possibleProfessor;
 
     IF possibleProfessor.exists THEN 
         UPDATE Users SET password=NEW.password WHERE Users.mail = NEW.mail;
@@ -448,10 +448,10 @@ CREATE OR REPLACE FUNCTION update_vote_if_it_exists()
 RETURNS TRIGGER AS $$
 DECLARE vote RECORD;
 BEGIN
-    SELECT EXISTS( SELECT * FROM Vote WHERE users = NEW.users AND post = NEW.post) INTO vote;
+    SELECT EXISTS( SELECT users FROM Vote WHERE users = NEW.users AND post = NEW.post) INTO vote;
 
     IF vote.exists THEN 
-        SELECT * FROM Vote WHERE users = NEW.users AND post = NEW.post INTO vote;
+        SELECT value FROM Vote WHERE users = NEW.users AND post = NEW.post INTO vote;
 
         IF vote.value != NEW.value THEN
             UPDATE Vote
