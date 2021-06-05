@@ -18,7 +18,8 @@ try {
         $newPassword= filter_var( $newPassword ,FILTER_SANITIZE_URL);
         $code = filter_var($_REQUEST["code"],FILTER_SANITIZE_NUMBER_INT);
 
-    
+        $newPassword= password_hash($newPassword, PASSWORD_ARGON2I);
+
 
         $update = "UPDATE users SET password =:password, onetimecode=NULL, recoveryMode=FALSE";
         $where= " WHERE onetimecode=:code AND recoverymode=TRUE RETURNING *";

@@ -40,6 +40,7 @@ CREATE TABLE Users(
     password TEXT NOT NULL,
     oneTimeCode NUMERIC,
     recoveryMode BOOLEAN UNIQUE,
+    picture VARCHAR(200),
 
     CONSTRAINT valid_mail CHECK (mail ~ '^(.+)@(.+)$'),
     CONSTRAINT valid_prefix CHECK (prefix ~ '^(\+)?(?:[0-9]?){1,4}'),
@@ -49,7 +50,7 @@ CREATE TABLE Users(
 CREATE TABLE Professor(
     id INTEGER PRIMARY KEY,
     office_hours VARCHAR(200),
-    office VARCHAR(8),
+    office VARCHAR(35),
 
     CONSTRAINT professor_is_a_user FOREIGN KEY(id)
         REFERENCES Users(id)
