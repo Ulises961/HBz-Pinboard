@@ -40,6 +40,12 @@
         header("Location: /HBz/Login.php",TRUE,302);
         die();
     }
+    elseif (isset($_SESSION['message']))
+    {
+        echo "<script>alert('".$_SESSION['message']."')</script>";
+        unset($_SESSION['message']);      
+    }
+    
 ?>
     <script>changeActiveLink("forum-link");</script> 
 

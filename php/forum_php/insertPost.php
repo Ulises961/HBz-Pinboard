@@ -14,29 +14,32 @@ if ($data !== NULL){
   $text  = $data-> text;
   $questionId = $data -> questionId;
 
-  
-
 }else{
+
   $title = $_REQUEST["title"];
   $text  = $_REQUEST["text"];
   $tags= $_REQUEST["tags"];
   $tags = filter_var($tags,FILTER_SANITIZE_STRING);
+
 }
 
 $date  = date("d/m/y");
 $time  = date("H:i:s");
 $user  = $_SESSION["user_id"];
+
 $postId;
 $post;
 try {
 
+ 
+  if ($text ==="" || $text ==="<p><br></p>" || $text ==="<p><br data-mce-bogus='1'></p>")
+    throw new Exception("Invalid input");
+  
+  
   $title = filter_var($title,FILTER_SANITIZE_STRING);
   $text = filter_var($text,FILTER_SANITIZE_STRING,FILTER_FLAG_ENCODE_AMP);
-
-
   $dbh = new PDO($conn_string);
-  if ($text ==="" || $text ==="<p><br></p>" || $text ==="<p><br data-mce-bogus='1'></p>")
-    throw new Exception();
+  
   $insert_into = "INSERT INTO Post(id, users, date, time, title, text, votes) ";
   $values = "VALUES(default, :user, :date, :time, :title, :text, 0) RETURNING *";
   $sql = $insert_into.$values;
@@ -51,9 +54,14 @@ try {
   $insert->execute();
 
   $post = $insert->fetch(PDO::FETCH_ASSOC);
- 
+  var_dump($post);
 } catch (Exception $e) {
-  echo"error:". $e->getMessage();
+  $_SESSION["message"]= $e->getMessage();
+   
+  header("Location: ../../Post.php");
+  // provide your own HTML for the error page
+  die();
+
 }
 
 if(isset($questionId) && $questionId != ""){
@@ -78,6 +86,7 @@ if(isset($questionId) && $questionId != ""){
   if($tags !== ""){
     include "insertTag.php";
   }
+
   header("Location: ./../../Question.php?id=".$post["id"]);
 }
 ?>
