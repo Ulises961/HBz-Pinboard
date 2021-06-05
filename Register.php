@@ -117,21 +117,21 @@
                         <!-- Validation of password -->
                         <div class="form-row m-b-55">
                             <div class="name">Password*</div>
-                            <div class="value">
-                                
-                                <div class="input-group-desc">
-                                    <input class="input--style-5" type="password" name="pswd"
-                                        id="password" aria-label="Password"
-                                        onkeyup="validPswd(this)" required>
-                                       
-                                    <div id="pswd-feedback"></div>
-                                    
-                                </div>
-                                <div class="d-md-table-row">
-                                    <input class="d-table-cell p-t-15" type="checkbox" id=show_pswd onclick="showPswd()">
-                                    <label for="show_pswd" class="d-table-cell p-t-15">Show password</label>
-                                </div>   
-                            </div>
+                            <div class='value'>
+                        
+                        <div class='input-group-desc'>
+                            <input class='input--style-5' type='password' name='pswd'
+                                id='password'
+                                onkeyup = 'validPswd(this)' aria-label="Password" required>
+                            
+                            <div id='pswd-feedback'></div>
+                            
+                        </div>
+                        <div class='checkbox'>
+                            <input type='checkbox' id=show-pswd onclick='showPswd()'>
+                            <label for="show-pswd">Show password</label>
+                        </div>   
+                    </div>
                                                          
                         </div>
                         <div class="form-row m-b-55">
