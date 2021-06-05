@@ -34,7 +34,7 @@
       
     if($tag === ""){    
         
-        $select = "SELECT p.id AS id, p.date AS date, p.time AS time, p.title AS title, u.name AS name,  p.votes AS votes";
+        $select = "SELECT p.id AS id, p.date AS date, p.time AS time, p.title AS title, u.name AS name,  p.votes AS votes, u.picture AS picture ";
         $from = " FROM Post p JOIN Question q ON p.id = q.id JOIN Users u on p.users = u.id ".$orderby;
         $sql =$select.$from;
         $query = $dbh-> prepare($sql);
