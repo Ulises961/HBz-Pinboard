@@ -1,6 +1,6 @@
 <?php
 
-  include "forum_credentials.php";
+  include "php/credentials.php";
   
   if(isset($_REQUEST["show"]))
     $postID = $_REQUEST["post"];

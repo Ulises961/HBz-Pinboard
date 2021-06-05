@@ -1,6 +1,9 @@
 <?php
-
-include "forum_credentials.php";
+ 
+ if(file_exists("php/credentials.php"))
+ include "php/credentials.php";
+else
+ include "../credentials.php";
 
 $post_id = $_REQUEST["post"];
 $dbh = new PDO($conn_string);

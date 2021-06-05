@@ -1,6 +1,6 @@
 <?php 
 
-include "forum_credentials.php";
+include "php/credentials.php";
 include "components/question.php";
 
 try {
@@ -12,7 +12,7 @@ try {
 
 
   $dbh = new PDO($conn_string);
-  $select = "SELECT p.id AS id, p.date AS date, p.time AS time, p.title AS title, u.name AS name,  p.votes AS votes ,p.text AS text, u.picture AS picture";
+  $select = "SELECT p.id AS id, p.date AS date, p.time AS time, p.title AS title, u.name AS name,  p.votes AS votes ,p.text AS text, u.picture AS picture, u.id AS userid";
   $from = " FROM Post P JOIN Users u ON p.users = u.id";
   $where = " WHERE P.id = :id AND NOT EXISTS ( SELECT * FROM Answer A WHERE P.id = A.id )";
   
@@ -23,7 +23,7 @@ try {
   $query-> execute();
 
   $post = $query -> fetch(PDO::FETCH_ASSOC);
-  
+
   if (count($post) < 1)
     throw new Exception();
 

@@ -1,5 +1,5 @@
 <?php
-include "chat_credentials.php";
+include "php/credentials.php";
 include "components/conversation.php";
 
 // right now we are onlu testing and there is no session vairable set

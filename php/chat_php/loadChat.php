@@ -1,5 +1,5 @@
 <?php
-include "chat_credentials.php";
+include "../credentials.php";
 include "components/incomingMessage.php";
 include "components/outgoingMessage.php";
 
@@ -15,7 +15,7 @@ try {
   if($isConversationPrivate == 1)
     $table = "PrivateMessageTo";
 
-  $getMessages = "SELECT date, time, text FROM $table ". 
+  $getMessages = "SELECT users, date, time, text FROM $table ". 
                  "WHERE conversation = :conversation ORDER BY date ASC, time ASC";
   
   $query = $dbh -> prepare($getMessages);

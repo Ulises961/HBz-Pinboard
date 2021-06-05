@@ -2,10 +2,8 @@
 
 
 include "../security/SecurityService.php";
-include "../registration_php/credentials.php";
+include "../credentials.php";
 include "startSession.php";
-
-session_start(['cookie_lifetime' => 43200,'cookie_secure' => true,'cookie_httponly' => true, 'cookie_samesite'=>'Strict']);
 
 if (! empty($_POST['login'])) {
 

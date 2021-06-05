@@ -1,9 +1,8 @@
 <?php
-include "chat_credentials.php";
+include "../credentials.php";
 
 // right now we are onlu testing and there is no session vairable set
-// $user = $_SESSION["user"]; 
-$user = 1; 
+$user = $_SESSION["user"]; 
 
 try {
   $dbh = new PDO($conn_string);

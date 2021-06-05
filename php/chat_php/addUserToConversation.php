@@ -1,6 +1,6 @@
 <?php
 
-include "chat_credentials.php";
+include "../credentials.php";
 
 $conversation = $_REQUEST["conversation"];
 $new_user = $_REQUEST["newUser"];

@@ -4,7 +4,7 @@
 
 // Connecting, selecting database
 
-include "credentials.php";
+include "php/credentials.php";
 
 $dbh = new PDO($conn_string);
 

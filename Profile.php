@@ -32,15 +32,14 @@
 
   <?php include "navbar2.php"; 
   if (!isset($_SESSION["user_id"])) {
-    // session_destroy();
-    // header("Location: /HBz/Login.php",TRUE,302);
-    // die();
+     session_destroy();
+     header("Location: /HBz/Login.php",TRUE,302);
+     die();
 }
 ?>
   <script>changeActiveLink("profile-link");</script>
   
   <?php
-    $_SESSION["user_id"] = 1; //This line is just for test purposes, it must be removed in the final version
     $user = $_SESSION["user_id"];
      
     if(isset($_REQUEST["user"]) && $_REQUEST["user"] != $_SESSION["user_id"])
@@ -58,7 +57,7 @@
                 <div class="card">
                   <div class="card-body">
                     <div class="d-flex flex-column align-items-center text-center">
-                      <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                      <img src="<?php echo $user["picture"]?>" alt="Admin" class="rounded-circle" width="150">
                       <div class="mt-3">
                         <!-- FULL NAME -->
                         <h4>
@@ -77,7 +76,7 @@
                             $privateConversationParameters = "startConversationWithUser=" . $_REQUEST["user"]
                                                             ."&otherUserName=" . $user["name"];
 
-                            echo "<a href='chat.php?$privateConversationParameters'>".
+                            echo "<a href='Chat.php?$privateConversationParameters'>".
                                     "<button class='btn btn-outline-primary'> Message </button>".
                                   "</a>";
                           }

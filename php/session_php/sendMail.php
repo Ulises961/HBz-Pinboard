@@ -8,11 +8,9 @@ require_once __DIR__ . '/../../vendor/phpmailer/src/Exception.php';
 require_once __DIR__ . '/../../vendor/phpmailer/src/PHPMailer.php';
 require_once __DIR__ . '/../../vendor/phpmailer/src/SMTP.php';
 require_once  __DIR__ . '/../../../mailCredentials.php';
-include './../registration_php/credentials.php';
+include '../credentials.php';
 
 require_once '../security/SecurityService.php';
-
-session_start(['cookie_lifetime' => 43200,'cookie_secure' => true,'cookie_httponly' => true,'cookie_samesite'=>'Strict']);
 
 
 

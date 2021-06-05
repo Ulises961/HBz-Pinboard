@@ -1,7 +1,7 @@
 <?php
 
 
-    include "forum_credentials.php";
+    include "php/credentials.php";
 
 
     
@@ -34,14 +34,14 @@
       
     if($tag === ""){    
         
-        $select = "SELECT p.id AS id, p.date AS date, p.time AS time, p.title AS title, u.name AS name,  p.votes AS votes, u.picture AS picture ";
+        $select = "SELECT p.id AS id, p.date AS date, p.time AS time, p.title AS title, u.name AS name,  p.votes AS votes, u.picture AS picture, u.id AS userid ";
         $from = " FROM Post p JOIN Question q ON p.id = q.id JOIN Users u on p.users = u.id ".$orderby;
         $sql =$select.$from;
         $query = $dbh-> prepare($sql);
 
     }else{ 
 
-        $select = "SELECT p.id AS id, p.date AS date, p.time AS time, p.title AS title, u.name AS name,  p.votes AS votes, u.picture AS picture";
+        $select = "SELECT p.id AS id, p.date AS date, p.time AS time, p.title AS title, u.name AS name,  p.votes AS votes, u.picture AS picture, u.id AS userid";
         $from = " FROM Post p JOIN Question q ON p.id = q.id JOIN HasTag h ON p.id=h.post JOIN Users u on p.users = u.id";
         $where = " WHERE h.tag=:tag ".$orderby;
         $sql =$select.$from.$where;

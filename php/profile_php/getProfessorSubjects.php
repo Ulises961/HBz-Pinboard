@@ -1,7 +1,7 @@
 <?php
 
 function getProfessorSubjects($user_id){
-    include "profile_credentials.php";
+    include "php/credentials.php";
 
     try {
         $dbh = new PDO($conn_string);

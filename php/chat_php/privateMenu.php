@@ -1,6 +1,6 @@
 
 <?php
-    include_once "chat_credentials.php";
+    include_once "../credentials.php";
 
     if(isset($_REQUEST["conversation"])){
         

@@ -1,6 +1,6 @@
 <?php
 
-include_once "profile_credentials.php";
+include_once "php/credentials.php";
 include_once "getStudentProgram.php";
 include_once "getProfessorSubjects.php";
 

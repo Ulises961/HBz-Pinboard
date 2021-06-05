@@ -1,6 +1,6 @@
 <?php
 
-include "contact_credentials.php";
+include "php/credentials.php";
 
 
 

@@ -2,7 +2,11 @@
 include "components/tag.php";
 
 function findTagId($tagContent){
-include "forum_credentials.php";
+
+if(file_exists("php/credentials.php"))
+    include "php/credentials.php";
+else
+    include "../credentials.php";
 
 $dbh = new PDO($conn_string);
 
@@ -25,7 +29,10 @@ return $tag["id"];
 
 function findAllTags($question){
 
-    include "forum_credentials.php";
+    if(file_exists("php/credentials.php"))
+        include "php/credentials.php";
+    else
+        include "../credentials.php";
 
     $dbh = new PDO($conn_string);
     

@@ -5,6 +5,7 @@ function vote(value, id){
     
     xmlhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
+            console.log(this.response);
           showAnswerVotes(id);
         }
     };
@@ -51,7 +52,8 @@ function insertAnswer(questionId){
 
             if ( this.readyState == 4 && this.status == 200){
 
-                showAnswers(this.responseText);
+                location.reload();
+                //showAnswers(this.responseText);
                 
             }
         }
@@ -65,7 +67,7 @@ function showAnswers(post){
     var answers = document.getElementById("answer");
     var newAnswer = document.createElement("div");
     newAnswer.innerHTML=post;
-   console.log(post);
+   
     answers.appendChild(newAnswer);
     
        

@@ -2,7 +2,7 @@
 
 function insertAnswer($post,$question){
 
-include "forum_credentials.php";
+include "../credentials.php";
 
   try {
     $dbh = new PDO($conn_string);

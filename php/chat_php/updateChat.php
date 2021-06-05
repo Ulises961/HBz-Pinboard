@@ -1,5 +1,5 @@
 <?php
-include "chat_credentials.php";
+include "../credentials.php";
 include "components/incomingMessage.php";
 include "components/outgoingMessage.php";
 

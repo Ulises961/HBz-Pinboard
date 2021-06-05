@@ -1,6 +1,10 @@
 <?php
 
-  include "forum_credentials.php";
+if(file_exists("php/credentials.php"))
+ include "php/credentials.php";
+else
+ include "../credentials.php";
+
 $data = json_decode(file_get_contents("php://input"));
 $post = $data -> id;
 $vote = $data -> value;
@@ -8,13 +12,14 @@ $user = $_SESSION["user_id"];
 $date  = date("d/m/y");
 $time  = date("H:i:s");
 
+
 try {
   $dbh = new PDO($conn_string);
 
   $insert_into = "INSERT INTO Vote(id, date, time, value, users, post) ";
-  $values = "VALUES(default, :date, :time, :vote, :user, :post)";
+  $values = "VALUES(default, :date, :time, :vote, :user, :post) RETURNING *";
   $sql = $insert_into.$values;
-
+  
   $insert = $dbh-> prepare($sql);
 
   $insert-> bindParam(":user", $user, PDO::PARAM_INT);
@@ -24,6 +29,7 @@ try {
   $insert-> bindParam(":post", $post, PDO::PARAM_INT);
   $insert->execute();
 
+  var_dump( $insert->fetch());
 
 
 } catch (Exception $e) {

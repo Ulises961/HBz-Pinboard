@@ -1,6 +1,6 @@
 <?php
 
-include "forum_credentials.php";
+include "php/credentials.php";
 include_once "components/comment.php";
 
 $dbh = new PDO($conn_string);

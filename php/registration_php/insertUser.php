@@ -1,10 +1,9 @@
 
 <?php
 
-include "credentials.php";
+include "php/credentials.php";
 require_once '../security/SecurityService.php';
 
-session_start(['cookie_lifetime' => 43200,'cookie_secure' => true,'cookie_httponly' => true,'cookie_samesite'=>'Strict']);
 
 $dbh = new PDO($conn_string);
 

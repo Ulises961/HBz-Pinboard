@@ -1,10 +1,8 @@
 <?php
 
-include __DIR__."/forum_credentials.php";
+include "../credentials.php";
 include __DIR__."/insertAnswer.php";
 include __DIR__."/components/answer.php";
-
-session_start(['cookie_lifetime' => 43200,'cookie_secure' => true,'cookie_httponly' => true]);
 
 $data = json_decode(file_get_contents("php://input"));
 
@@ -55,7 +53,7 @@ try {
 
   $post = $insert->fetch(PDO::FETCH_ASSOC);
 
-
+  var_dump($post);
 
 }catch (Exception $e) {
   $_SESSION["message"]= $e->getMessage();
@@ -70,12 +68,13 @@ if(isset($questionId) && $questionId != ""){
 
   insertAnswer($post["id"], $questionId);
 
-  $select= "SELECT name, pict FROM users WHERE id = :user";
+  $select= "SELECT name, picture FROM users WHERE id = :user";
   $sql = $dbh -> prepare($select);
   $sql->bindParam(":user", $user); 
   $sql-> execute();
 
   $name = $sql-> fetch(PDO::FETCH_ASSOC);
+
   $post = array_merge($name,$post);
   createAnswer($post);
 

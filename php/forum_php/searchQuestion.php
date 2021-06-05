@@ -1,7 +1,8 @@
 <?php
 
-    include "forum_credentials.php";
-    session_start();
+    include "../credentials.php";
+ 
+
 
     $dbh = new PDO($conn_string);
     $query;

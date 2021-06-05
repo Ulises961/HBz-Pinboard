@@ -100,7 +100,7 @@ $id = $_GET["id"];
          throw( "Empty Answer");
         }
         else{
-            insertAnswer(<?php echo $id?> ,1);  
+            insertAnswer(<?php echo $id?>);  
             event.preventDefault(); 
         }
     } catch(e){

@@ -1,5 +1,5 @@
 <?php
-include "forum_credentials.php";
+include "php/credentials.php";
 
 $post = $_REQUEST["post"];
 

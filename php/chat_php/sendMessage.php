@@ -1,5 +1,5 @@
 <?php
-include "chat_credentials.php";
+include "../credentials.php";
 
 $isConversationPrivate = $_REQUEST["isPrivate"];
 $conversation = $_REQUEST["conversation"];

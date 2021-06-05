@@ -1,7 +1,6 @@
 <?php
 
-session_start(['cookie_lifetime' => 43200,'cookie_secure' => true,'cookie_httponly' => true]);
-include './../registration_php/credentials.php';
+include '../credentials.php';
 
 $dbh = new PDO($conn_string);
 $regex = "/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/";

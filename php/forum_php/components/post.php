@@ -27,6 +27,7 @@ function createPostBody($post,$isAnswer){
     $title = $post["title"];
     $user = $post["name"];
     $picture = $post["picture"];
+    $userId = $post["userid"];
 
     $show="";
  $linkToQuestion = " <h1><a href='Question.php?id=$id' class='text-body'>$title</a></h1>";
@@ -47,7 +48,7 @@ function createPostBody($post,$isAnswer){
                 <p class='text-muted'> Posted on  
                     <span class='text-secondary '> $date </span>
                     at  <span class='text-secondary'> $time </span>
-                    <span> by  $user <a href=''><img src='$picture' class='mr-3 rounded-circle' width='70' alt='User'></a></span>
+                    <span> by  $user <a href='Profile.php?user=$userId'><img src='$picture' class='mr-3 rounded-circle' width='70' alt='User'></a></span>
                 </p>
                 
 

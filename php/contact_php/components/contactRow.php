@@ -6,11 +6,12 @@ function createContactRow($user){
     $name = $user["name"];
     $surname = $user["surname"];
     $email = $user["mail"];
+    $picture = $user["picture"];
     
     echo "<tr>
             <td>
                 <div class='widget-26-job-emp-img'>
-                    <img src='https://bootdey.com/img/Content/avatar/avatar5.png' alt='Company' width='50px'/>
+                    <img src=$picture alt='Company' width='50px'/>
                 </div>
             </td>
             <td>

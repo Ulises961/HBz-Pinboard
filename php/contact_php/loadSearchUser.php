@@ -1,6 +1,6 @@
 <?php
-include "contact_credentials.php";
-session_start();
+include "../credentials.php";
+
 $search_term = "%".$_REQUEST["searchTerm"]."%"; // The % will match any character
 
 try {

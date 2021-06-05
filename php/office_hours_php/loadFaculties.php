@@ -1,5 +1,5 @@
 <?php 
-include "officeHoursCredentials.php";
+include "php/credentials.php";
 include "components/facultyOptions.php";
 
 $dbh = new PDO($conn_string);

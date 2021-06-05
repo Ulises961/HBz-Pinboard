@@ -1,6 +1,6 @@
 <?php
 
-include "profile_credentials.php";
+include "php/credentials.php";
 include "components/askedQuestion.php";
 
 $user = $_SESSION["user_id"];

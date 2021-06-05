@@ -40,7 +40,7 @@ CREATE TABLE Users(
     password TEXT NOT NULL,
     oneTimeCode NUMERIC,
     recoveryMode BOOLEAN UNIQUE,
-    picture VARCHAR(200),
+    picture VARCHAR(200) DEFAULT 'images/user.png',
 
     CONSTRAINT valid_mail CHECK (mail ~ '^(.+)@(.+)$'),
     CONSTRAINT valid_prefix CHECK (prefix ~ '^(\+)?(?:[0-9]?){1,4}'),

@@ -1,6 +1,6 @@
 <?php
 
-include "chat_credentials.php";
+include "../credentials.php";
 
 if(isset($_REQUEST["groupName"])){
 

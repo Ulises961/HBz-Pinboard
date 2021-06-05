@@ -3,7 +3,9 @@
 include "components/question.php";
 
 if (session_status() == PHP_SESSION_NONE) {
-    session_start();
+
+    session_start(['cookie_lifetime' => 43200,'cookie_secure' => true,'cookie_httponly' => true]);
+
 }
 $questions = unserialize($_SESSION["questions"]);
 
