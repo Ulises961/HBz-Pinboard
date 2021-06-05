@@ -786,3 +786,16 @@ div.rs-select2.js-select-simple.select--no-search{
   margin: 1rem;
 
 }
+.input-group{
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  flex-wrap: wrap;
+}
+.input-group > input{
+  flex-basis: 1%;
+  margin: 5px;
+}
+label{
+margin: 5px;
+}

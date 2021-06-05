@@ -89,9 +89,9 @@
                             <div id='pswd-feedback'></div>
                             
                         </div>
-                        <div class='d-md-table-row'>
-                            <input class="d-table-cell p-t-15" type='checkbox' id=show-pswd onclick='showPswd()'>
-                            <label for="show-pswd" class="d-table-cell p-t-15 label--desc">Show password</label>
+                        <div class='input-group'>
+                            <input type='checkbox' id=show-pswd onclick='showPswd()'>
+                            <label for="show-pswd">Show password</label>
                         </div>   
                     </div>
                                                 
