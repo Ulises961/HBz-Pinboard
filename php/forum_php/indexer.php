@@ -48,7 +48,7 @@ $i = $j + 5; // up to 5 questions per page
 while($j < $i && $j < $total_questions) {
 
     if( $question = $questions[$j])
-    $question["text"]="";
+        $question["text"]="";
 
     $class = ["class" => ""];
     $question = array_merge($question,$class);

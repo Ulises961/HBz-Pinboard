@@ -54,8 +54,10 @@ try {
   $insert->execute();
 
   $post = $insert->fetch(PDO::FETCH_ASSOC);
-  var_dump($post);
-} catch (Exception $e) {
+
+
+
+}catch (Exception $e) {
   $_SESSION["message"]= $e->getMessage();
    
   header("Location: ../../Post.php");
@@ -68,7 +70,7 @@ if(isset($questionId) && $questionId != ""){
 
   insertAnswer($post["id"], $questionId);
 
-  $select= "SELECT name FROM users WHERE id = :user";
+  $select= "SELECT name, pict FROM users WHERE id = :user";
   $sql = $dbh -> prepare($select);
   $sql->bindParam(":user", $user); 
   $sql-> execute();

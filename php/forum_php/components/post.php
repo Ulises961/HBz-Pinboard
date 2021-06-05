@@ -27,6 +27,7 @@ function createPostBody($post,$isAnswer){
     $title = $post["title"];
     $user = $post["name"];
     $picture = $post["picture"];
+
     $show="";
  $linkToQuestion = " <h1><a href='Question.php?id=$id' class='text-body'>$title</a></h1>";
     if($isAnswer){
@@ -48,8 +49,10 @@ function createPostBody($post,$isAnswer){
                     at  <span class='text-secondary'> $time </span>
                     <span> by  $user <a href=''><img src='$picture' class='mr-3 rounded-circle' width='70' alt='User'></a></span>
                 </p>
-       
+                
+
             </div>";
+     
 }
 
 

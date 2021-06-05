@@ -9,7 +9,7 @@ function closeSession($user, $dbh){
 
     $closeSession = "UPDATE Session ".
                     "SET end_time = :endTime ". 
-                    "WHERE end_time = NULL AND users = :user";
+                    "WHERE end_time ISNULL AND users = :user";
 
     $query = $dbh->prepare($closeSession);
     

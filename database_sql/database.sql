@@ -389,7 +389,7 @@ DECLARE active_session RECORD;
 BEGIN
     SELECT EXISTS(  SELECT id 
                     FROM Session 
-                    WHERE id = NEW.users AND end_time IS NOT NULL AND date = CURRENT_DATE
+                    WHERE users = NEW.users AND end_time ISNULL AND date = CURRENT_DATE
                 ) INTO active_session;
 
     IF active_session.exists THEN 
