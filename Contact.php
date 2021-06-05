@@ -45,7 +45,7 @@
         changeActiveLink("contact-link");
     </script>
 
-
+<div id=container>
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12 card-margin">
@@ -101,7 +101,7 @@
         </div>
 
     </div>
-
+    </div>
     <!-- Footer -->
     <?php include 'footer.php'; ?>
 

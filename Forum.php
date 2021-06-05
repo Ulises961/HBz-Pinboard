@@ -43,9 +43,9 @@
     
 ?>
     <script>changeActiveLink("forum-link");</script>
- 
 
-    <div class="container-fluid">
+
+    <div class="container-fluid"  id="container">
         <div class="main-body p-0">
             <div class="container">
                 <h1>HBz Forum</h1>
@@ -103,6 +103,7 @@
             </div>
         </div>
     </div>
+    
 
     <!-- Footer -->
     <?php include 'footer.php'; ?>

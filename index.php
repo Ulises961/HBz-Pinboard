@@ -147,7 +147,7 @@
                                 class="img-fluid"
                             />
                             <h3>Ulises Sosa</h3>
-                            <p>Backend and Founder</p>
+                            <p>Full-Stack Developer and Founder</p>
                             </div>
                             <div class="col-md-3">
                             <img
@@ -156,7 +156,7 @@
                                 class="img-fluid"
                             />
                             <h3>Sultan Balawal</h3>
-                            <p>Backend and Founder</p>
+                            <p>Full-Stack Developer and Founder</p>
                             </div>
                             <div class="col-md-3">
                             <img

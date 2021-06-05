@@ -20,16 +20,30 @@
 
 <body>
 
-  <?php include "navbar2.php"; ?>
+<?php 
+include "navbar2.php"; 
+
+  if (!isset($_SESSION["user_id"])) {
+   session_destroy();
+   header("Location: /HBz/Login.php",TRUE,302);
+   die();
+
+ }
+ 
+ 
+   ?>
+<div  id="container">
+  
+ 
   <script>
     changeActiveLink("office_hours-link");
   </script>
 
-  <header class="office-hours-form">
-
-    <h1>Office Hours Booking</h1>
-
-    <div class="sel-forms-office">
+  <h1>Office Hours Booking</h1>
+ 
+  <div class="office-hours-form">
+ 
+    <div class="container-fluid">
       <select id="faculty-select" onchange="loadStudyPrograms()" class="form-select" aria-label="Default select example">
         <option selected>Select Faculty</option>
         <?php include "php/office_hours_php/loadFaculties.php" ?>
@@ -42,32 +56,23 @@
         <option selected>Courses</option>
 
       </select>
-    </div>
-
-    <button class="btn btn-primary" onclick="loadProfessor()">Search</button>
-
-    <table id="officeHoursTable" class="table">
-      <thead>
-        <tr>
-          <th scope="col">Professor's Full Name</th>
-          <th scope="col">Office Hour</th>
-          <th scope="col">Email</th>
-        </tr>
-      </thead>
-      <tbody id="officeHourRow">
+    
+      <button class="btn btn-primary" onclick="loadProfessor()">Search</button>
      
-      
-      </tbody>
-    </table>
-
-  </header>
-
-
-  <!-- Footer -->
-  <?php include 'footer.php'; ?>
+    </div>
+ 
+  </div>
+  <br>
+  <div id="officeHourRow"></div>
   
+
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 
+  
+
+</div>
+<?php include "footer.php"?>
 
 </body>
 

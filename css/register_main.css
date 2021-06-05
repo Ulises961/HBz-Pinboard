@@ -353,7 +353,7 @@ h6 {
 .btn {
   display: inline-block;
   line-height: 50px;
-  padding: 0 50px;
+  padding: 10px 50px;
   -webkit-transition: all 0.4s ease;
   -o-transition: all 0.4s ease;
   -moz-transition: all 0.4s ease;
@@ -362,7 +362,7 @@ h6 {
   font-size: 15px;
   text-transform: uppercase;
   font-weight: 510;
-  color: rgb(12, 61, 117);
+  color: rgb(8, 8, 8);
   font-family: inherit;
 }
 
@@ -402,15 +402,14 @@ h6 {
 }
 
 .btn--red {
-  background: #ff4b5a;
-  
+  background: #ff2b3d;
   font-weight: 505;
-  color:#4e5053
+  color:#0a0a0a
 }
 
 .btn--red:hover {
-  background: #ff2b3d;
-  color: #ffffff;
+  background:#c21a28;
+  color: #fff;
 }
 
 .btn--grey{

@@ -29,6 +29,7 @@
 
 <body>
 
+
   <?php include "navbar2.php"; 
   if (!isset($_SESSION["user_id"])) {
     // session_destroy();
@@ -47,7 +48,8 @@
 
     include "php/profile_php/getUserInfo.php"; 
   ?>
-
+<div  id="container">
+  
     <div class="container">
       <div class="main-body">
       
@@ -158,15 +160,8 @@
 
 
   <!-- Footer -->
-  <div class=footer>
-    <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
-      </div>
-      <!-- /.container -->
-    </footer>
-  </div>
-  
+   </div>
+ <?php include "footer.php"?> 
 
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
