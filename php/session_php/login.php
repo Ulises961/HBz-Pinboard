@@ -3,6 +3,7 @@
 
 include "../security/SecurityService.php";
 include "../registration_php/credentials.php";
+include "startSession.php";
 
 session_start(['cookie_lifetime' => 43200,'cookie_secure' => true,'cookie_httponly' => true, 'cookie_samesite'=>'Strict']);
 
@@ -31,11 +32,12 @@ if (! empty($_POST['login'])) {
                 $result = $query->fetch(PDO::FETCH_ASSOC);
             
                 if ($res= password_verify($pswd, $result['password'])) {
-                
-                $_SESSION["user_id"] = $result["id"];
-                $_SESSION["user_name"] = $result["name"];
-                
-                exit(header("Location: ../../Forum.php"));
+                    
+                    $_SESSION["user_id"] = $result["id"];
+                    $_SESSION["user_name"] = $result["name"];
+                    startSession($_SESSION["user_id"], $dbh);
+
+                    exit(header("Location: ../../Forum.php"));
                 } else {
                     throw new Exception('Invalid Credentials');
                 } 
