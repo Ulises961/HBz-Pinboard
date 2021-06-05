@@ -156,7 +156,7 @@
                                         <option value="student">Student</option>
                                         <option value="professor">Professor</option>
                                     </select>
-                                    <button class="btn btn-secondaty btn--grey" type="button" onclick ="displayOptions()">Select</button>
+                                    <button class="btn" type="button" onclick ="displayOptions()">Select</button>
                                     <div class="select-dropdown"></div>
                              
                                 </div>

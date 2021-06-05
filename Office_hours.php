@@ -19,9 +19,22 @@
 </head>
 
 <body>
+
+<?php 
+include "navbar2.php"; 
+
+  if (!isset($_SESSION["user_id"])) {
+   session_destroy();
+   header("Location: /HBz/Login.php",TRUE,302);
+   die();
+
+ }
+ 
+ 
+   ?>
 <div  id="container">
   
-  <?php include "navbar2.php"; ?>
+ 
   <script>
     changeActiveLink("office_hours-link");
   </script>

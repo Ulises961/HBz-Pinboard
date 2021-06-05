@@ -27,9 +27,12 @@ h1
 }
 
 .item{
-
+    width: 400px;
     padding: .2rem;
     margin: .1rem .2rem .5rem;
+    flex-basis: auto;
+    align-items: left;
+    flex-wrap: wrap;
     
 }
 h4{
@@ -55,20 +58,18 @@ h4{
         margin-bottom: 0.7rem;
     }
     .btn.btn-primary
-{
-    margin-top: 0.7rem;
-    width: 300px;
-    height: 40px;
+    {
+        margin-top: 0.7rem;
+        width: 300px;
+        height: 40px;
    
-}
-
-.item{
-    width: 300px;
+    }
+    .item{
+        width: 300px;
+        flex-basis: auto;
+        align-items: left;
+        flex-wrap: wrap;
  
-    flex-basis: auto;
-    align-items: left;
-    flex-wrap: wrap;
- 
-}
+    }
 
 }
