@@ -1,7 +1,7 @@
 
 <?php
 
-include "php/credentials.php";
+include "../credentials.php";
 require_once '../security/SecurityService.php';
 
 

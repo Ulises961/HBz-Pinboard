@@ -148,19 +148,22 @@
 
                         <div class="form-row m-b-55">
                             <div class="name">User*</div>
-                            <div class="col-lg-4 col-md-6 col-sm-6">
+                        
                                 
-                                <div class="rs-select2 js-select-simple select--no-search container">
-                                    <select class= "custom-select" name="usertypes" id="usertypes" aria-label="Select role">
-                                        <option disabled="enabled" selected="selected">Choose role</option>
-                                        <option value="student">Student</option>
-                                        <option value="professor">Professor</option>
-                                    </select>
-                                    <button class="btn" type="button" onclick ="displayOptions()">Select</button>
-                                    <div class="select-dropdown"></div>
-                             
-                                </div>
+                            <div class="rs-select2 js-select-simple select--no-search">
+                                <select class= "custom-select" name="usertypes" id="usertypes" aria-label="Select role">
+                                    <option disabled="enabled" selected="selected">Choose role</option>
+                                    <option value="student">Student</option>
+                                    <option value="professor">Professor</option>
+                                </select>
+                                
+                                <div class="select-dropdown"></div>
+                            
                             </div>
+                             
+                                
+                            <button class="btn btn--grey btn--radius-2" id="selectRole" type="button" onclick ="displayOptions()">Confirm Role</button>
+                          
                         </div>
                         <!-- list of programs offered by the university -->
                         <div class="form-row hidden" id="study_program" style="display: none;">

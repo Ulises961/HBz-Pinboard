@@ -362,7 +362,7 @@ h6 {
   font-size: 15px;
   text-transform: uppercase;
   font-weight: 510;
-  color: rgb(8, 8, 8);
+  color: rgb(0, 0, 0);
   font-family: inherit;
 }
 
@@ -413,7 +413,15 @@ h6 {
 }
 
 .btn--grey{
+  background: #e5e5e5;
+  color: #0a0a0a;
+  padding: .2rem;
+  margin: 1rem;
+}
+.btn--grey:hover{
   background: #999;
+  color: #ffff;
+
 }
 
 .btn--small{
@@ -676,6 +684,8 @@ input {
   -moz-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+
+ 
 }
 
 .rs-select2 .select2-container .select2-selection--single .select2-selection__arrow b {
@@ -759,17 +769,20 @@ input {
   display: none;
 }
 
-div.rs-select2.js-select-simple.select--no-search.container{
+div.rs-select2.js-select-simple.select--no-search{
     
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: left;
+  flex-basis: 40%;
+  margin: .1rem .2rem .1rem;
 }
-div.container > select{
 
-  flex-basis: 100%;
-  width:auto;
-  flex-grow: 4;
+#selectRole{
+
+  
+  padding: .2rem;
   margin: 1rem;
+
 }

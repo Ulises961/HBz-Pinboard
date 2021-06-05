@@ -1,6 +1,6 @@
 
 <?php
-include "php/credentials.php";
+include "../credentials.php";
 
 $mail = $_REQUEST['mail'];
 
