@@ -43,7 +43,7 @@ function displayOptions(){
 
    }
 
-    console.log(document.getElementById("email"));
+    //console.log(document.getElementById("email"));
     uniqueMail(document.getElementById("email"));
 
 }
@@ -70,7 +70,7 @@ function addSubjectBlock(obj){
 }
 
 function deleteSubjectBlock(obj){
-    console.log("starting function");
+   // console.log("starting function");
     var block = document.getElementById("professor_form");
     var originalAppendableBlock = obj.parentNode.parentNode;
     block.removeChild(originalAppendableBlock);
@@ -88,7 +88,7 @@ function matchesPassword(obj){
         if(obj.value !== ""){
 
             matching_feedback.style.display="flex";
-            console.log("input");
+           // console.log("input");
             if(firstPsswd.value === psswdCheck.value){
             
                 matching_feedback.setAttribute("class","valid-feedback");
@@ -105,7 +105,7 @@ function matchesPassword(obj){
            
         }else{
             matching_feedback.style.display="none";
-            console.log("no input");
+          //  console.log("no input");
             return false;
             
         }
@@ -183,19 +183,21 @@ function prefixCheck(obj){
 }
 
 function loadPrograms() {
-
+    var programList = document.getElementById("programs");
      $.post(
          {
             url:  "php/registration_php/loadPrograms.php",
             success: function(response){
-                var result = JSON.parse(response); 
-            
-                  for(var i = 0 ; i < result.length; i++){
-                        var option= document.createElement("option");
-                        var line = result[i];
-                        option.value= line["name"];
-                        $("#programs").append(option);}
-                  }}
+                var result = JSON.parse(response);
+                for(var i = 0 ; i < result.length; i++){
+                    var option= document.createElement("option");
+                    var line = result[i];
+                    option.value= line["name"];
+                    programList.appendChild(option);
+                    
+                }
+            }
+        }
      );
  
 }
@@ -205,12 +207,13 @@ function loadSubjects() {
         {
            url:  "php/registration_php/loadSubjects.php",
            success: function(response){
-            var displayedSubjects = JSON.parse(response); 
+            var displayedSubjects = JSON.parse(response);
             for(var i = 0 ; i < displayedSubjects.length; i++){
                             var lines = displayedSubjects[i];
                             var option= document.createElement("option");
                             option.value=lines["name"];
                             $("#subjects").append(option);
+                       //     console.log(option);
                          
                         }
             }
@@ -259,13 +262,13 @@ function showPswd() {
            success: function(response){
                 var email_alert = document.getElementById("mail-feedback");
 
-                console.log(response);
+             //   console.log(response);
     
                 if(obj.value === ""){
                     email_alert.style.display="none";
                 
                 }else if (!obj.value.match(/^(.+)@(.+)$/)){
-                    console.log("invalid mail");
+                   // console.log("invalid mail");
                     email_alert.className = "invalid-feedback";
                     email_alert.innerText ='Invalid mail';
                     
@@ -275,14 +278,14 @@ function showPswd() {
     
                     if (Number(response) != 0 && !isProfessorSelected){
                         
-                            console.log("invalid");
+                            // console.log("invalid");
                             email_alert.className = "invalid-feedback";
                             email_alert.innerText ='The mail inserted belongs to a registered user';
                     
                     }else{
                         email_alert.className = "valid-feedback";
                         email_alert.innerText ="Valid ✔";
-                        console.log("valid");
+                        // console.log("valid");
     
                     }
     

@@ -21,7 +21,7 @@
 </nav>
 
 <?php if(session_status() == PHP_SESSION_NONE)
-  session_start(['cookie_lifetime' => 43200,'cookie_secure' => true,'cookie_httponly' => true, 'cookie_samesite'=>'Strict']); 
+  session_start(['cookie_lifetime' => 43200,'cookie_secure' => false,'cookie_httponly' => true, 'cookie_samesite'=>'Strict']); 
 
  
 

@@ -4,7 +4,10 @@
 
 // Connecting, selecting database
 
-include "../credentials.php";
+if(file_exists("php/credentials.php"))
+    include "php/credentials.php";
+else
+    include "../credentials.php";
 
 $dbh = new PDO($conn_string);
 
@@ -23,7 +26,7 @@ foreach($rows as $line){
 
 $json = json_encode($results);
 
-echo "$json";
+echo $json;
 
 
 ?> 
