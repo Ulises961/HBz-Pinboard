@@ -11,8 +11,9 @@ function vote(value, id){
     };
     
     let data = {value:value, id:id};
+    console.log(data);
 
-    xmlhttp.open("POST", "php/forum_php/insertVote.php", true);
+    xmlhttp.open("POST", "php/forum_php/insertVote.php");
     xmlhttp.send(JSON.stringify(data));
 
 }
@@ -156,7 +157,7 @@ function previousSet(){
 function insertRows(response){
         $("#questions").empty();
         $("#questions").append(response);
-       // console.log(response);
+        console.log(response);
     
 }
 

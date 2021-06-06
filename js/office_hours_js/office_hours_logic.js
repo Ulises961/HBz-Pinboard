@@ -18,6 +18,7 @@ function loadStudyPrograms(){
     $.ajax({
         url: "./php/office_hours_php/loadStudyPrograms.php?faculty=" + faculty.value , 
         success: function(response){
+          console.log(response);
             $("#course-select").empty();
             $("#study-program-select").empty();
             reinsertDefaultStudyProgram();
@@ -34,6 +35,7 @@ function loadCourses(){
     $.ajax({
         url: "./php/office_hours_php/loadCourses.php?studyProgram=" + study_program.value , 
         success: function(response){
+          console.log(response);
             $("#course-select").empty();
             reinsertDefaultCourse();
             $("#course-select").append(response);

@@ -1,5 +1,5 @@
 <?php
-include "./officeHoursCredentials.php";
+include "../credentials.php";
 include "./components/professorsOfficeHours.php";
 
 $course = $_REQUEST["course"];

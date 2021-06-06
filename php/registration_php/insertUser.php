@@ -45,8 +45,8 @@ try{
 
 
 
-            $insertInto= "INSERT INTO Users(id, name, surname, prefix, number, mail, password) ";
-            $values= "VALUES (default, :name, :surname, :prefix,:number, :mail, :pswd) ";
+            $insertInto= "INSERT INTO Users(id, name, surname, prefix, number, mail, password,picture) ";
+            $values= "VALUES (default, :name, :surname, :prefix,:number, :mail, :pswd, default) ";
 
             $sql = $insertInto.$values;
 

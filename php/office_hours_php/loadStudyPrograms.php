@@ -1,5 +1,5 @@
 <?php 
-include "php/credentials.php";
+include "../credentials.php";
 include "components/StudyProgramOption.php";
 
 $dbh = new PDO($conn_string);
