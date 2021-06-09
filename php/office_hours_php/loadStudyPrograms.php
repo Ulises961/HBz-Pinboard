@@ -8,7 +8,7 @@ $faculty = $_REQUEST["faculty"];
 
 $select = "SELECT name, code
            FROM Program 
-          WHERE faculty = :facultyCode" ;
+            WHERE faculty = :facultyCode" ;
 $query = $dbh->prepare($select);
 $query->bindParam(":facultyCode", $faculty, PDO::PARAM_INT);
 $query->execute();

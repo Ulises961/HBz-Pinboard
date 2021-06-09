@@ -7,12 +7,13 @@ function submitToServer() {
            url: "php/session_php/checkCode.php?code="+validCode.code,
            success: function(response){
                console.log(response);
-               if(response === "true"){
+               if(response === "\ntrue"){
                 $("#pswd-block").css("display","block");
                 $("#check-block").css("display","block");
                 $("#submitBtn").css("display","block");
                }else{
                    validCode.validity=false;
+                   console.log(response);
                    submitToServer();
                }
             }
@@ -70,3 +71,5 @@ function alertInvalidInput(message){
 
     window.location.href = "ResetPassword.php";
 }
+
+

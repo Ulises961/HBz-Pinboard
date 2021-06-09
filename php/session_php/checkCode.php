@@ -20,14 +20,14 @@ $code = filter_var( $_REQUEST["code"],FILTER_SANITIZE_NUMBER_INT);
     $query-> execute();
 
     $res = $query -> fetch(PDO::FETCH_ASSOC);
-
+ 
     
     if($res["count"] > 0){
-       // echo var_dump($res["count"]);
-       echo "true";
+      
+       echo 'true';
     }else{
 
-      echo "false";
+      echo 0;
     }
 
 
