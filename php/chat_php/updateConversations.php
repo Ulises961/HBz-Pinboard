@@ -2,7 +2,7 @@
 include "../credentials.php";
 
 // right now we are onlu testing and there is no session vairable set
-$user = $_SESSION["user"]; 
+$user = $_SESSION["user_id"]; 
 
 try {
   $dbh = new PDO($conn_string);
@@ -17,6 +17,7 @@ try {
   $query-> execute();
 
   $conversations = array();
+  
 
   if($query->rowCount() > 0)
     while($row = $query->fetch())

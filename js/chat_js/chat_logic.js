@@ -83,6 +83,7 @@ function updateConversations() {
   $.ajax({
     url: "./php/chat_php/updateConversations.php", 
     success: function(response){
+      console.log("printing the response ",response);
       var conversations = JSON.parse(response);
 
       conversations.forEach(conversation => {
