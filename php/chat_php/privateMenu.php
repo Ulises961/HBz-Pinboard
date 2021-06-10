@@ -11,10 +11,11 @@
 
         $query->bindParam(":conversation", $_REQUEST["conversation"], PDO::PARAM_INT);
         $query->execute();
-
+        
         $privateConversation = $query->fetch();
+        $chatWasBlockedBy = $privateConversation["wasblockedby"];
 
-        if($privateConversation["wasBlockedBy"] != $_SESSION["user_id"])
+        if($chatWasBlockedBy != NULL && $chatWasBlockedBy != $_SESSION["user_id"])
             echo "<p>You have been blocked</p>";
         else
             echo "<button class='btn btn-info' onclick='blockConversation()'>Block User</button>";   

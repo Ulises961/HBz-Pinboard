@@ -41,6 +41,7 @@
     // die();
     $_SESSION["user_id"] = 1;
   }
+  $_SESSION["user_id"] = 1;
 include "php/chat_php/startPrivateConversation.php";
 ?>
  

@@ -7,7 +7,7 @@ try {
     $dbh = new PDO($conn_string);
 
     $update = "UPDATE PrivateConversation "
-              ."SET blocked = (NOT blocked) AND wasBlockedBy = :user"
+              ."SET blocked = (NOT blocked), wasblockedby = :user "
               ."WHERE id = :conversation";
 
     $query = $dbh -> prepare($update);
