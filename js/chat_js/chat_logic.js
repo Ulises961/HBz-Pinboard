@@ -52,6 +52,10 @@ function loadChat(conversation, isConversationPrivate) {
       scrollToLastMessage();
 
       var lastMessageTime = $(".time").last().text();
+
+      if(lastMessageTime == "")
+        lastMessageTime = "00:00:00";
+
       updateChat(conversation, lastMessageTime, isConversationPrivate);
     }
   });
@@ -68,6 +72,10 @@ function updateChat(conversation, lastMessageTime, isConversationPrivate) {
       if(response != ""){
         $("#msg_history").append(response);
         lastMessageTime = $(".time").last().text();
+
+        if(lastMessageTime == "")
+          lastMessageTime = "00:00:00";
+
         scrollToLastMessage();
       }
 
@@ -83,7 +91,7 @@ function updateConversations() {
   $.ajax({
     url: "./php/chat_php/updateConversations.php", 
     success: function(response){
-      console.log("printing the response ",response);
+
       var conversations = JSON.parse(response);
 
       conversations.forEach(conversation => {
@@ -104,10 +112,10 @@ function createGroup(){
     $.ajax({
       url: "./php/chat_php/createConversation.php?groupName=" + groupName, 
       success: function(response){
-        if(response == "success")
+        if(response.localeCompare("success"))
           location.reload();
         else
-          alert("Error: could not create group!");
+          alert("Error: could not create group! Error: " + response);
       }
     });
   }
@@ -147,6 +155,7 @@ function leaveConversation() {
     url: "./php/chat_php/leaveConversation.php?" + parameters, 
     success: function(response){
       console.log(response);
+      location.reload();
     }
 
   });

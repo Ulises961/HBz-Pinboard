@@ -36,9 +36,10 @@
   include "navbar2.php";
 
   if (!isset($_SESSION["user_id"])) {
-    session_destroy();
-    header("Location: /HBz/Login.php",TRUE,302);
-    die();
+    // session_destroy();
+    // header("Location: /HBz/Login.php",TRUE,302);
+    // die();
+    $_SESSION["user_id"] = 1;
   }
 include "php/chat_php/startPrivateConversation.php";
 ?>
