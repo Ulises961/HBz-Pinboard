@@ -270,6 +270,7 @@ CREATE TABLE Conversation(
 CREATE TABLE PartecipatesInConversation(
     conversation INTEGER NOT NULL,
     users INTEGER NOT NULL,
+    isAdmin BOOLEAN,
     
     PRIMARY KEY(conversation, users)
 );
@@ -290,6 +291,53 @@ CREATE TABLE SendsMessageTo(
     
     CONSTRAINT message_is_sent_in_conversation FOREIGN KEY(conversation)
         REFERENCES Conversation(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+        DEFERRABLE INITIALLY DEFERRED
+);
+
+CREATE TABLE PrivateConversation(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    last_change DATE,
+    last_message VARCHAR(255),
+    user_a INTEGER NOT NULL,
+    user_b INTEGER NOT NULL,
+    blocked BOOLEAN NOT NULL,
+    wasBlockedBy INTEGER,
+    
+    CONSTRAINT there_can_be_only_one_privateConversation_between_users 
+    UNIQUE (user_a, user_b),
+
+    CONSTRAINT user_a__must_exist FOREIGN KEY(user_a)
+        REFERENCES Users(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+        DEFERRABLE INITIALLY DEFERRED,
+
+    CONSTRAINT user_b__must_exist FOREIGN KEY(user_b)
+        REFERENCES Users(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+        DEFERRABLE INITIALLY DEFERRED
+);
+
+CREATE TABLE PrivateMessageTo(
+    id SERIAL PRIMARY KEY,
+    date DATE NOT NULL,
+    time TIME NOT NULL,
+    text VARCHAR(255) NOT NULL,
+    users INTEGER NOT NULL,
+    conversation INTEGER NOT NULL,
+
+    CONSTRAINT message_belongs_to_user FOREIGN KEY(users)
+        REFERENCES Users(id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+        DEFERRABLE INITIALLY DEFERRED,
+    
+    CONSTRAINT message_is_sent_in_privateConversation FOREIGN KEY(conversation)
+        REFERENCES PrivateConversation(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
         DEFERRABLE INITIALLY DEFERRED
@@ -380,6 +428,33 @@ BEGIN
     WHERE id = NEW.conversation;
 
     RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION update_privateConversation()
+RETURNS TRIGGER AS $$
+BEGIN
+    UPDATE PrivateConversation
+    SET last_change = NEW.date, last_message = NEW.text
+    WHERE id = NEW.conversation;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION block_message_if_conversation_is_blocked()
+RETURNS TRIGGER AS $$
+DECLARE privateConversation RECORD;
+BEGIN
+
+    SELECT blocked FROM PrivateConversation WHERE id = NEW.conversation INTO privateConversation;
+
+    IF privateConversation.blocked THEN 
+        RAISE EXCEPTION 'The conversation has been blocked';
+        RETURN NULL;         
+    ELSE
+        RETURN NEW;  
+    END IF;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -515,6 +590,11 @@ BEFORE INSERT ON SendsMessageTo
 FOR EACH ROW EXECUTE
 PROCEDURE isUserPartOfConversation();
 
+CREATE TRIGGER is_user_blocked
+BEFORE INSERT ON PrivateMessageTo
+FOR EACH ROW EXECUTE
+PROCEDURE block_message_if_conversation_is_blocked();
+
 CREATE TRIGGER check_if_article_is_a_question
 BEFORE INSERT ON Article
 FOR EACH ROW EXECUTE
@@ -549,6 +629,11 @@ CREATE TRIGGER update_conversation
 AFTER INSERT ON SendsMessageTo
 FOR EACH ROW EXECUTE
 PROCEDURE update_conversation();
+
+CREATE TRIGGER update_privateConversation
+AFTER INSERT ON PrivateMessageTo
+FOR EACH ROW EXECUTE
+PROCEDURE update_privateConversation();
 
 CREATE TRIGGER insert_professor
 BEFORE INSERT ON Professor
