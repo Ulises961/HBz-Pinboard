@@ -14,7 +14,7 @@
 <Select id="user-list">
 </Select>
 
-<button class="btn-info" onclick="addUserToConversation()">add</button>
+<button class="btn-sm btn-info" onclick="addUserToConversation()">add</button>
 
 <div id="conversationUsers"></div>
 

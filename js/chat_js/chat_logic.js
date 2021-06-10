@@ -1,7 +1,6 @@
 var update_interval = 2500; // this is the update frequency
 var chat_update_timeout; // this is the variable on which the timeout function is called
 var conversation_update_timeout; // this is the variable on which the timeout function is called
-var user = 1; // this is the id of the currently logged user, it must be changed in the future
 
 
 // THIS FUNCTION IS CALLED WHEN THE USER CHANGES CONVERSATION
@@ -149,7 +148,7 @@ function blockConversation() {
 
 function leaveConversation() {
   var conversation = document.getElementById("msg_send_btn").value;
-  var parameters = "conversation=" + conversation + "&user=" + user;
+  var parameters = "conversation=" + conversation;
 
   $.ajax({
     url: "./php/chat_php/leaveConversation.php?" + parameters, 
@@ -236,6 +235,7 @@ function addUserToConversation() {
   $.ajax({
     url: "./php/chat_php/addUserToConversation.php?" + parameters, 
     success: function(response){
+      console.log(response);
       $("#user-list").empty();
       updateConversationUsers(conversation);
     }

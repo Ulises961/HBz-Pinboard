@@ -2,7 +2,7 @@
 include "../credentials.php";
 
 $conversation = $_REQUEST["conversation"];
-$user = $_REQUEST["user"];
+$user = $_SESSION["user_id"];
 
 try {
     $dbh = new PDO($conn_string);

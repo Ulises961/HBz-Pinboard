@@ -70,6 +70,7 @@ CREATE TABLE PrivateMessageTo(
 CREATE TABLE PartecipatesInConversation(
     conversation INTEGER NOT NULL,
     users INTEGER NOT NULL,
+    isAdmin BOOLEAN,
     
     PRIMARY KEY(conversation, users)
 );
@@ -200,5 +201,5 @@ INSERT INTO Users VALUES(3,'Markus', 'Zanker', '+39', '3961 415473','zanker@gmai
 
 INSERT INTO Conversation VALUES(1,'test_conversation');
 
-INSERT INTO PartecipatesInConversation VALUES(1,1);
-INSERT INTO PartecipatesInConversation VALUES(1,2);
+INSERT INTO PartecipatesInConversation VALUES(1,1, true);
+INSERT INTO PartecipatesInConversation VALUES(1,2, false);
