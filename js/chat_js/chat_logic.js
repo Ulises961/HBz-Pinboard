@@ -33,7 +33,6 @@ function sendMessage() {
   $.ajax({
     url: "./php/chat_php/sendMessage.php?" + parameters, 
     success: function(response){
-      console.log(response);
       document.getElementById("inputMessage").value = " "; // empties the message input field
     }
   });
@@ -140,7 +139,6 @@ function blockConversation() {
   $.ajax({
     url: "./php/chat_php/changeConversationStatus.php?" + parameters, 
     success: function(response){
-      console.log(response);
     }
 
   });
@@ -153,7 +151,6 @@ function leaveConversation() {
   $.ajax({
     url: "./php/chat_php/leaveConversation.php?" + parameters, 
     success: function(response){
-      console.log(response);
       location.reload();
     }
 
@@ -235,8 +232,19 @@ function addUserToConversation() {
   $.ajax({
     url: "./php/chat_php/addUserToConversation.php?" + parameters, 
     success: function(response){
-      console.log(response);
       $("#user-list").empty();
+      updateConversationUsers(conversation);
+    }
+  });
+}
+
+function makeUserIntoAdmin(user) {
+  var conversation = document.getElementById("msg_send_btn").value;
+  var parameters = "conversation=" + conversation + "&user=" + user;
+
+  $.ajax({
+    url: "./php/chat_php/makeUserIntoAdmin.php?" + parameters, 
+    success: function(response){
       updateConversationUsers(conversation);
     }
   });
