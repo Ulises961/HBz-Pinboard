@@ -4,7 +4,6 @@ include "php/credentials.php";
 
 if(isset($_REQUEST["startConversationWithUser"])){
 
-    // $_SESSION["user_id"] = 1;
     $user_a = $_SESSION["user_id"];
     $user_b = $_REQUEST["startConversationWithUser"];
     $conversationName = $_SESSION["user_name"].",".$_REQUEST["otherUserName"];
