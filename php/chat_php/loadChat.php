@@ -15,8 +15,10 @@ try {
   if($isConversationPrivate == 1)
     $table = "PrivateMessageTo";
 
-  $getMessages = "SELECT users, date, time, text FROM $table ". 
-                 "WHERE conversation = :conversation ORDER BY date ASC, time ASC";
+  $getMessages = "SELECT users, date, time, text, u.name AS senderName, u.picture AS senderPicture FROM $table ". 
+                 "JOIN Users u ". 
+                 "ON u.id = users AND conversation = :conversation ".
+                 "ORDER BY date ASC, time ASC";
   
   $query = $dbh -> prepare($getMessages);
 
