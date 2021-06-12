@@ -3,6 +3,8 @@
 include '../credentials.php';
 
 $dbh = new PDO($conn_string);
+$dbh->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+
 $regex = "/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/";
 
 try {
@@ -27,11 +29,11 @@ try {
         $query= $dbh -> prepare($sql);
         $query-> bindParam(':password', $newPassword, PDO::PARAM_STR);
         $query-> bindParam(':code', $code, PDO::PARAM_STR);
-        $query-> bindParam(':mail', $mail, PDO::PARAM_STR);
+      
         
         $query-> execute();
         $resulting = $query-> fetch();
-        var_dump($resulting);
+       
         $_SESSION["message"] = "Password updated successfully";
         header("Location: ../../Login.php");
     }

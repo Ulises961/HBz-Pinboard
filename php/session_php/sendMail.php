@@ -23,16 +23,13 @@ try{
     $mail = new PHPMailer(true);
 
     $dbh = new PDO($conn_string);
+    $dbh->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
     $userMail= filter_var( $_REQUEST["email"],FILTER_SANITIZE_EMAIL);
     $firstName = filter_var( $_REQUEST["first_name"],FILTER_SANITIZE_STRING);
     $lastName = filter_var( $_REQUEST["last_name"],FILTER_SANITIZE_STRING);
     $code = random_int(100001,999999);
 
-    var_dump("user mail ".$senderMailPassword);
-    var_dump("sender mail ".$username);
-
-    
 
       $update =  "UPDATE users SET oneTimeCode =:code, recoveryMode=TRUE";
       $where= " WHERE mail=:email AND name=:name AND surname=:lastname RETURNING recoveryMode";
@@ -58,7 +55,7 @@ try{
       $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
       $mail->Port = 587;
 
-        $mail->Username = $username ; // sender user email
+      $mail->Username = $username ; // sender user email
       $mail->Password = $senderMailPassword; // sender user password
 
       // Sender and recipient settings

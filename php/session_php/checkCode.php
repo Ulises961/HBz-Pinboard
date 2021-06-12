@@ -4,6 +4,7 @@
 include '../credentials.php';
 
 $dbh = new PDO($conn_string);
+$dbh->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 
 $code = filter_var( $_REQUEST["code"],FILTER_SANITIZE_NUMBER_INT);
 
@@ -27,7 +28,7 @@ $code = filter_var( $_REQUEST["code"],FILTER_SANITIZE_NUMBER_INT);
        echo 'true';
     }else{
 
-      echo 0;
+      echo 'false';
     }
 
 
