@@ -1,6 +1,6 @@
 <?php
 function createIncomingMessage($message){
-    var_dump($message);
+
     $message_text = $message["text"];
     $message_date = $message["date"];
     $message_time = $message["time"];
