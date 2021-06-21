@@ -37,7 +37,7 @@ if (! empty($_POST['login'])) {
 
                 exit(header("Location: ../../Forum.php"));
             } else {
-                throw new Exception('Invalid Credentials');
+                throw new Exception("$pswd $res");
             }
         
             }else{

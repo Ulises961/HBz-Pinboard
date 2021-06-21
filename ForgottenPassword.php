@@ -84,7 +84,7 @@
                             <div class="name">Email*</div>
                             <div class="value">
                                 <div class="input-group">
-                                    <input class="input--style-5" type="email" name="email" oninput=" uniqueMail(this)" 
+                                    <input class="input--style-5" type="email" name="email"  
                                     id="email" placeholder="name@domain.com" aria-label="Email" required>
                                     <div id="mail-feedback"></div>
                                 </div>
