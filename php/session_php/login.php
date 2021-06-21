@@ -13,7 +13,8 @@ if (! empty($_POST['login'])) {
     $csrfResponse = $antiCSRF->validate();
     if (! empty($csrfResponse)) {
         $dbh = new PDO($conn_string);
-        
+        $dbh->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+
 
         $email = $_POST["email"];
         $pswd = $_POST["password"];
@@ -28,7 +29,7 @@ if (! empty($_POST['login'])) {
 
         
             $result = $query->fetch(PDO::FETCH_ASSOC);
-            var_dump($result);
+        
             if ($res= password_verify($pswd, $result['password'])) {
                 
                 $_SESSION["user_id"] = $result["id"];
