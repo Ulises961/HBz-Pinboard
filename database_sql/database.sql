@@ -152,18 +152,6 @@ CREATE TABLE Answer(
         DEFERRABLE INITIALLY DEFERRED
 );
 
-CREATE TABLE Article(
-    id INTEGER PRIMARY KEY,
-    validity DATE NOT NULL,
-    price NUMERIC NOT NULL,
-
-    CONSTRAINT article_is_a_Post FOREIGN KEY(id)
-        REFERENCES Post(id)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-        DEFERRABLE INITIALLY DEFERRED
-);
-
 CREATE TABLE Comment(
     id SERIAL PRIMARY KEY,
     date DATE NOT NULL,
@@ -225,21 +213,6 @@ CREATE TABLE HasTag(
     
     CONSTRAINT  tag_must_belong_to_an_existing_post FOREIGN KEY(tag)
         REFERENCES Tag(id)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
-        DEFERRABLE INITIALLY DEFERRED
-);
-
-CREATE TABLE Photo(
-    id SERIAL PRIMARY KEY,
-    description TEXT,
-    url TEXT NOT NULL,
-    extension FILETYPE NOT NULL,
-    size NUMERIC NOT NULL,
-    article INTEGER NOT NULL,
-
-    CONSTRAINT photoBelongsToArticle FOREIGN KEY(article)
-        REFERENCES Article(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
         DEFERRABLE INITIALLY DEFERRED
@@ -406,20 +379,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION is_post_an_article()
-RETURNS TRIGGER AS $$
-DECLARE article RECORD;
-BEGIN
-    SELECT EXISTS( SELECT id FROM Article WHERE id  = NEW.id) INTO article;
-
-    IF article.exists THEN 
-        RETURN NULL;
-    ELSE
-        RETURN NEW;
-    END IF;
-END;
-$$ LANGUAGE plpgsql;
-
 CREATE OR REPLACE FUNCTION update_conversation()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -526,14 +485,11 @@ DECLARE vote RECORD;
 BEGIN
     SELECT EXISTS( SELECT users FROM Vote WHERE users = NEW.users AND post = NEW.post) INTO vote;
 
-    IF vote.exists THEN 
-        SELECT value FROM Vote WHERE users = NEW.users AND post = NEW.post INTO vote;
+    IF vote.exists THEN
 
-        IF vote.value != NEW.value THEN
-            UPDATE Vote
-            SET value = NEW.value
-            WHERE users = NEW.users AND post = NEW.post;
-        END IF;
+        UPDATE Vote
+        SET value = NOT value
+        WHERE users = NEW.users AND post = NEW.post;
 
         RETURN NULL;
     ELSE
@@ -542,37 +498,16 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION update_post_votes_on_insert()
+CREATE OR REPLACE FUNCTION update_post_votes()
 RETURNS TRIGGER AS $$
+DECLARE likes RECORD;
 BEGIN
 
-    IF NEW.value THEN 
-        UPDATE Post
-        SET votes = votes + 1
-        WHERE id = NEW.post;
-    ELSE
-        UPDATE Post
-        SET votes = votes - 1
-        WHERE id = NEW.post;
-    END IF;
+    SELECT count(id) FROM Vote WHERE post = NEW.post AND value = true INTO likes;
 
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION update_post_votes_on_update()
-RETURNS TRIGGER AS $$
-BEGIN
-
-    IF NEW.value THEN 
-        UPDATE Post
-        SET votes = votes + 2
-        WHERE id = NEW.post;
-    ELSE
-        UPDATE Post
-        SET votes = votes - 2
-        WHERE id = NEW.post;
-    END IF;
+    UPDATE Post
+    SET votes = likes.count
+    WHERE id = NEW.post;
 
     RETURN NEW;
 END;
@@ -595,21 +530,6 @@ BEFORE INSERT ON PrivateMessageTo
 FOR EACH ROW EXECUTE
 PROCEDURE block_message_if_conversation_is_blocked();
 
-CREATE TRIGGER check_if_article_is_a_question
-BEFORE INSERT ON Article
-FOR EACH ROW EXECUTE
-PROCEDURE is_post_a_question();
-
-CREATE TRIGGER check_if_article_is_an_answer
-BEFORE INSERT ON Article
-FOR EACH ROW EXECUTE
-PROCEDURE is_post_an_answer();
-
-CREATE TRIGGER check_if_question_is_an_article
-BEFORE INSERT ON Question
-FOR EACH ROW EXECUTE
-PROCEDURE is_post_an_article();
-
 CREATE TRIGGER check_if_question_is_an_answer
 BEFORE INSERT ON Question
 FOR EACH ROW EXECUTE
@@ -619,11 +539,6 @@ CREATE TRIGGER check_if_answer_is_a_question
 BEFORE INSERT ON Answer
 FOR EACH ROW EXECUTE
 PROCEDURE is_post_a_question();
-
-CREATE TRIGGER check_if_answer_is_an_article
-BEFORE INSERT ON Answer
-FOR EACH ROW EXECUTE
-PROCEDURE is_post_an_article();
 
 CREATE TRIGGER update_conversation
 AFTER INSERT ON SendsMessageTo
@@ -670,15 +585,7 @@ BEFORE INSERT ON Vote
 FOR EACH ROW EXECUTE
 PROCEDURE update_vote_if_it_exists();
 
-CREATE TRIGGER change_post_votes_on_insert
-AFTER INSERT ON Vote
+CREATE TRIGGER change_post_votes_on_insert_and_update
+AFTER INSERT OR UPDATE ON Vote
 FOR EACH ROW EXECUTE
-PROCEDURE update_post_votes_on_insert();
-
-CREATE TRIGGER change_post_votes_on_update
-AFTER UPDATE ON Vote
-FOR EACH ROW EXECUTE
-PROCEDURE update_post_votes_on_update();
-
-
-
+PROCEDURE update_post_votes();
