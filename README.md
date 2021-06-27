@@ -47,7 +47,7 @@ On the contacts page the user will se all the other users of the website and it 
 In the profile you will se basic information about the user, the questions/answers posted and you can chat with such user using the chat button.
 
 
-#Division of tasks
+# Division of tasks
 
 It felt natural to divide the load of the project into two main tasks, front-end and back-end. While Ulises and Balawal were responsible for the backend of the platform, Andres and Filippo were in charge of the front-end.
 Balawal was responsible mainly for the chat, the office hours and the database design.
@@ -56,24 +56,18 @@ Andrés was responsible for the layout and the aesthetic of the website and the 
 Filippo was responsible of the contact page and the the chat graphical interface.
 
 
-#Structure of the project
+# Structure of the project
+Our website architecture is based on the MVC architetctural pattern. In our architecture javascript acts as the controller, php and the database as the model and the views are distributed as the main pages starting with an uppercase letter and the components found as a subfolder in each of the php folders.
 
+# Installation notes
 
-
-#Techniques used
-
-As it was a Java project, since the beginning we focused a lot on keeping a non-static stance. Instead to create long classes with lots of poorly related stuff and static methods in them, we decided to create more classes, each containing a small portion of code and a constructor. This way we could easily access the methods by creating instances of the classes.
-The retrieved data was treated as an InputStream, which was then passed to a proper method to be deserialized thanks to an ObjectMapper. During the deserializing process we made use of json setters for identifying the properties, and the @JsonIgnoreProperties tag to skip over superfluous ones.
-The analysis was completed using streams, which made it easier to perform the needed operation on the available amount of data.
-For handling files, both the input and the json ones, we relied on a useful tool, the ClassLoader.
-Logging was planned according to the possible messages a user could receive whenever it was just an information about the current action of the program, we logged them as an info, in case of malfunctions we logged them as errors.
-
-#Difficulties and considerations
+# Difficulties and considerations
 
 We didn’t encounter lots of difficulties and challenges, however we decided to list here the main things that gave us some thoughts.
-While Andres thought that the streams (mainly employed in the Analyzer class) revealed themselves to be very helpful, but their use wasn’t very intuitive at first. The testing also required some more extra planning and researches before we headed into that part.
-Lucia was already more familiar with the project, as she had already worked on it in sight of the previous session, so she already knew how to deal with most parts of it.
-Overall, this project revealed itself to be a good opportunity to practice what we learnt during the course in a more concrete setting. It also gave us a good insight of what it means to work together as a team on an application program, both on the technical and human side.
+Ulises: I found difficult to debug functionalities without a testing suite this led to exponential testing time.
+Balawal: the main challenge for me was to make php and javascript work together and simililarly to Ulises debugging the website since it was to figure out if the bug was on javascript, php or at the database level.
+Andrés: for me was hard to understand how to make these different technologies work together.
+Filippo: 
 
-
+As a group was hard to work with different operating systems, help each to configure the development system and find a suitable timeslot for arranging meetings and update each other on the work done.
 
