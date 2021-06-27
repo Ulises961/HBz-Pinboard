@@ -34,7 +34,7 @@ try {
 
 
 
-} catch (Exeption $e) {
+} catch (Exception $e) {
   var_dump($e);
 }
 

@@ -34,7 +34,7 @@
 
     if (!isset($_SESSION["user_id"])) {
       
-      //  destroy the session
+    //    destroy the session
         session_destroy(); 
       
         header("Location: /HBz/Login.php",TRUE,302);

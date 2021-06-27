@@ -653,10 +653,6 @@ CREATE TRIGGER check_login_SendsMessageTo
 BEFORE INSERT OR UPDATE OR DELETE ON SendsMessageTo
 FOR EACH ROW EXECUTE PROCEDURE is_user_logged_in();
 
-CREATE TRIGGER  check_login_PartecipatesInConversation
-BEFORE INSERT OR UPDATE OR DELETE ON PartecipatesInConversation
-FOR EACH ROW EXECUTE PROCEDURE is_user_logged_in();
-
 CREATE TRIGGER check_login_Vote
 BEFORE INSERT OR UPDATE OR DELETE ON Vote
 FOR EACH ROW EXECUTE PROCEDURE is_user_logged_in();
