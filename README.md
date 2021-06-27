@@ -61,6 +61,7 @@ Our website architecture is based on the MVC architetctural pattern. In our arch
 
 # Installation notes
 
+
 # Difficulties and considerations
 
 We didn’t encounter lots of difficulties and challenges, however we decided to list here the main things that gave us some thoughts.
