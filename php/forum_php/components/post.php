@@ -8,13 +8,11 @@ function createPostHeader($post){
  
     // WILL CREATE THE HTML ANSWER ELEMENT
 
-
     echo  
             "
             <div class='col-1 vote-box'>
-                <button type='button' class='btn btn-default btn-lg btn-block responsive-width' onclick='vote(true,$id)' >🔺</button>
+                <button type='button' class='btn btn-default btn-lg btn-block responsive-width' onclick='vote(true,$id)' >👍</button>
                 <div  class='count' id='count-$id'> $votes </div>
-                <button type='button' class='btn btn-default btn-lg btn-block responsive-width' onclick='vote(false,$id)'>🔻</button>
             </div>";
 }
 

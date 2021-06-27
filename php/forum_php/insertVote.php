@@ -21,7 +21,7 @@ try {
   $insert_into = "INSERT INTO Vote(id, date, time, value, users, post) ";
   $values = "VALUES(default, :date, :time, :vote, :user, :post) RETURNING *";
   $sql = $insert_into.$values;
-  var_dump( $user);
+
   $insert = $dbh-> prepare($sql);
  
   $insert-> bindParam(":user", $user, PDO::PARAM_INT);

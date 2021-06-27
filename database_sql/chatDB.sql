@@ -203,3 +203,9 @@ INSERT INTO Conversation VALUES(1,'test_conversation');
 
 INSERT INTO PartecipatesInConversation VALUES(1,1, true);
 INSERT INTO PartecipatesInConversation VALUES(1,2, false);
+
+
+INSERT INTO Users VALUES(1,'Bob', 'Freeman', '+39', '3961 415473', 'bob@gmail.com', 'password');
+INSERT INTO Users VALUES(2,'Frank', 'Miller', '+39', '3961 415473', 'frank@gmail.com', 'password');
+INSERT INTO Session Values(default, '27/06/2021', '16:30:00', null, 1);
+INSERT INTO Session Values(default, '27/06/2021', '16:30:00', null, 2);
