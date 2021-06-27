@@ -4,7 +4,7 @@ function loadProfessor(){
     $.ajax({
         url: "./php/office_hours_php/loadOfficeHours.php?course=" + course.value, 
         success: function(response){
-          
+        console.log(response);  
           $("#officeHourRow").append(response);
     
         }
