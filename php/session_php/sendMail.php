@@ -7,7 +7,7 @@ use PHPMailer\PHPMailer\Exception;
 require_once __DIR__ . '/../../vendor/phpmailer/src/Exception.php';
 require_once __DIR__ . '/../../vendor/phpmailer/src/PHPMailer.php';
 require_once __DIR__ . '/../../vendor/phpmailer/src/SMTP.php';
-require_once __DIR__ . '/../../../password.php';
+require_once  '../../../mailCredentials.php';
 include '../credentials.php';
 require_once '../security/SecurityService.php';
 
@@ -59,7 +59,7 @@ try{
       $mail->Password = $senderMailPassword; // sender user password
 
       // Sender and recipient settings
-      $mail->setFrom('no-reply@hbz.com', 'HBz.com');
+      $mail->setFrom('no-reply@hbz.com', 'HBz');
       $mail->addAddress($userMail, $firstName);
       $mail->addReplyTo('no-reply@hbz.com', 'No Reply'); // to set the reply to
 

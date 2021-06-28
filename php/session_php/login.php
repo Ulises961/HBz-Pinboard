@@ -38,11 +38,11 @@ if (! empty($_POST['login'])) {
 
                 exit(header("Location: ../../Forum.php"));
             } else {
-                throw new Exception("$pswd $res");
+                throw new Exception("Invalid crendentials");
             }
         
             }else{
-            throw new Exception('Invalid Credentials');}
+            throw new Exception('Invalid credentials');}
     }catch(Exception $e){
             
         $_SESSION["message"]= $e->getMessage();
