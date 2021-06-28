@@ -77,7 +77,7 @@ We didn’t encounter lots of difficulties and challenges, however we decided to
 * Ulises: I found difficult to debug functionalities without a testing suite this led to exponential testing time.
 * Balawal: the main challenge I faced was to make php and javascript work together and simililarly to Ulises debugging the website since it was to figure out if the bug was on javascript, php or at the database level.
 * Andrés: for me was hard to understand how to make these different technologies work together.
-* Filippo: 
+* Filippo: I encountered many issues on the front-end development from the implementation of the basic structure of the pages to adding several features that seemed easy to describe but hard to implement in the end.
 
 As a group it was hard to work with different operating systems, help each to configure the development enviroment, finding a suitable timeslot for arranging meetings and updating each other on the work done.
 
