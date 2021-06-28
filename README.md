@@ -10,7 +10,7 @@ It consists of three main features:
 * A Booking platform to contact professors of the university
 
 ## Deployment
-To deploy the website follow the instructions in [DEPLOYMENT](master/Deployment.md)
+To deploy the website follow the instructions in [DEPLOYMENT.md](./DEPLOYMENT.md)
 
 ## Introduction
 The aim of this report is to highlight the structure of the project, explain how the workload was balanced and point out any difficulty that we might have encountered.
