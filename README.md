@@ -9,6 +9,8 @@ It consists of three main features:
 * A Chat for users to communicate with other users within the platform 
 * A Booking platform to contact professors of the university
 
+## Deployment
+To deploy the website follow the instructions in [DEPLOYMENT](master/Deployment.md)
 
 ## Introduction
 The aim of this report is to highlight the structure of the project, explain how the workload was balanced and point out any difficulty that we might have encountered.
@@ -78,3 +80,5 @@ We didn’t encounter lots of difficulties and challenges, however we decided to
 * Filippo: 
 
 As a group it was hard to work with different operating systems, help each to configure the development enviroment, finding a suitable timeslot for arranging meetings and updating each other on the work done.
+
+
