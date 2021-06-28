@@ -35,3 +35,5 @@ To populate the database use the Scraper in the following order:
 
 * [SubjectScraper.py](Scraper/SubjectScraper.py)
 * [ProfessorScraper.py](Scraper/ProfessorScraper.py)
+
+# How 
